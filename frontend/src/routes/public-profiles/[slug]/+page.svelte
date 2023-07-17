@@ -1,14 +1,13 @@
-
 <script>
   /** @type {import('./$types').PageData} */
   export let data;
 </script>
 
-<h1>{data.title}</h1>
-<p>{@html data.content.code}</p>
+<h1>{data.publicprofile.fullname}</h1>
+<div>{@html data.publicprofile.title}</div>
+<p>{@html data.publicprofile.bio}</p>
 
 
-<!-- to be replaced by the missing css toolkit -->
 <style>
   p {
     color: purple;

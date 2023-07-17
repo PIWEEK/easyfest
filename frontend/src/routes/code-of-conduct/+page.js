@@ -6,24 +6,21 @@ const base = import.meta.env.VITE_API_URL
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
 
-    let aboutus = {}
+    let codeofconduct = {}
     let content = null
     let error = null
+
     try {
-        const res = await axios(base+'/about-us');    
-        aboutus = res.data.data.attributes
-        content = await compile(aboutus.content)
-
-
+        const res = await axios(base+'/code-of-conduct');    
+        codeofconduct = res.data.data.attributes
+        content = await compile(codeofconduct.content)
+       
     } catch (e) {
         error = e
     }
     return {
-        title: aboutus.title,
+        title: codeofconduct.title,
         content: content
     };
 }
-
-
-    
     
