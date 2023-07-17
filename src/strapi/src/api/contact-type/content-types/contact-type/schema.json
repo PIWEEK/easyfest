@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "contact_types",
+  "info": {
+    "singularName": "contact-type",
+    "pluralName": "contact-types",
+    "displayName": "contact-type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "kind": {
+      "type": "enumeration",
+      "enum": [
+        "twitter",
+        "instagram",
+        "fracebook",
+        "mastodon",
+        "email",
+        "link"
+      ]
+    }
+  }
+}

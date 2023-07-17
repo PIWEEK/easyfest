@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "profile_contacts",
+  "info": {
+    "singularName": "profile-contact",
+    "pluralName": "profile-contacts",
+    "displayName": "profile-contact",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "contact_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::contact-type.contact-type"
+    },
+    "public_profile": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::public-profile.public-profile"
+    },
+    "value": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

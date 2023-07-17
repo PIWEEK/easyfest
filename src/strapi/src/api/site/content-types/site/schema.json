@@ -1,0 +1,39 @@
+{
+  "kind": "singleType",
+  "collectionName": "sites",
+  "info": {
+    "singularName": "site",
+    "pluralName": "sites",
+    "displayName": "site"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "registration": {
+      "type": "enumeration",
+      "enum": [
+        "hidden",
+        "open",
+        "finished"
+      ]
+    },
+    "agenda": {
+      "type": "enumeration",
+      "enum": [
+        "hidden",
+        "draft",
+        "final"
+      ]
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "hype",
+        "public",
+        "finished"
+      ]
+    }
+  }
+}
