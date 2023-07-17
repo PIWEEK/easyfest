@@ -86,6 +86,12 @@
       },
       "type": "text",
       "private": true
+    },
+    "activities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::activity.activity",
+      "mappedBy": "public_faces"
     }
   }
 }
