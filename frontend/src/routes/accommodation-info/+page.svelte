@@ -6,14 +6,5 @@ const storage_url = import.meta.env.VITE_STORAGE_URL
   export let data;
 </script>
 
-<h1>{data.title}</h1>
-{@html data.content}
-
-<!-- to be replaced by the missing css toolkit -->
-<style>
-  h1 {
-    color: purple;
-    font-family: 'Comic Sans MS', cursive;
-    font-size: 2em;
-  }
-</style>
+<h1 class="title">{data.title}</h1>
+<div class="content">{@html data.content}</div>

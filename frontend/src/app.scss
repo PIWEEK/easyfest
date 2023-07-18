@@ -1,8 +1,15 @@
+// Theme configuration is done by giving value to Bulma variables
+// https://bulma.io/documentation/customize/variables
+
+// -- Initial variables (with a literal value)
+
 $penpotgreen: #53f5c3;
 $darkblue: #151132;
+
+// -- Derived variables (that take value from other variables)
 
 $primary: $penpotgreen;
 $dark: $darkblue;
 $dark-invert: $penpotgreen;
 
-@import "../node_modules/bulma/bulma.sass";
+@import "bulma/bulma.sass";
