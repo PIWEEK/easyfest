@@ -8,8 +8,6 @@ const storage_url = import.meta.env.VITE_STORAGE_URL
 
 <h1>{data.title}</h1>
 {@html data.content}
-{data.tagline}
-<img src="{storage_url}{data.logo_small.data.attributes.url}"/>
 
 <ul>
 {#each data.attachments.data as attachment}

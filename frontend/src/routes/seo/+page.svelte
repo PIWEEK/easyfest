@@ -7,7 +7,6 @@ const storage_url = import.meta.env.VITE_STORAGE_URL
 </script>
 
 <h1>{data.meta_description}</h1>
-{data.tagline}
 <img src="{storage_url}{data.thumbnail.data.attributes.url}"/>
 
 <!-- to be replaced by the missing css toolkit -->

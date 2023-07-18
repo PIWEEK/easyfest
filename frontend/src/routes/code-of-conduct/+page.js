@@ -7,19 +7,19 @@ const path = "/code-of-conduct"
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
 
-    let codeofconduct = {}
+    let data = {}
     let content = null
     let error = null
 
     try {
         const res = await axios(base+path);    
-        codeofconduct = res.data.data.attributes
-        content = await compile(codeofconduct.content)
-        codeofconduct.content = content.code
+        data = res.data.data.attributes
+        content = await compile(data.content)
+        data.content = content.code
        
     } catch (e) {
         error = e
     }
-    return codeofconduct;
+    return data;
 }
     

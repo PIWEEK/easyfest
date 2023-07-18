@@ -7,7 +7,6 @@
   <h1>{data.title}</h1>
   {@html data.content}
   
-  
   <!-- to be replaced by the missing css toolkit -->
   <style>
     p {
