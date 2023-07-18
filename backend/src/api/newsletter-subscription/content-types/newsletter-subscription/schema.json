@@ -4,7 +4,7 @@
   "info": {
     "singularName": "newsletter-subscription",
     "pluralName": "newsletter-subscriptions",
-    "displayName": "newsletter_subscription",
+    "displayName": "newsletter-subscription",
     "description": ""
   },
   "options": {

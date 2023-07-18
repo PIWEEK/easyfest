@@ -4,7 +4,8 @@
   "info": {
     "singularName": "news-item",
     "pluralName": "news-items",
-    "displayName": "news_item"
+    "displayName": "news-item",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -50,11 +51,12 @@
       "required": true
     },
     "featured_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
       ],
-      "type": "media",
-      "multiple": false,
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -62,14 +64,15 @@
       }
     },
     "attachments": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
       ],
-      "type": "media",
-      "multiple": true,
       "pluginOptions": {
         "i18n": {
           "localized": false
