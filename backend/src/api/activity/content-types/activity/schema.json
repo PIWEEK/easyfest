@@ -116,7 +116,7 @@
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "private": true,
-      "inversedBy": "activities"
+      "inversedBy": "activities_staff"
     },
     "format": {
       "pluginOptions": {
