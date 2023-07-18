@@ -11,7 +11,7 @@ export async function load({ params }) {
     let content = null
     let error = null
     try {
-        const res = await axios(base+path+params.slug);    
+        const res = await axios(base+path+params.slug+'?populate=*');    
         news_item = res.data.data.attributes
         content = await compile(news_item.content)
         news_item.content = content.code
