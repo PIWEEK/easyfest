@@ -92,6 +92,14 @@
       "relation": "manyToMany",
       "target": "api::activity.activity",
       "mappedBy": "public_faces"
+    },
+    "nickname": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "string"
     }
   }
 }
