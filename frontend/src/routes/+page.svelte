@@ -1,4 +1,5 @@
 <script>
+
     const storage_url = import.meta.env.VITE_STORAGE_URL
     /** @type {import('./$types').PageData} */
     export let data;

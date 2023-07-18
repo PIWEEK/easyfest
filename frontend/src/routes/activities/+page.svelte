@@ -1,4 +1,5 @@
 <script>
+    import SvelteMarkdown from 'svelte-markdown'
     /** @type {import('./$types').PageData} */
     export let data;
 </script>
@@ -14,7 +15,7 @@
 {/if}
 
 {#if activity.attributes.long_description}
-    <p>{@html activity.attributes.long_description}</p>
+    <SvelteMarkdown source={activity.attributes.long_description}/>
 {/if}
 
 {/each}

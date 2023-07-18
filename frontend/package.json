@@ -20,7 +20,6 @@
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte": "^2.30.0",
-		"mdsvex": "^0.11.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.10.1",
 		"sass": "^1.63.6",
@@ -33,6 +32,7 @@
 	"type": "module",
 	"dependencies": {
 		"axios": "^1.4.0",
+		"svelte-markdown": "https://github.com/nwaughachukwuma/svelte-markdown/tarball/upgrade-to-svelte-4",
 		"underscore": "^1.13.6"
 	}
 }

@@ -1,5 +1,5 @@
 <script>
-
+    import SvelteMarkdown from 'svelte-markdown'
     const storage_url = import.meta.env.VITE_STORAGE_URL
     /** @type {import('./$types').PageData} */
     export let data;
@@ -30,7 +30,7 @@
                {#each activity.attributes.public_faces.data as pf}
                {#if activity.attributes.public_faces.data}
                By:
-               <a data-sveltekit-reload href="/public-profiles/{pf.id}">{pf.attributes.fullname}</a>
+               <a href="/public-profiles/{pf.id}">{pf.attributes.fullname}</a>
                {/if}   
 
                {/each}

@@ -20,7 +20,7 @@
     }
 </style>
 
-<nav data-sveltekit-reload class="navbar is-dark is-spaced" aria-label="main-navigation">
+<nav class="navbar is-dark is-spaced" aria-label="main-navigation">
      <div class="container">
         <div class="navbar-brand">
             <a href="/" class="navbar-item"><img alt="Logo" src="{storage_url}{data.logo_horiz.data.attributes.url}"/></a>

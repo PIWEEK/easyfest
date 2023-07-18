@@ -25,14 +25,14 @@
         </div>
         <div class="column">
             <p class="footer-heading">Legal</p>
-            <p><a data-sveltekit-reload href="/cookie-policy">Cookie policy</a></p>
-            <p><a data-sveltekit-reload href="/privacy-policy">Privacy policy</a></p>
+            <p><a href="/cookie-policy">Cookie policy</a></p>
+            <p><a href="/privacy-policy">Privacy policy</a></p>
         </div>
         <div class="column">
             <p class="footer-heading">EasyFest</p>
-            <p><a data-sveltekit-reload href="/contact-info">Contact info</a></p>
-            <p><a data-sveltekit-reload href="/code-of-conduct">Code of Conduct</a></p>
-            <p><a data-sveltekit-reload href="/press-kit">Press kit</a></p>
+            <p><a href="/contact-info">Contact info</a></p>
+            <p><a href="/code-of-conduct">Code of Conduct</a></p>
+            <p><a href="/press-kit">Press kit</a></p>
         </div>
         <div class="column">
             <p class="footer-heading">More contacts</p>

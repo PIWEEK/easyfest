@@ -1,4 +1,5 @@
 <script>
+    import SvelteMarkdown from 'svelte-markdown'
     const storage_url = import.meta.env.VITE_STORAGE_URL
 
     /** @type {import('./$types').PageData} */
@@ -12,7 +13,9 @@
 {#each data.news_items as news_item}
     <h3>{news_item.title}</h3>
     <p>{news_item.summary}</p>
-    {@html news_item.content}
+    {#if news_item.content}
+    <SvelteMarkdown source={news_item.content}/>
+    {/if}
     {news_item.date}
     
     {#if news_item.featured_image.data}
@@ -28,13 +31,3 @@
 {/each}
 </ul>
 
-<style>
-    .short {
-        font-size: 0.8em;  
-    }
-    p {
-      color: purple;
-      font-family: 'Comic Sans MS', cursive;
-      font-size: 1em;
-    }
-</style>
