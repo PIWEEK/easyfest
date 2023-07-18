@@ -5,7 +5,7 @@
   </script>
   
   <h1>{data.title}</h1>
-  <p>{@html data.content.code}</p>
+  {@html data.content}
   
   
   <!-- to be replaced by the missing css toolkit -->

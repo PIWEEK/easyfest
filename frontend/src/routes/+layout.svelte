@@ -1,4 +1,5 @@
-<nav>
+<nav data-sveltekit-reload>
+
     <a href="/">Home</a>
     <a href="/about-us">About</a>
     <a href="/activities">Activities</a>
