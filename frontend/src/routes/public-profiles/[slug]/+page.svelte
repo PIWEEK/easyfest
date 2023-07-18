@@ -17,7 +17,6 @@
 {#each data.publicprofile.activities.data as a}
   {a.attributes.title}
   {a.attributes.short_description}
-  {a.attributes.data.track.attributes.title}
 
   {/each}
 

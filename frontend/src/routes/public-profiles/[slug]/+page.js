@@ -15,7 +15,6 @@ export async function load({ params }) {
         publicprofile = res.data.data.attributes
         bio = await compile(publicprofile.bio)
         publicprofile.bio = bio.code
-        console.log(publicprofile)
 
     } catch (e) {
         error = e

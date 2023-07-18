@@ -7,7 +7,7 @@
 
 {#each data.publicprofiles as publicprofile}
 
-<h2><a href="/public-profiles/{publicprofile.id}">{publicprofile.attributes.fullname}</a></h2>
+<h2><a data-sveltekit-reload href="/public-profiles/{publicprofile.id}">{publicprofile.attributes.fullname}</a></h2>
 
 
 {#if publicprofile.attributes.title}
