@@ -12,7 +12,7 @@
 <li>tagline: {data.tagline}</li>
 <li>description: {data.description}</li>
 <li>logo_small: {data.logo_small.data.attributes.url}</li>
-<li>logo_big: {data.logo_big}</li>
+<li>logo_big: {data.logo_big.data.attributes.url}</li>
 <li>backgrounds: {data.backgrounds}</li>
 <li>carousel: {data.carousel}</li>
 <li>base_url: {data.base_url}</li>
