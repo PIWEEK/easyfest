@@ -4,7 +4,8 @@
   "info": {
     "singularName": "press-kit",
     "pluralName": "press-kits",
-    "displayName": "press-kit"
+    "displayName": "press-kit",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -32,15 +33,16 @@
       },
       "type": "richtext"
     },
-    "attachements": {
+    "attachments": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
       ],
-      "type": "media",
-      "multiple": true,
       "pluginOptions": {
         "i18n": {
           "localized": false

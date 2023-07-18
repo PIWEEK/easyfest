@@ -21,3 +21,5 @@
 <img src="{storage_url}{data.logo_small.data.attributes.url}"/>
 
 </ul>
+
+{data.status}
