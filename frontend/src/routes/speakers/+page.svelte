@@ -4,7 +4,20 @@
     export let data;
 </script>
 
-<h1>Speakers</h1>
+<h1 class="title">{data.speakerscontent.title}</h1>
+<div class="content">
+  <SvelteMarkdown options={{mangle: false}} source={data.speakerscontent.content}/>
+
+  <div class="columns">
+    <div class="column">Auto</div>
+    <div class="column">Auto</div>
+    <div class="column">Auto</div>
+  </div>
+
+</div>
+
+
+
 
 
 {#each data.publicprofiles as publicprofile}
