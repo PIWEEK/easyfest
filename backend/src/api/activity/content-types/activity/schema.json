@@ -156,6 +156,15 @@
       "relation": "manyToOne",
       "target": "api::track.track",
       "inversedBy": "activities"
+    },
+    "is_across_group": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false
     }
   }
 }
