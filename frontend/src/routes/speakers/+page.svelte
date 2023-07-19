@@ -14,17 +14,23 @@
     {#each data.publicprofiles as publicprofile, i}
 
             <div class="column is-one-third">
-            <a href="/speakers/{publicprofile.id}"><img src="{storage_url}{publicprofile.attributes.photo.data.attributes.url}"/></a>
-            <div>{publicprofile.attributes.fullname}
+            <div class="card">
+                <div class="card-image">
+                    <a href="/speakers/{publicprofile.id}"><img src="{storage_url}{publicprofile.attributes.photo.data.attributes.url}"/></a>
+                </div>
+                <div class="card-content">
+                    <p class="title is-4">{publicprofile.attributes.fullname}
             {#if publicprofile.attributes.nickname}
-            "{publicprofile.attributes.nickname}""
+            "{publicprofile.attributes.nickname}"
             {/if}
-            </div>
+                    </p>
     
             {#if publicprofile.attributes.title}
-            <div>{publicprofile.attributes.title}</div>
+            <p class="subtitle is-6">{publicprofile.attributes.title}</p>
             {/if}
+                </div>
 
+            </div>
             </div>
 
  
