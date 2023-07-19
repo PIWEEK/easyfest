@@ -32,6 +32,7 @@
 	"type": "module",
 	"dependencies": {
 		"axios": "^1.4.0",
+		"bulma-list": "^1.2.0",
 		"svelte-markdown": "https://github.com/nwaughachukwuma/svelte-markdown/tarball/upgrade-to-svelte-4",
 		"underscore": "^1.13.6"
 	}

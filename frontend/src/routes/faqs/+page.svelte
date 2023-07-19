@@ -1,16 +1,12 @@
 <script>
-    import SvelteMarkdown from 'svelte-markdown'
-
-    /** @type {import('./$types').PageData} */
-    export let data;
-
+  import SvelteMarkdown from 'svelte-markdown'
+  export let data;
 </script>
 
-<h1>FAQs</h1>
-
-<ul>
-{#each data.faqs as faq}
-<li>{faq.category} - {faq.order}: {faq.question} = {faq.answer}</li>
-{/each}
+<h1 class="title">FAQs</h1>
+<ul class="list has-hoverable-list-items">
+    {#each data.faqs as faq}
+        <li class="list-item box">{faq.category} - {faq.order}: {faq.question} = {faq.answer}</li>
+    {/each}
 </ul>
 

@@ -1,26 +1,14 @@
 <script>
-    /** @type {import('./$types').PageData} */
-    export let data;
-
+  import SvelteMarkdown from 'svelte-markdown'
+  export let data;
 </script>
 
-<h1>Tracks</h1>
+<h1 class="title">Tracks</h1>
 
-<ul>
-{#each data.tracks as track}
-<li>{track.title} - {track.description}: {track.location} {track.group}
-    {track.is_title_visible} {track.order}
-</li>
-{/each}
+<ul class="list">
+    {#each data.tracks as track}
+        <li class="list-item box">{track.title} - {track.description}: {track.location} {track.group}
+            {track.is_title_visible} {track.order}
+        </li>
+    {/each}
 </ul>
-
-<style>
-    .short {
-        font-size: 0.8em;  
-    }
-    p {
-      color: purple;
-      font-family: 'Comic Sans MS', cursive;
-      font-size: 1em;
-    }
-</style>
