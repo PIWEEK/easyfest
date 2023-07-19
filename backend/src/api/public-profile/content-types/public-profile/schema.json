@@ -60,7 +60,8 @@
           "localized": false
         }
       },
-      "type": "boolean"
+      "type": "boolean",
+      "default": true
     },
     "is_org": {
       "pluginOptions": {
@@ -100,6 +101,16 @@
         }
       },
       "type": "string"
+    },
+    "order": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "integer",
+      "min": 1,
+      "default": 1000
     }
   }
 }
