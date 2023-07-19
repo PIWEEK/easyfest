@@ -165,6 +165,32 @@
       },
       "type": "boolean",
       "default": false
+    },
+    "tag1": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "Basic",
+        "Intermediate",
+        "Advanced"
+      ]
+    },
+    "tag2": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "AI/ML",
+        "Web",
+        "Sysadmin"
+      ]
     }
   }
 }
