@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const base = import.meta.env.VITE_API_URL
-const path = "/public-profiles?populate=*"
+const path = "/public-profiles?populate=*&sort[0]=order:asc"
 const pathspeakerscontent = "/speakers"
 
 /** @type {import('./$types').PageLoad} */

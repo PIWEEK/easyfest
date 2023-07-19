@@ -13,7 +13,7 @@
   <div class="columns is-multiline">
     {#each data.publicprofiles as publicprofile, i}
 
-            <div class="column is-one-quarter">
+            <div class="column is-one-third">
             <a href="/speakers/{publicprofile.id}"><img src="{storage_url}{publicprofile.attributes.photo.data.attributes.url}"/></a>
             <div>{publicprofile.attributes.fullname}
             {#if publicprofile.attributes.nickname}
