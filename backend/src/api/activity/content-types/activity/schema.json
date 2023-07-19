@@ -157,7 +157,7 @@
       "target": "api::track.track",
       "inversedBy": "activities"
     },
-    "is_across_group": {
+    "is_across_tracks": {
       "pluginOptions": {
         "i18n": {
           "localized": false
