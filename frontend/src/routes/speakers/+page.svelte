@@ -10,29 +10,27 @@
 <div class="content">
   <SvelteMarkdown options={{mangle: false}} source={data.speakerscontent.content}/>
 
-  <div class="columns">
-    {#each data.publicprofiles as publicprofile}
+  <div class="columns is-multiline">
+    {#each data.publicprofiles as publicprofile, i}
 
-    <div class="column">
-    <img src="{storage_url}{publicprofile.attributes.photo.data.attributes.url}"/>
+            <div class="column is-one-third">
+            <a href="/speakers/{publicprofile.id}"><img src="{storage_url}{publicprofile.attributes.photo.data.attributes.url}"/></a>
+            <div>{publicprofile.attributes.fullname}
+            {#if publicprofile.attributes.nickname}
+            "{publicprofile.attributes.nickname}""
+            {/if}
+            </div>
+    
+            {#if publicprofile.attributes.title}
+            <div>{publicprofile.attributes.title}</div>
+            {/if}
 
+            </div>
 
-    <a href="/speakers/{publicprofile.id}">{publicprofile.attributes.fullname}</a>
-    {#if publicprofile.attributes.nickname}
-       ({publicprofile.attributes.nickname})
-    {/if}
-    
-    
-    {#if publicprofile.attributes.title}
-       <div><SvelteMarkdown source={publicprofile.attributes.title}/></div>
-    {/if}
-    
-    
-    </div>
+ 
     {/each}
-    
-  </div>
-
+</div>
+  
 </div>
 
 
