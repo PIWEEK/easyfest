@@ -36,7 +36,7 @@
                 <a class="navbar-item" href="/about-us">About</a>
                 <a class="navbar-item" href="/accommodation-info">Accomodation info</a>
                 <a class="navbar-item" href="/agenda">Agenda</a>
-                <a class="navbar-item" href="/public-profiles">Public profiles</a>
+                <a class="navbar-item" href="/speakers">Speakers</a>
                 <a class="navbar-item" href="/streaming">Streaming</a>
                 <a class="navbar-item" href="/venue-info">Venue info</a>
            </div>

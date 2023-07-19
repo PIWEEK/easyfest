@@ -4,11 +4,12 @@
     export let data;
 </script>
 
-<h1>Public Profiles</h1>
+<h1>Speakers</h1>
+
 
 {#each data.publicprofiles as publicprofile}
 
-<h2><a href="/public-profiles/{publicprofile.id}">{publicprofile.attributes.fullname}</a></h2>
+<a href="/public-profiles/{publicprofile.id}">{publicprofile.attributes.fullname}</a>
 
 
 {#if publicprofile.attributes.title}
