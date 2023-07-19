@@ -67,12 +67,6 @@
       "type": "integer",
       "min": 0,
       "required": true
-    },
-    "group": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::group.group",
-      "inversedBy": "tracks"
     }
   }
 }
