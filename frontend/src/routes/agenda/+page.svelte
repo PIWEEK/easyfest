@@ -5,11 +5,9 @@
     export let data;
 </script>
 
-{#each data.groups as group}
-    <div>{group.title} GROUP</div>
-    {#each group.tracks.data as track}
-        <div>{track.attributes.title} TRACK</div>
-        {#each track.attributes.activities.data as activity}
+{#each data.tracks as track}
+    <div>{track.title} TRACK</div>
+        {#each track.activities.data as activity}
            <div>title: {activity.attributes.title}</div>
            <div>abstract: {activity.attributes.short_description}</div>
            <div>start: {activity.attributes.start}</div>
@@ -37,8 +35,5 @@
            <hr/>
 
            {/each}
-
-    {/each}
-
 {/each}
 
