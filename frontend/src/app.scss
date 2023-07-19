@@ -3,14 +3,32 @@
 
 // -- Initial variables (with a literal value)
 
-$penpotgreen: #53f5c3;
+$penpot-green: #53f5c3;
+$penpot-violet: #c19bff;
 $darkblue: #151132;
 
 // -- Derived variables (that take value from other variables)
 
-$primary: $penpotgreen;
+$primary: $penpot-green;
+$secondary: $penpot-violet;
 $dark: $darkblue;
-$dark-invert: $penpotgreen;
+$dark-invert: $penpot-green;
+
+// -- Import all bulma styles
 
 @import "bulma/bulma.sass";
 @import "bulma-list/sass/bulma-list.sass";
+
+// -- Bulma style overrides
+
+.title {
+    font-size: $size-1;
+}
+
+.content h3 {
+    color: $secondary;
+
+    &:not(:first-child) {
+        margin-top: 0;
+    }
+}
