@@ -7,4 +7,6 @@
 
 <h1>{data.activity.title}</h1>
 <div>{data.activity.short_description}</div>
-<SvelteMarkdown source={data.activity.long_description}/>
+{#if data.activity.long_description}
+<SvelteMarkdown options={{mangle: false}} source={data.activity.long_description}/>
+{/if}

@@ -9,11 +9,3 @@ const storage_url = import.meta.env.VITE_STORAGE_URL
 <h1>{data.meta_description}</h1>
 <img src="{storage_url}{data.thumbnail.data.attributes.url}"/>
 
-<!-- to be replaced by the missing css toolkit -->
-<style>
-  h1 {
-    color: purple;
-    font-family: 'Comic Sans MS', cursive;
-    font-size: 2em;
-  }
-</style>

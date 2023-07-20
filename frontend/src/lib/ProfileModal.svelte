@@ -49,9 +49,9 @@
       <footer class="modal-card-foot">
         {#if profile.attributes.activities.data.length > 0}
         {#each profile.attributes.activities.data as activity}
-        <span class="tag is-primary">
+        <span class="tag">
           
-          <a href="/activities/{activity.id}">{activity.attributes.title}</a>
+          <a on:click={closeModal} href="/activities/{activity.id}">{activity.attributes.title}</a>
           
         </span>
         {/each}
@@ -75,7 +75,7 @@
       align-items: center;
   
       /* allow click-through to backdrop */
-      pointer-events: none;
+      pointer-events: auto;
     }
   
     .contents {
