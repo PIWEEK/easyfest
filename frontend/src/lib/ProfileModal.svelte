@@ -20,16 +20,28 @@
         </p>
         <button on:click={closeModal} class="delete" aria-label="close"></button>
       </header>
-      <div class="content">
+      <div class="content has-background-light">
+        <p class="is-italic">
+          {#if profile.attributes.title}
+          {profile.attributes.title}
+          {/if}
+        </p>
+
       <section class="modal-card-body">
         {#if profile.attributes.bio}
         <SvelteMarkdown options={{mangle: false}} source={profile.attributes.bio}/>
         {/if}
         {#if profile.attributes.pronouns}
-        <span class="tag">
+        <p class="tag is-pulled-right">
           {profile.attributes.pronouns}
-        </span>
+        </p>
         {/if}
+
+        {#if profile.attributes.is_guest}
+        <p class="tag is-dark">Special guest</p>
+        {/if}
+
+
       </section>
      
       <footer class="modal-card-foot">

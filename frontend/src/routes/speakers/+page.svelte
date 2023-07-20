@@ -23,12 +23,17 @@
   <div class="columns is-multiline">
     {#each data.publicprofiles as publicprofile, i}
 
-        <div class="column is-one-third">
+        <div class="column is-one-quarter">
             <div class="card">
                 <div class="card-image">
                    <img on:click={handleClick(publicprofile)} src="{storage_url}{publicprofile.attributes.photo.data.attributes.url}"/>
                 </div>
                 <div class="card-content">
+                    {#if publicprofile.attributes.is_guest}
+                    <p class="tag is-dark">Special guest</p>
+                    {/if}
+                    
+  
                     <p class="title is-4">{publicprofile.attributes.fullname}
             {#if publicprofile.attributes.nickname}
             "{publicprofile.attributes.nickname}"
