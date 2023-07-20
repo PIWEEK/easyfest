@@ -111,6 +111,14 @@
       "type": "integer",
       "min": 1,
       "default": 1000
+    },
+    "pronouns": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "string"
     }
   }
 }

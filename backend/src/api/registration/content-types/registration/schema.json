@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "registrations",
+  "info": {
+    "singularName": "registration",
+    "pluralName": "registrations",
+    "displayName": "registration"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fullname": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "pronouns": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "organization": {
+      "type": "string"
+    },
+    "option1": {
+      "type": "enumeration",
+      "enum": [
+        "value 1",
+        "value 2",
+        "value 3"
+      ]
+    },
+    "option2": {
+      "type": "enumeration",
+      "enum": [
+        "another value 1",
+        "another value 2",
+        "another value 3"
+      ]
+    }
+  }
+}
