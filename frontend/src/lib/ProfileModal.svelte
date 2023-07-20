@@ -1,15 +1,14 @@
 <script>
     import { closeModal } from 'svelte-modals'
-    import SvelteMarkdown from 'svelte-markdown'
-
-      export let isOpen
+    import SvelteMarkdown from 'svelte-markdown'   
+    export let isOpen
     export let profile
   
   </script>
   
   {#if isOpen}
 
-  <div class="modal">
+  <div role="dialog" class="modal">
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
@@ -20,14 +19,16 @@
         </p>
         <button on:click={closeModal} class="delete" aria-label="close"></button>
       </header>
-      <div class="content has-background-light">
+
+      <section class="modal-card-body">
+        <div class="content">
+
         <p class="is-italic">
           {#if profile.attributes.title}
           {profile.attributes.title}
           {/if}
         </p>
 
-      <section class="modal-card-body">
         {#if profile.attributes.bio}
         <SvelteMarkdown options={{mangle: false}} source={profile.attributes.bio}/>
         {/if}
@@ -41,21 +42,24 @@
         <p class="tag is-dark">Special guest</p>
         {/if}
 
-
+      </div>
       </section>
+
      
       <footer class="modal-card-foot">
         {#if profile.attributes.activities.data.length > 0}
+        {#each profile.attributes.activities.data as activity}
         <span class="tag is-primary">
-          {#each profile.attributes.activities.data as activity}
+          
           <a href="/activities/{activity.id}">{activity.attributes.title}</a>
-          {/each}
+          
         </span>
+        {/each}
         {/if}
 
       </footer>
     </div>
-    </div>
+
   </div>
   {/if}
   
