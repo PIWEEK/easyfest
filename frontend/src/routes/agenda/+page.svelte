@@ -4,7 +4,7 @@
     export let data;
     console.log("data", data)
 
-    let current_day = data.days[0];
+    let current_day = data.days[1];
 
     function day_click(day) {
         current_day = day;
@@ -40,7 +40,7 @@
                             </p>
                         </div>
                         {#if activity.attributes.short_description ||
-                             activity.attributes.public_faces.data.lenght > 0}
+                             activity.attributes.public_faces.data.length > 0}
                             <div class="card-content">
                                 {#if activity.attributes.short_description}
                                     <p>{activity.attributes.short_description}</p>
@@ -55,34 +55,20 @@
                                         </p>
                                     {/if}   
                                 {/each}
+
+                                {#if activity.attributes.tag1 || activity.attributes.tag2}
+                                    <p class="tags">
+                                        {#if activity.attributes.tag1}
+                                            <span class="tag is-primary">{activity.attributes.tag1}</span>
+                                        {/if}
+                                        {#if activity.attributes.tag2}
+                                            <span class="tag is-info">{activity.attributes.tag2}</span>
+                                        {/if}
+                                    </p>
+                                {/if}
                             </div>
                         {/if}
                     </div>
-                    <!-- <div>title: {activity.attributes.title}</div>
-                    <div>abstract: {activity.attributes.short_description}</div>
-                    <div>start: {activity.attributes.start}</div>
-                    <div>duration: {activity.attributes.minutes}</div>
-                    <div>format: {activity.attributes.format}</div>
-
-                    {#if activity.attributes.attendees_limit}
-                        <div>attendees limit: {activity.attributes.attendees_limit}</div>
-                    {/if}
-                    
-                    {#if activity.attributes.needs_registration}
-                        <div>This activity needs registration</div>
-                    {/if}
-
-                    {#if activity.attributes.has_own_page}
-                        <div><a href="/activities/{activity.id}">Activity page</a></div>
-                    {/if}
-
-                    {#each activity.attributes.public_faces.data as pf}
-                        {#if activity.attributes.public_faces.data}
-                            By:
-                            <a href="/public-profiles/{pf.id}">{pf.attributes.fullname}</a>
-                        {/if}   
-                    {/each}
-                    <hr/> -->
                 {/each}
             </div>
         {/each}
@@ -92,5 +78,9 @@
 <style>
     .card {
         margin-bottom: 2rem;
+    }
+
+    .tags {
+        margin-top: 1rem;
     }
 </style>
