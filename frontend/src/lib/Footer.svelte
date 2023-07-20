@@ -31,6 +31,7 @@
             </div>
             <div class="column">
                 <p class="footer-heading">EasyFest</p>
+                <p><a href="/org-team">Org team</a></p>
                 <p><a href="/contact-info">Contact info</a></p>
                 <p><a href="/code-of-conduct">Code of Conduct</a></p>
                 <p><a href="/press-kit">Press kit</a></p>

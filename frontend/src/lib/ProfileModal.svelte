@@ -16,13 +16,12 @@
           {#if profile.attributes.nickname}
           "{profile.attributes.nickname}"
           {/if}
-        </p>
+       </p>
         <button on:click={closeModal} class="delete" aria-label="close"></button>
       </header>
 
       <section class="modal-card-body">
         <div class="content">
-
         <p class="is-italic">
           {#if profile.attributes.title}
           {profile.attributes.title}
@@ -54,8 +53,13 @@
           <a on:click={closeModal} href="/activities/{activity.id}">{activity.attributes.title}</a>
           
         </span>
+
+
         {/each}
         {/if}
+        <span class="icon is-pulled-right">
+          <i class="fa fa-twitter"></i>
+        </span>
 
       </footer>
     </div>
