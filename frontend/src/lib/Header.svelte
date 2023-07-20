@@ -34,6 +34,9 @@
         <div id="mainMenu" class="navbar-menu">
             <div class="navbar-start navbar-center">
                 <a class="navbar-item" href="/about-us">About</a>
+                {#if data.registration == "open"}
+                <a class="navbar-item" href="/registration">Registration</a>
+                {/if}
                 <a class="navbar-item" href="/accommodation-info">Accomodation info</a>
                 <a class="navbar-item" href="/agenda">Agenda</a>
                 <a class="navbar-item" href="/speakers">Speakers</a>
