@@ -1,42 +1,50 @@
 <script>
-    import SvelteMarkdown from 'svelte-markdown'
-    import { openModal } from 'svelte-modals'
-    import Modal from "$lib/ProfileModal.svelte"
+    import { onMount, onDestroy } from 'svelte';
 
-    const storage_url = import.meta.env.VITE_STORAGE_URL
+    import ActivityCard from "./ActivityCard.svelte";
+    import ActivityFiller from "./ActivityFiller.svelte";
+
     export let data;
     console.log("data", data)
 
- 
-  function handleClick(publicprofile) {
-    openModal(Modal, { profile: publicprofile })
-  }
-
-
-
     let current_day = data.days[1];
+    let container;
+    let containerWidth;
 
-    function day_click(day) {
+    function handleDayClick(day) {
         current_day = day;
     }
 
-    function activity_hour(activity) {
-        const start = new Date(activity.attributes.start);
-        return start.getHours().toString() + ":" + start.getMinutes().toString();
-    }
-
-    function activity_height(activity) {
+    function activityHeight(activity) {
         const duration = activity.attributes.minutes;
         return (duration * 0.6 - 2).toString() + "rem";
     }
-</script>
 
-<div class="container">
+    function handleResize() {
+        containerWidth = container.clientWidth;
+        console.log("containerWidth", containerWidth)
+    }
+
+    onMount(() => {
+        if (window) {
+            window.addEventListener('resize', handleResize);
+            handleResize();
+        }
+    });
+  
+    // onDestroy(() => {
+    //     if (window) {
+    //         window.removeEventListener('resize', handleResize);
+    //     }
+    // });
+</script>
+  
+<div class="container" bind:this={container}>
     <div class="tabs is-toggle">
         <ul>
             {#each data.days as day}
                 <li class:is-active={day === current_day}>
-                    <a on:click={day_click(day)}>Day {day.date} / {day.month}</a>
+                    <a on:click={handleDayClick(day)}>Day {day.date} / {day.month}</a>
                 </li>
             {/each}
         </ul>
@@ -44,80 +52,42 @@
 
     <div class="columns">
         {#each current_day.tracks as track}
-            <div class="column">
-                <h2 class="title is-3">{track.title}</h2>
-                {#each track.activities as activity}
-                    {#if activity.attributes.is_filler}
-                        <div class="filler" style="height: {activity_height(activity)}">
-                            &nbsp;
-                        </div>
-                    {:else}
-                        <div class="card" style="height: {activity_height(activity)}">
-                            <div class="card-header">
-                                <p class="card-header-title">
-                                    {activity_hour(activity)}
-                                    {activity.attributes.title}
-                                </p>
-                            </div>
-                            {#if activity.attributes.short_description ||
-                                activity.attributes.public_faces.data.length > 0}
-                                <div class="card-content">
-                                    {#if activity.attributes.short_description}
-                                        <p>{activity.attributes.short_description}</p>
-                                    {/if}
-
-                                    {#each activity.attributes.public_faces.data as pf}
-                                        {#if activity.attributes.public_faces.data}
-                                            <block class="media" on:click={handleClick(pf)}>
-                                              <div class="media-left">
-                                                <figure class="image is-24x24">
-                                                 <img class="is-rounded"  src="{storage_url}{pf.attributes.photo.data.attributes.url}"/>
-                                                </figure>
-                                              </div>  
-                                              <div class="content">
-                                                    {pf.attributes.fullname} 
-                                                    {#if pf.attributes.nickname}
-                                                      "{pf.attributes.nickname}"
-                                                    {/if} 
-                                              </div>
-                                            </block>
-                                        {/if}   
-                                    {/each}
-
-                                    {#if activity.attributes.tag1 || activity.attributes.tag2}
-                                        <p class="tags">
-                                            {#if activity.attributes.tag1}
-                                                <span class="tag is-primary">{activity.attributes.tag1}</span>
-                                            {/if}
-                                            {#if activity.attributes.tag2}
-                                                <span class="tag is-info">{activity.attributes.tag2}</span>
-                                            {/if}
-                                        </p>
-                                    {/if}
+            {#if track.activities.length > 0}
+                <div class="column">
+                    <h2 class="title is-3">{track.title}</h2>
+                    <p class="subtitle">{track.description}</p>
+                    {#each track.activities as activity}
+                        {#if activity.attributes.is_filler}
+                            <ActivityFiller {activity} height={activityHeight(activity)} hideInMobile={true}/>
+                        {:else}
+                            {#if !activity.attributes.is_across_tracks}
+                                <ActivityCard {activity} height={activityHeight(activity)}/>
+                            {:else}
+                                <div class="activity-wrapper">
+                                    <ActivityFiller {activity} height={activityHeight(activity)}/>
+                                    <div class="column-extender" style="width: {containerWidth}px">
+                                        <ActivityCard {activity} height={activityHeight(activity)}/>
+                                    </div>
                                 </div>
                             {/if}
-                        </div>
-                    {/if}
-                {/each}
-            </div>
+                        {/if}
+                    {/each}
+                </div>
+            {/if}
         {/each}
     </div>
 </div>
 
 <style lang="scss">
-    @use "bulma/sass/utilities/mixins.sass";
-
-    .card, .filler {
-        margin-bottom: 2rem;
+    @use "bulma/sass/elements/container.sass";
+    .activity-wrapper {
+        position: relative;
     }
 
-    .tags {
-        margin-top: 1rem;
-    }
-    
-    @include mixins.mobile {
-        .filler {
-            display: none;
-        }
+    .column-extender {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: container.$container-max-width - container.$container-offset;
     }
 </style>
