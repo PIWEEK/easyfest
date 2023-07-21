@@ -11,68 +11,68 @@
 </script>
   
 <form method="POST">
-    <label for="fullname">Full name</label>
-    <input
-      type="text"
-      name="fullname"
-      aria-invalid={$errors.fullname ? 'true' : undefined}
-      bind:value={$form.fullname}
-      {...$constraints.fullname} />
-    {#if $errors.fullname}<span class="invalid">{$errors.fullname}</span>{/if}
-  
-    <label for="email">E-mail</label>
-    <input
-      type="email"
-      name="email"
-      aria-invalid={$errors.email ? 'true' : undefined}
-      bind:value={$form.email}
-      {...$constraints.email} />
-    {#if $errors.email}<span class="invalid">{$errors.email}</span>{/if}
 
-    <label for="title">Title</label>
-    <input
-      type="text"
-      name="title"
-      aria-invalid={$errors.title ? 'true' : undefined}
-      bind:value={$form.title}
-      {...$constraints.title} />
-    {#if $errors.title}<span class="invalid">{$errors.title}</span>{/if}
+    <div class="field">
+        <label class="label" for="fullname">Full name</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input" type="text" name="fullname" aria-invalid={$errors.fullname ? 'true' : undefined}
+          bind:value={$form.fullname}
+          {...$constraints.fullname}>
+        </div>
+        {#if $errors.fullname}
+            <p class="help is-danger">{$errors.fullname}</p>{/if}
+    </div>
 
-    <label for="title">Organization</label>
-    <input
-      type="text"
-      name="organization"
-      aria-invalid={$errors.organization ? 'true' : undefined}
-      bind:value={$form.organization}
-      {...$constraints.organization} />
-    {#if $errors.organization}<span class="invalid">{$errors.organization}</span>{/if}
-  
-    <label for="organization">Pronouns</label>
-    <input
-      type="text"
-      name="pronouns"
-      aria-invalid={$errors.pronouns ? 'true' : undefined}
-      bind:value={$form.pronouns}
-      {...$constraints.pronouns} />
-    {#if $errors.pronouns}<span class="invalid">{$errors.pronouns}</span>{/if}
+    <div class="field">
+        <label class="label" for="email">Email</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input" type="email" name="email" aria-invalid={$errors.email ? 'true' : undefined}
+          bind:value={$form.email}
+          {...$constraints.email}>
+        </div>
+        {#if $errors.email}
+            <p class="help is-danger">{$errors.email}</p>{/if}
+    </div>
 
+    <div class="field">
+        <label class="label" for="title">Title</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input" type="text" name="title" aria-invalid={$errors.title ? 'true' : undefined}
+          bind:value={$form.title}
+          {...$constraints.title}>
+        </div>
+        {#if $errors.title}
+            <p class="help is-danger">{$errors.title}</p>{/if}
+    </div>
+ 
+    <div class="field">
+        <label class="label" for="organization">Organization</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input" type="text" name="organization" aria-invalid={$errors.organization ? 'true' : undefined}
+          bind:value={$form.organization}
+          {...$constraints.organization}>
+        </div>
+        {#if $errors.organization}
+            <p class="help is-danger">{$errors.organization}</p>{/if}
+    </div>
 
-    <div><button>Submit</button></div>
+    <div class="field">
+        <label class="label" for="pronouns">Pronouns</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input" type="text" name="pronouns" aria-invalid={$errors.pronouns ? 'true' : undefined}
+          bind:value={$form.pronouns}
+          {...$constraints.pronouns}>
+        </div>
+        {#if $errors.pronouns}
+            <p class="help is-danger">{$errors.pronouns}</p>{/if}
+    </div>
+    <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link">Submit</button>
+        </div>
+      </div>
+
   </form>
   
 
 
-
-<ul>
-<li>registration: {data.registration}</li>
-<li>status: {data.status}</li>
-<li>agenda: {data.agenda}</li>
-
-</ul>
-
-<SuperDebug data={$form} />
-<style>
-    .invalid {
-      color: red;
-    }
-  </style>
