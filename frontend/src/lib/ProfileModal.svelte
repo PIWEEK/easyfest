@@ -46,6 +46,8 @@
 
      
       <footer class="modal-card-foot">
+        {#if profile.attributes.activities}
+
         {#if profile.attributes.activities.data.length > 0}
         {#each profile.attributes.activities.data as activity}
         <span class="tag">
@@ -56,6 +58,7 @@
 
 
         {/each}
+        {/if}
         {/if}
         <span class="icon is-pulled-right">
           <i class="fa fa-twitter"></i>

@@ -1,8 +1,18 @@
 <script>
     import SvelteMarkdown from 'svelte-markdown'
+    import { openModal } from 'svelte-modals'
+    import Modal from "$lib/ProfileModal.svelte"
+
     const storage_url = import.meta.env.VITE_STORAGE_URL
     export let data;
     console.log("data", data)
+
+ 
+  function handleClick(publicprofile) {
+    openModal(Modal, { profile: publicprofile })
+  }
+
+
 
     let current_day = data.days[1];
 
@@ -59,10 +69,12 @@
                                     {#each activity.attributes.public_faces.data as pf}
                                         {#if activity.attributes.public_faces.data}
                                             <p>
-                                                <a href="/public-profiles/{pf.id}">
+                                                <button class="button is-light is-light" on:click={handleClick(pf)}>
+                                                    
+
                                                     {pf.attributes.fullname}
-                                                </a>
-                                            </p>
+                                                </button>
+                                           </p>
                                         {/if}   
                                     {/each}
 
