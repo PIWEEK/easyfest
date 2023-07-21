@@ -24,17 +24,7 @@
             {activityHour(activity)}
             {activity.attributes.title}
         </p>
-        {#if activity.attributes.tag1 || activity.attributes.tag2}
-            <p class="tags is-pulled-right">
-                {#if activity.attributes.tag1}
-                    <span class="tag is-primary">{activity.attributes.tag1}</span>
-                {/if}
-                {#if activity.attributes.tag2}
-                    <span class="tag is-info">{activity.attributes.tag2}</span>
-                {/if}
-            </p>
-        {/if}
-    </div>
+   </div>
     {#if activity.attributes.short_description ||
         activity.attributes.public_faces.data.length > 0}
         <div class="card-content">
@@ -59,7 +49,18 @@
                     </block>
                  {/if}   
              {/each}
-        </div>
+
+            {#if activity.attributes.tag1 || activity.attributes.tag2}
+                <p class="tags is-pulled-right is-pulled-bottom">
+                    {#if activity.attributes.tag1}
+                        <span class="tag is-primary">{activity.attributes.tag1}</span>
+                    {/if}
+                    {#if activity.attributes.tag2}
+                        <span class="tag is-info">{activity.attributes.tag2}</span>
+                    {/if}
+                </p>
+            {/if}
+         </div>
     {/if}
 </div>
 
@@ -69,7 +70,9 @@
     }
 
     .tags {
-        margin-right: 1rem;
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
     }
 
     .short-description {
