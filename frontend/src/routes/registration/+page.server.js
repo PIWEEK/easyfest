@@ -5,7 +5,9 @@ import { superValidate } from 'sveltekit-superforms/server';
 
 const base = import.meta.env.VITE_API_URL
 const path = "/site"
-   
+const path_registration_info = "/registration-info"
+
+
 let data = {}
 
 const baseHeaders = {
@@ -36,18 +38,24 @@ const apiClient = (method, resource, data) => {
 
 export async function load({ params }) {
     let fetch_site_data = {}
+    let fetch_registration_info_data = {}
     let error = null
 
     try {
-         const res_site = await axios(base+path);
+        const res_site = await axios(base+path);
         fetch_site_data = res_site.data.data.attributes
+        const res_registration_info = await axios(base+path_registration_info);
+        fetch_registration_info_data = res_registration_info.data.data.attributes
+
+        console.log(fetch_site_data)
+        console.log(fetch_registration_info_data)
 
        
     } catch (e) {
         error = e
     }
     const form = await superValidate(schema);
-    return {fetch_site_data, form};
+    return {fetch_site_data, fetch_registration_info_data, form};
 }
 
 // Manual schema based on STRAPI registration collection

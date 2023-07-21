@@ -34,7 +34,7 @@
         <div id="mainMenu" class="navbar-menu">
             <div class="navbar-start navbar-center">
                 <a class="navbar-item" href="/about-us">About</a>
-                {#if data.registration == "open"}
+                {#if data.registration != "hidden"}
                 <a class="navbar-item" href="/registration">Registration</a>
                 {/if}
                 <a class="navbar-item" href="/accommodation-info">Accomodation info</a>

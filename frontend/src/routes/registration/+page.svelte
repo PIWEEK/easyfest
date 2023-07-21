@@ -9,7 +9,27 @@
     // Client API:
     const { form, errors, constraints } = superForm(data.form);
 </script>
-  
+
+<div>
+    {#if data.fetch_registration_info_data.content}
+    {data.fetch_registration_info_data.content}
+    {/if}
+</div>
+
+{#if data.fetch_site_data.registration == "soon"}
+<div>{data.fetch_registration_info_data.content_soon}</div>
+{/if}
+
+{#if data.fetch_site_data.registration == "open"}
+    <div>{data.fetch_registration_info_data.content_open}</div>
+{/if}
+
+{#if data.fetch_site_data.registration == "closed"}
+    <div>{data.fetch_registration_info_data.content_closed}</div>
+{/if}
+
+{#if data.fetch_site_data.registration == "open"}
+
 <form method="POST">
 
     <div class="field">
@@ -73,6 +93,7 @@
       </div>
 
   </form>
-  
+
+  {/if}
 
 
