@@ -6,6 +6,9 @@ const storage_url = import.meta.env.VITE_STORAGE_URL
   export let data;
 </script>
 
-<h1>{data.meta_description}</h1>
-<img src="{storage_url}{data.thumbnail.data.attributes.url}"/>
-
+<section class="section">
+    <div class="container">
+        <h1>{data.meta_description}</h1>
+        <img src="{storage_url}{data.thumbnail.data.attributes.url}"/>
+    </div>
+</section>

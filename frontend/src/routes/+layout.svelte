@@ -19,11 +19,7 @@
 
 <Header {data}/>
 
-<section class="section">
-    <div class="container">
-        <slot></slot>
-    </div>
-</section>
+<slot></slot>
 
 <Footer {data}/>
 

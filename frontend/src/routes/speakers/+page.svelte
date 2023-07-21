@@ -11,44 +11,44 @@
   function handleClick(publicprofile) {
     openModal(Modal, { profile: publicprofile })
   }
-
-
 </script>
 
+<section class="section">
+    <div class="container">
+        <h1 class="title">{data.speakerscontent.title}</h1>
+        <div class="content">
+          <SvelteMarkdown options={{mangle: false}} source={data.speakerscontent.content}/>
 
-<h1 class="title">{data.speakerscontent.title}</h1>
-<div class="content">
-  <SvelteMarkdown options={{mangle: false}} source={data.speakerscontent.content}/>
+          <div class="columns is-multiline">
+            {#each data.publicprofiles as publicprofile, i}
 
-  <div class="columns is-multiline">
-    {#each data.publicprofiles as publicprofile, i}
-
-        <div class="column is-one-quarter">
-            <div class="card">
-                <div class="card-image">
-                   <img on:click={handleClick(publicprofile)} src="{storage_url}{publicprofile.attributes.photo.data.attributes.url}"/>
-                </div>
-                <div class="card-content">
-                    {#if publicprofile.attributes.is_guest}
-                    <p class="tag is-dark">Special guest</p>
+                <div class="column is-one-quarter">
+                    <div class="card">
+                        <div class="card-image">
+                          <img on:click={handleClick(publicprofile)} src="{storage_url}{publicprofile.attributes.photo.data.attributes.url}"/>
+                        </div>
+                        <div class="card-content">
+                            {#if publicprofile.attributes.is_guest}
+                            <p class="tag is-dark">Special guest</p>
+                            {/if}
+                            
+          
+                            <p class="title is-4">{publicprofile.attributes.fullname}
+                    {#if publicprofile.attributes.nickname}
+                    "{publicprofile.attributes.nickname}"
                     {/if}
-                    
-  
-                    <p class="title is-4">{publicprofile.attributes.fullname}
-            {#if publicprofile.attributes.nickname}
-            "{publicprofile.attributes.nickname}"
-            {/if}
-                    </p>
-    
-            {#if publicprofile.attributes.title}
-            <p class="subtitle is-6">{publicprofile.attributes.title}</p>
-            {/if}
+                            </p>
+            
+                    {#if publicprofile.attributes.title}
+                    <p class="subtitle is-6">{publicprofile.attributes.title}</p>
+                    {/if}
+                        </div>
+
+                    </div>
                 </div>
-
-            </div>
+            {/each}
         </div>
-    {/each}
-</div>
-  
-</div>
-
+          
+        </div>
+    </div>
+</section>

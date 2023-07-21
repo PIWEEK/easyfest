@@ -4,21 +4,25 @@
     export let data;
 </script>
 
-<h1>Activities</h1>
+<section class="section">
+    <div class="container">
+        <h1>Activities</h1>
 
-{#each data.activities as activity}
+        {#each data.activities as activity}
 
-<h2>{activity.attributes.title}</h2>
+            <h2>{activity.attributes.title}</h2>
 
-{#if activity.attributes.short_description}
-    <div class="short">{@html activity.attributes.short_description}</div>
-{/if}
+            {#if activity.attributes.short_description}
+                <div class="short">{@html activity.attributes.short_description}</div>
+            {/if}
 
-{#if activity.attributes.long_description}
-    <SvelteMarkdown source={activity.attributes.long_description}/>
-{/if}
+            {#if activity.attributes.long_description}
+                <SvelteMarkdown source={activity.attributes.long_description}/>
+            {/if}
 
-{/each}
+        {/each}
+    </div>
+</section>
 
 
 <style>

@@ -6,21 +6,22 @@
 
 </script>
 
-<h1>EasyFest</h1>
-<h3>Site Settings</h3>
-<ul>
-<li>title: {data.title}</li>
-<li>tagline: {data.tagline}</li>
-<li>description: {data.description}</li>
-<li>logo_small: {data.logo_small.data.attributes.url}</li>
-<li>logo_big: {data.logo_big.data.attributes.url}</li>
-<li>backgrounds: {data.backgrounds}</li>
-<li>carousel: {data.carousel}</li>
-<li>base_url: {data.base_url}</li>
-<li>contact: {data.contact}</li>
+<section class="hero is-dark">
+    <div class="hero-body">
+        <img src="{storage_url}{data.logo_small.data.attributes.url}"/>
+        <p class="title has-text-centered has-text-white">Building Freedom for Design</p>
+        <p class="subtitle has-text-centered has-text-white">Easy Fest is the Design event that brought designers and developers together in Barcelona in June 28-30. We had an amazing time. See you next year!</p>
+    </div>
+</section>
 
-<img src="{storage_url}{data.logo_small.data.attributes.url}"/>
+<section class="section">
+    <div class="container">
+        <img src="{storage_url}/uploads/SALA_GRAN_teatre_482d9e9b7f.jpg"/>
+    </div>
+</section>
 
-</ul>
-
-{data.status}
+<style>
+    img {
+        width: 100%;
+    }
+</style>
