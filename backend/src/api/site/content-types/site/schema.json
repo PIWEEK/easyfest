@@ -4,7 +4,8 @@
   "info": {
     "singularName": "site",
     "pluralName": "sites",
-    "displayName": "site"
+    "displayName": "site",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,6 +16,7 @@
       "type": "enumeration",
       "enum": [
         "hidden",
+        "soon",
         "open",
         "finished"
       ]
@@ -23,6 +25,7 @@
       "type": "enumeration",
       "enum": [
         "hidden",
+        "soon",
         "draft",
         "final"
       ]
