@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const base = import.meta.env.VITE_API_URL
-const path = "/tracks?populate[activities][populate][0]=public_faces"
+const path = "/tracks?populate[activities][populate][public_faces][populate][0]=photo"
 
 export async function load({ params }) {
     let tracks = []

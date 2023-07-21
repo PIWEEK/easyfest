@@ -68,13 +68,19 @@
 
                                     {#each activity.attributes.public_faces.data as pf}
                                         {#if activity.attributes.public_faces.data}
-                                            <p>
-                                                <button class="button is-light is-light" on:click={handleClick(pf)}>
-                                                    
-
-                                                    {pf.attributes.fullname}
-                                                </button>
-                                           </p>
+                                            <block class="media" on:click={handleClick(pf)}>
+                                              <div class="media-left">
+                                                <figure class="image is-24x24">
+                                                 <img class="is-rounded"  src="{storage_url}{pf.attributes.photo.data.attributes.url}"/>
+                                                </figure>
+                                              </div>  
+                                              <div class="content">
+                                                    {pf.attributes.fullname} 
+                                                    {#if pf.attributes.nickname}
+                                                      "{pf.attributes.nickname}"
+                                                    {/if} 
+                                              </div>
+                                            </block>
                                         {/if}   
                                     {/each}
 
