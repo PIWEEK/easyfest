@@ -24,21 +24,31 @@
             {activityHour(activity)}
             {activity.attributes.title}
         </p>
+        {#if activity.attributes.tag1 || activity.attributes.tag2}
+            <p class="tags is-pulled-right">
+                {#if activity.attributes.tag1}
+                    <span class="tag is-primary">{activity.attributes.tag1}</span>
+                {/if}
+                {#if activity.attributes.tag2}
+                    <span class="tag is-info">{activity.attributes.tag2}</span>
+                {/if}
+            </p>
+        {/if}
     </div>
     {#if activity.attributes.short_description ||
         activity.attributes.public_faces.data.length > 0}
         <div class="card-content">
             {#if activity.attributes.short_description}
-                <p>{activity.attributes.short_description}</p>
+                <p class="short-description">{activity.attributes.short_description}</p>
             {/if}
 
             {#each activity.attributes.public_faces.data as pf}
                 {#if activity.attributes.public_faces.data}
-                    <block class="media" on:click={handleProfileClick(pf)}>
+                    <block class="public-face media" on:click={handleProfileClick(pf)}>
                         <div class="media-left">
-                        <figure class="image is-24x24">
-                            <img class="is-rounded"  src="{storage_url}{pf.attributes.photo.data.attributes.url}"/>
-                        </figure>
+                            <figure class="image is-24x24">
+                                <img class="is-rounded" src="{storage_url}{pf.attributes.photo.data.attributes.url}"/>
+                            </figure>
                         </div>  
                         <div class="content">
                             {pf.attributes.fullname} 
@@ -49,17 +59,6 @@
                     </block>
                  {/if}   
              {/each}
-
-            {#if activity.attributes.tag1 || activity.attributes.tag2}
-                <p class="tags">
-                    {#if activity.attributes.tag1}
-                        <span class="tag is-primary">{activity.attributes.tag1}</span>
-                    {/if}
-                    {#if activity.attributes.tag2}
-                        <span class="tag is-info">{activity.attributes.tag2}</span>
-                    {/if}
-                </p>
-            {/if}
         </div>
     {/if}
 </div>
@@ -70,6 +69,19 @@
     }
 
     .tags {
-        margin-top: 1rem;
+        margin-right: 1rem;
+    }
+
+    .short-description {
+        margin-bottom: 0.5rem;
+    }
+
+    .card .media {
+        margin-bottom: 0;
+    }
+
+    .media + .media {
+        margin-top: 0.25rem;
+        padding-top: 0.25rem;
     }
 </style>
