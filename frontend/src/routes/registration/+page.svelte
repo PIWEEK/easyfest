@@ -10,14 +10,14 @@
     const { form, errors, constraints } = superForm(data.form);
 </script>
 
-<div>
+<div class="content is-normal">
     {#if data.fetch_registration_info_data.content}
     {data.fetch_registration_info_data.content}
     {/if}
 </div>
 
 {#if data.fetch_site_data.registration == "soon"}
-<div>{data.fetch_registration_info_data.content_soon}</div>
+<div class="content is-normal">{data.fetch_registration_info_data.content_soon}</div>
 {/if}
 
 {#if data.fetch_site_data.registration == "open"}
@@ -30,7 +30,7 @@
 
 {#if data.fetch_site_data.registration == "open"}
 
-<form method="POST">
+<form class="box" method="POST">
 
     <div class="field">
         <label class="label" for="fullname">Full name</label>
@@ -93,6 +93,7 @@
       </div>
 
   </form>
+
 
   {/if}
 
