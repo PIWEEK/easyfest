@@ -7,7 +7,6 @@ const base = import.meta.env.VITE_API_URL
 const path = "/setting?populate=*"
 const path_site = "/site"
 
-   
 let data = {}
 
 export async function load({ params }) {
