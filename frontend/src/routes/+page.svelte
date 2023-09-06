@@ -16,6 +16,7 @@
 
 <section class="section">
     <div class="container">
+        <!-- FIXME hardcoded URL -->
         <img src="{storage_url}/uploads/SALA_GRAN_teatre_482d9e9b7f.jpg"/>
     </div>
 </section>
