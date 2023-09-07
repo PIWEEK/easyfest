@@ -6,6 +6,7 @@
 		"node": "18.x.x"
 	},
 	"scripts": {
+		"sync-penpot": "penpot-export",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -39,8 +40,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@penpot-export/cli": "^0.1.0-beta.0",
 		"axios": "^1.4.0",
 		"bulma-list": "^1.2.0",
+		"dotenv": "^16.3.1",
 		"svelte-markdown": "https://github.com/nwaughachukwuma/svelte-markdown/tarball/upgrade-to-svelte-4",
 		"svelte-modals": "^1.3.0",
 		"underscore": "^1.13.6"

@@ -1,19 +1,45 @@
+@use 'sass:map';
+@use 'design-system/colors.scss';
+@use 'design-system/typographies.scss';
+
 // Theme configuration is done by giving value to Bulma variables
 // https://bulma.io/documentation/customize/variables
 
 // -- Initial variables (with a literal value)
 
-$penpot-green: #53f5c3;
-$penpot-violet: #c19bff;
-$darkblue: #151132;
+$green: colors.$Primary_500;
+$purple: colors.$Secondary_500;
+$text: colors.$Neutral_900;
+$family-sans-serif: map.get(typographies.$🖥_Title_Large, "font-family"), sans-serif;
+
+$size-1: map.get(typographies.$🖥_Title_Large , "font-size");
+$size-2: map.get(typographies.$🖥_Title_Medium, "font-size");
+$size-3: map.get(typographies.$🖥_Title_Small , "font-size");
+$size-4: map.get(typographies.$Body_Large , "font-size");
+$size-5: map.get(typographies.$Body_Medium, "font-size");
+$size-6: map.get(typographies.$Body_Small , "font-size");
+$size-7: map.get(typographies.$Body_Small_Uppercase, "font-size");
+
+// -- -- Custom initial variables
+
+$green-light: colors.$Primary_200;
+$purple-light: colors.$Secondary_300;
 
 // -- Derived variables (that take value from other variables)
 
-$primary: $penpot-violet;
-$secondary: $penpot-violet;
-$dark: $darkblue;
-$dark-invert: $penpot-green;
-$link: $penpot-violet;
+$primary: $green;
+$primary-light: $green-light;
+$dark: colors.$Neutral_900;
+$info: $purple;
+$info-light: $purple-light;
+$text-light: $text;
+$text-strong: $text;
+$link: colors.$Primary_700;
+$white: colors.$Neutral_200;
+
+// -- -- Custom derived variables
+
+$secondary: $purple;
 
 // -- Import all bulma styles
 
