@@ -10,7 +10,7 @@
 $green: colors.$Primary_500;
 $purple: colors.$Secondary_500;
 $text: colors.$Neutral_900;
-$family-sans-serif: map.get(typographies.$🖥_Title_Large, "font-family"), sans-serif;
+$family-sans-serif: map.get(typographies.$Body_Large, "font-family"), sans-serif;
 
 $size-1: map.get(typographies.$🖥_Title_Large , "font-size");
 $size-2: map.get(typographies.$🖥_Title_Medium, "font-size");
