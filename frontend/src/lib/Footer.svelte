@@ -22,7 +22,9 @@
     <div class="container">
         <div class="columns">
             <div class="column">
+                {#if data.logo_horiz.data}
                 <a href="/"><img alt="Logo" src="{storage_url}{data.logo_horiz.data.attributes.url}"/></a>
+                {/if}
             </div>
             <div class="column">
                 <p class="footer-heading has-text-white">Legal</p>

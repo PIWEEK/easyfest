@@ -23,7 +23,9 @@
 <nav class="navbar is-dark is-spaced" aria-label="main-navigation">
      <div class="container">
         <div class="navbar-brand">
+            {#if data.logo_horiz.data}
             <a href="/" class="navbar-item"><img alt="Logo" src="{storage_url}{data.logo_horiz.data.attributes.url}"/></a>
+            {/if}
             <button class="navbar-burger" aria-label="menu" aria-expanded="false" data-menu-id="mainMenu"
                on:click={hamburgerClick}>
                 <span aria-hidden="true"></span>
