@@ -1,6 +1,7 @@
 'use strict';
 
 const saveAndPublishEasyFestDefaultEntities = require('./bootstrapEasyFestDefaultEntities.js')
+const grantEasyFestPublicApiPermissions = require('./bootstrapEasyFestPermissions.js');
 
 module.exports = {
   /**
@@ -20,5 +21,7 @@ module.exports = {
    */
   async bootstrap({ strapi }) {
     await saveAndPublishEasyFestDefaultEntities(strapi)()
+
+    await grantEasyFestPublicApiPermissions(strapi)()
   },
 };

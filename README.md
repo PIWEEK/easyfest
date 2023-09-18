@@ -49,11 +49,6 @@ $EDITOR .env
 
 Then, run the Strapi back end with `npm run develop`, if in local development, or `npm run build` and `npm run start` in deployments.
 
-Once running, an Strapi admin user will need to visit the Strapi Dashboard and:
-- In Settings, grant `find` and `findOne` permissions for each route at (Users & Permissions plugin) Roles > Public
-
-> ⚠️ This will need to be re-done on each deployment.
-
 ### Starting the front end
 
 First, install the dependencies:
