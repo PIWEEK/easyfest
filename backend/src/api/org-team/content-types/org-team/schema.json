@@ -22,7 +22,8 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "default": "The organisation team"
     },
     "content": {
       "pluginOptions": {

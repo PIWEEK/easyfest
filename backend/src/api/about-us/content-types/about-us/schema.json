@@ -22,7 +22,8 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "default": "About EasyFest"
     },
     "content": {
       "pluginOptions": {
@@ -31,7 +32,8 @@
         }
       },
       "type": "richtext",
-      "required": true
+      "required": true,
+      "default": "EasyFest provides a simple and straightforward event/festival webpage building toolkit."
     }
   }
 }
