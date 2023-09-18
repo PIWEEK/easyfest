@@ -81,15 +81,6 @@
         }
       }
     },
-    "base_url": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "type": "string",
-      "required": true
-    },
     "contact": {
       "pluginOptions": {
         "i18n": {
