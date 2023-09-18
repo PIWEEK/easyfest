@@ -12,8 +12,8 @@
             <div class="columns">
                 <div class="column is-two-thirds">
                     <p class="has-text-info-light">June 28-30, Barcelona</p>
-                    <p class="title is-size-1 has-text-white">EasyFest,<br/>Building Freedom for Design</p>
-                    <p class="subtitle has-text-white">Easy Fest is the Design event that brought designers and developers together in Barcelona in June 28-30. We had an amazing time. See you next year!</p>
+                    <p class="title header--large has-text-white">EasyFest,<br/>Building Freedom for Design</p>
+                    <p class="subtitle text--large has-text-white">Easy Fest is the Design event that brought designers and developers together in Barcelona in June 28-30. We had an amazing time. See you next year!</p>
                     <a href="/register" class="button is-primary">Register now!</a>
                 </div>
             </div>
@@ -25,7 +25,7 @@
     <div class="container pb-6">
         <div class="level columns">
             <div class="column">
-                <p class="title is-size-2">48 hours packed with</p>
+                <p class="title header--medium">48 hours packed with</p>
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@
 </section>
 
 <aside class="has-background-primary-light">
-    <div class="level is-mobile is-uppercase is-size-7 py-4">
+    <div class="level is-mobile text--small--uppercase py-4">
         {#each Array(16) as _}
         <div class="level-item">Registration is open</div>
         <div class="level-item">🔥</div>
@@ -62,7 +62,7 @@
     <div class="container p-6">
         <div class="level columns">
             <div class="column">
-                <p class="title is-size-2 has-text-white">Featured talks</p>
+                <p class="title header--medium has-text-white">Featured talks</p>
             </div>
             <div class="column">
                 <div class="is-pulled-right">
@@ -77,13 +77,13 @@
             <div class="p-6" style="height: 100%; display: flex; flex-direction: column">
                 <p class="block">28 Wed. 10:00 am</p>
                 <div class="block">
-                    <span class="tag is-info has-text-dark is-size-7 is-uppercase">Podcast</span>
+                    <span class="tag is-info has-text-dark text--small--uppercase">Podcast</span>
                 </div>
-                <p class="title is-spaced is-size-3 has-text-white">Sustain open source podcast</p>
+                <p class="title header--small is-spaced has-text-white">Sustain open source podcast</p>
                 {#if i % 2 === 0}
-                <p class="subtitle is-size-5 has-text-white">There will be recording sessions for on-demand interviews on Thursday and Friday.</p>
+                <p class="subtitle text--medium has-text-white">There will be recording sessions for on-demand interviews on Thursday and Friday.</p>
                 {/if}
-                <div class="block is-size-6" style="flex-grow: 1">
+                <div class="block text--small" style="flex-grow: 1">
                     <p><span style="text-decoration: underline">Jan Six</span>, Creator of Tokens Studio, Staff Product Designer at Github</p>
                     <p><span style="text-decoration: underline">Marco-Christian Krenn</span>, Freelance Design System Architect</p>
                     {#if i % 3 === 0}
@@ -103,7 +103,7 @@
     <div class="container p-6">
         <div class="level columns">
             <div class="column">
-                <p class="title is-size-2">Speakers</p>
+                <p class="title header--medium">Speakers</p>
             </div>
             <div class="column">
                 <div class="is-pulled-right">
@@ -122,11 +122,11 @@
                         <img src="https://bulma.io/images/placeholders/320x480.png" alt="Placeholder">
                     </figure>
                     {#if i % 3 === 0}
-                    <span class="tag is-dark is-uppercase is-size-7" style="position: absolute; right: 4px; bottom: 8px">Special guest</span>
+                    <span class="tag is-dark text--small--uppercase" style="position: absolute; right: 4px; bottom: 8px">Special guest</span>
                     {/if}
                 </div>
                 <div class="card-content">
-                    <p class="title is-spaced is-size-3">Clara García</p>
+                    <p class="title header--small is-spaced">Clara García</p>
                     <div class="block">
                         <p>Product Designer at Penpot</p>
                     </div>
@@ -143,8 +143,8 @@
 <section class="block has-background-white">
     <div class="container p-6">
         <div>
-            <p class="title is-size-2">Locations</p>
-            <p class="subtitle is-size-4">You'll enjoy the best of backdrops, everything's included</p>
+            <p class="title header--medium">Locations</p>
+            <p class="subtitle text--large">You'll enjoy the best of backdrops, everything's included</p>
         </div>
     </div>
     <div class="container">
@@ -169,8 +169,8 @@
 <section class="block">
     <div class="container p-6">
         <div>
-            <p class="title is-size-2">Acommodation</p>
-            <p class="subtitle is-size-4">Stay close to the action with these exclusive Penpot Fest discounts!</p>
+            <p class="title header--medium">Acommodation</p>
+            <p class="subtitle text--large">Stay close to the action with these exclusive Penpot Fest discounts!</p>
         </div>
     </div>
     <div class="container">
@@ -181,7 +181,7 @@
                     <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder">
                 </figure>
                 <div class="p-3">
-                    <h1 class="title is-size-3">Catalonia Hotels</h1>
+                    <h1 class="title header--small">Catalonia Hotels</h1>
                     <div class="content">
                         <p>Enjoy a 10% discount on all Catalonia hotels for you.{#if i % 3 === 1}<br/>Use this link{/if}</p>
                         <p><em>Booking subjected to availability</em></p>

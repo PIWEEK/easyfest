@@ -59,3 +59,48 @@ $secondary: $purple;
         margin-top: 0;
     }
 }
+
+// -- Custom helpers
+
+@mixin tablet() {
+    @media (min-width: $tablet) {
+        @content;
+    }
+}
+@mixin mixTypographyClass($typographyMap) {
+    @each $prop, $value in $typographyMap {
+        #{$prop}: $value;
+    }
+}
+
+.header--large {
+    @include mixTypographyClass(typographies.$📱_Title_Large);
+    @include tablet() {
+        @include mixTypographyClass(typographies.$🖥_Title_Large);
+    };
+}
+.header--medium {
+    @include mixTypographyClass(typographies.$📱_Title_Medium);
+    @include tablet() {
+        @include mixTypographyClass(typographies.$🖥_Title_Medium);
+    };
+}
+.header--small {
+    @include mixTypographyClass(typographies.$📱_Title_Small);
+    @include tablet() {
+        @include mixTypographyClass(typographies.$🖥_Title_Small);
+    };
+}
+
+.text--large {
+    @include mixTypographyClass(typographies.$Body_Large);
+}
+.text--medium {
+    @include mixTypographyClass(typographies.$Body_Medium);
+}
+.text--small {
+    @include mixTypographyClass(typographies.$Body_Small);
+}
+.text--small--uppercase {
+    @include mixTypographyClass(typographies.$Body_Small_Uppercase);
+}
