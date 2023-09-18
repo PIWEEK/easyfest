@@ -15,7 +15,7 @@
 
         <ul class="list">
           {#each data.attachments.data as attachment}
-            <li class="list-item box"><a href="{storage_url}{attachment.attributes.url}">{attachment.attributes.caption}</a></li>
+            <li class="list-item box"><a href="{storage_url}{attachment.attributes.url}">{attachment.attributes.caption ?? 'Media resource'}</a></li>
           {/each}
         </ul>
     </div>
