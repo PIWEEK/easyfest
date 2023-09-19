@@ -26,7 +26,7 @@
             <div>{data.fetch_registration_info_data.content_open}</div>
         {/if}
 
-        {#if data.fetch_site_data.registration == "closed"}
+        {#if data.fetch_site_data.registration == "finished"}
             <div>{data.fetch_registration_info_data.content_closed}</div>
         {/if}
 
