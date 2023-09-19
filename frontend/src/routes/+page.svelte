@@ -1,8 +1,52 @@
 <script>
-
+import { onMount } from 'svelte';
     const storage_url = import.meta.env.VITE_STORAGE_URL
     /** @type {import('./$types').PageData} */
     export let data;
+
+    onMount(() => {
+        const carousel = document.querySelector('.carousel');
+        const carouselItems = carousel.querySelectorAll('.carousel-item');
+
+        let isDragging = false;
+        let startPosX = 0;
+        let scrollLeft = 0;
+
+        carousel.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startPosX = e.clientX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+        });
+
+        carousel.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const mouseX = e.clientX - carousel.offsetLeft;
+        const deltaX = mouseX - startPosX;
+        carousel.scrollLeft = scrollLeft - deltaX;
+        });
+
+        carousel.addEventListener('mouseup', () => {
+        isDragging = false;
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+        isDragging = false;
+        });
+
+        const carouselItemWidth = carouselItems[0].getBoundingClientRect().width;
+        const scrollLeftButton = document.querySelector('#carousel-btn-left');
+        const scrollRightButton = document.querySelector('#carousel-btn-right');
+
+        scrollLeftButton.addEventListener('click', () => {
+        carousel.scrollLeft -= carouselItemWidth * 1; // Ajusta la cantidad de desplazamiento según sea necesario
+        });
+
+        scrollRightButton.addEventListener('click', () => {
+        carousel.scrollLeft += carouselItemWidth * 1; // Ajusta la cantidad de desplazamiento según sea necesario
+        });
+	});
+
+
 
 </script>
 
@@ -107,16 +151,16 @@
             </div>
             <div class="column">
                 <div class="is-pulled-right">
-                    <button class="button is-ghost has-text-dark">&larr;</button>
-                    <button class="button is-ghost has-text-dark">&rarr;</button>
+                    <button id="carousel-btn-left" class="button is-ghost has-text-dark">&larr;</button>
+                    <button id="carousel-btn-right" class="button is-ghost has-text-dark">&rarr;</button>
                 </div>
             </div>
         </div>
     </div>
-    <div style="overflow: scroll">
-        <div class="is-flex flex-wrap-nowrap py-1" style="margin: 0 auto">
+    <div>
+        <div class="carousel is-flex flex-wrap-nowrap py-1" style="margin: 0 auto">
             {#each Array(10) as _, i}
-            <div class="ml-4" style="flex: none; width: 16em">
+            <div class="ml-4 carousel-item" style="flex: none; width: 16em">
                 <div style="position: relative">
                     <figure class="image is-2by3">
                         <img src="https://bulma.io/images/placeholders/320x480.png" alt="Placeholder">
@@ -196,5 +240,20 @@
 <style>
     img {
         width: 100%;
+    }
+
+    .carousel {
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        user-select: none;
+    }
+
+    .carousel::-webkit-scrollbar {
+        display: none;
+    }
+
+    .carousel > * {
+        scroll-snap-align: center;
     }
 </style>
