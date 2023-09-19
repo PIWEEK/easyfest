@@ -37,12 +37,15 @@ import { onMount } from 'svelte';
         const scrollLeftButton = document.querySelector('#carousel-btn-left');
         const scrollRightButton = document.querySelector('#carousel-btn-right');
 
+        let scrollItemNumber = 1
+        if (window.innerWidth > 768) scrollItemNumber = 3
+
         scrollLeftButton.addEventListener('click', () => {
-        carousel.scrollLeft -= carouselItemWidth * 1; // Ajusta la cantidad de desplazamiento según sea necesario
+        carousel.scrollLeft -= carouselItemWidth * scrollItemNumber; // Ajusta la cantidad de desplazamiento según sea necesario
         });
 
         scrollRightButton.addEventListener('click', () => {
-        carousel.scrollLeft += carouselItemWidth * 1; // Ajusta la cantidad de desplazamiento según sea necesario
+        carousel.scrollLeft += carouselItemWidth * scrollItemNumber; // Ajusta la cantidad de desplazamiento según sea necesario
         });
 	});
 
