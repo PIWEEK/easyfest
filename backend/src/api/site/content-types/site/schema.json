@@ -19,7 +19,9 @@
         "soon",
         "open",
         "finished"
-      ]
+      ],
+      "default": "hidden",
+      "required": true
     },
     "agenda": {
       "type": "enumeration",
@@ -28,7 +30,9 @@
         "soon",
         "draft",
         "final"
-      ]
+      ],
+      "default": "hidden",
+      "required": true
     },
     "status": {
       "type": "enumeration",
@@ -36,7 +40,9 @@
         "hype",
         "public",
         "finished"
-      ]
+      ],
+      "default": "hype",
+      "required": true
     }
   }
 }
