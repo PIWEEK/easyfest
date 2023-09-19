@@ -11,7 +11,7 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-two-thirds">
-                    <p class="has-text-info-light">June 28-30, Barcelona</p>
+                    <p class="has-text-info-light header-date">June 28-30, Barcelona</p>
                     <p class="title header--large has-text-white">EasyFest,<br/>Building Freedom for Design</p>
                     <p class="subtitle text--large has-text-white">Easy Fest is the Design event that brought designers and developers together in Barcelona in June 28-30. We had an amazing time. See you next year!</p>
                     <a href="/register" class="button is-primary">Register now!</a>
@@ -150,7 +150,7 @@
     <div class="container">
         {#each Array(3) as _, i}
         <div class="level columns" class:is-flex-direction-row-reverse="{i % 2 === 1}">
-            <div class="column is-half">
+            <div class="column is-half p-0">
                 <figure class="image is-4by3">
                     <img src="https://bulma.io/images/placeholders/640x480.png" alt="Placeholder"/>
                 </figure>
