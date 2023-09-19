@@ -24,7 +24,7 @@
       },
       "type": "string",
       "required": true,
-      "default": "Settings"
+      "default": "EasyFest"
     },
     "tagline": {
       "pluginOptions": {
