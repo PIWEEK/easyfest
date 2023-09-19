@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_homepage_locations_section",
+  "info": {
+    "displayName": "locations section",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Locations"
+    },
+    "intro": {
+      "type": "string",
+      "default": "You'll enjoy the best of backdrops, everything's included"
+    },
+    "locations": {
+      "type": "component",
+      "repeatable": true,
+      "component": "homepage.locations_item",
+      "required": true,
+      "min": 1
+    }
+  }
+}

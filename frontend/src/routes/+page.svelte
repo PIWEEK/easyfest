@@ -1,6 +1,8 @@
 <script>
     import { onMount } from 'svelte'
+    import SvelteMarkdown from 'svelte-markdown'
 
+    import heroFallback from '../assets/images/easyfest-illustration.png'
     import Marquee from '../lib/Marquee'
 
     const storage_url = import.meta.env.VITE_STORAGE_URL
@@ -98,8 +100,23 @@
         }
 	});
 
+    const REGISTRATION = {
+        SOON: 'soon',
+        OPEN: 'open',
+        FINISHED: 'finished',
+    }
+    const STATUS = {
+        HYPE: 'hype',
+        PUBLIC: 'public',
+        FINISHED: 'finished',
+    }
 
-
+    const { homepage, speakers, ...settings } = data
+    const highlightText = {
+        [STATUS.HYPE]: homepage.highlight_hype,
+        [STATUS.PUBLIC]: homepage.highlight_public,
+        [STATUS.FINISHED]: homepage.highlight_finished,
+    }[settings.status] ?? null
 </script>
 
 <section class="hero is-medium has-background-dark has-text-white">
@@ -107,21 +124,41 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-two-thirds">
-                    <p class="has-text-secondary-light header-date">June 28-30, Barcelona</p>
-                    <p class="title header--large has-text-white">EasyFest,<br/>Building Freedom for Design</p>
-                    <p class="subtitle text--large has-text-white">Easy Fest is the Design event that brought designers and developers together in Barcelona in June 28-30. We had an amazing time. See you next year!</p>
-                    <a href="/register" class="button is-primary">Register now!</a>
+                    {#if homepage.dates_and_location}
+                    <p class="has-text-secondary-light header-date">{homepage.dates_and_location}</p>
+                    {/if}
+                    <p class="title header--large has-text-white">{homepage.title}</p>
+                    {#if highlightText}
+                    <p class="subtitle text--large has-text-white">{highlightText}</p>
+                    {/if}
+                    {#if settings.registration === REGISTRATION.OPEN}
+                    <a href="/registration" class="button is-primary">{homepage.register_cta}</a>
+                    {/if}
+                </div>
+                <div class="column is-one-third">
+                    <figure class="image is-3by4">
+                        {#if homepage.hero_image.data}
+                        {@const image = homepage.hero_image.data.attributes}
+                        <img src="{storage_url}{image.url}" alt={image.caption}/>
+                        {:else}
+                        <img src={heroFallback} alt=""/>
+                        {/if}
+                    </figure>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+{#if homepage.about_section}
+{@const title = homepage.about_section.title}
+{@const image = homepage.about_section.image.data.attributes}
+{@const mdContent = homepage.about_section.content}
 <section class="section">
     <div class="container pb-6">
         <div class="level columns">
             <div class="column">
-                <p class="title header--medium">48 hours packed with</p>
+                <p class="title header--medium">{title}</p>
             </div>
         </div>
     </div>
@@ -130,73 +167,84 @@
 
             <div class="column">
                 <figure class="image is-5by4">
-                    <img src="https://bulma.io/images/placeholders/600x480.png" alt="Placeholder"/>
+                    <img src="{storage_url}{image.url}" alt={image.caption}/>
                 </figure>
             </div>
             <div class="column content">
-                <p>- An evening Welcome Party at Modernista Casa de les Punxes rooftop!</p>
-                <p>- An exceptional line-up of speakers from all around the world!</p>
-                <p>- A XVI century Gothic Convent with its Renaissance chapel as our main venue!</p>
-                <p>- Penpot workshops to get from zero to hero as a user or contributor!</p>
-                <p>- Extended coffee breaks and chill-out time to get to meet amazing people!</p>
-                <p>- A memorable sunset dinner cruise on Thursday to enjoy Barcelona from the sea!</p>
+                <SvelteMarkdown options={{mangle: false}} source={mdContent} />
             </div>
         </div>
     </div>
 </section>
+{/if}
 
+{#if homepage.marquee_text}
 <aside class="has-background-primary-light">
     <div bind:this={marqueeElement} class="marquee level is-mobile text--small--uppercase py-4">
-        <div>Registration is open 🔥</div>
+        <div>{homepage.marquee_text}</div>
     </div>
 </aside>
+{/if}
 
+{#if settings.show_agenda && homepage.activities_section}
+{@const activities = homepage.activities_section}
+{@const featuredActivities = activities.featured_activities.data}
+{#if featuredActivities.length > 0}
 <section class="has-background-dark has-text-white">
     <div class="container p-6">
         <div class="level columns">
             <div class="column">
-                <p class="title header--medium has-text-white">Featured talks</p>
+                <p class="title header--medium has-text-white">{activities.title}</p>
+                {#if activities.intro}
+                <p class="subtitle text--large has-text-white">{activities.intro}</p>
+                {/if}
             </div>
             <div class="column">
                 <div class="is-pulled-right">
-                    <a href="/agenda" class="button is-white is-outlined">View full agenda</a>
+                    <a href="/agenda" class="button is-white is-outlined">{activities.agenda_link_text}</a>
                 </div>
             </div>
         </div>
     </div>
     <div class="columns is-multiline featured-talks">
-        {#each Array(4) as _, i}
+        {#each featuredActivities as activityWrapper, i}
+        {@const activity = activityWrapper.attributes}
         <div class="column is-half border-color--secondary has-background-dark">
             <div class="featured-talks-item" style="height: 100%; display: flex; flex-direction: column">
-                <p class="block has-text-white-ter">28 Wed. 10:00 am</p>
+                <p class="block has-text-white-ter">XXX 28 Wed. 10:00 am</p>
                 <div class="block">
-                    <span class="tag has-background-secondary-light has-text-dark text--small--uppercase">Podcast</span>
-                </div>
-                <p class="title header--small is-spaced has-text-white">Sustain open source podcast</p>
-                {#if i % 2 === 0}
-                <p class="subtitle text--medium has-text-white">There will be recording sessions for on-demand interviews on Thursday and Friday.</p>
-                {/if}
-                <div class="block text--small" style="flex-grow: 1">
-                    <p><span style="text-decoration: underline">Jan Six</span>, Creator of Tokens Studio, Staff Product Designer at Github</p>
-                    <p><span style="text-decoration: underline">Marco-Christian Krenn</span>, Freelance Design System Architect</p>
-                    {#if i % 3 === 0}
-                    <p><span style="text-decoration: underline">Eriol Fox</span>, Senior Designer at Superbloom & PhD Researcher at Newcastle University</p>
+                    {#if activity.tag2}
+                    <span class="tag has-background-secondary-light has-text-dark text--small--uppercase">{activity.tag2}</span>
                     {/if}
                 </div>
+                <p class="title header--small is-spaced has-text-white">{activity.title}</p>
+                {#if activity.short_description}
+                <p class="subtitle text--medium has-text-white">{activity.short_description}</p>
+                {/if}
+                <div class="block text--small" style="flex-grow: 1">
+                    {#each activity.public_faces.data as profileWrapper}
+                    {@const profile = profileWrapper.attributes}
+                    <p><span style="text-decoration: underline">{profile.fullname}</span>, {profile.title}</p>
+                    {/each}
+                </div>
                 <div class="block has-text-white-ter">
-                    <p>Casa de les Punxes - Av. Diagonal, 420</p>
+                    <p>XXX Casa de les Punxes - Av. Diagonal, 420</p>
                 </div>
             </div>
         </div>
         {/each}
     </div>
 </section>
+{/if}
+{/if}
 
+{#if settings.show_speakers && homepage.speakers_section && speakers}
+{@const speakers = homepage.speakers_section}
 <section class="has-background-secondary-lighter">
     <div class="container p-6">
         <div class="level columns">
             <div class="column">
-                <p class="title header--medium">Speakers</p>
+                <p class="title header--medium">{speakers.title}</p>
             </div>
             <div class="column">
                 <div class="is-pulled-right">
@@ -208,20 +256,21 @@
     </div>
     <div>
         <div bind:this={carousel} class="carousel is-flex flex-wrap-nowrap py-1" style="margin: 0 auto">
-            {#each Array(10) as _, i}
+            {#each speakers as profile}
+            {@const picture = profile.photo.data.attributes}
             <article class="ml-4 carousel-item">
                 <div style="position: relative">
                     <figure class="image">
-                        <img src="https://bulma.io/images/placeholders/320x480.png" alt="Placeholder">
+                        <img src={picture.url} alt={picture.caption ?? profile.fullname}>
                     </figure>
-                    {#if i % 3 === 0}
+                    {#if profile.is_guest}
                     <span class="tag is-dark text--small--uppercase" style="position: absolute; right: 4px; bottom: 8px">Special guest</span>
                     {/if}
                 </div>
                 <div class="card-content px-0">
-                    <p class="title header--small is-spaced">Clara García</p>
+                    <p class="title header--small is-spaced">{profile.fullname}</p>
                     <div class="block">
-                        <p>Product Designer at Penpot</p>
+                        <p>{profile.title}</p>
                     </div>
                 </div>
             </article>
@@ -229,55 +278,71 @@
         </div>
     </div>
     <div class="level buttons p-6 is-centered">
-        <a href="/agenda" class="button is-dark is-outlined">View all speakers</a>
+        <a href="/speakers" class="button is-dark is-outlined">{speakers.speakers_link_text}</a>
     </div>
 </section>
+{/if}
 
+{#if settings.show_venue_info && homepage.locations_section}
+{@const locations = homepage.locations_section}
 <section class="block has-background-white">
     <div class="container p-6">
         <div>
-            <p class="title header--medium">Locations</p>
-            <p class="subtitle text--large">You'll enjoy the best of backdrops, everything's included</p>
+            <p class="title header--medium">{locations.title}</p>
+            {#if locations.intro}
+            <p class="subtitle text--large">{locations.intro}</p>
+            {/if}
         </div>
     </div>
     <div class="container">
-        {#each Array(3) as _, i}
-        <div class="level columns" class:is-flex-direction-row-reverse="{i % 2 === 1}">
+        {#each locations.locations as location, index}
+        {@const isEven = index % 2 === 0}
+        {@const image = location.image.data.attributes}
+        {@const badge = location.badge}
+        {@const title = location.title}
+        {@const mdContent = location.content}
+        <div class="level columns" class:is-flex-direction-row-reverse="{!isEven}">
             <div class="column is-half p-0">
                 <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png" alt="Placeholder"/>
+                    <img src="{storage_url}{image.url}" alt={image.caption}/>
                 </figure>
             </div>
             <div class="column is-half content p-6">
-                <h1>La Casa de Les Punxes</h1>
-                <p><em>Welcome party</em></p>
-                <p>Designed by the modernist architect Josep Puig i Cadafalch, in the very heart of Barcelona, this building is one of the most emblematic in the city.</p>
-                <p>Its terrace will host Penpot Fest’s warmest welcome, amazing food and live music!</p>
+                <p><em>{badge}</em></p>
+                <h1>{title}</h1>
+                <SvelteMarkdown options={{mangle: false}} source={mdContent} />
             </div>
         </div>
         {/each}
     </div>
 </section>
+{/if}
 
+{#if settings.show_accommodation_info && homepage.accommodation_section}
+{@const accommodation = homepage.accommodation_section}
 <section class="block has-background-white-bis">
     <div class="container p-6">
         <div>
-            <p class="title header--medium">Acommodation</p>
-            <p class="subtitle text--large">Stay close to the action with these exclusive Penpot Fest discounts!</p>
+            <p class="title header--medium">{accommodation.title}</p>
+            {#if accommodation.intro}
+            <p class="subtitle text--large">{accommodation.intro}</p>
+            {/if}
         </div>
     </div>
     <div class="container">
         <div class="level columns is-multiline is-justify-content-center is-align-items-stretch">
-            {#each Array(5) as _, i}
+            {#each accommodation.places as place}
+            {@const image = place.image.data.attributes}
+            {@const title = place.title}
+            {@const mdContent = place.content}
             <div class="column is-one-third">
                 <figure class="image is-16by9">
-                    <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder">
+                    <img src="{storage_url}{image.url}" alt={image.caption}>
                 </figure>
                 <div class="py-3">
-                    <h1 class="title header--small">Catalonia Hotels</h1>
+                    <h1 class="title header--small">{title}</h1>
                     <div class="content">
-                        <p>Enjoy a 10% discount on all Catalonia hotels for you.{#if i % 3 === 1}<br/>Use this link{/if}</p>
-                        <p><em>Booking subjected to availability</em></p>
+                        <SvelteMarkdown options={{mangle: false}} source={mdContent} />
                     </div>
                 </div>
             </div>
@@ -285,6 +350,7 @@
         </div>
     </div>
 </section>
+{/if}
 
 <style>
     img {

@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_homepage_accommodation_section",
+  "info": {
+    "displayName": "accommodation section",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Accommodation"
+    },
+    "intro": {
+      "type": "string",
+      "default": "Stay close to the action with these exclusive Penpot Fest discounts!"
+    },
+    "places": {
+      "type": "component",
+      "repeatable": true,
+      "component": "homepage.accommodation_item",
+      "required": true,
+      "min": 1
+    }
+  }
+}
