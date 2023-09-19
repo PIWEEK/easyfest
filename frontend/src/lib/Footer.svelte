@@ -1,4 +1,6 @@
 <script>
+    import logoFallback from '../assets/images/easyfest-logo.svg'
+
     const storage_url = import.meta.env.VITE_STORAGE_URL
     export let data;
 </script>
@@ -22,9 +24,13 @@
     <div class="container">
         <div class="columns">
             <div class="column">
-                {#if data.logo_horiz.data}
-                <a href="/"><img alt="Logo" src="{storage_url}{data.logo_horiz.data.attributes.url}"/></a>
-                {/if}
+                <a href="/">
+                    {#if data.logo_horiz.data}
+                    <img alt={data.title} src="{storage_url}{data.logo_horiz.data.attributes.url}"/>
+                    {:else}
+                    <img alt={data.title} src={logoFallback}/>
+                    {/if}
+                </a>
             </div>
             <div class="column">
                 <p class="footer-heading has-text-white">Legal</p>

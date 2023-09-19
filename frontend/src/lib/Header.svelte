@@ -1,10 +1,13 @@
 <script>
     import { onMount } from 'svelte';
+
+    import logoFallback from '../assets/images/easyfest-logo.svg'
+
     const storage_url = import.meta.env.VITE_STORAGE_URL
     export let data;
     let navbarHiddenClass = '';
     let isNavbarHidden = false;
-  
+
     function hamburgerClick(event) {
         const hamburger = event.currentTarget;
         const menuId = hamburger.dataset.menuId;
@@ -59,9 +62,13 @@
 <nav class="navbar is-dark is-spaced" class:is-concealed={isNavbarHidden} aria-label="main-navigation">
      <div class="container">
         <div class="navbar-brand">
-            {#if data.logo_horiz.data}
-            <a href="/" class="navbar-item"><img alt="Logo" src="{storage_url}{data.logo_horiz.data.attributes.url}"/></a>
-            {/if}
+            <a href="/" class="navbar-item">
+                {#if data.logo_horiz.data}
+                <img alt={data.title} src="{storage_url}{data.logo_horiz.data.attributes.url}"/>
+                {:else}
+                <img alt={data.title} src={logoFallback}/>
+                {/if}
+            </a>
             <button class="navbar-burger" aria-label="menu" aria-expanded="false" data-menu-id="mainMenu"
                on:click={hamburgerClick}>
                 <span aria-hidden="true"></span>
