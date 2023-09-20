@@ -7,7 +7,7 @@
 
 // -- Initial variables (with a literal value)
 
-$text: colors.$Neutral_900;
+$text: colors.$Dark;
 $family-sans-serif: map.get(typographies.$Body_Large, "font-family"), sans-serif;
 
 $size-1: map.get(typographies.$🖥_Title_Large , "font-size");
@@ -20,17 +20,17 @@ $size-7: map.get(typographies.$Body_Small_Uppercase, "font-size");
 
 // -- Derived variables (that take value from other variables)
 
-$primary: colors.$Primary_500;
-$primary-light: colors.$Primary_200;
-$secondary /* custom */: colors.$Secondary_500;
-$secondary-light /* custom */: colors.$Secondary_400;
-$secondary-lighter /* custom */: colors.$Secondary_300;
-$dark: colors.$Neutral_900;
+$primary: colors.$Primary;
+$primary-light: colors.$Primary_Light;
+$secondary /* custom */: colors.$Secondary;
+$secondary-light /* custom */: colors.$Secondary_Light;
+$secondary-lighter /* custom */: colors.$Secondary_Lighter;
+$dark: colors.$Dark;
 $text-light: $text;
 $text-strong: $text;
-$white: colors.$Neutral_100;
-$white-bis: colors.$Neutral_200;
-$white-ter: colors.$Neutral_300;
+$white: colors.$White;
+$white-bis: colors.$White_Bis;
+$white-ter: colors.$White_Ter;
 
 $custom-colors: (
     "secondary": ($secondary, findColorInvert($secondary), $secondary-light),
