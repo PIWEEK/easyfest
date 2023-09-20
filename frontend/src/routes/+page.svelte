@@ -58,7 +58,7 @@ import { onMount } from 'svelte';
         <div class="container">
             <div class="columns">
                 <div class="column is-two-thirds">
-                    <p class="has-text-info-light header-date">June 28-30, Barcelona</p>
+                    <p class="has-text-secondary-light header-date">June 28-30, Barcelona</p>
                     <p class="title header--large has-text-white">EasyFest,<br/>Building Freedom for Design</p>
                     <p class="subtitle text--large has-text-white">Easy Fest is the Design event that brought designers and developers together in Barcelona in June 28-30. We had an amazing time. See you next year!</p>
                     <a href="/register" class="button is-primary">Register now!</a>
@@ -122,9 +122,9 @@ import { onMount } from 'svelte';
         {#each Array(4) as _, i}
         <div class="column is-half">
             <div class="p-6" style="height: 100%; display: flex; flex-direction: column">
-                <p class="block">28 Wed. 10:00 am</p>
+                <p class="block has-text-white-ter">28 Wed. 10:00 am</p>
                 <div class="block">
-                    <span class="tag is-info has-text-dark text--small--uppercase">Podcast</span>
+                    <span class="tag has-background-secondary-light has-text-dark text--small--uppercase">Podcast</span>
                 </div>
                 <p class="title header--small is-spaced has-text-white">Sustain open source podcast</p>
                 {#if i % 2 === 0}
@@ -137,7 +137,7 @@ import { onMount } from 'svelte';
                     <p><span style="text-decoration: underline">Eriol Fox</span>, Senior Designer at Superbloom & PhD Researcher at Newcastle University</p>
                     {/if}
                 </div>
-                <div class="block">
+                <div class="block has-text-white-ter">
                     <p>Casa de les Punxes - Av. Diagonal, 420</p>
                 </div>
             </div>
@@ -146,7 +146,7 @@ import { onMount } from 'svelte';
     </div>
 </section>
 
-<section class="has-background-info-light">
+<section class="has-background-secondary-lighter">
     <div class="container p-6">
         <div class="level columns">
             <div class="column">
@@ -213,7 +213,7 @@ import { onMount } from 'svelte';
     </div>
 </section>
 
-<section class="block">
+<section class="block has-background-white-bis">
     <div class="container p-6">
         <div>
             <p class="title header--medium">Acommodation</p>

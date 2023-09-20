@@ -7,8 +7,6 @@
 
 // -- Initial variables (with a literal value)
 
-$green: colors.$Primary_500;
-$purple: colors.$Secondary_500;
 $text: colors.$Neutral_900;
 $family-sans-serif: map.get(typographies.$Body_Large, "font-family"), sans-serif;
 
@@ -20,26 +18,24 @@ $size-5: map.get(typographies.$Body_Medium, "font-size");
 $size-6: map.get(typographies.$Body_Small , "font-size");
 $size-7: map.get(typographies.$Body_Small_Uppercase, "font-size");
 
-// -- -- Custom initial variables
-
-$green-light: colors.$Primary_200;
-$purple-light: colors.$Secondary_300;
-
 // -- Derived variables (that take value from other variables)
 
-$primary: $green;
-$primary-light: $green-light;
+$primary: colors.$Primary_500;
+$primary-light: colors.$Primary_200;
+$secondary /* custom */: colors.$Secondary_500;
+$secondary-light /* custom */: colors.$Secondary_400;
+$secondary-lighter /* custom */: colors.$Secondary_300;
 $dark: colors.$Neutral_900;
-$info: $purple;
-$info-light: $purple-light;
 $text-light: $text;
 $text-strong: $text;
-$link: colors.$Primary_700;
-$white: colors.$Neutral_200;
+$white: colors.$Neutral_100;
+$white-bis: colors.$Neutral_200;
+$white-ter: colors.$Neutral_300;
 
-// -- -- Custom derived variables
-
-$secondary: $purple;
+$custom-colors: (
+    "secondary": ($secondary, findColorInvert($secondary), $secondary-light),
+    "secondary-lighter": ($secondary-lighter, findColorInvert($secondary-lighter)),
+);
 
 // -- Import all bulma styles
 
