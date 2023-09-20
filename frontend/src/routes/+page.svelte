@@ -13,24 +13,24 @@ import { onMount } from 'svelte';
         let scrollLeft = 0;
 
         carousel.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startPosX = e.clientX - carousel.offsetLeft;
-        scrollLeft = carousel.scrollLeft;
+            isDragging = true;
+            startPosX = e.clientX - carousel.offsetLeft;
+            scrollLeft = carousel.scrollLeft;
         });
 
         carousel.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const mouseX = e.clientX - carousel.offsetLeft;
-        const deltaX = mouseX - startPosX;
-        carousel.scrollLeft = scrollLeft - deltaX;
+            if (!isDragging) return;
+            const mouseX = e.clientX - carousel.offsetLeft;
+            const deltaX = mouseX - startPosX;
+            carousel.scrollLeft = scrollLeft - deltaX;
         });
 
         carousel.addEventListener('mouseup', () => {
-        isDragging = false;
+            isDragging = false;
         });
 
         carousel.addEventListener('mouseleave', () => {
-        isDragging = false;
+            isDragging = false;
         });
 
         const carouselItemWidth = carouselItems[0].getBoundingClientRect().width;
@@ -41,11 +41,11 @@ import { onMount } from 'svelte';
         if (window.innerWidth > 768) scrollItemNumber = 3
 
         scrollLeftButton.addEventListener('click', () => {
-        carousel.scrollLeft -= carouselItemWidth * scrollItemNumber; // Ajusta la cantidad de desplazamiento según sea necesario
+            carousel.scrollLeft -= carouselItemWidth * scrollItemNumber;
         });
 
         scrollRightButton.addEventListener('click', () => {
-        carousel.scrollLeft += carouselItemWidth * scrollItemNumber; // Ajusta la cantidad de desplazamiento según sea necesario
+            carousel.scrollLeft += carouselItemWidth * scrollItemNumber;
         });
 	});
 
