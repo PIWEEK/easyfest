@@ -163,7 +163,7 @@ import { onMount } from 'svelte';
     <div>
         <div class="carousel is-flex flex-wrap-nowrap py-1" style="margin: 0 auto">
             {#each Array(10) as _, i}
-            <div class="ml-4 carousel-item" style="flex: none; width: 16em">
+            <article class="ml-4 carousel-item" style="flex: none; width: 16em">
                 <div style="position: relative">
                     <figure class="image is-2by3">
                         <img src="https://bulma.io/images/placeholders/320x480.png" alt="Placeholder">
@@ -172,13 +172,13 @@ import { onMount } from 'svelte';
                     <span class="tag is-dark text--small--uppercase" style="position: absolute; right: 4px; bottom: 8px">Special guest</span>
                     {/if}
                 </div>
-                <div class="card-content">
+                <div class="card-content px-0">
                     <p class="title header--small is-spaced">Clara García</p>
                     <div class="block">
                         <p>Product Designer at Penpot</p>
                     </div>
                 </div>
-            </div>
+            </article>
             {/each}
         </div>
     </div>
