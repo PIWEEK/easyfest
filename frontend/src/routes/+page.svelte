@@ -276,6 +276,7 @@ import Marquee from '../lib/marquee.js'
     .marquee > * {
         flex-shrink: 0;
         animation: scroll 2s infinite linear;
+        animation-play-state: paused;
     }
 
     @keyframes scroll {

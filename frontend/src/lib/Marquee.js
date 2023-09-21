@@ -14,10 +14,10 @@ export default class Marquee {
 		this.contentWidth = this.content.getBoundingClientRect().width;
 		this.speed = speed;
 
-		this.#validate() && this.#init()
+		this.validate() && this.init()
 	}
 
-	#validate() {
+	validate() {
 		if (this.element.children.length > 1) {
 			console.error('Marquee element must have only ONE direct children');
 			return false
@@ -26,18 +26,19 @@ export default class Marquee {
 		return true;
 	}
 
-	#init() {
+	init() {
 		for (let index = 0; index < Math.ceil(this.elementWidth / this.contentWidth); index++) {
 			const clone = this.content.cloneNode(true)
 			clone.ariaHidden = true
 			this.allContent.push(clone)
 			this.element.appendChild(clone)
 		}
-		this.#setUnitSpeed()
-		this.#eventListenerResize()
+		this.setUnitSpeed()
+		this.eventListenerResize()
+		this.play()
 	}
 
-	#setUnitSpeed() {
+	setUnitSpeed() {
 		const unitSpeed = this.speed ? window.innerWidth / this.speed : undefined
 		if (unitSpeed) {
 			this.allContent.forEach(item => {
@@ -46,7 +47,7 @@ export default class Marquee {
 		}
 	}
 
-	#eventListenerResize() {
+	eventListenerResize() {
 		window.addEventListener('resize', () => this.reset())
 	}
 
@@ -58,7 +59,7 @@ export default class Marquee {
 
 	setSpeed(speed) {
 		this.speed = speed
-		this.#setUnitSpeed()
+		this.setUnitSpeed()
 	}
 
 	pause() {
