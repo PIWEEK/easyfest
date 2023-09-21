@@ -107,7 +107,7 @@ import Marquee from '../lib/marquee.js'
 
 <aside class="has-background-primary-light">
     <div id='marquee' class="marquee level is-mobile text--small--uppercase py-4">
-        <div>Registration is open&nbsp;🔥&nbsp;</div>
+        <div>Registration is open 🔥</div>
     </div>
 </aside>
 
@@ -287,6 +287,7 @@ import Marquee from '../lib/marquee.js'
         flex-shrink: 0;
         animation: scroll 2s infinite linear;
         animation-play-state: paused;
+        padding-right: 1ch;
     }
 
     @keyframes scroll {
