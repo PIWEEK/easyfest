@@ -1,10 +1,19 @@
 <script>
 import { onMount } from 'svelte';
+import Marquee from '../lib/marquee.js'
+
     const storage_url = import.meta.env.VITE_STORAGE_URL
     /** @type {import('./$types').PageData} */
     export let data;
 
+    const setUpMarquee = () => {
+        const marquee = document.querySelector('#marquee');
+        new Marquee(marquee, 50)
+    }
+
     onMount(() => {
+        setUpMarquee()
+
         const carousel = document.querySelector('.carousel');
         const carouselItems = carousel.querySelectorAll('.carousel-item');
 
@@ -97,11 +106,8 @@ import { onMount } from 'svelte';
 </section>
 
 <aside class="has-background-primary-light">
-    <div class="level is-mobile text--small--uppercase py-4">
-        {#each Array(16) as _}
-        <div class="level-item">Registration is open</div>
-        <div class="level-item">🔥</div>
-        {/each}
+    <div id='marquee' class="marquee level is-mobile text--small--uppercase py-4">
+        <div>Registration is open&nbsp;🔥&nbsp;</div>
     </div>
 </aside>
 
@@ -258,5 +264,26 @@ import { onMount } from 'svelte';
 
     .carousel > * {
         scroll-snap-align: center;
+    }
+
+    .marquee {
+        display: flex;
+        overflow: hidden;
+        user-select: none;
+        position: relative;
+    }
+    
+    .marquee > * {
+        flex-shrink: 0;
+        animation: scroll 2s infinite linear;
+    }
+
+    @keyframes scroll {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-100%);
+        }
     }
 </style>
