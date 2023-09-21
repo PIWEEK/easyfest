@@ -169,9 +169,9 @@ import Marquee from '../lib/marquee.js'
     <div>
         <div class="carousel is-flex flex-wrap-nowrap py-1" style="margin: 0 auto">
             {#each Array(10) as _, i}
-            <article class="ml-4 carousel-item" style="flex: none; width: 16em">
+            <article class="ml-4 carousel-item">
                 <div style="position: relative">
-                    <figure class="image is-2by3">
+                    <figure class="image">
                         <img src="https://bulma.io/images/placeholders/320x480.png" alt="Placeholder">
                     </figure>
                     {#if i % 3 === 0}
@@ -233,7 +233,7 @@ import Marquee from '../lib/marquee.js'
                 <figure class="image is-16by9">
                     <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder">
                 </figure>
-                <div class="p-3">
+                <div class="py-3">
                     <h1 class="title header--small">Catalonia Hotels</h1>
                     <div class="content">
                         <p>Enjoy a 10% discount on all Catalonia hotels for you.{#if i % 3 === 1}<br/>Use this link{/if}</p>
@@ -264,6 +264,16 @@ import Marquee from '../lib/marquee.js'
 
     .carousel > * {
         scroll-snap-align: center;
+    }
+
+    .carousel-item {
+        flex: none;
+        width: 19em;
+    }
+
+    .carousel-item img {
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
     }
 
     .marquee {
