@@ -100,3 +100,7 @@ $custom-colors: (
 .text--small--uppercase {
     @include mixTypographyClass(typographies.$Body_Small_Uppercase);
 }
+
+.border-color--secondary {
+    border-color: colors.$Secondary_Light;
+}

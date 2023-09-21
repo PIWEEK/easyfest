@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     const storage_url = import.meta.env.VITE_STORAGE_URL
     export let data;
-    export let navbarHiddenClass = '';
+    let navbarHiddenClass = '';
   
     function hamburgerClick(event) {
         const hamburger = event.currentTarget;

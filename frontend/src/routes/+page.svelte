@@ -124,10 +124,10 @@ import Marquee from '../lib/marquee.js'
             </div>
         </div>
     </div>
-    <div class="columns is-multiline is-gapless">
+    <div class="columns is-multiline featured-talks">
         {#each Array(4) as _, i}
-        <div class="column is-half">
-            <div class="p-6" style="height: 100%; display: flex; flex-direction: column">
+        <div class="column is-half border-color--secondary has-background-dark">
+            <div class="featured-talks-item" style="height: 100%; display: flex; flex-direction: column">
                 <p class="block has-text-white-ter">28 Wed. 10:00 am</p>
                 <div class="block">
                     <span class="tag has-background-secondary-light has-text-dark text--small--uppercase">Podcast</span>
@@ -285,6 +285,22 @@ import Marquee from '../lib/marquee.js'
         }
         to {
             transform: translateX(-100%);
+        }
+    }
+
+    .featured-talks > * {
+        border-width: 1px;
+        border-style: solid;
+        margin: -0.5px;
+    }
+
+    .featured-talks-item {
+        padding: 1.5rem;
+    }
+
+    @media (min-width: 769px) {
+        .featured-talks-item {
+            padding: 5rem;
         }
     }
 </style>
