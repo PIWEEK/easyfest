@@ -1,6 +1,8 @@
 <script>
+    import { onMount } from 'svelte';
     const storage_url = import.meta.env.VITE_STORAGE_URL
     export let data;
+    export let navbarHiddenClass = '';
   
     function hamburgerClick(event) {
         const hamburger = event.currentTarget;
@@ -11,16 +13,49 @@
             menu.classList.toggle("is-active");
         }
     }
+
+    const handleNavbarVisibility = ({scrollMargin = 10, topSafeArea = 100} = {}) => {
+        let lastScrollPosition = window.scrollY;
+
+        window.addEventListener('scroll',() => {
+        const currentScrollPosition = window.scrollY;
+
+        if (currentScrollPosition>lastScrollPosition + scrollMargin) {
+            navbarHiddenClass='is-concealed';
+        } else if (currentScrollPosition<lastScrollPosition - scrollMargin) {
+            navbarHiddenClass=''; 
+        }
+
+        if (currentScrollPosition < topSafeArea) navbarHiddenClass='';
+        lastScrollPosition = currentScrollPosition;
+    });
+    }
+
+    onMount(() => {
+        handleNavbarVisibility();
+    });
 </script>
 
 <style>
+    .navbar {
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transition: transform 0.1s ease-in-out;
+    }
+
+    .is-concealed {
+        transform: translateY(-100%);
+    }
+
     .navbar-center {
         width: 100%;
         justify-content: center;
     }
 </style>
 
-<nav class="navbar is-dark is-spaced" aria-label="main-navigation">
+<nav class="navbar is-dark is-spaced {navbarHiddenClass} " aria-label="main-navigation">
      <div class="container">
         <div class="navbar-brand">
             {#if data.logo_horiz.data}
