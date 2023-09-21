@@ -3,6 +3,7 @@
     const storage_url = import.meta.env.VITE_STORAGE_URL
     export let data;
     let navbarHiddenClass = '';
+    let isNavbarHidden = false;
   
     function hamburgerClick(event) {
         const hamburger = event.currentTarget;
@@ -21,9 +22,9 @@
         const currentScrollPosition = window.scrollY;
 
         if (currentScrollPosition>lastScrollPosition + scrollMargin) {
-            navbarHiddenClass='is-concealed';
+            isNavbarHidden = true;
         } else if (currentScrollPosition<lastScrollPosition - scrollMargin) {
-            navbarHiddenClass=''; 
+            isNavbarHidden = false;
         }
 
         if (currentScrollPosition < topSafeArea) navbarHiddenClass='';
@@ -55,7 +56,7 @@
     }
 </style>
 
-<nav class="navbar is-dark is-spaced {navbarHiddenClass} " aria-label="main-navigation">
+<nav class="navbar is-dark is-spaced" class:is-concealed={isNavbarHidden} aria-label="main-navigation">
      <div class="container">
         <div class="navbar-brand">
             {#if data.logo_horiz.data}
