@@ -29,12 +29,12 @@ const apiClient = (method, resource, data) => {
     if (data) {
       content.body = JSON.stringify(data)
     }
-  
+
       return fetch(`${base}/${resource}`, content)
       .then(response => response.json()) //review how data is sent back
       .catch(console.error)
   }
-  
+
 
 export async function load({ params }) {
     let fetch_site_data = {}
@@ -46,11 +46,6 @@ export async function load({ params }) {
         fetch_site_data = res_site.data.data.attributes
         const res_registration_info = await axios(base+path_registration_info);
         fetch_registration_info_data = res_registration_info.data.data.attributes
-
-        console.log(fetch_site_data)
-        console.log(fetch_registration_info_data)
-
-       
     } catch (e) {
         error = e
     }
@@ -72,22 +67,20 @@ const schema = z.object({
 export const actions = {
     default: async ({ request }) => {
       const form = await superValidate(request, schema);
-      console.log('POST', form);
-  
+
       // Convenient validation check:
       if (!form.valid) {
         // Again, always return { form } and things will just work.
         return fail(400, { form });
       }
-  
+
       // TODO: Do something with the validated data
 
       const {data} = await apiClient(
         "POST", "registrations?populate=*",
         { data: form.data }
       )
-      console.log({ data: form.data })
-  
+
       // Yep, return { form } here too
       return { form };
     }

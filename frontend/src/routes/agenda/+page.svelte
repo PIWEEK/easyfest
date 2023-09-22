@@ -5,7 +5,6 @@
     import ActivityFiller from "./ActivityFiller.svelte";
 
     export let data;
-    console.log("data", data)
 
     let current_day = data.days?.length > 0 ? data.days[1] : null;
     let container;
@@ -22,7 +21,6 @@
 
     function handleResize() {
         containerWidth = container.clientWidth;
-        console.log("containerWidth", containerWidth)
     }
 
     onMount(() => {
