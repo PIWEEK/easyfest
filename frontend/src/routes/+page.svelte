@@ -1,18 +1,21 @@
 <script>
-import { onMount } from 'svelte';
-import Marquee from '../lib/marquee.js'
+    import { onMount } from 'svelte'
+
+    import Marquee from '../lib/Marquee'
 
     const storage_url = import.meta.env.VITE_STORAGE_URL
     /** @type {import('./$types').PageData} */
     export let data;
 
-    const setUpMarquee = () => {
-        const marquee = document.querySelector('#marquee');
-        new Marquee(marquee, 50)
-    }
+    /** @type {HTMLDivElement} */
+    let /* binded */ marqueeElement;
+    onMount(() => {
+        if (!marqueeElement) return;
+
+        new Marquee(marqueeElement, 50);
+    });
 
     onMount(() => {
-        setUpMarquee()
 
         const carousel = document.querySelector('.carousel');
         const carouselItems = carousel.querySelectorAll('.carousel-item');
@@ -106,7 +109,7 @@ import Marquee from '../lib/marquee.js'
 </section>
 
 <aside class="has-background-primary-light">
-    <div id='marquee' class="marquee level is-mobile text--small--uppercase py-4">
+    <div bind:this={marqueeElement} class="marquee level is-mobile text--small--uppercase py-4">
         <div>Registration is open 🔥</div>
     </div>
 </aside>
@@ -282,7 +285,7 @@ import Marquee from '../lib/marquee.js'
         user-select: none;
         position: relative;
     }
-    
+
     .marquee > * {
         flex-shrink: 0;
         animation: scroll 2s infinite linear;

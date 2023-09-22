@@ -1,6 +1,6 @@
 /**
  * Marquee
- * 
+ *
  * @param {HTMLElement} element - The marquee HTML element with only one direct child
  * @param {Number} [speed=undefined] - Speed
  */
@@ -52,9 +52,17 @@ export default class Marquee {
 	}
 
 	reset() {
-		this.element.after(this.elementClone)
-		this.element.remove()
-		return new Marquee(this.elementClone, this.speed)
+		const elementClone = this.destroy()
+
+		return new Marquee(elementClone, this.speed);
+	}
+
+	destroy() {
+		// NOTE remove all event listeners
+		this.element.after(this.elementClone);
+		this.element.remove();
+
+		return this.elementClone;
 	}
 
 	setSpeed(speed) {
