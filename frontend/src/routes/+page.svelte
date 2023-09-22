@@ -15,50 +15,87 @@
         new Marquee(marqueeElement, 50);
     });
 
+    /** @type {HTMLDivElement} */
+    let /* binded */ carousel;
+    /** @type {HTMLButtonElement} */
+    let /* binded */ scrollLeftButton;
+    /** @type {HTMLButtonElement} */
+    let /* binded */ scrollRightButton;
     onMount(() => {
+        if (!carousel) return;
+        if (!scrollLeftButton) return;
+        if (!scrollRightButton) return;
 
-        const carousel = document.querySelector('.carousel');
         const carouselItems = carousel.querySelectorAll('.carousel-item');
 
         let isDragging = false;
         let startPosX = 0;
         let scrollLeft = 0;
 
-        carousel.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startPosX = e.clientX - carousel.offsetLeft;
-            scrollLeft = carousel.scrollLeft;
-        });
-
-        carousel.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const mouseX = e.clientX - carousel.offsetLeft;
-            const deltaX = mouseX - startPosX;
-            carousel.scrollLeft = scrollLeft - deltaX;
-        });
-
-        carousel.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-
-        carousel.addEventListener('mouseleave', () => {
-            isDragging = false;
-        });
-
         const carouselItemWidth = carouselItems[0].getBoundingClientRect().width;
-        const scrollLeftButton = document.querySelector('#carousel-btn-left');
-        const scrollRightButton = document.querySelector('#carousel-btn-right');
 
         let scrollItemNumber = 1
         if (window.innerWidth > 768) scrollItemNumber = 3
 
-        scrollLeftButton.addEventListener('click', () => {
-            carousel.scrollLeft -= carouselItemWidth * scrollItemNumber;
-        });
+        const eventHandlers = [
+            {
+                target: carousel,
+                eventName: 'mousedown',
+                listener: (e) => {
+                    isDragging = true;
+                    startPosX = e.clientX - carousel.offsetLeft;
+                    scrollLeft = carousel.scrollLeft;
+                },
+            },
+            {
+                target: carousel,
+                eventName: 'mousemove',
+                listener: (e) => {
+                    if (!isDragging) return;
+                    const mouseX = e.clientX - carousel.offsetLeft;
+                    const deltaX = mouseX - startPosX;
+                    carousel.scrollLeft = scrollLeft - deltaX;
+                },
+            },
+            {
+                target: carousel,
+                eventName: 'mouseup',
+                listener: () => {
+                    isDragging = false;
+                },
+            },
+            {
+                target: carousel,
+                eventName: 'mouseleave',
+                listener: () => {
+                    isDragging = false;
+                },
+            },
+            {
+                target: scrollLeftButton,
+                eventName: 'click',
+                listener: () => {
+                    carousel.scrollLeft -= carouselItemWidth * scrollItemNumber;
+                },
+            },
+            {
+                target: scrollRightButton,
+                eventName: 'click',
+                listener: () => {
+                    carousel.scrollLeft += carouselItemWidth * scrollItemNumber;
+                },
+            },
+        ];
 
-        scrollRightButton.addEventListener('click', () => {
-            carousel.scrollLeft += carouselItemWidth * scrollItemNumber;
-        });
+        for (const { target, eventName, listener } of eventHandlers) {
+            target.addEventListener(eventName, listener);
+        }
+
+        return () => {
+            for (const { target, eventName, listener } of eventHandlers) {
+                target.removeEventListener(eventName, listener);
+            }
+        }
 	});
 
 
@@ -163,14 +200,14 @@
             </div>
             <div class="column">
                 <div class="is-pulled-right">
-                    <button id="carousel-btn-left" class="button is-ghost has-text-dark">&larr;</button>
-                    <button id="carousel-btn-right" class="button is-ghost has-text-dark">&rarr;</button>
+                    <button bind:this={scrollLeftButton} class="button is-ghost has-text-dark">&larr;</button>
+                    <button bind:this={scrollRightButton} class="button is-ghost has-text-dark">&rarr;</button>
                 </div>
             </div>
         </div>
     </div>
     <div>
-        <div class="carousel is-flex flex-wrap-nowrap py-1" style="margin: 0 auto">
+        <div bind:this={carousel} class="carousel is-flex flex-wrap-nowrap py-1" style="margin: 0 auto">
             {#each Array(10) as _, i}
             <article class="ml-4 carousel-item">
                 <div style="position: relative">
