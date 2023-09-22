@@ -178,7 +178,7 @@
 </section>
 {/if}
 
-{#if homepage.marquee_text}
+{#if homepage.show_marquee_text && homepage.marquee_text}
 <aside class="has-background-primary-light">
     <div bind:this={marqueeElement} class="marquee level is-mobile text--small--uppercase py-4">
         <div>{homepage.marquee_text}</div>

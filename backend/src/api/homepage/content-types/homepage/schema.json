@@ -53,6 +53,11 @@
       "repeatable": false,
       "component": "homepage.about_section"
     },
+    "show_marquee_text": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
     "marquee_text": {
       "type": "string",
       "default": "🔥 Registration is open"
