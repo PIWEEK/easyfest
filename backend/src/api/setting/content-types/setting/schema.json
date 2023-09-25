@@ -244,6 +244,17 @@
       "type": "boolean",
       "default": true,
       "required": true
+    },
+    "social_media_links": {
+      "displayName": "Social media",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "site.social-media"
     }
   }
 }

@@ -3,6 +3,33 @@
 
     const storage_url = import.meta.env.VITE_STORAGE_URL
     export let data;
+
+    const PLATFORMS_MAP = {
+        "github": {
+            name: "GitHub",
+            url: "/img/icon-github.svg",
+        },
+        "mastodon": {
+            name: "Mastodon",
+            url: "/img/icon-mastodon.svg",
+        },
+        "youtube": {
+            name: "YouTube",
+            url: "/img/icon-youtube.svg",
+        },
+        "twitter": {
+            name: "Twitter",
+            url: "/img/icon-twitter.svg",
+        },
+        "instagram": {
+            name: "Instagram",
+            url: "/img/icon-instagram.svg",
+        },
+        "linkedin": {
+            name: "LinkedIn",
+            url: "/img/icon-linkedin.svg",
+        },
+    }
 </script>
 
 <footer class="footer has-background-dark has-text-white">
@@ -45,13 +72,20 @@
                     {/if}
                 </ul>
             </div>
-            <div class="column">
-                <p class="text--small--uppercase mb-4">More contacts</p>
+            {#if data.social_media_links.length > 0}
+            <div class="column p-0">
                 <ul>
-                    <li><a href="https://github.com/..." class="text--medium has-text-white">GitHub</a></li>
-                    <li><a href="https://joinmastodon.org/..." class="text--medium has-text-white">Mastodon</a></li>
+                    {#each data.social_media_links as link}
+                    {@const icon = PLATFORMS_MAP[link.platform]}
+                    <li class="is-inline-block m-2">
+                        <a href={link.url} class="icon text--medium has-text-white">
+                            <img src={icon.url} alt={link.label || icon.name}/>
+                        </a>
+                    </li>
+                    {/each}
                 </ul>
             </div>
+            {/if}
         </div>
     </div>
 </footer>

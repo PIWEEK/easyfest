@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_site_social_medias",
+  "info": {
+    "displayName": "Social media",
+    "icon": "link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "platform": {
+      "type": "enumeration",
+      "enum": [
+        "github",
+        "mastodon",
+        "youtube",
+        "twitter",
+        "instagram",
+        "linkedin"
+      ],
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "regex": "https?://",
+      "required": true,
+      "default": "https://web.site"
+    },
+    "label": {
+      "type": "string"
+    }
+  }
+}
