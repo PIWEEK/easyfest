@@ -5,22 +5,7 @@
     export let data;
 </script>
 
-<style lang="scss">
-    @use "bulma/sass/utilities/initial-variables.sass";
-
-    .footer {
-        background-image: url("/img/footer-bg.jpg");
-        p, a {
-            color: initial-variables.$white;
-        }
-        .footer-heading {
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-    }
-</style>
-
-<footer class="footer">
+<footer class="footer has-background-dark has-text-white">
     <div class="container">
         <div class="columns">
             <div class="column">
@@ -34,32 +19,38 @@
             </div>
             {#if data.show_cookie_policy || data.show_privacy_policy}
             <div class="column">
-                <p class="footer-heading has-text-white">Legal</p>
-                {#if data.show_cookie_policy}
-                <p><a href="/cookie-policy" class="has-text-white">Cookie policy</a></p>
-                {/if}
-                {#if data.show_privacy_policy}
-                <p><a href="/privacy-policy">Privacy policy</a></p>
-                {/if}
+                <p class="text--small--uppercase mb-4 has-text-white">Legal</p>
+                <ul>
+                    {#if data.show_cookie_policy}
+                    <li><a href="/cookie-policy" class="text--medium has-text-white">Cookie policy</a></li>
+                    {/if}
+                    {#if data.show_privacy_policy}
+                    <li><a href="/privacy-policy" class="text--medium has-text-white">Privacy policy</a></li>
+                    {/if}
+                </ul>
             </div>
             {/if}
             <div class="column">
-                <p class="footer-heading">{data.title}</p>
-                {#if data.show_org_team}
-                <p><a href="/org-team">Org team</a></p>
-                {/if}
-                <p><a href="/contact-info">Contact info</a></p>
-                {#if data.show_code_of_conduct}
-                <p><a href="/code-of-conduct">Code of Conduct</a></p>
-                {/if}
-                {#if data.show_press_kit}
-                <p><a href="/press-kit">Press kit</a></p>
-                {/if}
+                <p class="text--small--uppercase mb-4">{data.title}</p>
+                <ul>
+                    {#if data.show_org_team}
+                    <li><a href="/org-team" class="text--medium has-text-white">Org team</a></li>
+                    {/if}
+                    <li><a href="/contact-info" class="text--medium has-text-white">Contact info</a></li>
+                    {#if data.show_code_of_conduct}
+                    <li><a href="/code-of-conduct" class="text--medium has-text-white">Code of Conduct</a></li>
+                    {/if}
+                    {#if data.show_press_kit}
+                    <li><a href="/press-kit" class="text--medium has-text-white">Press kit</a></li>
+                    {/if}
+                </ul>
             </div>
             <div class="column">
-                <p class="footer-heading">More contacts</p>
-                <p><a href="https://github.com/...">GitHub</a></p>
-                <p><a href="https://joinmastodon.org/...">Mastodon</a></p>
+                <p class="text--small--uppercase mb-4">More contacts</p>
+                <ul>
+                    <li><a href="https://github.com/..." class="text--medium has-text-white">GitHub</a></li>
+                    <li><a href="https://joinmastodon.org/..." class="text--medium has-text-white">Mastodon</a></li>
+                </ul>
             </div>
         </div>
     </div>
