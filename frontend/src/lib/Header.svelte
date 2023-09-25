@@ -5,6 +5,16 @@
 
     const storage_url = import.meta.env.VITE_STORAGE_URL
     export let data;
+
+    const isRegistrationActive = data.registration != "hidden"
+    const showMenu = data.show_about_us ||
+        isRegistrationActive ||
+        data.show_accommodation_info ||
+        data.show_agenda ||
+        data.show_speakers ||
+        data.show_streaming ||
+        data.show_venue_info
+
     let navbarHiddenClass = '';
     let isNavbarHidden = false;
 
@@ -69,27 +79,43 @@
                 <img alt={data.title} src={logoFallback}/>
                 {/if}
             </a>
+            {#if showMenu}
             <button class="navbar-burger" aria-label="menu" aria-expanded="false" data-menu-id="mainMenu"
                on:click={hamburgerClick}>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </button>
+            {/if}
         </div>
+        {#if showMenu}
         <div id="mainMenu" class="navbar-menu">
             <div class="navbar-start navbar-center">
+                {#if data.show_about_us}
                 <a class="navbar-item" href="/about-us">About</a>
-                {#if data.registration != "hidden"}
+                {/if}
+                {#if isRegistrationActive}
                 <a class="navbar-item" href="/registration">Registration</a>
                 {/if}
+                {#if data.show_accommodation_info}
                 <a class="navbar-item" href="/accommodation-info">Accomodation info</a>
+                {/if}
+                {#if data.show_agenda}
                 <a class="navbar-item" href="/agenda">Agenda</a>
+                {/if}
+                {#if data.show_speakers}
                 <a class="navbar-item" href="/speakers">Speakers</a>
+                {/if}
+                {#if data.show_streaming}
                 <a class="navbar-item" href="/streaming">Streaming</a>
+                {/if}
+                {#if data.show_venue_info}
                 <a class="navbar-item" href="/venue-info">Venue info</a>
+                {/if}
            </div>
             <div class="navbar-end">
             </div>
         </div>
+        {/if}
     </div>
 </nav>
