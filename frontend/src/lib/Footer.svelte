@@ -44,7 +44,7 @@
             </div>
             {/if}
             <div class="column">
-                <p class="footer-heading">EasyFest</p>
+                <p class="footer-heading">{data.title}</p>
                 {#if data.show_org_team}
                 <p><a href="/org-team">Org team</a></p>
                 {/if}
