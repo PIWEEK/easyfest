@@ -236,9 +236,12 @@
                     <p><span style="text-decoration: underline">{profile.fullname}</span>, {profile.title}</p>
                     {/each}
                 </div>
+                {#if activity.track}
+                {@const track = activity.track.data.attributes}
                 <div class="block has-text-white-ter">
-                    <p>XXX Casa de les Punxes - Av. Diagonal, 420</p>
+                    <p>{track.title} - {track.description}</p>
                 </div>
+                {/if}
             </div>
         </div>
         {/each}

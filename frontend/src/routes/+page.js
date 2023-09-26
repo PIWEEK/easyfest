@@ -13,6 +13,7 @@ const homepagePath = `/homepage?${encodeQuery({
 		'hero_image',
 		'about_section.image',
 		'activities_section.featured_activities.public_faces',
+		'activities_section.featured_activities.track',
 		'speakers_section',
 		'locations_section.locations.image',
 		'accommodation_section.places.image'
