@@ -190,8 +190,8 @@ const grantEasyFestPublicApiPermissions = (strapi) => async () => {
       'api::registration': {
         controllers: {
           registration: {
-            find: { enabled: true, policy: '' },
-            findOne: { enabled: true, policy: '' },
+            find: { enabled: false, policy: '' },
+            findOne: { enabled: false, policy: '' },
             create: { enabled: true, policy: '' }
             // update: { enabled: false, policy: '' },
             // delete: { enabled: false, policy: '' }
