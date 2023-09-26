@@ -126,10 +126,10 @@
 </script>
 
 <section class="hero is-medium has-background-dark has-text-white">
-    <div class="hero-body">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-two-thirds">
+    <div class=" ">
+        <div class=" ">
+            <div class="columns is-gapless">
+                <div class="hero-content column  is-two-thirds">
                     {#if homepage.dates_and_location}
                     <p class="has-text-secondary-light header-date">{homepage.dates_and_location}</p>
                     {/if}
@@ -142,7 +142,7 @@
                     {/if}
                 </div>
                 <div class="column is-one-third">
-                    <figure class="image is-3by4">
+                    <figure class="hero-image image">
                         {#if homepage.hero_image.data}
                         {@const image = homepage.hero_image.data.attributes}
                         <img src="{storage_url}{image.url}" alt={image.caption}/>
@@ -435,5 +435,18 @@
         .featured-talks-item {
             padding: 5rem;
         }
+    }
+
+    .hero {
+        margin-bottom: 80px;
+    }
+
+    .hero-content {
+        padding: 8rem 5rem !important;
+    }
+
+    .hero-image {
+        aspect-ratio: 3 / 4;
+        height: calc(100% + 80px);
     }
 </style>
