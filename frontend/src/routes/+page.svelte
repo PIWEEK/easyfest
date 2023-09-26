@@ -9,6 +9,12 @@
     /** @type {import('./$types').PageData} */
     export let data;
 
+    /** @type {DateTimeFormatOptions} */
+    const activityDateFormatOptions = {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+    }
+
     /** @type {HTMLDivElement} */
     let /* binded */ marqueeElement;
     onMount(() => {
@@ -211,7 +217,10 @@
         {@const activity = activityWrapper.attributes}
         <div class="column is-half border-color--secondary has-background-dark">
             <div class="featured-talks-item" style="height: 100%; display: flex; flex-direction: column">
-                <p class="block has-text-white-ter">XXX 28 Wed. 10:00 am</p>
+                {#if activity.start}
+                {@const datetime = new Date(activity.start)}
+                <p class="block has-text-white-ter">{datetime.toLocaleString(undefined, activityDateFormatOptions)}</p>
+                {/if}
                 <div class="block">
                     {#if activity.tag2}
                     <span class="tag has-background-secondary-light has-text-dark text--small--uppercase">{activity.tag2}</span>
