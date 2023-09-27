@@ -447,4 +447,10 @@
         aspect-ratio: 3 / 4;
         height: calc(100% + 80px);
     }
+
+    .hero-image > img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
 </style>
