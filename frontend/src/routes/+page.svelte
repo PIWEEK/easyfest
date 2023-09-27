@@ -16,28 +16,6 @@
     }
 
     /** @type {HTMLDivElement} */
-    let /* binded */ ctaWrapperElement;
-    let registerCTASticky = false;
-    onMount(() => {
-        if (!ctaWrapperElement) return;
-        if (window.innerWidth > 768) return;
-
-        const callback = (entries) => {
-            entries.forEach((entry) => {
-                registerCTASticky = !entry.isIntersecting
-            });
-        };
-
-        const observer = new IntersectionObserver(callback);
-
-        observer.observe(ctaWrapperElement);
-
-        return () => {
-            observer.disconnect()
-        }
-    });
-
-    /** @type {HTMLDivElement} */
     let /* binded */ marqueeElement;
     onMount(() => {
         if (!marqueeElement) return;
@@ -128,11 +106,6 @@
         }
 	});
 
-    const REGISTRATION = {
-        SOON: 'soon',
-        OPEN: 'open',
-        FINISHED: 'finished',
-    }
     const STATUS = {
         HYPE: 'hype',
         PUBLIC: 'public',
@@ -158,9 +131,6 @@
                     <p class="title header--large has-text-white">{homepage.title}</p>
                     {#if highlightText}
                     <p class="subtitle text--large has-text-white">{highlightText}</p>
-                    {/if}
-                    {#if settings.registration === REGISTRATION.OPEN}
-                    <div bind:this={ctaWrapperElement} class='register-cta-wrapper'><a href="/registration" class="button is-primary register-cta" class:is-sticky={registerCTASticky}>{homepage.register_cta}</a></div>
                     {/if}
                 </div>
                 <div class="column is-one-third">
@@ -476,19 +446,5 @@
     .hero-image {
         aspect-ratio: 3 / 4;
         height: calc(100% + 80px);
-    }
-
-    .register-cta-wrapper {
-        min-height: 2.5em;
-    }
-
-    .register-cta.is-sticky {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        z-index: 100;
-        border-radius: 0;
-        height: 48px;
     }
 </style>

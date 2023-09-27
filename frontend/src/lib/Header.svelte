@@ -3,12 +3,21 @@
 
     import logoFallback from '../assets/images/easyfest-logo.svg'
 
+    const REGISTRATION = {
+        HIDDEN: 'hidden',
+        SOON: 'soon',
+        OPEN: 'open',
+        FINISHED: 'finished',
+    }
+
     const storage_url = import.meta.env.VITE_STORAGE_URL
     export let data;
 
-    const isRegistrationActive = data.registration != "hidden"
+    const isRegistrationOpen = data.registration === REGISTRATION.OPEN
+
+    const isRegistrationInfoActive = !isRegistrationOpen && data.registration !== REGISTRATION.HIDDEN
     const showMenu = data.show_about_us ||
-        isRegistrationActive ||
+        isRegistrationInfoActive ||
         data.show_accommodation_info ||
         data.show_agenda ||
         data.show_speakers ||
@@ -67,6 +76,30 @@
         width: 100%;
         justify-content: center;
     }
+
+    .register-cta.register-cta--sticky {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        border-radius: 0;
+        height: 48px;
+    }
+
+    .register-cta.register-cta--menu {
+        display: none;
+    }
+
+    @media screen and (min-width: 1024px) {
+        .register-cta.register-cta--sticky {
+            display: none;
+        }
+
+        .register-cta.register-cta--menu {
+            display: unset;
+        }
+    }
 </style>
 
 <nav class="navbar is-dark is-spaced" class:is-concealed={isNavbarHidden} aria-label="main-navigation">
@@ -94,7 +127,7 @@
                 {#if data.show_about_us}
                 <a class="navbar-item" href="/about-us">About</a>
                 {/if}
-                {#if isRegistrationActive}
+                {#if isRegistrationInfoActive}
                 <a class="navbar-item" href="/registration">Registration</a>
                 {/if}
                 {#if data.show_accommodation_info}
@@ -112,10 +145,16 @@
                 {#if data.show_venue_info}
                 <a class="navbar-item" href="/venue-info">Venue info</a>
                 {/if}
-           </div>
+            </div>
             <div class="navbar-end">
+                {#if isRegistrationOpen}
+                <a href="/registration" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
+                {/if}
             </div>
         </div>
         {/if}
     </div>
 </nav>
+{#if isRegistrationOpen}
+<div><a href="/registration" class="button is-primary register-cta register-cta--sticky">{data.register_cta}</a></div>
+{/if}

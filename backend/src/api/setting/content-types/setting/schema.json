@@ -34,6 +34,16 @@
       },
       "type": "string"
     },
+    "register_cta": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true,
+      "default": "Register now!"
+    },
     "description": {
       "pluginOptions": {
         "i18n": {

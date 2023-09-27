@@ -43,11 +43,6 @@
         "images"
       ]
     },
-    "register_cta": {
-      "type": "string",
-      "required": true,
-      "default": "Register now!"
-    },
     "about_section": {
       "type": "component",
       "repeatable": false,
