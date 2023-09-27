@@ -15,27 +15,23 @@
         timeStyle: 'short',
     }
 
+    /** @type {HTMLDivElement} */
+    let /* binded */ ctaWrapperElement;
     let registerCTASticky = false;
-
-    const handleStickyRegister = () => {
+    onMount(() => {
+        if (!ctaWrapperElement) return;
         if (window.innerWidth > 768) return;
 
-        const ctaWrapper = document.querySelector('#register-cta-wrapper');
-        if (!ctaWrapper) return;
-
-        let callback = (entries) => {
+        const callback = (entries) => {
             entries.forEach((entry) => {
                 registerCTASticky = !entry.isIntersecting
             });
         };
 
-        let observer = new IntersectionObserver(callback);
+        const observer = new IntersectionObserver(callback);
 
-        observer.observe(ctaWrapper);
-    }
+        observer.observe(ctaWrapperElement);
 
-    onMount(() => {
-        handleStickyRegister();
     });
 
     /** @type {HTMLDivElement} */
@@ -161,7 +157,7 @@
                     <p class="subtitle text--large has-text-white">{highlightText}</p>
                     {/if}
                     {#if settings.registration === REGISTRATION.OPEN}
-                    <div id="register-cta-wrapper" class='register-cta-wrapper'><a href="/registration" class="button is-primary register-cta" class:is-sticky={registerCTASticky}>{homepage.register_cta}</a></div>
+                    <div bind:this={ctaWrapperElement} class='register-cta-wrapper'><a href="/registration" class="button is-primary register-cta" class:is-sticky={registerCTASticky}>{homepage.register_cta}</a></div>
                     {/if}
                 </div>
                 <div class="column is-one-third">
