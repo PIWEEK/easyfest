@@ -445,6 +445,12 @@
         padding: 8rem 5rem !important;
     }
 
+    @media (max-width: 769px) {
+        .hero-content {
+            padding: 3rem 2rem !important;
+        }
+    }
+
     .hero-image {
         aspect-ratio: 3 / 4;
         height: calc(100% + 80px);
