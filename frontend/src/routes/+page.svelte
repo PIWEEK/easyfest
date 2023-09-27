@@ -417,6 +417,10 @@
         }
     }
 
+    .featured-talks {
+        margin: 0;
+    }
+
     .featured-talks > * {
         border-width: 1px;
         border-style: solid;
