@@ -123,7 +123,7 @@
 <section class="hero is-medium has-background-dark has-text-white">
     <div class=" ">
         <div class=" ">
-            <div class="columns is-gapless">
+            <div class="columns">
                 <div class="hero-content column  is-two-thirds">
                     {#if homepage.dates_and_location}
                     <p class="has-text-secondary-light header-date">{homepage.dates_and_location}</p>
@@ -435,12 +435,12 @@
     }
 
     .hero-content {
-        padding: 8rem 5rem !important;
+        padding: 8rem 5rem;
     }
 
     @media (max-width: 769px) {
         .hero-content {
-            padding: 3rem 2rem !important;
+            padding: 3rem 2rem;
         }
     }
 
