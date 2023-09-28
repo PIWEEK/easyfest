@@ -191,13 +191,13 @@
 <section class="has-background-dark has-text-white">
     <div class="container p-6">
         <div class="level columns">
-            <div class="column">
+            <div class="column is-two-thirds">
                 <p class="title header--medium has-text-white">{activities.title}</p>
                 {#if activities.intro}
                 <p class="subtitle text--large has-text-white">{activities.intro}</p>
                 {/if}
             </div>
-            <div class="column">
+            <div class="column is-one-third">
                 <div class="is-pulled-right">
                     <a href="/agenda" class="button is-white is-outlined">{activities.agenda_link_text}</a>
                 </div>
