@@ -40,7 +40,7 @@ export async function load({ params }) {
 		]);
 		data = {
 			homepage: homepageRes.data.data.attributes,
-			speakers: speakersRes.data.data.attributes
+			speakers: speakersRes.data.data
 		};
 	} catch (e) {
 		error = e;

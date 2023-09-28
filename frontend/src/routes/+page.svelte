@@ -243,12 +243,12 @@
 {/if}
 
 {#if settings.show_speakers && homepage.speakers_section && speakers}
-{@const speakers = homepage.speakers_section}
+{@const speakerSection = homepage.speakers_section}
 <section class="has-background-secondary-lighter">
     <div class="container p-6">
         <div class="level columns">
             <div class="column is-two-thirds">
-                <p class="title header--medium">{speakers.title}</p>
+                <p class="title header--medium">{speakerSection.title}</p>
             </div>
             <div class="column is-one-third">
                 <div class="is-pulled-right">
@@ -260,12 +260,13 @@
     </div>
     <div>
         <div bind:this={carousel} class="carousel is-flex flex-wrap-nowrap py-1" style="margin: 0 auto">
-            {#each speakers as profile}
+            {#each speakers as profileWrapper}
+            {@const profile = profileWrapper.attributes}
             {@const picture = profile.photo.data.attributes}
             <article class="ml-4 carousel-item">
                 <div style="position: relative">
                     <figure class="image">
-                        <img src={picture.url} alt={picture.caption ?? profile.fullname}>
+                        <img src="{storage_url}{picture.url}" alt={picture.caption ?? profile.fullname}>
                     </figure>
                     {#if profile.is_guest}
                     <span class="tag is-dark text--small--uppercase" style="position: absolute; right: 4px; bottom: 8px">Special guest</span>
@@ -282,7 +283,7 @@
         </div>
     </div>
     <div class="level buttons p-6 is-centered">
-        <a href="/speakers" class="button is-dark is-outlined">{speakers.speakers_link_text}</a>
+        <a href="/speakers" class="button is-dark is-outlined">{speakerSection.speakers_link_text}</a>
     </div>
 </section>
 {/if}
