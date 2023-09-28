@@ -363,7 +363,7 @@
     }
 
     .carousel {
-        overflow-x: scroll;
+        overflow-x: auto;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         user-select: none;
