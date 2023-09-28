@@ -74,8 +74,19 @@ $custom-colors: (
         @content;
     }
 }
+
+$genericTypographyFamilies: (
+    "Work Sans": sans-serif,
+    "Playfair Display": serif,
+    "Roboto Slab": serif,
+    "IBM Plex Mono": monospace,
+    "Kalam": (cursive, sans-serif),
+);
 @mixin mixTypographyClass($typographyMap) {
     @each $prop, $value in $typographyMap {
+        @if $prop == "font-family" {
+            $value: $value, map.get($genericTypographyFamilies, $value);
+        }
         #{$prop}: $value;
     }
 }
