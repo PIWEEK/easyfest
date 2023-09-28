@@ -91,10 +91,6 @@
                     <button class="button is-link">Submit</button>
                   </div>
               </div>
-
-            {#if data.fetch_site_data.registration == "soon"}
-            <div>{data.fetch_registration_info_data.content_soon}</div>
-            {/if}
           </form>
         {/if}
     </div>
