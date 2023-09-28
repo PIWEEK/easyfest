@@ -247,10 +247,10 @@
 <section class="has-background-secondary-lighter">
     <div class="container p-6">
         <div class="level columns">
-            <div class="column">
+            <div class="column is-two-thirds">
                 <p class="title header--medium">{speakers.title}</p>
             </div>
-            <div class="column">
+            <div class="column is-one-third">
                 <div class="is-pulled-right">
                     <button bind:this={scrollLeftButton} class="button is-ghost has-text-dark">&larr;</button>
                     <button bind:this={scrollRightButton} class="button is-ghost has-text-dark">&rarr;</button>
