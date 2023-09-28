@@ -78,7 +78,7 @@
                     {#each data.social_media_links as link}
                     {@const icon = PLATFORMS_MAP[link.platform]}
                     <li class="is-inline-block m-2">
-                        <a href={link.url} target="_blank" class="icon text--medium has-text-white">
+                        <a href={link.url} rel="me" target="_blank" class="icon text--medium has-text-white">
                             <img src={icon.url} alt={link.label || icon.name}/>
                         </a>
                     </li>
