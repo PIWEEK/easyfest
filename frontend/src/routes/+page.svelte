@@ -205,7 +205,7 @@
         </div>
     </div>
     <div class="columns is-multiline featured-talks">
-        {#each featuredActivities as activityWrapper, i}
+        {#each featuredActivities as activityWrapper}
         {@const activity = activityWrapper.attributes}
         <div class="column is-half border-color--secondary has-background-dark">
             <div class="featured-talks-item" style="height: 100%; display: flex; flex-direction: column">
