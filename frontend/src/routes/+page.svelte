@@ -269,7 +269,7 @@
                         <img src="{storage_url}{picture.url}" alt={picture.caption ?? profile.fullname}>
                     </figure>
                     {#if profile.is_guest}
-                    <span class="tag is-dark text--small--uppercase" style="position: absolute; right: 4px; bottom: 8px">Special guest</span>
+                    <span class="tag is-dark text--small--uppercase" style="position: absolute; right: 0; bottom: 12px">Special guest</span>
                     {/if}
                 </div>
                 <div class="card-content px-0">
