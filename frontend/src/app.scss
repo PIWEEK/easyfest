@@ -18,6 +18,9 @@ $size-5: map.get(typographies.$Body_Medium, "font-size");
 $size-6: map.get(typographies.$Body_Small , "font-size");
 $size-7: map.get(typographies.$Body_Small_Uppercase, "font-size");
 
+$radius-small: 0;
+$control-border-width: 2px;
+
 // -- Derived variables (that take value from other variables)
 
 $primary: colors.$Primary;
@@ -54,6 +57,10 @@ $custom-colors: (
     &:not(:first-child) {
         margin-top: 0;
     }
+}
+
+.button {
+    border-radius: $radius-small;
 }
 
 // -- Custom helpers
