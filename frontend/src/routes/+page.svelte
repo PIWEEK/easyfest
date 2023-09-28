@@ -228,7 +228,7 @@
                     <p><span style="text-decoration: underline">{profile.fullname}</span>, {profile.title}</p>
                     {/each}
                 </div>
-                {#if activity.track}
+                {#if activity.track.data}
                 {@const track = activity.track.data.attributes}
                 <div class="block has-text-white-ter">
                     <p>{track.title} - {track.description}</p>
