@@ -313,7 +313,7 @@
                 </figure>
             </div>
             <div class="column is-half content p-6">
-                <p><em>{badge}</em></p>
+                <p class="tag has-background-primary-light text--small--uppercase">{badge}</p>
                 <h1>{title}</h1>
                 <SvelteMarkdown options={{mangle: false}} source={mdContent} />
             </div>
