@@ -18,7 +18,6 @@ export async function load({ params }) {
             news_item = news_item.attributes
             news_items.push(news_item)
         })
-        console.log(news_items)
 
     } catch (e) {
         error = e

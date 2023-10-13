@@ -18,7 +18,9 @@
     <div class="container">
         <h1 class="title">{data.orgcontent.title}</h1>
         <div class="content">
+          {#if data.orgcontent.content}
           <SvelteMarkdown options={{mangle: false}} source={data.orgcontent.content}/>
+          {/if}
         </div>
 
         <div class="columns is-multiline">

@@ -1,0 +1,1 @@
+penpot-export.config.cjs

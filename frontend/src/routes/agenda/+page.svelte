@@ -5,9 +5,8 @@
     import ActivityFiller from "./ActivityFiller.svelte";
 
     export let data;
-    console.log("data", data)
 
-    let current_day = data.days[1];
+    let current_day = data.days?.length > 0 ? data.days[1] : null;
     let container;
     let containerWidth;
 
@@ -22,7 +21,6 @@
 
     function handleResize() {
         containerWidth = container.clientWidth;
-        console.log("containerWidth", containerWidth)
     }
 
     onMount(() => {
@@ -52,30 +50,32 @@
         </div>
 
         <div class="columns">
-            {#each current_day.tracks as track}
-                {#if track.activities.length > 0}
-                    <div class="column">
-                        <h2 class="title is-3">{track.title}</h2>
-                        <p class="subtitle">{track.description}</p>
-                        {#each track.activities as activity}
-                            {#if activity.attributes.is_filler}
-                                <ActivityFiller {activity} height={activityHeight(activity)} hideInMobile={true}/>
-                            {:else}
-                                {#if !activity.attributes.is_across_tracks}
-                                    <ActivityCard {activity} height={activityHeight(activity)}/>
+            {#if current_day}
+                {#each current_day.tracks as track}
+                    {#if track.activities.length > 0}
+                        <div class="column">
+                            <h2 class="title is-3">{track.title}</h2>
+                            <p class="subtitle">{track.description}</p>
+                            {#each track.activities as activity}
+                                {#if activity.attributes.is_filler}
+                                    <ActivityFiller {activity} height={activityHeight(activity)} hideInMobile={true}/>
                                 {:else}
-                                    <div class="activity-wrapper">
-                                        <ActivityFiller {activity} height={activityHeight(activity)}/>
-                                        <div class="column-extender" style="width: {containerWidth}px">
-                                            <ActivityCard {activity} height={activityHeight(activity)}/>
+                                    {#if !activity.attributes.is_across_tracks}
+                                        <ActivityCard {activity} height={activityHeight(activity)}/>
+                                    {:else}
+                                        <div class="activity-wrapper">
+                                            <ActivityFiller {activity} height={activityHeight(activity)}/>
+                                            <div class="column-extender" style="width: {containerWidth}px">
+                                                <ActivityCard {activity} height={activityHeight(activity)}/>
+                                            </div>
                                         </div>
-                                    </div>
+                                    {/if}
                                 {/if}
-                            {/if}
-                        {/each}
-                    </div>
-                {/if}
-            {/each}
+                            {/each}
+                        </div>
+                    {/if}
+                {/each}
+            {/if}
         </div>
     </div>
 </section>

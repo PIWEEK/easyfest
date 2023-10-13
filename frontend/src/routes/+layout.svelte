@@ -4,9 +4,15 @@
     import { Modals, closeModal } from 'svelte-modals'
     import Header from "$lib/Header.svelte"
     import Footer from "$lib/Footer.svelte"
-    
+
     export let data;
+
+    const title = data.tagline ? `${data.title} | ${data.tagline}` : data.title
 </script>
+
+<svelte:head>
+  <title>{title}</title>
+</svelte:head>
 
 <Modals>
     <div

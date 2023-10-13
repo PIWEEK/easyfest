@@ -19,15 +19,15 @@
         </div>
 
         {#if data.fetch_site_data.registration == "soon"}
-            <div class="content is-normal">{data.fetch_registration_info_data.content_soon}</div>
+            <div class="content is-normal">{data.fetch_registration_info_data.content_soon ?? ''}</div>
         {/if}
 
         {#if data.fetch_site_data.registration == "open"}
-            <div>{data.fetch_registration_info_data.content_open}</div>
+            <div>{data.fetch_registration_info_data.content_open ?? ''}</div>
         {/if}
 
-        {#if data.fetch_site_data.registration == "closed"}
-            <div>{data.fetch_registration_info_data.content_closed}</div>
+        {#if data.fetch_site_data.registration == "finished"}
+            <div>{data.fetch_registration_info_data.content_closed ?? ''}</div>
         {/if}
 
         {#if data.fetch_site_data.registration == "open"}
@@ -91,10 +91,6 @@
                     <button class="button is-link">Submit</button>
                   </div>
               </div>
-
-            {#if data.fetch_site_data.registration == "soon"}
-            <div>{data.fetch_registration_info_data.content_soon}</div>
-            {/if}
           </form>
         {/if}
     </div>

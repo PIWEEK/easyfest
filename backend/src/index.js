@@ -1,5 +1,8 @@
 'use strict';
 
+const saveAndPublishEasyFestDefaultEntities = require('./bootstrapEasyFestDefaultEntities.js')
+const grantEasyFestPublicApiPermissions = require('./bootstrapEasyFestPermissions.js');
+
 module.exports = {
   /**
    * An asynchronous register function that runs before
@@ -16,5 +19,9 @@ module.exports = {
    * This gives you an opportunity to set up your data model,
    * run jobs, or perform some special logic.
    */
-  bootstrap(/*{ strapi }*/) {},
+  async bootstrap({ strapi }) {
+    await saveAndPublishEasyFestDefaultEntities(strapi)()
+
+    await grantEasyFestPublicApiPermissions(strapi)()
+  },
 };

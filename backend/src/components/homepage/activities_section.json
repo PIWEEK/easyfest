@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_homepage_activities_section",
+  "info": {
+    "displayName": "activities section",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Featured activities"
+    },
+    "agenda_link_text": {
+      "type": "string",
+      "required": true,
+      "default": "View full agenda"
+    },
+    "intro": {
+      "type": "string"
+    },
+    "featured_activities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "min": 2,
+      "target": "api::activity.activity"
+    }
+  }
+}

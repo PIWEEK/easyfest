@@ -23,7 +23,8 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "default": "Press kit"
     },
     "content": {
       "pluginOptions": {
@@ -36,7 +37,6 @@
     "attachments": {
       "type": "media",
       "multiple": true,
-      "required": false,
       "allowedTypes": [
         "images",
         "files",

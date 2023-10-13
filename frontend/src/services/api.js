@@ -1,5 +1,4 @@
 const base = import.meta.env.VITE_API_URL
-console.log(base)
 
 if (!base) {
   console.error("Please, define API_URL in `.env.local`")

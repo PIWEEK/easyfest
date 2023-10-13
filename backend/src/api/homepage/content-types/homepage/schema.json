@@ -1,0 +1,81 @@
+{
+  "kind": "singleType",
+  "collectionName": "homepages",
+  "info": {
+    "singularName": "homepage",
+    "pluralName": "homepages",
+    "displayName": "homepage",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "dates_and_location": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "EasyFest, straightforward festival webpages"
+    },
+    "highlight_hype": {
+      "type": "text",
+      "required": true,
+      "default": "Get ready for EasyFest, the Design event that brings designers and developers together in Barcelona, June 28-30. Come and enjoy an outstanding speakers line-up, hand-on workshops and plenty of fun stuff!"
+    },
+    "highlight_public": {
+      "type": "text",
+      "required": true,
+      "default": "EasyFest is the Design event that brought designers and developers together in Barcelona in June 28-30. We will have an amazing time! See you there!"
+    },
+    "highlight_finished": {
+      "type": "text",
+      "required": true,
+      "default": "EasyFest is the Design event that brought designers and developers together in Barcelona in June 28-30. We had an amazing time. See you next year!"
+    },
+    "hero_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "about_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "homepage.about_section"
+    },
+    "show_marquee_text": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "marquee_text": {
+      "type": "string",
+      "default": "🔥 Registration is open"
+    },
+    "activities_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "homepage.activities_section"
+    },
+    "speakers_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "homepage.speakers_section"
+    },
+    "locations_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "homepage.locations_section"
+    },
+    "accommodation_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "homepage.accommodation_section"
+    }
+  }
+}

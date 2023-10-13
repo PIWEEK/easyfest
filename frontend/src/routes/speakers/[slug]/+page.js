@@ -12,12 +12,10 @@ export async function load({ params }) {
     try {
         const res = await axios(base+path+params.slug+'?populate=*');    
         publicprofile = res.data.data.attributes
-        console.log(publicprofile)
-
     } catch (e) {
         error = e
     }
     return {
         publicprofile
     };
-} 
+}
