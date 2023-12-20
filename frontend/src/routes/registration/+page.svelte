@@ -2,11 +2,9 @@
     import type { PageData } from './$types';
     import { superForm } from 'sveltekit-superforms/client';
     import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
-    const storage_url = import.meta.env.VITE_STORAGE_URL
     /** @type {import('./$types').PageData} */
     export let data;
   
-    // Client API:
     const { form, errors, constraints } = superForm(data.form);
 </script>
 

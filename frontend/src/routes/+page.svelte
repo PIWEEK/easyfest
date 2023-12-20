@@ -112,12 +112,19 @@
         FINISHED: 'finished',
     }
 
-    const { homepage, speakers, ...settings } = data
+    const { homepage, speakers, site, ...settings } = data
     const highlightText = {
         [STATUS.HYPE]: homepage.highlight_hype,
         [STATUS.PUBLIC]: homepage.highlight_public,
         [STATUS.FINISHED]: homepage.highlight_finished,
     }[settings.status] ?? null
+
+    const REGISTRATION = {
+        HIDDEN: 'hidden',
+        SOON: 'soon',
+        OPEN: 'open',
+        FINISHED: 'finished',
+    }
 </script>
 
 <section class="hero is-medium has-background-dark has-text-white">
@@ -148,6 +155,21 @@
     </div>
 </section>
 
+{#if site.registration === REGISTRATION.SOON}
+<section class="has-background-primary-light p-5">
+    <div class="container">
+        <p>To enter the tickets queue you'll need to be registered.</p>
+    </div>
+    <div class="container mt-4">
+        <p><a href="/method">Read about the EasyFEST method</a></p>
+    </div>
+    <div class="level buttons mt-4 is-centered">
+        <a href="/register" class="button is-primary">Register now!</a>
+        <a href="/tickets" class="button">Tickets</a>
+    </div>
+</section>
+{/if}
+
 {#if homepage.about_section}
 {@const title = homepage.about_section.title}
 {@const image = homepage.about_section.image.data.attributes}
@@ -162,7 +184,6 @@
     </div>
     <div class="container">
         <div class="level columns">
-
             <div class="column">
                 <figure class="image is-5by4">
                     <img src="{storage_url}{image.url}" alt={image.caption}/>

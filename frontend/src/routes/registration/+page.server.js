@@ -7,7 +7,6 @@ const base = import.meta.env.VITE_API_URL
 const path = "/site"
 const path_registration_info = "/registration-info"
 
-
 let data = {}
 
 const baseHeaders = {
@@ -35,7 +34,6 @@ const apiClient = (method, resource, data) => {
       .catch(console.error)
   }
 
-
 export async function load({ params }) {
     let fetch_site_data = {}
     let fetch_registration_info_data = {}
@@ -61,7 +59,6 @@ const schema = z.object({
   title: z.string(),
   organization: z.string(),
   pronouns: z.string()
-
 });
 
 export const actions = {

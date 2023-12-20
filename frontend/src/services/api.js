@@ -1,8 +1,9 @@
+import axios from 'axios'
+
 const base = import.meta.env.VITE_API_URL
 
 if (!base) {
   console.error("Please, define API_URL in `.env.local`")
-  console.log(base)
 }
 
 const baseHeaders = {
@@ -15,17 +16,18 @@ const baseHeaders = {
  * @param {string} resource
  * @param {Record<string, unknown>} [data]
  */
-export const apiClient = (method, resource, data) => {
+export const apiClient = (method, resource, data, authToken) => {
+  const authHeaders = authToken ? {"Authorization": `Bearer ${authToken}`} : {}
 
-  const content = {
+  const config = {
 		method,
-    headers: {...baseHeaders},
+    headers: {...baseHeaders, ...authHeaders},
   }
   if (data) {
-    content.body = data && JSON.stringify(data)
+    config.data = data && JSON.stringify(data)
   }
 
-	return fetch(`${base}/${resource}`, content)
-    .then(response => response.json()) //review how data is sent back
-    .catch(console.error)
+	return axios(`${base}/${resource}`, config)
+    .then(response => response.data)
+    .catch((err) => console.error("######error",  err.response.data.error))
 }

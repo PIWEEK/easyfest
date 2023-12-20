@@ -26,6 +26,9 @@ const speakersPath = `/public-profiles?${encodeQuery({
 	populate: '*',
 	sort: ['order:asc']
 })}`;
+const sitePath = `/site?${encodeQuery({
+	populate: '*'
+})}`;
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
@@ -34,14 +37,17 @@ export async function load({ params }) {
 	let error = null;
 
 	try {
-		const [homepageRes, speakersRes] = await Promise.all([
+		const [homepageRes, speakersRes, siteRes] = await Promise.all([
 			axios(base + homepagePath),
-			axios(base + speakersPath)
+			axios(base + speakersPath),
+			axios(base + sitePath)
 		]);
 		data = {
 			homepage: homepageRes.data.data.attributes,
-			speakers: speakersRes.data.data
+			speakers: speakersRes.data.data,
+			site: siteRes.data.data.attributes
 		};
+		console.log(data.site)
 	} catch (e) {
 		error = e;
 		console.error(error);
