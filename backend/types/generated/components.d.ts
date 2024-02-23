@@ -1,7 +1,7 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
 export interface HomepageAboutSection extends Schema.Component {
-  collectionName: 'components_homepage_about_section';
+  collectionName: 'comp_home_about_section';
   info: {
     displayName: 'about section';
     icon: 'picture';
@@ -16,7 +16,7 @@ export interface HomepageAboutSection extends Schema.Component {
 }
 
 export interface HomepageAccommodationItem extends Schema.Component {
-  collectionName: 'components_homepage_accommodation_item';
+  collectionName: 'comp_home_accommodation_item';
   info: {
     displayName: 'accommodation item';
     icon: 'picture';
@@ -29,7 +29,7 @@ export interface HomepageAccommodationItem extends Schema.Component {
 }
 
 export interface HomepageAccommodationSection extends Schema.Component {
-  collectionName: 'components_homepage_accommodation_section';
+  collectionName: 'comp_home_accommodation_section';
   info: {
     displayName: 'accommodation section';
     icon: 'picture';
@@ -49,7 +49,7 @@ export interface HomepageAccommodationSection extends Schema.Component {
 }
 
 export interface HomepageActivitiesSection extends Schema.Component {
-  collectionName: 'components_homepage_activities_section';
+  collectionName: 'comp_hom_activities_section';
   info: {
     displayName: 'activities section';
     icon: 'picture';
@@ -74,7 +74,7 @@ export interface HomepageActivitiesSection extends Schema.Component {
 }
 
 export interface HomepageLocationsItem extends Schema.Component {
-  collectionName: 'components_homepage_locations_item';
+  collectionName: 'comp_home_locations_item';
   info: {
     displayName: 'locations item';
     icon: 'picture';
@@ -88,7 +88,7 @@ export interface HomepageLocationsItem extends Schema.Component {
 }
 
 export interface HomepageLocationsSection extends Schema.Component {
-  collectionName: 'components_homepage_locations_section';
+  collectionName: 'comp_home_locations_section';
   info: {
     displayName: 'locations section';
     icon: 'picture';
@@ -108,7 +108,7 @@ export interface HomepageLocationsSection extends Schema.Component {
 }
 
 export interface HomepageSpeakersSection extends Schema.Component {
-  collectionName: 'components_homepage_speakers_section';
+  collectionName: 'comp_home_speakers_section';
   info: {
     displayName: 'speakers section';
     icon: 'picture';
@@ -124,7 +124,7 @@ export interface HomepageSpeakersSection extends Schema.Component {
 }
 
 export interface SiteSocialMedia extends Schema.Component {
-  collectionName: 'components_site_social_medias';
+  collectionName: 'comp_site_social_medias';
   info: {
     displayName: 'Social media';
     icon: 'link';
