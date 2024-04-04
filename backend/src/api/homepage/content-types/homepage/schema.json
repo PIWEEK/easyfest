@@ -57,7 +57,7 @@
       "type": "string",
       "default": "🔥 Registration is open"
     },
-    "activities_section": {
+    "act_section": {
       "type": "component",
       "repeatable": false,
       "component": "homepage.activities_section"
@@ -67,12 +67,12 @@
       "repeatable": false,
       "component": "homepage.speakers_section"
     },
-    "locations_section": {
+    "loc_section": {
       "type": "component",
       "repeatable": false,
       "component": "homepage.locations_section"
     },
-    "accommodation_section": {
+    "acco_section": {
       "type": "component",
       "repeatable": false,
       "component": "homepage.accommodation_section"

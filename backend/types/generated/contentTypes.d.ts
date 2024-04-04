@@ -1349,10 +1349,10 @@ export interface ApiHomepageHomepage extends Schema.SingleType {
       Attribute.DefaultTo<false>;
     marquee_text: Attribute.String &
       Attribute.DefaultTo<'\uD83D\uDD25 Registration is open'>;
-    activities_section: Attribute.Component<'homepage.activities_section'>;
+    act_section: Attribute.Component<'homepage.activities_section'>;
     speakers_section: Attribute.Component<'homepage.speakers_section'>;
-    locations_section: Attribute.Component<'homepage.locations_section'>;
-    accommodation_section: Attribute.Component<'homepage.accommodation_section'>;
+    loc_section: Attribute.Component<'homepage.locations_section'>;
+    acco_section: Attribute.Component<'homepage.accommodation_section'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
