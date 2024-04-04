@@ -2,7 +2,8 @@
   "collectionName": "comp_home_activities_section",
   "info": {
     "displayName": "activities section",
-    "icon": "picture"
+    "icon": "picture",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -19,10 +20,9 @@
     "intro": {
       "type": "string"
     },
-    "featured_activities": {
+    "f_activities": {
       "type": "relation",
       "relation": "oneToMany",
-      "min": 2,
       "target": "api::activity.activity"
     }
   }

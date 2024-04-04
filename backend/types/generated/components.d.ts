@@ -53,6 +53,7 @@ export interface HomepageActivitiesSection extends Schema.Component {
   info: {
     displayName: 'activities section';
     icon: 'picture';
+    description: '';
   };
   attributes: {
     title: Attribute.String &
@@ -62,14 +63,11 @@ export interface HomepageActivitiesSection extends Schema.Component {
       Attribute.Required &
       Attribute.DefaultTo<'View full agenda'>;
     intro: Attribute.String;
-    featured_activities: Attribute.Relation<
+    f_activities: Attribute.Relation<
       'homepage.activities_section',
       'oneToMany',
       'api::activity.activity'
-    > &
-      Attribute.SetMinMax<{
-        min: 2;
-      }>;
+    >;
   };
 }
 
