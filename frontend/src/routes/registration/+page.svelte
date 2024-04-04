@@ -1,4 +1,5 @@
 <script lang="ts">
+    import SvelteMarkdown from 'svelte-markdown'
     import type { PageData } from './$types';
     import { superForm } from 'sveltekit-superforms/client';
     import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
@@ -17,15 +18,22 @@
         </div>
 
         {#if data.fetch_site_data.registration == "soon"}
-            <div class="content is-normal">{data.fetch_registration_info_data.content_soon ?? ''}</div>
+
+        <div class="content is-normal">
+          <SvelteMarkdown options={{mangle: false}} source={data.fetch_registration_info_data.content_soon ?? ''}/>
+        </div>
         {/if}
 
         {#if data.fetch_site_data.registration == "open"}
-            <div>{data.fetch_registration_info_data.content_open ?? ''}</div>
+            <div>
+              <SvelteMarkdown options={{mangle: false}} source={data.fetch_registration_info_data.content_open ?? ''}/>
+            </div>
         {/if}
 
         {#if data.fetch_site_data.registration == "finished"}
-            <div>{data.fetch_registration_info_data.content_closed ?? ''}</div>
+            <div>
+              <SvelteMarkdown options={{mangle: false}} source={data.fetch_registration_info_data.content_closed ?? ''}/>
+            </div>
         {/if}
 
         {#if data.fetch_site_data.registration == "open"}

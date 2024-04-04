@@ -127,7 +127,7 @@
                 <a class="navbar-item" href="/about-us">About</a>
                 {/if}
                 {#if isRegistrationInfoActive}
-                <a class="navbar-item" href="/registration">Registration</a>
+                <a class="navbar-item" href="/registration">Tickets</a>
                 {/if}
                 {#if data.show_accommodation_info}
                 <a class="navbar-item" href="/accommodation-info">Accomodation info</a>
@@ -146,7 +146,7 @@
                 {/if}
             </div>
             <div class="navbar-end">
-                <a href="/registration" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
+                <a href="https://www.eventbrite.es/e/penpot-fest-2024-tickets-859331883797?aff=ebdshpsearchautocomplete" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
              </div>
         </div>
         {/if}

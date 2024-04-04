@@ -188,7 +188,7 @@
                     <img src="{storage_url}{image.url}" alt={image.caption}/>
                 </figure>
             </div>
-            <div class="column content">
+            <div class="column content text--large">
                 <SvelteMarkdown options={{mangle: false}} source={mdContent} />
             </div>
         </div>
