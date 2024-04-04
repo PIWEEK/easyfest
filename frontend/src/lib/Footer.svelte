@@ -32,7 +32,7 @@
     }
 </script>
 
-<footer class="footer has-background-dark has-text-white">
+<footer class="footer has-background-dark has-text-white"  style="background-image: url('/img/pencils_bg.jpg'); background-size: cover;">
     <div class="container">
         <div class="columns">
             <div class="column">
@@ -84,8 +84,12 @@
                     </li>
                     {/each}
                 </ul>
+                <div><a href="https://www.eventbrite.es/e/penpot-fest-2024-tickets-859331883797?aff=ebdshpsearchautocomplete" class="button is-primary">{data.register_cta}</a></div>
+
             </div>
             {/if}
+        
+        
         </div>
     </div>
 </footer>

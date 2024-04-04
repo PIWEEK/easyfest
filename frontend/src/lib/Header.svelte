@@ -101,7 +101,6 @@
         }
     }
 </style>
-
 <nav class="navbar is-dark is-spaced" class:is-concealed={isNavbarHidden} aria-label="main-navigation">
      <div class="container">
         <div class="navbar-brand">
@@ -147,14 +146,10 @@
                 {/if}
             </div>
             <div class="navbar-end">
-                {#if isRegistrationOpen}
                 <a href="/registration" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
-                {/if}
-            </div>
+             </div>
         </div>
         {/if}
     </div>
 </nav>
-{#if isRegistrationOpen}
-<div><a href="/registration" class="button is-primary register-cta register-cta--sticky">{data.register_cta}</a></div>
-{/if}
+

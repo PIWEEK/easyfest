@@ -131,7 +131,7 @@
     <div class=" ">
         <div class=" ">
             <div class="columns">
-                <div class="hero-content column  is-two-thirds">
+                <div class="hero-content column is-half">
                     {#if homepage.dates_and_location}
                     <p class="has-text-secondary-light header-date">{homepage.dates_and_location}</p>
                     {/if}
@@ -139,8 +139,21 @@
                     {#if highlightText}
                     <p class="subtitle text--large has-text-white">{highlightText}</p>
                     {/if}
+                    {#if site.registration === REGISTRATION.SOON}
+                        <section class="has-background-dark p-5">
+                        <div class="container">
+                        <p>The community is coming together to discuss the intersection between design and code and how open source and open standards are shaping the future already!</p>
+                        </div>
+                        
+    <div class="level buttons mt-4 is-centered">
+        <a href="https://www.eventbrite.es/e/penpot-fest-2024-tickets-859331883797?aff=ebdshpsearchautocomplete" class="button is-primary">{data.register_cta}</a>
+
+    </div>
+</section>
+{/if}
+
                 </div>
-                <div class="column is-one-third">
+                <div class="column is-half">
                     <figure class="hero-image image">
                         {#if homepage.hero_image.data}
                         {@const image = homepage.hero_image.data.attributes}
@@ -155,20 +168,6 @@
     </div>
 </section>
 
-{#if site.registration === REGISTRATION.SOON}
-<section class="has-background-primary-light p-5">
-    <div class="container">
-        <p>To enter the tickets queue you'll need to be registered.</p>
-    </div>
-    <div class="container mt-4">
-        <p><a href="/method">Read about the EasyFEST method</a></p>
-    </div>
-    <div class="level buttons mt-4 is-centered">
-        <a href="/register" class="button is-primary">Register now!</a>
-        <a href="/tickets" class="button">Tickets</a>
-    </div>
-</section>
-{/if}
 
 {#if homepage.about_section}
 {@const title = homepage.about_section.title}
@@ -378,6 +377,20 @@
 </section>
 {/if}
 
+{#if settings.show_newsletter_subscription}
+<section class="" style="background-image: url('/img/intheloop.png'); background-size: cover;">
+    <div class="container p-6">
+        <p class="title header--medium has-text-white">Stay in the loop</p>
+        
+        <p class="subtitle text--large has-text-white">Keep track of Penpot’s development
+            progress and latest news!</p>
+
+    </div>
+</section>
+{/if}
+
+
+
 <style>
     img {
         width: 100%;
@@ -466,7 +479,7 @@
     }
 
     .hero-image {
-        aspect-ratio: 3 / 4;
+        aspect-ratio: 2 / 1;
         height: calc(100% + 80px);
     }
 
