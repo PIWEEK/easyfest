@@ -361,9 +361,6 @@
             {@const title = place.title}
             {@const mdContent = place.content}
             <div class="column is-one-third">
-                <figure class="image is-16by9">
-                    <img src="{storage_url}{image.url}" alt={image.caption}>
-                </figure>
                 <div class="py-3">
                     <h1 class="title header--small">{title}</h1>
                     <div class="content">
