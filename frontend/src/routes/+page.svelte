@@ -346,7 +346,7 @@
 {#if settings.show_accommodation_info && homepage.accommodation_section}
 {@const accommodation = homepage.accommodation_section}
 <section class="block has-background-white-bis">
-    <div class="container p-5">
+    <div class="container p-6">
         <div>
             <p class="title header--medium">{accommodation.title}</p>
             {#if accommodation.intro}
