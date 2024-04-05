@@ -346,7 +346,7 @@
 {#if settings.show_accommodation_info && homepage.accommodation_section}
 {@const accommodation = homepage.accommodation_section}
 <section class="block has-background-white-bis">
-    <div class="container p-6">
+    <div class="container p-5">
         <div>
             <p class="title header--medium">{accommodation.title}</p>
             {#if accommodation.intro}
@@ -355,7 +355,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="level columns is-multiline is-justify-content-center is-align-items-stretch">
+        <div class="level columns is-multiline is-justify-content-space-evenly is-align-items-stretch">
             {#each accommodation.places as place}
             {@const image = place.image.data.attributes}
             {@const title = place.title}
