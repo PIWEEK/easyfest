@@ -126,12 +126,6 @@
                 {#if data.show_about_us}
                 <a class="navbar-item" href="/about-us">About</a>
                 {/if}
-                {#if isRegistrationInfoActive}
-                <a class="navbar-item" href="/registration">Tickets</a>
-                {/if}
-                {#if data.show_accommodation_info}
-                <a class="navbar-item" href="/accommodation-info">Accomodation info</a>
-                {/if}
                 {#if data.show_agenda}
                 <a class="navbar-item" href="/agenda">Agenda</a>
                 {/if}
