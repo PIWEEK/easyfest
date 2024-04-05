@@ -83,7 +83,7 @@
     "$value": {
       "lineHeight": 1.2,
       "fontWeight": 700,
-      "fontSize": "77px",
+      "fontSize": "63px",
       "letterSpacing": "0px",
       "fontFamily": "Work Sans"
     }

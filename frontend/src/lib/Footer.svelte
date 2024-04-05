@@ -32,7 +32,7 @@
     }
 </script>
 
-<footer class="footer has-background-dark has-text-white"  style="background-image: url('/img/pencils_bg.jpg'); background-size: cover;">
+<footer class="footer has-background-dark has-text-white">
     <div class="container">
         <div class="columns">
             <div class="column">

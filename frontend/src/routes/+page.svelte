@@ -140,7 +140,7 @@
                     <p class="subtitle text--large has-text-white">{highlightText}</p>
                     {/if}
                     {#if site.registration === REGISTRATION.SOON}
-                        <section class="has-background-dark p-5">
+                        <section class="has-background-dark p-0">
                         <div class="container">
                         <p>The community is coming together to discuss the intersection between design and code and how open source and open standards are shaping the future already!</p>
                         </div>
@@ -279,7 +279,7 @@
         </div>
     </div>
     <div>
-        <div bind:this={carousel} class="carousel is-flex flex-wrap-nowrap py-1" style="margin: 0 auto">
+        <div bind:this={carousel} class="carousel is-flex flex-wrap-nowrap py-1 is-justify-content-space-evenly is-align-items-stretch" style="margin: 0 auto">
             {#each speakers as profileWrapper}
             {@const profile = profileWrapper.attributes}
             {@const picture = profile.photo.data.attributes}
@@ -346,7 +346,7 @@
 {#if settings.show_accommodation_info && homepage.accommodation_section}
 {@const accommodation = homepage.accommodation_section}
 <section class="block has-background-white-bis">
-    <div class="container p-6">
+    <div class="container py-6 px-6">
         <div>
             <p class="title header--medium">{accommodation.title}</p>
             {#if accommodation.intro}
@@ -355,7 +355,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="level columns is-multiline is-justify-content-space-evenly is-align-items-stretch">
+        <div class="level columns is-multiline is-align-items-stretch px-6">
             {#each accommodation.places as place}
             {@const image = place.image.data.attributes}
             {@const title = place.title}
