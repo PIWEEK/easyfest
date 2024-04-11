@@ -1,5 +1,4 @@
 <script>
-
     import "../app.scss"
     import { Modals, closeModal } from 'svelte-modals'
     import Header from "$lib/Header.svelte"
@@ -12,6 +11,10 @@
 
 <svelte:head>
   <title>{title}</title>
+
+  {#if import.meta.env.VITE_GTM_CODE}
+  <script async src="https://penpot.app/scripts/cookie-consent.js?gtm={import.meta.env.VITE_GTM_CODE}"></script>
+  {/if}
 </svelte:head>
 
 <Modals>
