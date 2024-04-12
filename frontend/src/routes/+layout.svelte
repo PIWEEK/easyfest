@@ -13,7 +13,7 @@
   <title>{title}</title>
 
   {#if import.meta.env.VITE_GTM_CODE}
-  <script async src="https://penpot.app/scripts/cookie-consent.js?gtm={import.meta.env.VITE_GTM_CODE}"></script>
+  <script async src="/scripts/cookie-consent.js?gtm={import.meta.env.VITE_GTM_CODE}"></script>
   {/if}
 </svelte:head>
 
