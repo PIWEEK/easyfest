@@ -141,16 +141,13 @@
                     {/if}
                     {#if site.registration === REGISTRATION.SOON}
                         <section class="has-background-dark p-0">
-                        <div class="container">
-                        <p>The community is coming together to discuss the intersection between design and code and how open source and open standards are shaping the future already!</p>
-                        </div>
                         
-    <div class="level buttons mt-4 is-centered">
-        <a href="https://community.penpot.app/t/penpot-fest-2024-is-cancelled-read-more-to-know-why/" class="button is-primary">{data.register_cta}</a>
+                    <div class="level buttons mt-4 is-centered">
+                    <a href="https://community.penpot.app/t/penpot-fest-2024-is-cancelled-read-more-to-know-why/" class="button is-primary">{data.register_cta}</a>
 
-    </div>
-</section>
-{/if}
+                    </div>
+                    </section>
+                    {/if}
 
                 </div>
                 <div class="column is-half">
