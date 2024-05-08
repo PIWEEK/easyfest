@@ -140,7 +140,7 @@
                 {/if}
             </div>
             <div class="navbar-end">
-                <a href="https://community.penpot.app/t/penpot-fest-2024-is-cancelled-read-more-to-know-why/" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
+                <a href="https://www.youtube.com/playlist?list=PLgcCPfOv5v56-fghJo2dHNBqL9zlDTslh" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
              </div>
         </div>
         {/if}

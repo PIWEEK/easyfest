@@ -143,7 +143,7 @@
                         <section class="has-background-dark p-0">
                         
                     <div class="level buttons mt-4 is-centered">
-                    <a href="https://community.penpot.app/t/penpot-fest-2024-is-cancelled-read-more-to-know-why/" class="button is-primary">{data.register_cta}</a>
+                    <a href="https://www.youtube.com/playlist?list=PLgcCPfOv5v56-fghJo2dHNBqL9zlDTslh" class="button is-primary">{data.register_cta}</a>
 
                     </div>
                     </section>
