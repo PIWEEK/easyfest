@@ -49,7 +49,7 @@ export interface HomepageAccommodationSection extends Schema.Component {
 }
 
 export interface HomepageActivitiesSection extends Schema.Component {
-  collectionName: 'comp_hom_activities_section';
+  collectionName: 'comp_home_activities_section';
   info: {
     displayName: 'activities section';
     icon: 'picture';
