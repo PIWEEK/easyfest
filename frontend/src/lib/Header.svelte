@@ -101,7 +101,6 @@
         }
     }
 </style>
-
 <nav class="navbar is-dark is-spaced" class:is-concealed={isNavbarHidden} aria-label="main-navigation">
      <div class="container">
         <div class="navbar-brand">
@@ -127,12 +126,6 @@
                 {#if data.show_about_us}
                 <a class="navbar-item" href="/about-us">About</a>
                 {/if}
-                {#if isRegistrationInfoActive}
-                <a class="navbar-item" href="/registration">Registration</a>
-                {/if}
-                {#if data.show_accommodation_info}
-                <a class="navbar-item" href="/accommodation-info">Accomodation info</a>
-                {/if}
                 {#if data.show_agenda}
                 <a class="navbar-item" href="/agenda">Agenda</a>
                 {/if}
@@ -147,14 +140,10 @@
                 {/if}
             </div>
             <div class="navbar-end">
-                {#if isRegistrationOpen}
-                <a href="/registration" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
-                {/if}
-            </div>
+                <a href="https://www.youtube.com/playlist?list=PLgcCPfOv5v56-fghJo2dHNBqL9zlDTslh" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
+             </div>
         </div>
         {/if}
     </div>
 </nav>
-{#if isRegistrationOpen}
-<div><a href="/registration" class="button is-primary register-cta register-cta--sticky">{data.register_cta}</a></div>
-{/if}
+

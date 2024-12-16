@@ -5,7 +5,7 @@
 
 <section class="section">
     <div class="container">
-        <h1 class="title">{data.title}</h1>
+        <h3 class="title">{data.title}</h3>
         <div class="content">
           {#if data.content}
           <SvelteMarkdown options={{mangle: false}} source={data.content}/>

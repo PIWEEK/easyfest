@@ -131,7 +131,7 @@
     <div class=" ">
         <div class=" ">
             <div class="columns">
-                <div class="hero-content column  is-two-thirds">
+                <div class="hero-content column is-half">
                     {#if homepage.dates_and_location}
                     <p class="has-text-secondary-light header-date">{homepage.dates_and_location}</p>
                     {/if}
@@ -139,8 +139,18 @@
                     {#if highlightText}
                     <p class="subtitle text--large has-text-white">{highlightText}</p>
                     {/if}
+                    {#if site.registration === REGISTRATION.SOON}
+                        <section class="has-background-dark p-0">
+                        
+                    <div class="level buttons mt-4 is-centered">
+                    <a href="https://www.youtube.com/playlist?list=PLgcCPfOv5v56-fghJo2dHNBqL9zlDTslh" class="button is-primary">{data.register_cta}</a>
+
+                    </div>
+                    </section>
+                    {/if}
+
                 </div>
-                <div class="column is-one-third">
+                <div class="column is-half">
                     <figure class="hero-image image">
                         {#if homepage.hero_image.data}
                         {@const image = homepage.hero_image.data.attributes}
@@ -155,20 +165,6 @@
     </div>
 </section>
 
-{#if site.registration === REGISTRATION.SOON}
-<section class="has-background-primary-light p-5">
-    <div class="container">
-        <p>To enter the tickets queue you'll need to be registered.</p>
-    </div>
-    <div class="container mt-4">
-        <p><a href="/method">Read about the EasyFEST method</a></p>
-    </div>
-    <div class="level buttons mt-4 is-centered">
-        <a href="/register" class="button is-primary">Register now!</a>
-        <a href="/tickets" class="button">Tickets</a>
-    </div>
-</section>
-{/if}
 
 {#if homepage.about_section}
 {@const title = homepage.about_section.title}
@@ -189,7 +185,7 @@
                     <img src="{storage_url}{image.url}" alt={image.caption}/>
                 </figure>
             </div>
-            <div class="column content">
+            <div class="column content text--large">
                 <SvelteMarkdown options={{mangle: false}} source={mdContent} />
             </div>
         </div>
@@ -280,7 +276,7 @@
         </div>
     </div>
     <div>
-        <div bind:this={carousel} class="carousel is-flex flex-wrap-nowrap py-1" style="margin: 0 auto">
+        <div bind:this={carousel} class="carousel is-flex flex-wrap-nowrap py-1 is-justify-content-space-evenly is-align-items-stretch" style="margin: 0 auto">
             {#each speakers as profileWrapper}
             {@const profile = profileWrapper.attributes}
             {@const picture = profile.photo.data.attributes}
@@ -347,7 +343,7 @@
 {#if settings.show_accommodation_info && homepage.accommodation_section}
 {@const accommodation = homepage.accommodation_section}
 <section class="block has-background-white-bis">
-    <div class="container p-6">
+    <div class="container py-6 px-6">
         <div>
             <p class="title header--medium">{accommodation.title}</p>
             {#if accommodation.intro}
@@ -356,15 +352,12 @@
         </div>
     </div>
     <div class="container">
-        <div class="level columns is-multiline is-justify-content-center is-align-items-stretch">
+        <div class="level columns is-multiline is-align-items-stretch px-6">
             {#each accommodation.places as place}
             {@const image = place.image.data.attributes}
             {@const title = place.title}
             {@const mdContent = place.content}
             <div class="column is-one-third">
-                <figure class="image is-16by9">
-                    <img src="{storage_url}{image.url}" alt={image.caption}>
-                </figure>
                 <div class="py-3">
                     <h1 class="title header--small">{title}</h1>
                     <div class="content">
@@ -377,6 +370,20 @@
     </div>
 </section>
 {/if}
+
+{#if settings.show_newsletter_subscription}
+<section class="" style="background-image: url('/img/intheloop.png'); background-size: cover;">
+    <div class="container p-6">
+        <p class="title header--medium has-text-white">Stay in the loop</p>
+        
+        <p class="subtitle text--large has-text-white">AAAAKeep track of Penpot’s development
+            progress and latest news!</p>
+
+    </div>
+</section>
+{/if}
+
+
 
 <style>
     img {
@@ -466,7 +473,7 @@
     }
 
     .hero-image {
-        aspect-ratio: 3 / 4;
+        aspect-ratio: 2 / 1;
         height: calc(100% + 80px);
     }
 

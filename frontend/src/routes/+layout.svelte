@@ -1,5 +1,4 @@
 <script>
-
     import "../app.scss"
     import { Modals, closeModal } from 'svelte-modals'
     import Header from "$lib/Header.svelte"
