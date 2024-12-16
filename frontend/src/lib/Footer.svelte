@@ -84,12 +84,8 @@
                     </li>
                     {/each}
                 </ul>
-                <div><a href="https://www.youtube.com/playlist?list=PLgcCPfOv5v56-fghJo2dHNBqL9zlDTslh" class="button is-primary">{data.register_cta}</a></div>
-
             </div>
             {/if}
-        
-        
         </div>
     </div>
 </footer>

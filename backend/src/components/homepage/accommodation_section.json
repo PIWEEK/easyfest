@@ -13,7 +13,7 @@
     },
     "intro": {
       "type": "string",
-      "default": "Stay close to the action with these exclusive Penpot Fest discounts!"
+      "default": "Stay close to the action with these exclusive Easy Fest discounts!"
     },
     "places": {
       "type": "component",

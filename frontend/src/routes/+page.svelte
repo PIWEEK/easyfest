@@ -139,16 +139,6 @@
                     {#if highlightText}
                     <p class="subtitle text--large has-text-white">{highlightText}</p>
                     {/if}
-                    {#if site.registration === REGISTRATION.SOON}
-                        <section class="has-background-dark p-0">
-                        
-                    <div class="level buttons mt-4 is-centered">
-                    <a href="https://www.youtube.com/playlist?list=PLgcCPfOv5v56-fghJo2dHNBqL9zlDTslh" class="button is-primary">{data.register_cta}</a>
-
-                    </div>
-                    </section>
-                    {/if}
-
                 </div>
                 <div class="column is-half">
                     <figure class="hero-image image">
@@ -165,6 +155,20 @@
     </div>
 </section>
 
+{#if site.registration === REGISTRATION.SOON}
+<section class="has-background-primary-light p-5">
+    <div class="container">
+        <p>To enter the tickets queue you'll need to be registered.</p>
+    </div>
+    <div class="container mt-4">
+        <p><a href="/method">Read about the EasyFEST method</a></p>
+    </div>
+    <div class="level buttons mt-4 is-centered">
+        <a href="/register" class="button is-primary">Register now!</a>
+        <a href="/tickets" class="button">Tickets</a>
+    </div>
+</section>
+{/if}
 
 {#if homepage.about_section}
 {@const title = homepage.about_section.title}
@@ -358,6 +362,9 @@
             {@const title = place.title}
             {@const mdContent = place.content}
             <div class="column is-one-third">
+                <figure class="image is-16by9">
+                    <img src="{storage_url}{image.url}" alt={image.caption}>
+                </figure>
                 <div class="py-3">
                     <h1 class="title header--small">{title}</h1>
                     <div class="content">
@@ -375,15 +382,10 @@
 <section class="" style="background-image: url('/img/intheloop.png'); background-size: cover;">
     <div class="container p-6">
         <p class="title header--medium has-text-white">Stay in the loop</p>
-        
-        <p class="subtitle text--large has-text-white">AAAAKeep track of Penpot’s development
-            progress and latest news!</p>
-
+        <p class="subtitle text--large has-text-white">Keep track of festival progress and latest news!</p>
     </div>
 </section>
 {/if}
-
-
 
 <style>
     img {

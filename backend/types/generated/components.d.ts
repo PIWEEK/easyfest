@@ -39,7 +39,7 @@ export interface HomepageAccommodationSection extends Schema.Component {
       Attribute.Required &
       Attribute.DefaultTo<'Accommodation'>;
     intro: Attribute.String &
-      Attribute.DefaultTo<'Stay close to the action with these exclusive Penpot Fest discounts!'>;
+      Attribute.DefaultTo<'Stay close to the action with these exclusive Easy Fest discounts!'>;
     places: Attribute.Component<'homepage.accommodation_item', true> &
       Attribute.Required &
       Attribute.SetMinMax<{
