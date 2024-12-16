@@ -1,25 +1,12 @@
-import axios from 'axios'
-
-const base = import.meta.env.VITE_API_URL
-const path = "/privacy-policy"
+import { fetchSingle } from '../../services/api';
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ params }) {
-
+export async function load({}) {
     let data = {}
-    let content = null
-    let error = null
-    
-    try {
-        const res = await axios(base+path);    
-        data = res.data.data.attributes
-
-    } catch (e) {
-        error = e
+    const privacyPolicyData = await fetchSingle("/privacy-policy");
+    if (privacyPolicyData) {
+        data = privacyPolicyData;
     }
     return data;
 }
-
-
-    
-    
+   

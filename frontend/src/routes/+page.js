@@ -1,13 +1,5 @@
-import axios from 'axios';
-import qs from 'qs';
+import { encodeQuery, fetchSingle } from '../services/api';
 
-/** @type {(query: object) => string} */
-const encodeQuery = (query) =>
-	qs.stringify(query, {
-		encodeValuesOnly: true // prettify URL
-	});
-
-const base = import.meta.env.VITE_API_URL;
 const homepagePath = `/homepage?${encodeQuery({
 	populate: [
 		'hero_image',
@@ -19,6 +11,7 @@ const homepagePath = `/homepage?${encodeQuery({
 		'accommodation_section.places.image'
 	]
 })}`;
+
 const speakersPath = `/public-profiles?${encodeQuery({
 	filters: {
 		$or: [{ is_guest: { $eq: true } }, { is_speaker: { $eq: true } }]
@@ -26,6 +19,7 @@ const speakersPath = `/public-profiles?${encodeQuery({
 	populate: '*',
 	sort: ['order:asc']
 })}`;
+
 const sitePath = `/site?${encodeQuery({
 	populate: '*'
 })}`;
@@ -33,24 +27,17 @@ const sitePath = `/site?${encodeQuery({
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
 	let data = {};
-	let content = null;
-	let error = null;
 
-	try {
-		const [homepageRes, speakersRes, siteRes] = await Promise.all([
-			axios(base + homepagePath),
-			axios(base + speakersPath),
-			axios(base + sitePath)
-		]);
-		data = {
-			homepage: homepageRes.data.data.attributes,
-			speakers: speakersRes.data.data,
-			site: siteRes.data.data.attributes
-		};
-		console.log(data.site)
-	} catch (e) {
-		error = e;
-		console.error(error);
-	}
+	const [homepageData, speakersData, siteData] = await Promise.all([
+		fetchSingle(homepagePath),
+		fetchSingle(speakersPath),
+		fetchSingle(sitePath)
+	]);
+	data = {
+		homepage: homepageData,
+		speakers: speakersData,
+		site: siteData,
+	};
+
 	return data;
 }

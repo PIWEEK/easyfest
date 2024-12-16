@@ -21,7 +21,6 @@
     />
 </Modals>
 
-
 <Header {data}/>
 
 <slot></slot>
@@ -37,4 +36,4 @@
       left: 0;
       background: rgba(0,0,0,0.50)
     }
-  </style>
+</style>

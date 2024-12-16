@@ -19,7 +19,6 @@
     let /* binded */ marqueeElement;
     onMount(() => {
         if (!marqueeElement) return;
-
         new Marquee(marqueeElement, 50);
     });
 

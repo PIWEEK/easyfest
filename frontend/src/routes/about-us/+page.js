@@ -1,24 +1,11 @@
-import axios from 'axios'
-
-const base = import.meta.env.VITE_API_URL
-const path = "/about-us"
+import { fetchSingle } from '../../services/api';
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ params }) {
-
+export async function load({}) {
     let data = {}
-    let error = null
-    
-    try {
-        const res = await axios(base+path);    
-        data = res.data.data.attributes
-
-    } catch (e) {
-        error = e
+    const aboutUsData = await fetchSingle("/about-us");
+    if (aboutUsData) {
+        data = aboutUsData;
     }
     return data;
 }
-
-
-    
-    
