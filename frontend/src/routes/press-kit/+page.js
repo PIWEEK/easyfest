@@ -3,9 +3,9 @@ import { fetchSingle } from '../../services/api';
 /** @type {import('./$types').PageLoad} */
 export async function load({}) {
     let data = {}
-    const pressKitData = await fetchSingle("/press-kit?populate=*");
-    if (pressKitData) {
-        data = pressKitData;
+    const pressKitEntry = await fetchSingle("/press-kit?populate=*");
+    if (pressKitEntry) {
+        data = pressKitEntry.attributes;
     }
     return data;
 }

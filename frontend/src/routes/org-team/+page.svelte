@@ -16,15 +16,15 @@
 
 <section class="section">
     <div class="container">
-        <h1 class="title">{data.orgcontent.title}</h1>
+        <h1 class="title">{data.org_team.attributes.title}</h1>
         <div class="content">
-          {#if data.orgcontent.content}
-          <SvelteMarkdown options={{mangle: false}} source={data.orgcontent.content}/>
+          {#if data.org_team.attributes.content}
+          <SvelteMarkdown options={{mangle: false}} source={data.org_team.attributes.content}/>
           {/if}
         </div>
 
         <div class="columns is-multiline">
-          {#each data.orgprofiles as publicprofile, i}
+          {#each data.org_profiles as publicprofile, i}
 
               <div class="column is-one-third">
                   <div class="box">

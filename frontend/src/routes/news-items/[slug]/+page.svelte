@@ -7,6 +7,6 @@
 </script>
 
 
-<h2>{data.news_item.title}</h2>
-<h3>{data.news_item.summary}</h3>
-<SvelteMarkdown source={data.news_item.content}/>
+<h2>{data.news_item.attributes.title}</h2>
+<h3>{data.news_item.attributes.summary}</h3>
+<SvelteMarkdown source={data.news_item.attributes.content}/>

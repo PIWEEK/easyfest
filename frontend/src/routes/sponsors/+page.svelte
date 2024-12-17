@@ -1,5 +1,4 @@
 <script>
-  import SvelteMarkdown from 'svelte-markdown'
   export let data;
 </script>
 
@@ -8,7 +7,7 @@
         <h1 class="title">Sponsors</h1>
         <ul class="list has-hoverable-list-items">
             {#each data.sponsors as sponsor}
-                <li class="list-item box">{sponsor.level} - {sponsor.order}: {sponsor.name} {sponsor.description}</li>
+                <li class="list-item box">{sponsor.attributes.level} - {sponsor.attributes.order}: {sponsor.attributes.name} {sponsor.attributes.description}</li>
             {/each}
         </ul>
     </div>

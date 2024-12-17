@@ -3,5 +3,5 @@
     export let data;
 </script>
 
-{data.track.title} - {data.track.description}: {data.track.location} {data.track.group}
-{data.track.is_title_visible} {data.track.order}
+{data.track.attributes.title} - {data.track.attributes.description}: {data.track.attributes.location}
+{data.track.attributes.group} {data.track.attributes.is_title_visible} {data.track.attributes.order}

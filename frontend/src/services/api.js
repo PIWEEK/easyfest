@@ -59,9 +59,8 @@ export const fetchCMSData = async (method, path, payload, authToken) => {
  * @param {string} path
  */
 export const fetchSingle = async (path) => {
-  // console.log("######################path", path)
-  const data = await fetchCMSData("GET", path);
-  if (data) {
+  const result = await fetchCMSData("GET", path);
+  if (result) {
     // For a single type, the response is like
     //   {
     //     "data": {
@@ -74,7 +73,41 @@ export const fetchSingle = async (path) => {
     //     },
     //     "meta": {}
     //   }
-    return data.data.attributes;
+    return result.data;
+  }
+}
+
+/**
+ * call backend api to retrieve a collection type.
+ * 
+ * @param {string} path
+ */
+export const fetchCollection = async (path) => {
+  const result = await fetchCMSData("GET", path);
+  if (result) {
+    // for a collection type, the response is like
+    //   {
+    //     "data": [
+    //       {
+    //         "id": 12345,
+    //         "attributes": {
+    //           "attr1": val1,
+    //           "attr2": val2,
+    //           ...
+    //         }
+    //       },
+    //       {
+    //         "id": 67890,
+    //         "attributes": {
+    //           "attr1": val3,
+    //           "attr2": val4,
+    //           ...
+    //         }
+    //       },
+    //     ],
+    //     "meta": {}
+    //   }
+    return result.data;
   }
 }
 

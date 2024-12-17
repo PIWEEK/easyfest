@@ -1,21 +1,13 @@
-import axios from 'axios'
-
-const base = import.meta.env.VITE_API_URL
-const path = "/public-profiles/"
+import { fetchSingle } from '../../../services/api';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
-
-    let publicprofile = {}
-    let bio = ""
-    let error = null
-    try {
-        const res = await axios(base+path+params.slug+'?populate=*');    
-        publicprofile = res.data.data.attributes
-    } catch (e) {
-        error = e
+    let data = {}
+    const profileEntry = await fetchSingle("/public-profiles/" + params.slug + "?populate=*");    
+    if (profileEntry) {
+        data = {
+            profile: profileEntry
+        };
     }
-    return {
-        publicprofile
-    };
+    return data;
 }

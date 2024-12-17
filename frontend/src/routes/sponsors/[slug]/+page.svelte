@@ -3,5 +3,5 @@
     export let data;
 </script>
 
-{data.faq.category} - {data.faq.order}: {data.faq.question} = {data.faq.answer}
+{data.sponsor.attributes.category} - {data.sponsor.attributes.order}: {data.sponsor.attributes.question} = {data.sponsor.attributes.answer}
 

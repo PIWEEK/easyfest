@@ -3,9 +3,9 @@ import { fetchSingle } from '../../services/api';
 /** @type {import('./$types').PageLoad} */
 export async function load({}) {
     let data = {}
-    const codeOfConductData = await fetchSingle("/code-of-conduct");
-    if (codeOfConductData) {
-        data = codeOfConductData;
+    const codeOfConductEntry = await fetchSingle("/code-of-conduct");
+    if (codeOfConductEntry) {
+        data = codeOfConductEntry.attributes;
     }
     return data;
 }

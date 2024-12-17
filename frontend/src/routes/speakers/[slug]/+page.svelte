@@ -5,17 +5,16 @@
   export let data;
 </script>
 
-<h1>{data.publicprofile.fullname}</h1>
-<div>{data.publicprofile.title}</div>
-<div>Speaker: {data.publicprofile.is_speaker}</div>
-<div>Org: {data.publicprofile.is_org}</div>
-<div>Guest: {data.publicprofile.is_guest}</div>
-<div><img src="{storage_url}{data.publicprofile.photo.data.attributes.url}"/></div>
-<div><SvelteMarkdown source={data.publicprofile.bio}/></div>
+<h1>{data.profile.attributes.fullname}</h1>
+<div>{data.profile.attributes.title}</div>
+<div>Speaker: {data.profile.attributes.is_speaker}</div>
+<div>Org: {data.profile.attributes.is_org}</div>
+<div>Guest: {data.profile.attributes.is_guest}</div>
+<div><img src="{storage_url}{data.profile.attributes.photo.data.attributes.url}"/></div>
+<div><SvelteMarkdown source={data.profile.attributes.bio}/></div>
 
-{#each data.publicprofile.activities.data as a}
+{#each data.profile.attributes.activities.data as a}
   {a.attributes.title}
   {a.attributes.short_description}
-
 {/each}
 

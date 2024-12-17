@@ -1,31 +1,17 @@
-import axios from 'axios'
-
-const base = import.meta.env.VITE_API_URL
-const pathorgteamcontent = "/org-team"
-const path = "/public-profiles?filters[is_org][$eq]=true&populate=*&sort[0]=order:asc"
-
+import { fetchSingle, fetchCollection } from '../../services/api';
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ params }) {
-
-    let orgprofiles = []
-    let orgcontent = {}
-    let error = null
-    try {
-        const res = await axios(base+path);    
-        orgprofiles = res.data.data
-        const res2 = await axios(base+pathorgteamcontent);    
-        orgcontent = res2.data.data.attributes
-
-    } catch (e) {
-        error = e
+export async function load({}) {
+    let data = {}
+	const [orgTeamEntry, profileEntries] = await Promise.all([
+        fetchSingle("/org-team"),
+        fetchCollection("/public-profiles?filters[is_org][$eq]=true&populate=*&sort[0]=order:asc"),
+    ]);
+    if (orgTeamEntry || profileEntries) {
+        data = {
+            org_team: orgTeamEntry,
+            org_profiles: profileEntries,
+        };
     }
-    return {
-        orgcontent,
-        orgprofiles
-    };
+    return data;
 }
-
-
-    
-    

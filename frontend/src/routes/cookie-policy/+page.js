@@ -3,9 +3,9 @@ import { fetchSingle } from '../../services/api';
 /** @type {import('./$types').PageLoad} */
 export async function load({}) {
     let data = {}
-    const cookiePolicyData = await fetchSingle("/cookie-policy");
-    if (cookiePolicyData) {
-        data = cookiePolicyData;
+    const cookiePolicyEntry = await fetchSingle("/cookie-policy");
+    if (cookiePolicyEntry) {
+        data = cookiePolicyEntry.attributes;
     }
     return data;
 }

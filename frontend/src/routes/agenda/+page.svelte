@@ -1,12 +1,13 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
+    import { browser } from '$app/environment';
 
     import ActivityCard from "./ActivityCard.svelte";
     import ActivityFiller from "./ActivityFiller.svelte";
 
     export let data;
 
-    let current_day = data.days?.length > 0 ? data.days[1] : null;
+    let current_day = data.days?.length > 0 ? data.days[0] : null;
     let container;
     let containerWidth;
 
@@ -24,17 +25,17 @@
     }
 
     onMount(() => {
-        if (window) {
+        if (browser) {
             window.addEventListener('resize', handleResize);
             handleResize();
         }
     });
   
-    // onDestroy(() => {
-    //     if (window) {
-    //         window.removeEventListener('resize', handleResize);
-    //     }
-    // });
+    onDestroy(() => {
+        if (browser) {
+            window.removeEventListener('resize', handleResize);
+        }
+    });
 </script>
   
 <section class="section">
@@ -52,11 +53,11 @@
         <div class="columns">
             {#if current_day}
                 {#each current_day.tracks as track}
-                    {#if track.activities.length > 0}
+                    {#if track.attributes.activities.length > 0}
                         <div class="column">
-                            <h2 class="title is-3">{track.title}</h2>
-                            <p class="subtitle">{track.description}</p>
-                            {#each track.activities as activity}
+                            <h2 class="title is-3">{track.attributes.title}</h2>
+                            <p class="subtitle">{track.attributes.description}</p>
+                            {#each track.attributes.activities as activity}
                                 {#if activity.attributes.is_filler}
                                     <ActivityFiller {activity} height={activityHeight(activity)} hideInMobile={true}/>
                                 {:else}

@@ -1,21 +1,13 @@
-import axios from 'axios'
-
-const base = import.meta.env.VITE_API_URL
-const path = '/activities?populate=*'
+import { fetchCollection } from '../../services/api';
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ params }) {
-
-    let activities = {}
-    let error = null
-    try {
-        const res = await axios(base+path);    
-        activities = res.data.data
-
-    } catch (e) {
-        error = e
+export async function load({}) {
+    let data = {}
+    const activityEntries = await fetchCollection("/activities?populate=*");
+    if (activityEntries) {
+        data = {
+            activities: activityEntries
+        };
     }
-    return {
-        activities
-    };
-} 
+    return data;
+}

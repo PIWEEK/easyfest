@@ -1,22 +1,13 @@
-import axios from 'axios'
-
-const base = import.meta.env.VITE_API_URL
-const path = "/sponsors/"
-
+import { fetchSingle } from '../../../services/api';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
-
-    let faq = {}
-    let error = null
-    try {
-        const res = await axios(base+path+params.slug+'?populate=*');    
-        faq = res.data.data.attributes
-
-    } catch (e) {
-        error = e
+    let data = {}
+    const sponsorEntry = await fetchSingle("/sponsors/" + params.slug + "?populate=*");
+    if (sponsorEntry) {
+        data = {
+            sponsor: sponsorEntry
+        };
     }
-    return {
-        faq
-    };
-} 
+    return data;
+}

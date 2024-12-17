@@ -1,30 +1,19 @@
-import axios from 'axios'
-
-const base = import.meta.env.VITE_API_URL
-const path = "/tracks?populate[activities][populate][public_faces][populate][0]=photo"
+import { fetchCollection } from '../../services/api';
 
 export async function load({ params }) {
-    let tracks = []
-    let track = null
-    let result = []
-    let error = null
-    let x = null
-    try {
-        const res = await axios(base+path);    
-        const d = res.data.data
-        for (track of d){
-            track = track.attributes
-            tracks.push(track)
-        }
-    } catch (e) {
-        error = e
+    let data = {}
+
+    const trackEntries = await fetchCollection("/tracks?populate[activities][populate][public_faces][populate][0]=photo");
+    let tracks = [];
+    if (trackEntries) {
+        tracks = trackEntries;
     }
 
     // Ensure correct ordering of tracks and activities
-    tracks.sort((a, b) => a.order - b.order);
+    tracks.sort((a, b) => a.attributes.order - b.attributes.order);
     for (let track of tracks) {
-        track.activities.data.sort((a, b) => Date.parse(a.attributes.start) -
-                                             Date.parse(b.attributes.start));
+        track.attributes.activities.data.sort((a, b) => Date.parse(a.attributes.start) -
+                                                        Date.parse(b.attributes.start));
     }
 
     const days = pack_activities(tracks);
@@ -42,7 +31,7 @@ function pack_activities(tracks) {
     const days = [];
 
     for (let [i, track] of tracks.entries()) {
-        for (let activity of track.activities.data) {
+        for (let activity of track.attributes.activities.data) {
             const day = get_day(days, tracks, activity);
             add_activity(day.tracks[i], activity);
         }
@@ -78,9 +67,9 @@ function get_day(days, tracks, activity) {
 
     for (let [i, track] of tracks.entries()) {
         day.tracks.push({...track});
-        day.tracks[i].activities = [];
-        day.tracks[i].start = day.start;
-        day.tracks[i].end = day.start;
+        day.tracks[i].attributes.activities = [];
+        day.tracks[i].attributes.start = day.start;
+        day.tracks[i].attributes.end = day.start;
     }
 
     days.push(day);
@@ -93,7 +82,7 @@ function get_day(days, tracks, activity) {
 function set_day_start(day, tracks) {
     let day_start = null;
     for (let track of tracks) {
-        for (let activity of track.activities.data) {
+        for (let activity of track.attributes.activities.data) {
             const start = new Date(activity.attributes.start);
             if (day.year === start.getFullYear() &&
                 day.month === start.getMonth() &&
@@ -118,17 +107,17 @@ function set_day_start(day, tracks) {
 function add_activity(track, activity) {
     const start = new Date(activity.attributes.start);
 
-    if (start.getTime() > track.end.getTime()) {
-        track.activities.push({
+    if (start.getTime() > track.attributes.end.getTime()) {
+        track.attributes.activities.push({
             id: 0,
             attributes: {
                 is_filler: true,
-                start: track.end,
-                minutes: (start.getTime() - track.end.getTime()) / 1000 / 60,
+                start: track.attributes.end,
+                minutes: (start.getTime() - track.attributes.end.getTime()) / 1000 / 60,
             }
         })
     }
 
-    track.end = new Date(start.getTime() + activity.attributes.minutes * 60 * 1000);
-    track.activities.push(activity);
+    track.attributes.end = new Date(start.getTime() + activity.attributes.minutes * 60 * 1000);
+    track.attributes.activities.push(activity);
 }

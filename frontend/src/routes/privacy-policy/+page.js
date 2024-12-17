@@ -3,9 +3,9 @@ import { fetchSingle } from '../../services/api';
 /** @type {import('./$types').PageLoad} */
 export async function load({}) {
     let data = {}
-    const privacyPolicyData = await fetchSingle("/privacy-policy");
-    if (privacyPolicyData) {
-        data = privacyPolicyData;
+    const privacyPolicyEntry = await fetchSingle("/privacy-policy");
+    if (privacyPolicyEntry) {
+        data = privacyPolicyEntry.attributes;
     }
     return data;
 }

@@ -1,22 +1,13 @@
-import axios from 'axios'
-
-const base = import.meta.env.VITE_API_URL
-const path = "/news-items/"
+import { fetchSingle } from '../../../services/api';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
-
-    let news_item = {}
-    let content = null
-    let error = null
-    try {
-        const res = await axios(base+path+params.slug+'?populate=*');    
-        news_item = res.data.data.attributes
-
-    } catch (e) {
-        error = e
+    let data = {}
+    const newsItemEntry = await fetchSingle("/news-items/" + params.slug + "?populate=*");
+    if (newsItemEntry) {
+        data = {
+            news_item: newsItemEntry
+        };
     }
-    return {
-        news_item
-    };
-} 
+    return data;
+}
