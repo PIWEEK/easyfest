@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"engines": {
-		"node": "18.x.x"
+		"node": ">=20.0.0 <21.0.0"
 	},
 	"scripts": {
 		"sync-penpot": "penpot-export",
