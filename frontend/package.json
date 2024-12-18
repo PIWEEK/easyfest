@@ -42,7 +42,7 @@
 		"@humanspeak/svelte-markdown": "^0.6.1",
 		"@penpot-export/cli": "^0.1.2",
 		"axios": "^1.6.2",
-		"bulma-list": "^2.1.0",
+		"bulma-list": "https://github.com/hirunatan/bulma-list.git#prevent-build",
 		"dotenv": "^16.3.1",
 		"qs": "^6.11.2",
 		"svelte-modals": "^2.0.0",
