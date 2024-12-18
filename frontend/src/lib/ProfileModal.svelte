@@ -1,6 +1,6 @@
 <script lang="ts">
     import { closeModal } from 'svelte-modals'
-    import SvelteMarkdown from 'svelte-markdown'   
+    import SvelteMarkdown from '@humanspeak/svelte-markdown'   
   let { isOpen, profile } = $props();
   
   </script>
