@@ -113,9 +113,9 @@
 
     const { homepage, speakers, site, ...settings } = data
     const highlightText = {
-        [STATUS.HYPE]: homepage.highlight_hype,
-        [STATUS.PUBLIC]: homepage.highlight_public,
-        [STATUS.FINISHED]: homepage.highlight_finished,
+        [STATUS.HYPE]: homepage.attributes.highlight_hype,
+        [STATUS.PUBLIC]: homepage.attributes.highlight_public,
+        [STATUS.FINISHED]: homepage.attributes.highlight_finished,
     }[settings.status] ?? null
 
     const REGISTRATION = {
@@ -131,18 +131,18 @@
         <div class=" ">
             <div class="columns">
                 <div class="hero-content column is-half">
-                    {#if homepage.dates_and_location}
-                    <p class="has-text-secondary-light header-date">{homepage.dates_and_location}</p>
+                    {#if homepage.attributes.dates_and_location}
+                    <p class="has-text-secondary-light header-date">{homepage.attributes.dates_and_location}</p>
                     {/if}
-                    <p class="title header--large has-text-white">{homepage.title}</p>
+                    <p class="title header--large has-text-white">{homepage.attributes.title}</p>
                     {#if highlightText}
                     <p class="subtitle text--large has-text-white">{highlightText}</p>
                     {/if}
                 </div>
                 <div class="column is-half">
                     <figure class="hero-image image">
-                        {#if homepage.hero_image.data}
-                        {@const image = homepage.hero_image.data.attributes}
+                        {#if homepage.attributes.hero_image.data}
+                        {@const image = homepage.attributes.hero_image.data.attributes}
                         <img src="{storage_url}{image.url}" alt={image.caption}/>
                         {:else}
                         <img src={heroFallback} alt=""/>
@@ -154,7 +154,7 @@
     </div>
 </section>
 
-{#if site.registration === REGISTRATION.SOON}
+{#if site.attributes.registration === REGISTRATION.SOON}
 <section class="has-background-primary-light p-5">
     <div class="container">
         <p>To enter the tickets queue you'll need to be registered.</p>
@@ -169,10 +169,10 @@
 </section>
 {/if}
 
-{#if homepage.about_section}
-{@const title = homepage.about_section.title}
-{@const image = homepage.about_section.image.data.attributes}
-{@const mdContent = homepage.about_section.content}
+{#if homepage.attributes.about_section}
+{@const title = homepage.attributes.about_section.title}
+{@const image = homepage.attributes.about_section.image.data.attributes}
+{@const mdContent = homepage.attributes.about_section.content}
 <section class="section">
     <div class="container pb-6">
         <div class="level columns">
@@ -196,16 +196,16 @@
 </section>
 {/if}
 
-{#if homepage.show_marquee_text && homepage.marquee_text}
+{#if homepage.attributes.show_marquee_text && homepage.attributes.marquee_text}
 <aside class="has-background-primary-light">
     <div bind:this={marqueeElement} class="marquee level is-mobile text--small--uppercase py-4">
-        <div>{homepage.marquee_text}</div>
+        <div>{homepage.attributes.marquee_text}</div>
     </div>
 </aside>
 {/if}
 
-{#if settings.show_agenda && homepage.activities_section}
-{@const activities = homepage.activities_section}
+{#if settings.show_agenda && homepage.attributes.activities_section}
+{@const activities = homepage.attributes.activities_section}
 {@const featuredActivities = activities.featured_activities.data}
 {#if featuredActivities.length > 0}
 <section class="has-background-dark has-text-white">
@@ -262,8 +262,8 @@
 {/if}
 {/if}
 
-{#if settings.show_speakers && homepage.speakers_section && speakers}
-{@const speakerSection = homepage.speakers_section}
+{#if settings.show_speakers && homepage.attributes.speakers_section && speakers}
+{@const speakerSection = homepage.attributes.speakers_section}
 <section class="has-background-secondary-lighter">
     <div class="container p-6">
         <div class="level columns">
@@ -308,8 +308,8 @@
 </section>
 {/if}
 
-{#if settings.show_venue_info && homepage.locations_section}
-{@const locations = homepage.locations_section}
+{#if settings.show_venue_info && homepage.attributes.locations_section}
+{@const locations = homepage.attributes.locations_section}
 <section class="block has-background-white">
     <div class="container p-6">
         <div>
@@ -343,8 +343,8 @@
 </section>
 {/if}
 
-{#if settings.show_accommodation_info && homepage.accommodation_section}
-{@const accommodation = homepage.accommodation_section}
+{#if settings.show_accommodation_info && homepage.attributes.accommodation_section}
+{@const accommodation = homepage.attributes.accommodation_section}
 <section class="block has-background-white-bis">
     <div class="container py-6 px-6">
         <div>

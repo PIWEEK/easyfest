@@ -3,7 +3,7 @@
 @use 'design-system/typographies.scss';
 
 // Theme configuration is done by giving value to Bulma variables
-// https://bulma.io/documentation/customize/variables
+// https://bulma.io/documentation/customize/concepts/
 
 // -- Initial variables (with a literal value)
 
@@ -21,29 +21,32 @@ $size-7: map.get(typographies.$Body_Small_Uppercase, "font-size");
 $radius-small: 0;
 $control-border-width: 2px;
 
-// -- Derived variables (that take value from other variables)
+@use "bulma/sass" with (
 
-$primary: colors.$Primary;
-$primary-light: colors.$Primary_Light;
-$secondary /* custom */: colors.$Secondary;
-$secondary-light /* custom */: colors.$Secondary_Light;
-$secondary-lighter /* custom */: colors.$Secondary_Lighter;
-$dark: colors.$Dark;
-$text-light: $text;
-$text-strong: $text;
-$white: colors.$White;
-$white-bis: colors.$White_Bis;
-$white-ter: colors.$White_Ter;
+    // -- Derived variables (that take value from other variables)
 
-$custom-colors: (
-    "secondary": ($secondary, findColorInvert($secondary), $secondary-light),
-    "secondary-lighter": ($secondary-lighter, findColorInvert($secondary-lighter)),
+    $primary: colors.$Primary,
+    // $primary-light: colors.$Primary_Light,
+    // $secondary /* custom */: colors.$Secondary,
+    // $secondary-light /* custom */: colors.$Secondary_Light,
+    // $secondary-lighter /* custom */: colors.$Secondary_Lighter,
+    $dark: colors.$Dark,
+    // $text-light: $text,
+    $text-strong: $text,
+    $white: colors.$White,
+    $white-bis: colors.$White_Bis,
+    $white-ter: colors.$White_Ter,
 );
+
+// $custom-colors: (
+//     "secondary": ($secondary, findColorInvert($secondary), $secondary-light),
+//     "secondary-lighter": ($secondary-lighter, findColorInvert($secondary-lighter)),
+// );
 
 // -- Import all bulma styles
 
-@import "bulma/bulma.sass";
-@import "bulma-list/sass/bulma-list.sass";
+@use "bulma/sass/utilities/mixins";
+@use "bulma-list/sass/bulma-list";
 
 // -- Bulma style overrides
 
@@ -52,7 +55,7 @@ $custom-colors: (
 }
 
 .content h3 {
-    color: $secondary;
+    // color: $secondary;
 
     &:not(:first-child) {
         margin-top: 0;
@@ -69,12 +72,6 @@ $custom-colors: (
 
 // -- Custom helpers
 
-@mixin tablet() {
-    @media (min-width: $tablet) {
-        @content;
-    }
-}
-
 $genericTypographyFamilies: (
     "Work Sans": sans-serif,
     "Playfair Display": serif,
@@ -82,6 +79,7 @@ $genericTypographyFamilies: (
     "IBM Plex Mono": monospace,
     "Kalam": (cursive, sans-serif),
 );
+
 @mixin mixTypographyClass($typographyMap) {
     @each $prop, $value in $typographyMap {
         @if $prop == "font-family" {
@@ -93,19 +91,19 @@ $genericTypographyFamilies: (
 
 .header--large {
     @include mixTypographyClass(typographies.$📱_Title_Large);
-    @include tablet() {
+    @include mixins.tablet {
         @include mixTypographyClass(typographies.$🖥_Title_Large);
     };
 }
 .header--medium {
     @include mixTypographyClass(typographies.$📱_Title_Medium);
-    @include tablet() {
+    @include mixins.tablet {
         @include mixTypographyClass(typographies.$🖥_Title_Medium);
     };
 }
 .header--small {
     @include mixTypographyClass(typographies.$📱_Title_Small);
-    @include tablet() {
+    @include mixins.tablet {
         @include mixTypographyClass(typographies.$🖥_Title_Small);
     };
 }

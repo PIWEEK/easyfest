@@ -23,17 +23,17 @@
     "highlight_hype": {
       "type": "text",
       "required": true,
-      "default": "Get ready for EasyFest, the Design event that brings designers and developers together in Barcelona, June 28-30. Come and enjoy an outstanding speakers line-up, hand-on workshops and plenty of fun stuff!"
+      "default": "Get ready for EasyFest, the awesome event that will rock! June 28-30. Come and enjoy an outstanding speakers line-up, hand-on workshops and plenty of fun stuff!"
     },
     "highlight_public": {
       "type": "text",
       "required": true,
-      "default": "EasyFest is the Design event that brought designers and developers together in Barcelona in June 28-30. We will have an amazing time! See you there!"
+      "default": "EasyFest is the best event in the world, in June 28-30. We will have an amazing time! See you there!"
     },
     "highlight_finished": {
       "type": "text",
       "required": true,
-      "default": "EasyFest is the Design event that brought designers and developers together in Barcelona in June 28-30. We had an amazing time. See you next year!"
+      "default": "EasyFest was the best event in the world, in June 28-30. We had an amazing time. See you next year!"
     },
     "hero_image": {
       "type": "media",

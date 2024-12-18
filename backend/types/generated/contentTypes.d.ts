@@ -987,13 +987,13 @@ export interface ApiHomepageHomepage extends Schema.SingleType {
     hero_image: Attribute.Media<'images'>;
     highlight_finished: Attribute.Text &
       Attribute.Required &
-      Attribute.DefaultTo<'EasyFest is the Design event that brought designers and developers together in Barcelona in June 28-30. We had an amazing time. See you next year!'>;
+      Attribute.DefaultTo<'EasyFest was the best event in the world, in June 28-30. We had an amazing time. See you next year!'>;
     highlight_hype: Attribute.Text &
       Attribute.Required &
-      Attribute.DefaultTo<'Get ready for EasyFest, the Design event that brings designers and developers together in Barcelona, June 28-30. Come and enjoy an outstanding speakers line-up, hand-on workshops and plenty of fun stuff!'>;
+      Attribute.DefaultTo<'Get ready for EasyFest, the awesome event that will rock! June 28-30. Come and enjoy an outstanding speakers line-up, hand-on workshops and plenty of fun stuff!'>;
     highlight_public: Attribute.Text &
       Attribute.Required &
-      Attribute.DefaultTo<'EasyFest is the Design event that brought designers and developers together in Barcelona in June 28-30. We will have an amazing time! See you there!'>;
+      Attribute.DefaultTo<'EasyFest is the best event in the world, in June 28-30. We will have an amazing time! See you there!'>;
     locations_section: Attribute.Component<'homepage.locations_section'>;
     marquee_text: Attribute.String &
       Attribute.DefaultTo<'\uD83D\uDD25 Registration is open'>;
