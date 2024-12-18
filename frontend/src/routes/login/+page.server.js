@@ -15,7 +15,7 @@ export async function load({ url, cookies }) {
       console.log("====result", res)
       if (res && res.jwt) {
         cookies.set("easyfest-auth", res.jwt, {path: "/"})
-        throw redirect(302, "/me")
+        redirect(302, "/me");
       }
 
   }
