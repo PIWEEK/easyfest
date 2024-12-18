@@ -131,7 +131,7 @@
                 <a class="navbar-item" href="/registration">{m.registration()}</a>
                 {/if}
                 {#if data.show_accommodation_info}
-                <a class="navbar-item" href="/accommodation-info">{m.accomodation_info()}</a>
+                <a class="navbar-item" href="/accommodation-info">{m.accommodation_info()}</a>
                 {/if}
                 {#if data.show_agenda}
                 <a class="navbar-item" href="/agenda">{m.agenda()}</a>

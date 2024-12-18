@@ -1,6 +1,6 @@
 {
     "$schema": "https://inlang.com/schema/inlang-message-format",
-    "accomodation_info": "Accomodation info",
+    "accommodation_info": "Accommodation info",
     "about": "About",
     "agenda": "Agenda",
     "close": "Close",

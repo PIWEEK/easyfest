@@ -10,8 +10,8 @@ export const i18n = createI18n(runtime, {
 			en: "/about-us",
 			es: "/sobre-nosotros",
 		},
-		"/accomodation-info" : {
-			en: "/accomodation-info",
+		"/accommodation-info" : {
+			en: "/accommodation-info",
 			es: "/alojamiento",
 		},
 		"/activities" : {
