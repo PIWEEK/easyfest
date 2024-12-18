@@ -1,5 +1,5 @@
 <script lang="ts">
-    import SvelteMarkdown from 'svelte-markdown'
+    import SvelteMarkdown from '@humanspeak/svelte-markdown'
     import type { PageData } from './$types';
     import { superForm } from 'sveltekit-superforms/client';
     import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';

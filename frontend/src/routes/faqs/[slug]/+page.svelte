@@ -1,5 +1,5 @@
 <script>
-    import SvelteMarkdown from 'svelte-markdown'
+    import SvelteMarkdown from '@humanspeak/svelte-markdown'
     
     /**
      * @typedef {Object} Props

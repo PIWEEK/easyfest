@@ -1,5 +1,5 @@
 <script lang="ts">
-  import SvelteMarkdown from 'svelte-markdown'
+  import SvelteMarkdown from '@humanspeak/svelte-markdown'
   let { data } = $props();
 </script>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import SvelteMarkdown from 'svelte-markdown'
+  import SvelteMarkdown from '@humanspeak/svelte-markdown'
   const storage_url = import.meta.env.VITE_STORAGE_URL
   let { data } = $props();
 </script>

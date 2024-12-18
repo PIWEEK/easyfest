@@ -15,7 +15,7 @@
 </div>
 
 <style lang="scss">
-    @use "bulma/sass/utilities/mixins.sass";
+    @use "bulma/sass/utilities/mixins";
 
     .filler {
         margin-bottom: 2rem;

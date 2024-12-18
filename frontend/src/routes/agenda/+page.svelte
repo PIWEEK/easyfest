@@ -5,7 +5,7 @@
     import ActivityCard from "./ActivityCard.svelte";
     import ActivityFiller from "./ActivityFiller.svelte";
 
-  let { data } = $props();
+    let { data } = $props();
 
     let current_day = $state(data.days?.length > 0 ? data.days[0] : null);
     let container = $state();
@@ -82,7 +82,7 @@
 </section>
 
 <style lang="scss">
-    @use "bulma/sass/elements/container.sass";
+    @use "bulma/sass/layout/container";
     .activity-wrapper {
         position: relative;
     }

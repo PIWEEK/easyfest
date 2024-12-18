@@ -13,7 +13,8 @@ const schema = z.object({
 });
 
 export async function load({ params }) {
-    const form = await superValidate(schema);
+    // const form = await superValidate(schema);
+    const form = null;
     return { form };
 }
 

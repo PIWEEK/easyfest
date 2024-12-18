@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte'
-    import SvelteMarkdown from 'svelte-markdown'
+    import SvelteMarkdown from '@humanspeak/svelte-markdown'
 
     import heroFallback from '../assets/images/easyfest-illustration.png'
     import Marquee from '../lib/Marquee'

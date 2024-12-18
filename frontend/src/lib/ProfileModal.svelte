@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { closeModal } from 'svelte-modals'
     import SvelteMarkdown from '@humanspeak/svelte-markdown'   
-  let { isOpen, profile } = $props();
+  let { isOpen, close, profile } = $props();
   
   </script>
   
@@ -16,7 +15,7 @@
           "{profile.attributes.nickname}"
           {/if}
        </p>
-        <button onclick={closeModal} class="delete" aria-label="close"></button>
+        <button onclick={close} class="delete" aria-label="close"></button>
       </header>
 
       <section class="modal-card-body">
@@ -51,7 +50,7 @@
         {#each profile.attributes.activities.data as activity}
         <span class="tag">
           
-          <a onclick={closeModal} href="/activities/{activity.id}">{activity.attributes.title}</a>
+          <a onclick={close} href="/activities/{activity.id}">{activity.attributes.title}</a>
           
         </span>
 

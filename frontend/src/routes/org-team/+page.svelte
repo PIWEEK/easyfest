@@ -1,7 +1,7 @@
 
 <script>
-    import SvelteMarkdown from 'svelte-markdown'
-    import { openModal } from 'svelte-modals'
+    import SvelteMarkdown from '@humanspeak/svelte-markdown'
+    import { modals } from 'svelte-modals'
     import Modal from "$lib/ProfileModal.svelte"
  
     const storage_url = import.meta.env.VITE_STORAGE_URL
@@ -16,7 +16,7 @@
   let { data } = $props();
 
   function handleClick(publicprofile) {
-    openModal(Modal, { profile: publicprofile })
+    modals.open(Modal, { profile: publicprofile })
   }
 </script>
 

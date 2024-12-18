@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { openModal } from 'svelte-modals'
+    import { modals } from 'svelte-modals'
 
     import Modal from "$lib/ProfileModal.svelte"
 
@@ -8,7 +8,7 @@
    let { activity, height } = $props();
 
     function handleProfileClick(publicprofile) {
-        openModal(Modal, { profile: publicprofile })
+        modals.open(Modal, { profile: publicprofile })
     }
 
     function activityHour(activity) {
