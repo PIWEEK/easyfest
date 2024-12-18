@@ -1,7 +1,11 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    /** @type {import('./$types').PageData} */
-    export let data;
+    
+    interface Props {
+        data: import('./$types').PageData;
+    }
+
+    let { data }: Props = $props();
 </script>
 
 <section class="section">

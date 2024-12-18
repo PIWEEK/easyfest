@@ -1,8 +1,14 @@
 <script>
-    import SvelteMarkdown from 'svelte-markdown'
+    import SvelteMarkdown from '@humanspeak/svelte-markdown'
 
-    /** @type {import('./$types').PageData} */
-    export let data;
+    
+    /**
+     * @typedef {Object} Props
+     * @property {import('./$types').PageData} data
+     */
+
+    /** @type {Props} */
+    let { data } = $props();
 </script>
 
 <h1>{data.activity.attributes.title}</h1>

@@ -1,13 +1,19 @@
 <script>
     import { onMount } from 'svelte'
-    import SvelteMarkdown from 'svelte-markdown'
+    import SvelteMarkdown from '@humanspeak/svelte-markdown'
 
     import heroFallback from '../assets/images/easyfest-illustration.png'
     import Marquee from '../lib/Marquee'
 
     const storage_url = import.meta.env.VITE_STORAGE_URL
-    /** @type {import('./$types').PageData} */
-    export let data;
+    
+    /**
+     * @typedef {Object} Props
+     * @property {import('./$types').PageData} data
+     */
+
+    /** @type {Props} */
+    let { data } = $props();
 
     /** @type {DateTimeFormatOptions} */
     const activityDateFormatOptions = {
@@ -16,18 +22,18 @@
     }
 
     /** @type {HTMLDivElement} */
-    let /* binded */ marqueeElement;
+    let /* binded */ marqueeElement = $state();
     onMount(() => {
         if (!marqueeElement) return;
         new Marquee(marqueeElement, 50);
     });
 
     /** @type {HTMLDivElement} */
-    let /* binded */ carousel;
+    let /* binded */ carousel = $state();
     /** @type {HTMLButtonElement} */
-    let /* binded */ scrollLeftButton;
+    let /* binded */ scrollLeftButton = $state();
     /** @type {HTMLButtonElement} */
-    let /* binded */ scrollRightButton;
+    let /* binded */ scrollRightButton = $state();
     onMount(() => {
         if (!carousel) return;
         if (!scrollLeftButton) return;

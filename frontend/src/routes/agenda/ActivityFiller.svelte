@@ -1,7 +1,11 @@
-<script>
-    export let activity;
-    export let height;
-    export let hideInMobile = false;
+<script lang="ts">
+    interface Props {
+        activity: any;
+        height: any;
+        hideInMobile?: boolean;
+    }
+
+    let { activity, height, hideInMobile = false }: Props = $props();
 </script>
 
 <div class="filler"
@@ -11,7 +15,7 @@
 </div>
 
 <style lang="scss">
-    @use "bulma/sass/utilities/mixins.sass";
+    @use "bulma/sass/utilities/mixins";
 
     .filler {
         margin-bottom: 2rem;

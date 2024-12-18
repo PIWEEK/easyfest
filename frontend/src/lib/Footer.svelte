@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
     import logoFallback from '../assets/images/easyfest-logo.svg'
 
     const storage_url = import.meta.env.VITE_STORAGE_URL
-    export let data;
+    let { data } = $props();
 
     const PLATFORMS_MAP = {
         "github": {

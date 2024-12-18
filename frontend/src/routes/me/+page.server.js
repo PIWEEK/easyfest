@@ -6,7 +6,7 @@ export async function load({ params, cookies }) {
 
     const authToken = cookies ? cookies.get("easyfest-auth") : null
     if (!authToken) {
-        throw redirect(302, "/get-link")
+        redirect(302, "/get-link");
     }
 
     const user = await apiClient("GET", "users/me", {}, authToken)

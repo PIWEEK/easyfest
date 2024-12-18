@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { onMount } from 'svelte';
 
     import logoFallback from '../assets/images/easyfest-logo.svg'
@@ -11,7 +11,7 @@
     }
 
     const storage_url = import.meta.env.VITE_STORAGE_URL
-    export let data;
+    let { data } = $props();
 
     const isRegistrationOpen = data.registration === REGISTRATION.OPEN
 
@@ -25,7 +25,7 @@
         data.show_venue_info
 
     let navbarHiddenClass = '';
-    let isNavbarHidden = false;
+    let isNavbarHidden = $state(false);
 
     function hamburgerClick(event) {
         const hamburger = event.currentTarget;
@@ -113,7 +113,7 @@
             </a>
             {#if showMenu}
             <button class="navbar-burger" aria-label="menu" aria-expanded="false" data-menu-id="mainMenu"
-               on:click={hamburgerClick}>
+               onclick={hamburgerClick}>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>

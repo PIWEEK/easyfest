@@ -1,15 +1,15 @@
-<script>
+<script lang="ts">
     import { onMount, onDestroy } from 'svelte';
     import { browser } from '$app/environment';
 
     import ActivityCard from "./ActivityCard.svelte";
     import ActivityFiller from "./ActivityFiller.svelte";
 
-    export let data;
+    let { data } = $props();
 
-    let current_day = data.days?.length > 0 ? data.days[0] : null;
-    let container;
-    let containerWidth;
+    let current_day = $state(data.days?.length > 0 ? data.days[0] : null);
+    let container = $state();
+    let containerWidth = $state();
 
     function handleDayClick(day) {
         current_day = day;
@@ -44,7 +44,7 @@
             <ul>
                 {#each data.days as day}
                     <li class:is-active={day === current_day}>
-                        <a on:click={handleDayClick(day)}>Day {day.date} / {day.month}</a>
+                        <a onclick={handleDayClick(day)}>Day {day.date} / {day.month}</a>
                     </li>
                 {/each}
             </ul>
@@ -82,7 +82,7 @@
 </section>
 
 <style lang="scss">
-    @use "bulma/sass/elements/container.sass";
+    @use "bulma/sass/layout/container";
     .activity-wrapper {
         position: relative;
     }

@@ -1,10 +1,14 @@
 <script lang="ts">
-    import SvelteMarkdown from 'svelte-markdown'
+    import SvelteMarkdown from '@humanspeak/svelte-markdown'
     import type { PageData } from './$types';
     import { superForm } from 'sveltekit-superforms/client';
     import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
-    /** @type {import('./$types').PageData} */
-    export let data;
+    
+  interface Props {
+    data: import('./$types').PageData;
+  }
+
+  let { data }: Props = $props();
   
     const { form, errors, constraints } = superForm(data.form);
 </script>
