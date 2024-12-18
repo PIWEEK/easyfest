@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
   import SvelteMarkdown from 'svelte-markdown'
-  export let data;
+  let { data } = $props();
 </script>
 
 <section class="section">

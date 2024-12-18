@@ -1,5 +1,5 @@
-<script>
-  export let data;
+<script lang="ts">
+  let { data } = $props();
 </script>
 
 <section class="section">

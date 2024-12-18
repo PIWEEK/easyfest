@@ -1,7 +1,11 @@
-<script>
-    export let activity;
-    export let height;
-    export let hideInMobile = false;
+<script lang="ts">
+    interface Props {
+        activity: any;
+        height: any;
+        hideInMobile?: boolean;
+    }
+
+    let { activity, height, hideInMobile = false }: Props = $props();
 </script>
 
 <div class="filler"

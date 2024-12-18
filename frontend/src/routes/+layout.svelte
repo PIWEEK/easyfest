@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
     import "../app.scss"
     import { Modals, closeModal } from 'svelte-modals'
     import Header from "$lib/Header.svelte"
     import Footer from "$lib/Footer.svelte"
 
-    export let data;
+  let { data, children } = $props();
 
     const title = data.tagline ? `${data.title} | ${data.tagline}` : data.title
 </script>
@@ -14,16 +14,18 @@
 </svelte:head>
 
 <Modals>
+    {#snippet backdrop()}
     <button
-      slot="backdrop"
-      class="backdrop"
-      on:click={closeModal}
-    />
+        
+        class="backdrop"
+        onclick={closeModal}
+>
+  {/snippet}</button>
 </Modals>
 
 <Header {data}/>
 
-<slot></slot>
+{@render children?.()}
 
 <Footer {data}/>
 

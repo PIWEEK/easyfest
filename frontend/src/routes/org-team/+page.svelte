@@ -6,8 +6,14 @@
  
     const storage_url = import.meta.env.VITE_STORAGE_URL
 
-    /** @type {import('./$types').PageData} */
-    export let data;
+    
+  /**
+   * @typedef {Object} Props
+   * @property {import('./$types').PageData} data
+   */
+
+  /** @type {Props} */
+  let { data } = $props();
 
   function handleClick(publicprofile) {
     openModal(Modal, { profile: publicprofile })
@@ -31,7 +37,7 @@
                     <article class="media">
                       <div class="media-left">
                         <figure class="image is-64x64">
-                        <img on:click={handleClick(publicprofile)} src="{storage_url}{publicprofile.attributes.photo.data.attributes.url}"/>
+                        <img onclick={handleClick(publicprofile)} src="{storage_url}{publicprofile.attributes.photo.data.attributes.url}"/>
                         </figure>
                         </div>  
 

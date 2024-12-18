@@ -1,12 +1,11 @@
-<script>
+<script lang="ts">
     import { openModal } from 'svelte-modals'
 
     import Modal from "$lib/ProfileModal.svelte"
 
     const storage_url = import.meta.env.VITE_STORAGE_URL
 
-    export let activity;
-    export let height;
+   let { activity, height } = $props();
 
     function handleProfileClick(publicprofile) {
         openModal(Modal, { profile: publicprofile })
@@ -34,7 +33,7 @@
 
             {#each activity.attributes.public_faces.data as pf}
                 {#if activity.attributes.public_faces.data}
-                    <block class="public-face media" on:click={handleProfileClick(pf)}>
+                    <block class="public-face media" onclick={handleProfileClick(pf)}>
                         <div class="media-left">
                             <figure class="image is-24x24">
                                 <img class="is-rounded" src="{storage_url}{pf.attributes.photo.data.attributes.url}"/>

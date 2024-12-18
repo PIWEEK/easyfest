@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   import SvelteMarkdown from 'svelte-markdown'
   const storage_url = import.meta.env.VITE_STORAGE_URL
-  export let data;
+  let { data } = $props();
 </script>
 
 <section class="section">

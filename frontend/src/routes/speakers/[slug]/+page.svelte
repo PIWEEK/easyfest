@@ -1,8 +1,14 @@
 <script>
   import SvelteMarkdown from 'svelte-markdown'
   const storage_url = import.meta.env.VITE_STORAGE_URL
-  /** @type {import('./$types').PageData} */
-  export let data;
+  
+  /**
+   * @typedef {Object} Props
+   * @property {import('./$types').PageData} data
+   */
+
+  /** @type {Props} */
+  let { data } = $props();
 </script>
 
 <h1>{data.profile.attributes.fullname}</h1>
