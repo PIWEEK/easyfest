@@ -1,0 +1,19 @@
+{
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+    "accomodation_info": "Alojamiento",
+    "about": "Sobre nosotros",
+    "agenda": "Agenda",
+    "close": "Cerrar",
+    "code_of_conduct": "Código de conducta",
+    "contact_info": "Contacto",
+    "cookie_policy": "Política de cookies",
+    "day": "Día",
+    "legal": "Aviso legal",
+    "org_team": "Equipo organizador",
+    "press_kit": "Kit de prensa",
+    "privacy_policy": "Política de privacidad",
+    "registration": "Registro",
+    "speakers": "Ponentes",
+    "streaming": "Streaming",
+    "venue_info": "El lugar"
+}

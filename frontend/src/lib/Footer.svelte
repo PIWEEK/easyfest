@@ -1,4 +1,5 @@
 <script lang="ts">
+	import * as m from '$lib/paraglide/messages.js'
     import logoFallback from '../assets/images/easyfest-logo.svg'
 
     const storage_url = import.meta.env.VITE_STORAGE_URL
@@ -46,13 +47,13 @@
             </div>
             {#if data.show_cookie_policy || data.show_privacy_policy}
             <div class="column">
-                <p class="text--small--uppercase mb-4 has-text-white">Legal</p>
+                <p class="text--small--uppercase mb-4 has-text-white">{m.legal()}</p>
                 <ul>
                     {#if data.show_cookie_policy}
-                    <li><a href="/cookie-policy" class="text--medium has-text-white">Cookie policy</a></li>
+                    <li><a href="/cookie-policy" class="text--medium has-text-white">{m.cookie_policy()}</a></li>
                     {/if}
                     {#if data.show_privacy_policy}
-                    <li><a href="/privacy-policy" class="text--medium has-text-white">Privacy policy</a></li>
+                    <li><a href="/privacy-policy" class="text--medium has-text-white">{m.privacy_policy()}</a></li>
                     {/if}
                 </ul>
             </div>
@@ -61,14 +62,14 @@
                 <p class="text--small--uppercase mb-4">{data.title}</p>
                 <ul>
                     {#if data.show_org_team}
-                    <li><a href="/org-team" class="text--medium has-text-white">Org team</a></li>
+                    <li><a href="/org-team" class="text--medium has-text-white">{m.org_team()}</a></li>
                     {/if}
-                    <li><a href="/contact-info" class="text--medium has-text-white">Contact info</a></li>
+                    <li><a href="/contact-info" class="text--medium has-text-white">{m.contact_info()}</a></li>
                     {#if data.show_code_of_conduct}
-                    <li><a href="/code-of-conduct" class="text--medium has-text-white">Code of Conduct</a></li>
+                    <li><a href="/code-of-conduct" class="text--medium has-text-white">{m.code_of_conduct()}</a></li>
                     {/if}
                     {#if data.show_press_kit}
-                    <li><a href="/press-kit" class="text--medium has-text-white">Press kit</a></li>
+                    <li><a href="/press-kit" class="text--medium has-text-white">{m.press_kit()}</a></li>
                     {/if}
                 </ul>
             </div>

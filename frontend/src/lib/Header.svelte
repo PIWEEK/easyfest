@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+	import * as m from '$lib/paraglide/messages.js'
 
     import logoFallback from '../assets/images/easyfest-logo.svg'
 
@@ -124,25 +125,25 @@
         <div id="mainMenu" class="navbar-menu">
             <div class="navbar-start navbar-center">
                 {#if data.show_about_us}
-                <a class="navbar-item" href="/about-us">About</a>
+                <a class="navbar-item" href="/about-us">{m.about()}</a>
                 {/if}
                 {#if isRegistrationInfoActive}
-                <a class="navbar-item" href="/registration">Registration</a>
+                <a class="navbar-item" href="/registration">{m.registration()}</a>
                 {/if}
                 {#if data.show_accommodation_info}
-                <a class="navbar-item" href="/accommodation-info">Accomodation info</a>
+                <a class="navbar-item" href="/accommodation-info">{m.accomodation_info()}</a>
                 {/if}
                 {#if data.show_agenda}
-                <a class="navbar-item" href="/agenda">Agenda</a>
+                <a class="navbar-item" href="/agenda">{m.agenda()}</a>
                 {/if}
                 {#if data.show_speakers}
-                <a class="navbar-item" href="/speakers">Speakers</a>
+                <a class="navbar-item" href="/speakers">{m.speakers()}</a>
                 {/if}
                 {#if data.show_streaming}
-                <a class="navbar-item" href="/streaming">Streaming</a>
+                <a class="navbar-item" href="/streaming">{m.streaming()}</a>
                 {/if}
                 {#if data.show_venue_info}
-                <a class="navbar-item" href="/venue-info">Venue info</a>
+                <a class="navbar-item" href="/venue-info">{m.venue_info()}</a>
                 {/if}
             </div>
             <div class="navbar-end">

@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { ParaglideJS } from '@inlang/paraglide-sveltekit'
+	import { i18n } from '$lib/i18n'
+	import * as m from '$lib/paraglide/messages.js'
+
   import "../app.scss"
   import { Modals } from 'svelte-modals'
   import Header from "$lib/Header.svelte"
@@ -13,21 +17,23 @@
   <title>{title}</title>
 </svelte:head>
 
-<Modals>
-    {#snippet backdrop( close )}
-      <button
-          class="backdrop"
-          aria-label="close"
-          onclick={() => close()}
-      ></button>
-    {/snippet}
-</Modals>
+<ParaglideJS {i18n}>
+  <Modals>
+      {#snippet backdrop( close )}
+        <button
+            class="backdrop"
+            aria-label="{m.close()}"
+            onclick={() => close()}
+        ></button>
+      {/snippet}
+  </Modals>
 
-<Header {data}/>
+  <Header {data}/>
 
-{@render children?.()}
+  {@render children?.()}
 
-<Footer {data}/>
+  <Footer {data}/>
+</ParaglideJS>
 
 <style>
     .backdrop {

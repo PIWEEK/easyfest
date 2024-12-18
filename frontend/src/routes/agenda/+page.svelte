@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount, onDestroy } from 'svelte';
     import { browser } from '$app/environment';
+	import * as m from '$lib/paraglide/messages.js'
 
     import ActivityCard from "./ActivityCard.svelte";
     import ActivityFiller from "./ActivityFiller.svelte";
@@ -44,7 +45,7 @@
             <ul>
                 {#each data.days as day}
                     <li class:is-active={day === current_day}>
-                        <a onclick={handleDayClick(day)}>Day {day.date} / {day.month}</a>
+                        <a onclick={handleDayClick(day)}>{m.day()} {day.date} / {day.month}</a>
                     </li>
                 {/each}
             </ul>

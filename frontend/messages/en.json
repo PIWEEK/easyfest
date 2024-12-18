@@ -1,0 +1,19 @@
+{
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+    "accomodation_info": "Accomodation info",
+    "about": "About",
+    "agenda": "Agenda",
+    "close": "Close",
+    "code_of_conduct": "Code of Conduct",
+    "contact_info": "Contact info",
+    "cookie_policy": "Cookie policy",
+    "day": "Day",
+    "legal": "Legal",
+    "org_team": "Org team",
+    "press_kit": "Press kit",
+    "privacy_policy": "Privacy policy",
+    "registration": "Registration",
+    "speakers": "Speakers",
+    "streaming": "Streaming",
+    "venue_info": "Venue info"
+}
