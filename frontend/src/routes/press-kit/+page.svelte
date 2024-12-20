@@ -13,10 +13,10 @@
           {/if}
         </div>
 
-        {#if data.attachments.data}
+        {#if data.attachments.length > 0}
         <ul class="list">
-          {#each data.attachments.data as attachment}
-            <li class="list-item box"><a href="{storage_url}{attachment.attributes.url}">{attachment.attributes.caption ?? 'Media resource'}</a></li>
+          {#each data.attachments as attachment}
+            <li class="list-item box"><a href="{storage_url}{attachment.url}">{attachment.caption ?? 'Media resource'}</a></li>
           {/each}
         </ul>
         {/if}

@@ -17,6 +17,6 @@ export async function load({ params, cookies }) {
 
     return {
         user,
-        activities: activities.data,
+        activities: activities,
     };
 }

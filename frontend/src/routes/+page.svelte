@@ -118,10 +118,11 @@
     }
 
     const { homepage, speakers, site, ...settings } = data
+    console.log("------------", data)
     const highlightText = {
-        [STATUS.HYPE]: homepage.attributes.highlight_hype,
-        [STATUS.PUBLIC]: homepage.attributes.highlight_public,
-        [STATUS.FINISHED]: homepage.attributes.highlight_finished,
+        [STATUS.HYPE]: homepage.highlight_hype,
+        [STATUS.PUBLIC]: homepage.highlight_public,
+        [STATUS.FINISHED]: homepage.highlight_finished,
     }[settings.status] ?? null
 
     const REGISTRATION = {
@@ -137,18 +138,18 @@
         <div class=" ">
             <div class="columns">
                 <div class="hero-content column is-half">
-                    {#if homepage.attributes.dates_and_location}
-                    <p class="has-text-secondary-light header-date">{homepage.attributes.dates_and_location}</p>
+                    {#if homepage.dates_and_location}
+                    <p class="has-text-secondary-light header-date">{homepage.dates_and_location}</p>
                     {/if}
-                    <p class="title header--large has-text-white">{homepage.attributes.title}</p>
+                    <p class="title header--large has-text-white">{homepage.title}</p>
                     {#if highlightText}
                     <p class="subtitle text--large has-text-white">{highlightText}</p>
                     {/if}
                 </div>
                 <div class="column is-half">
                     <figure class="hero-image image">
-                        {#if homepage.attributes.hero_image.data}
-                        {@const image = homepage.attributes.hero_image.data.attributes}
+                        {#if homepage.hero_image}
+                        {@const image = homepage.hero_image}
                         <img src="{storage_url}{image.url}" alt={image.caption}/>
                         {:else}
                         <img src={heroFallback} alt=""/>
@@ -160,7 +161,7 @@
     </div>
 </section>
 
-{#if site.attributes.registration === REGISTRATION.SOON}
+{#if site.registration === REGISTRATION.SOON}
 <section class="has-background-primary-light p-5">
     <div class="container">
         <p>To enter the tickets queue you'll need to be registered.</p>
@@ -175,10 +176,10 @@
 </section>
 {/if}
 
-{#if homepage.attributes.about_section}
-{@const title = homepage.attributes.about_section.title}
-{@const image = homepage.attributes.about_section.image.data.attributes}
-{@const mdContent = homepage.attributes.about_section.content}
+{#if homepage.about_section}
+{@const title = homepage.about_section.title}
+{@const image = homepage.about_section.image}
+{@const mdContent = homepage.about_section.content}
 <section class="section">
     <div class="container pb-6">
         <div class="level columns">
@@ -202,17 +203,17 @@
 </section>
 {/if}
 
-{#if homepage.attributes.show_marquee_text && homepage.attributes.marquee_text}
+{#if homepage.show_marquee_text && homepage.marquee_text}
 <aside class="has-background-primary-light">
     <div bind:this={marqueeElement} class="marquee level is-mobile text--small--uppercase py-4">
-        <div>{homepage.attributes.marquee_text}</div>
+        <div>{homepage.marquee_text}</div>
     </div>
 </aside>
 {/if}
 
-{#if settings.show_agenda && homepage.attributes.activities_section}
-{@const activities = homepage.attributes.activities_section}
-{@const featuredActivities = activities.featured_activities.data}
+{#if settings.show_agenda && homepage.activities_section}
+{@const activities = homepage.activities_section}
+{@const featuredActivities = activities.featured_activities}
 {#if featuredActivities.length > 0}
 <section class="has-background-dark has-text-white">
     <div class="container p-6">
@@ -232,7 +233,7 @@
     </div>
     <div class="columns is-multiline featured-talks">
         {#each featuredActivities as activityWrapper}
-        {@const activity = activityWrapper.attributes}
+        {@const activity = activityWrapper}
         <div class="column is-half border-color--secondary has-background-dark">
             <div class="featured-talks-item" style="height: 100%; display: flex; flex-direction: column">
                 {#if activity.start}
@@ -249,13 +250,13 @@
                 <p class="subtitle text--medium has-text-white">{activity.short_description}</p>
                 {/if}
                 <div class="block text--small" style="flex-grow: 1">
-                    {#each activity.public_faces.data as profileWrapper}
-                    {@const profile = profileWrapper.attributes}
+                    {#each activity.public_faces as profileWrapper}
+                    {@const profile = profileWrapper}
                     <p><span style="text-decoration: underline">{profile.fullname}</span>, {profile.title}</p>
                     {/each}
                 </div>
-                {#if activity.track.data}
-                {@const track = activity.track.data.attributes}
+                {#if activity.track}
+                {@const track = activity.track}
                 <div class="block has-text-white-ter">
                     <p>{track.title} - {track.description}</p>
                 </div>
@@ -268,8 +269,8 @@
 {/if}
 {/if}
 
-{#if settings.show_speakers && homepage.attributes.speakers_section && speakers}
-{@const speakerSection = homepage.attributes.speakers_section}
+{#if settings.show_speakers && homepage.speakers_section && speakers}
+{@const speakerSection = homepage.speakers_section}
 <section class="has-background-secondary-lighter">
     <div class="container p-6">
         <div class="level columns">
@@ -287,8 +288,8 @@
     <div>
         <div bind:this={carousel} class="carousel is-flex flex-wrap-nowrap py-1 is-justify-content-space-evenly is-align-items-stretch" style="margin: 0 auto">
             {#each speakers as profileWrapper}
-            {@const profile = profileWrapper.attributes}
-            {@const picture = profile.photo.data.attributes}
+            {@const profile = profileWrapper}
+            {@const picture = profile.photo}
             <article class="ml-4 carousel-item">
                 <div style="position: relative">
                     <figure class="image">
@@ -314,8 +315,8 @@
 </section>
 {/if}
 
-{#if settings.show_venue_info && homepage.attributes.locations_section}
-{@const locations = homepage.attributes.locations_section}
+{#if settings.show_venue_info && homepage.locations_section}
+{@const locations = homepage.locations_section}
 <section class="block has-background-white">
     <div class="container p-6">
         <div>
@@ -328,7 +329,7 @@
     <div class="container">
         {#each locations.locations as location, index}
         {@const isEven = index % 2 === 0}
-        {@const image = location.image.data.attributes}
+        {@const image = location.image}
         {@const badge = location.badge}
         {@const title = location.title}
         {@const mdContent = location.content}
@@ -349,8 +350,8 @@
 </section>
 {/if}
 
-{#if settings.show_accommodation_info && homepage.attributes.accommodation_section}
-{@const accommodation = homepage.attributes.accommodation_section}
+{#if settings.show_accommodation_info && homepage.accommodation_section}
+{@const accommodation = homepage.accommodation_section}
 <section class="block has-background-white-bis">
     <div class="container py-6 px-6">
         <div>
@@ -363,7 +364,7 @@
     <div class="container">
         <div class="level columns is-multiline is-align-items-stretch px-6">
             {#each accommodation.places as place}
-            {@const image = place.image.data.attributes}
+            {@const image = place.image}
             {@const title = place.title}
             {@const mdContent = place.content}
             <div class="column is-one-third">

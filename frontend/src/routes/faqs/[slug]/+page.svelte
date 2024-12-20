@@ -10,5 +10,5 @@
     let { data } = $props();
 </script>
 
-{data.faq.attributes.category} - {data.faq.attributes.order}: {data.faq.attributes.question} = {data.faq.attributes.answer}
+{data.faq.category} - {data.faq.order}: {data.faq.question} = {data.faq.answer}
 

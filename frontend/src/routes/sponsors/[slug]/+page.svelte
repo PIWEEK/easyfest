@@ -9,5 +9,5 @@
     let { data } = $props();
 </script>
 
-{data.sponsor.attributes.category} - {data.sponsor.attributes.order}: {data.sponsor.attributes.question} = {data.sponsor.attributes.answer}
+{data.sponsor.category} - {data.sponsor.order}: {data.sponsor.question} = {data.sponsor.answer}
 

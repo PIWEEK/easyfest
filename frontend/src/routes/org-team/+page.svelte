@@ -1,5 +1,5 @@
 
-<script>
+<script lang="js">
     import SvelteMarkdown from '@humanspeak/svelte-markdown'
     import { modals } from 'svelte-modals'
     import Modal from "$lib/ProfileModal.svelte"
@@ -22,10 +22,10 @@
 
 <section class="section">
     <div class="container">
-        <h1 class="title">{data.org_team.attributes.title}</h1>
+        <h1 class="title">{data.org_team.title}</h1>
         <div class="content">
-          {#if data.org_team.attributes.content}
-          <SvelteMarkdown options={{mangle: false}} source={data.org_team.attributes.content}/>
+          {#if data.org_team.content}
+          <SvelteMarkdown options={{mangle: false}} source={data.org_team.content}/>
           {/if}
         </div>
 
@@ -37,18 +37,18 @@
                     <article class="media">
                       <div class="media-left">
                         <figure class="image is-64x64">
-                        <img onclick={handleClick(publicprofile)} src="{storage_url}{publicprofile.attributes.photo.data.attributes.url}"/>
+                        <img onclick={() => handleClick(publicprofile)} src="{storage_url}{publicprofile.photo.url}"/>
                         </figure>
                         </div>  
 
                       <div class="media-content">
                         <div class="content">
                           <p>
-                            <strong>{publicprofile.attributes.fullname} {#if publicprofile.attributes.nickname}
-                              "{publicprofile.attributes.nickname}"
+                            <strong>{publicprofile.fullname} {#if publicprofile.nickname}
+                              "{publicprofile.nickname}"
                               {/if}</strong> 
                             <br>
-                            <small>{publicprofile.attributes.title}</small>
+                            <small>{publicprofile.title}</small>
                           </p>
                         </div>
         

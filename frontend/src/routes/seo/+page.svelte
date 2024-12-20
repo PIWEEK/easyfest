@@ -18,8 +18,8 @@
     {#if data.meta_description}
       <h2>{data.meta_description}</h2>
     {/if}
-    {#if data.thumbnail.data}
-      <img src="{storage_url}{data.thumbnail.data.attributes.url}"/>
+    {#if data.thumbnail}
+      <img src="{storage_url}{data.thumbnail.url}"/>
     {/if}
   </div>
 </section>

@@ -106,8 +106,8 @@
      <div class="container">
         <div class="navbar-brand">
             <a href="/" class="navbar-item">
-                {#if data.logo_horiz.data}
-                <img alt={data.title} src="{storage_url}{data.logo_horiz.data.attributes.url}"/>
+                {#if data.logo_horiz}
+                <img alt={data.title} src="{storage_url}{data.logo_horiz.url}"/>
                 {:else}
                 <img alt={data.title} src={logoFallback}/>
                 {/if}

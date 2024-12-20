@@ -10,9 +10,9 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">{profile.attributes.fullname}
-          {#if profile.attributes.nickname}
-          "{profile.attributes.nickname}"
+        <p class="modal-card-title">{profile.fullname}
+          {#if profile.nickname}
+          "{profile.nickname}"
           {/if}
        </p>
         <button onclick={close} class="delete" aria-label="close"></button>
@@ -21,21 +21,21 @@
       <section class="modal-card-body">
         <div class="content">
         <p class="is-italic">
-          {#if profile.attributes.title}
-          {profile.attributes.title}
+          {#if profile.title}
+          {profile.title}
           {/if}
         </p>
 
-        {#if profile.attributes.bio}
-        <SvelteMarkdown options={{mangle: false}} source={profile.attributes.bio}/>
+        {#if profile.bio}
+        <SvelteMarkdown options={{mangle: false}} source={profile.bio}/>
         {/if}
-        {#if profile.attributes.pronouns}
+        {#if profile.pronouns}
         <p class="tag is-pulled-right">
-          {profile.attributes.pronouns}
+          {profile.pronouns}
         </p>
         {/if}
 
-        {#if profile.attributes.is_guest}
+        {#if profile.is_guest}
         <p class="tag is-dark">Special guest</p>
         {/if}
 
@@ -44,13 +44,13 @@
 
      
       <footer class="modal-card-foot">
-        {#if profile.attributes.activities}
+        {#if profile.activities}
 
-        {#if profile.attributes.activities.data.length > 0}
-        {#each profile.attributes.activities.data as activity}
+        {#if profile.activities.length > 0}
+        {#each profile.activities as activity}
         <span class="tag">
           
-          <a onclick={close} href="/activities/{activity.id}">{activity.attributes.title}</a>
+          <a onclick={close} href="/activities/{activity.documentId}">{activity.title}</a>
           
         </span>
 

@@ -11,8 +11,8 @@
     let { data } = $props();
 </script>
 
-<h1>{data.activity.attributes.title}</h1>
-<div>{data.activity.attributes.short_description}</div>
-{#if data.activity.attributes.long_description}
-<SvelteMarkdown options={{mangle: false}} source={data.activity.attributes.long_description}/>
+<h1>{data.title}</h1>
+<div>{data.short_description}</div>
+{#if data.long_description}
+<SvelteMarkdown options={{mangle: false}} source={data.long_description}/>
 {/if}

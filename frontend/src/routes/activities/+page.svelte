@@ -16,14 +16,14 @@
 
         {#each data.activities as activity}
 
-            <h2>{activity.attributes.title}</h2>
+            <h2>{activity.title}</h2>
 
-            {#if activity.attributes.short_description}
-                <div class="short">{@html activity.attributes.short_description}</div>
+            {#if activity.short_description}
+                <div class="short">{@html activity.short_description}</div>
             {/if}
 
-            {#if activity.attributes.long_description}
-                <SvelteMarkdown source={activity.attributes.long_description}/>
+            {#if activity.long_description}
+                <SvelteMarkdown source={activity.long_description}/>
             {/if}
 
         {/each}

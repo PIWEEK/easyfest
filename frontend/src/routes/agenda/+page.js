@@ -10,10 +10,10 @@ export async function load({ params }) {
     }
 
     // Ensure correct ordering of tracks and activities
-    tracks.sort((a, b) => a.attributes.order - b.attributes.order);
+    tracks.sort((a, b) => a.order - b.order);
     for (let track of tracks) {
-        track.attributes.activities.data.sort((a, b) => Date.parse(a.attributes.start) -
-                                                        Date.parse(b.attributes.start));
+        track.activities.sort((a, b) => Date.parse(a.start) -
+                                                        Date.parse(b.start));
     }
 
     const days = pack_activities(tracks);
@@ -31,7 +31,7 @@ function pack_activities(tracks) {
     const days = [];
 
     for (let [i, track] of tracks.entries()) {
-        for (let activity of track.attributes.activities.data) {
+        for (let activity of track.activities) {
             const day = get_day(days, tracks, activity);
             add_activity(day.tracks[i], activity);
         }
@@ -47,7 +47,7 @@ function pack_activities(tracks) {
  * Initialize each track with the day start.
  */
 function get_day(days, tracks, activity) {
-    const start = new Date(activity.attributes.start);
+    const start = new Date(activity.start);
     for (let day of days) {
         if (day.year === start.getFullYear() &&
             day.month === start.getMonth() &&
@@ -67,9 +67,9 @@ function get_day(days, tracks, activity) {
 
     for (let [i, track] of tracks.entries()) {
         day.tracks.push({...track});
-        day.tracks[i].attributes.activities.data = [];
-        day.tracks[i].attributes.start = day.start;
-        day.tracks[i].attributes.end = day.start;
+        day.tracks[i].activities = [];
+        day.tracks[i].start = day.start;
+        day.tracks[i].end = day.start;
     }
 
     days.push(day);
@@ -82,8 +82,8 @@ function get_day(days, tracks, activity) {
 function set_day_start(day, tracks, activityOrig) {
     let day_start = null;
     for (let track of tracks) {
-        for (let activity of track.attributes.activities.data) {
-            const start = new Date(activity.attributes.start);
+        for (let activity of track.activities) {
+            const start = new Date(activity.start);
             if (day.year === start.getFullYear() &&
                 day.month === start.getMonth() &&
                 day.date === start.getDate()) {
@@ -109,19 +109,19 @@ function set_day_start(day, tracks, activityOrig) {
  * You need to call to this method in cronologic order.
  */
 function add_activity(track, activity) {
-    const start = new Date(activity.attributes.start);
+    const start = new Date(activity.start);
 
-    if (start.getTime() > track.attributes.end.getTime()) {
-        track.attributes.activities.data.push({
+    if (start.getTime() > track.end.getTime()) {
+        track.activities.push({
             id: 0,
             attributes: {
                 is_filler: true,
-                start: track.attributes.end,
-                minutes: (start.getTime() - track.attributes.end.getTime()) / 1000 / 60,
+                start: track.end,
+                minutes: (start.getTime() - track.end.getTime()) / 1000 / 60,
             }
         })
     }
 
-    track.attributes.end = new Date(start.getTime() + activity.attributes.minutes * 60 * 1000);
-    track.attributes.activities.data.push(activity);
+    track.end = new Date(start.getTime() + activity.minutes * 60 * 1000);
+    track.activities.push(activity);
 }

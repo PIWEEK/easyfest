@@ -21,7 +21,7 @@
             <h2 class="title is-4">Activities you participate in:</h2>
             <ul class="list is-hoverable">
             {#each data.activities as activity}
-                <li class="list-item">{activity.attributes.title}</li>
+                <li class="list-item">{activity.title}</li>
             {/each}
             </ul>
         {/if}

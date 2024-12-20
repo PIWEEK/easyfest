@@ -7,7 +7,7 @@ export async function load({}) {
         fetchSingle("/site")
     ]);
     if (settingsEntry || siteEntry) {
-        data = {...settingsEntry.attributes, ...siteEntry.attributes}
+        data = {...settingsEntry, ...siteEntry}
     }
     return data;
 }

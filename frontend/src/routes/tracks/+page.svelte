@@ -9,8 +9,8 @@
 
         <ul class="list">
             {#each data.tracks as track}
-                <li class="list-item box">{track.attributes.title} - {track.attributes.description}: {track.attributes.location} {track.attributes.group}
-                    {track.attributes.is_title_visible} {track.attributes.order}
+                <li class="list-item box">{track.title} - {track.description}: {track.location} {track.group}
+                    {track.is_title_visible} {track.order}
                 </li>
             {/each}
         </ul>

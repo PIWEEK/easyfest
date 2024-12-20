@@ -11,16 +11,16 @@
   let { data } = $props();
 </script>
 
-<h1>{data.profile.attributes.fullname}</h1>
-<div>{data.profile.attributes.title}</div>
-<div>Speaker: {data.profile.attributes.is_speaker}</div>
-<div>Org: {data.profile.attributes.is_org}</div>
-<div>Guest: {data.profile.attributes.is_guest}</div>
-<div><img src="{storage_url}{data.profile.attributes.photo.data.attributes.url}"/></div>
-<div><SvelteMarkdown source={data.profile.attributes.bio}/></div>
+<h1>{data.profile.fullname}</h1>
+<div>{data.profile.title}</div>
+<div>Speaker: {data.profile.is_speaker}</div>
+<div>Org: {data.profile.is_org}</div>
+<div>Guest: {data.profile.is_guest}</div>
+<div><img src="{storage_url}{data.profile.photo.url}"/></div>
+<div><SvelteMarkdown source={data.profile.bio}/></div>
 
-{#each data.profile.attributes.activities.data as a}
-  {a.attributes.title}
-  {a.attributes.short_description}
+{#each data.profile.activities as a}
+  {a.title}
+  {a.short_description}
 {/each}
 

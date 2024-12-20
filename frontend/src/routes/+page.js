@@ -1,15 +1,7 @@
 import { encodeQuery, fetchSingle } from '../services/api';
 
 const homepagePath = `/homepage?${encodeQuery({
-	populate: [
-		'hero_image',
-		'about_section.image',
-		'activities_section.featured_activities.public_faces',
-		'activities_section.featured_activities.track',
-		'speakers_section',
-		'locations_section.locations.image',
-		'accommodation_section.places.image'
-	]
+	populate: '*'
 })}`;
 
 const speakersPath = `/public-profiles?${encodeQuery({

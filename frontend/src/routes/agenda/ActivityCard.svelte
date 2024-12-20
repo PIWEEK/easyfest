@@ -12,7 +12,7 @@
     }
 
     function activityHour(activity) {
-        const start = new Date(activity.attributes.start);
+        const start = new Date(activity.start);
         return start.getHours().toString() + ":" + start.getMinutes().toString();
     }
 </script>
@@ -21,41 +21,40 @@
     <div class="card-header">
         <p class="card-header-title">
             {activityHour(activity)}
-            {activity.attributes.title}
+            {activity.title}
         </p>
    </div>
-    {#if activity.attributes.short_description ||
-        activity.attributes.public_faces.data.length > 0}
+    {#if activity.short_description || (activity.public_faces && activity.public_faces.length > 0)}
         <div class="card-content">
-            {#if activity.attributes.short_description}
-                <p class="short-description">{activity.attributes.short_description}</p>
+            {#if activity.short_description}
+                <p class="short-description">{activity.short_description}</p>
             {/if}
 
-            {#each activity.attributes.public_faces.data as pf}
-                {#if activity.attributes.public_faces.data}
-                    <block class="public-face media" onclick={handleProfileClick(pf)}>
+            {#each activity.public_faces as pf}
+                {#if activity.public_faces}
+                    <block class="public-face media" onclick={() => handleProfileClick(pf)}>
                         <div class="media-left">
                             <figure class="image is-24x24">
-                                <img class="is-rounded" src="{storage_url}{pf.attributes.photo.data.attributes.url}"/>
+                                <img class="is-rounded" src="{storage_url}{pf.photo.url}"/>
                             </figure>
                         </div>  
                         <div class="content">
-                            {pf.attributes.fullname} 
-                            {#if pf.attributes.nickname}
-                                "{pf.attributes.nickname}"
+                            {pf.fullname} 
+                            {#if pf.nickname}
+                                "{pf.nickname}"
                             {/if} 
                         </div>
                     </block>
                  {/if}   
              {/each}
 
-            {#if activity.attributes.tag1 || activity.attributes.tag2}
+            {#if activity.tag1 || activity.tag2}
                 <p class="tags is-pulled-right is-pulled-bottom">
-                    {#if activity.attributes.tag1}
-                        <span class="tag is-primary">{activity.attributes.tag1}</span>
+                    {#if activity.tag1}
+                        <span class="tag is-primary">{activity.tag1}</span>
                     {/if}
-                    {#if activity.attributes.tag2}
-                        <span class="tag is-info">{activity.attributes.tag2}</span>
+                    {#if activity.tag2}
+                        <span class="tag is-info">{activity.tag2}</span>
                     {/if}
                 </p>
             {/if}

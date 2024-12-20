@@ -8,7 +8,7 @@
         <h1 class="title">FAQs</h1>
         <ul class="list has-hoverable-list-items">
             {#each data.faqs as faq}
-                <li class="list-item box">{faq.attributes.category} - {faq.attributes.order}: {faq.attributes.question} = {faq.attributes.answer}</li>
+                <li class="list-item box">{faq.category} - {faq.order}: {faq.question} = {faq.answer}</li>
             {/each}
         </ul>
     </div>

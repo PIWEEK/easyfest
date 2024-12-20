@@ -19,20 +19,20 @@
 
         <ul>
         {#each data.news_items as news_item}
-            <h3>{news_item.attributes.title}</h3>
-            <p>{news_item.attributes.summary}</p>
-            {#if news_item.attributes.content}
-            <SvelteMarkdown source={news_item.attributes.content}/>
+            <h3>{news_item.title}</h3>
+            <p>{news_item.summary}</p>
+            {#if news_item.content}
+            <SvelteMarkdown source={news_item.content}/>
             {/if}
-            {news_item.attributes.date}
+            {news_item.date}
             
-            {#if news_item.attributes.featured_image.data}
-                <img src="{storage_url}{news_item.attributes.featured_image.data.attributes.url}"/>
+            {#if news_item.featured_image}
+                <img src="{storage_url}{news_item.featured_image.url}"/>
             {/if}
             
-            {#if news_item.attributes.attachments.data}
-                {#each news_item.attributes.attachments.data as attachment}
-                    <a href="{storage_url}{attachment.attributes.url}">{storage_url}{attachment.attributes.url}</a>
+            {#if news_item.attachments}
+                {#each news_item.attachments as attachment}
+                    <a href="{storage_url}{attachment.url}">{storage_url}{attachment.url}</a>
                 {/each}
             {/if}
 

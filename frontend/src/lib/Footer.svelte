@@ -38,8 +38,8 @@
         <div class="columns">
             <div class="column">
                 <a href="/">
-                    {#if data.logo_horiz.data}
-                    <img alt={data.title} src="{storage_url}{data.logo_horiz.data.attributes.url}"/>
+                    {#if data.logo_horiz}
+                    <img alt={data.title} src="{storage_url}{data.logo_horiz.url}"/>
                     {:else}
                     <img alt={data.title} src={logoFallback}/>
                     {/if}

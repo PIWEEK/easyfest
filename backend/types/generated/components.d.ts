@@ -1,57 +1,57 @@
-import type { Attribute, Schema } from '@strapi/strapi';
+import type { Schema, Struct } from '@strapi/strapi';
 
-export interface HomepageAboutSection extends Schema.Component {
+export interface HomepageAboutSection extends Struct.ComponentSchema {
   collectionName: 'comp_home_about_section';
   info: {
     displayName: 'about section';
     icon: 'picture';
   };
   attributes: {
-    content: Attribute.RichText & Attribute.Required;
-    image: Attribute.Media<'images'> & Attribute.Required;
-    title: Attribute.String &
-      Attribute.Required &
-      Attribute.DefaultTo<'An exciting event packed with'>;
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'An exciting event packed with'>;
   };
 }
 
-export interface HomepageAccommodationItem extends Schema.Component {
+export interface HomepageAccommodationItem extends Struct.ComponentSchema {
   collectionName: 'comp_home_accommodation_item';
   info: {
     displayName: 'accommodation item';
     icon: 'picture';
   };
   attributes: {
-    content: Attribute.RichText & Attribute.Required;
-    image: Attribute.Media<'images'> & Attribute.Required;
-    title: Attribute.String & Attribute.Required;
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
-export interface HomepageAccommodationSection extends Schema.Component {
+export interface HomepageAccommodationSection extends Struct.ComponentSchema {
   collectionName: 'comp_home_accommodation_section';
   info: {
     displayName: 'accommodation section';
     icon: 'picture';
   };
   attributes: {
-    intro: Attribute.String &
-      Attribute.DefaultTo<'Stay close to the action with these exclusive Easy Fest discounts!'>;
-    places: Attribute.Component<'homepage.accommodation_item', true> &
-      Attribute.Required &
-      Attribute.SetMinMax<
+    intro: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Stay close to the action with these exclusive Easy Fest discounts!'>;
+    places: Schema.Attribute.Component<'homepage.accommodation_item', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
         {
           min: 1;
         },
         number
       >;
-    title: Attribute.String &
-      Attribute.Required &
-      Attribute.DefaultTo<'Accommodation'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Accommodation'>;
   };
 }
 
-export interface HomepageActivitiesSection extends Schema.Component {
+export interface HomepageActivitiesSection extends Struct.ComponentSchema {
   collectionName: 'comp_home_activities_section';
   info: {
     description: '';
@@ -59,75 +59,74 @@ export interface HomepageActivitiesSection extends Schema.Component {
     icon: 'picture';
   };
   attributes: {
-    agenda_link_text: Attribute.String &
-      Attribute.Required &
-      Attribute.DefaultTo<'View full agenda'>;
-    f_activities: Attribute.Relation<
-      'homepage.activities_section',
+    agenda_link_text: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'View full agenda'>;
+    f_activities: Schema.Attribute.Relation<
       'oneToMany',
       'api::activity.activity'
     >;
-    intro: Attribute.String;
-    title: Attribute.String &
-      Attribute.Required &
-      Attribute.DefaultTo<'Featured activities'>;
+    intro: Schema.Attribute.String;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Featured activities'>;
   };
 }
 
-export interface HomepageLocationsItem extends Schema.Component {
+export interface HomepageLocationsItem extends Struct.ComponentSchema {
   collectionName: 'comp_home_locations_item';
   info: {
     displayName: 'locations item';
     icon: 'picture';
   };
   attributes: {
-    badge: Attribute.String & Attribute.Required;
-    content: Attribute.RichText & Attribute.Required;
-    image: Attribute.Media<'images'> & Attribute.Required;
-    title: Attribute.String & Attribute.Required;
+    badge: Schema.Attribute.String & Schema.Attribute.Required;
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
-export interface HomepageLocationsSection extends Schema.Component {
+export interface HomepageLocationsSection extends Struct.ComponentSchema {
   collectionName: 'comp_home_locations_section';
   info: {
     displayName: 'locations section';
     icon: 'picture';
   };
   attributes: {
-    intro: Attribute.String &
-      Attribute.DefaultTo<"You'll enjoy the best of backdrops, everything's included">;
-    locations: Attribute.Component<'homepage.locations_item', true> &
-      Attribute.Required &
-      Attribute.SetMinMax<
+    intro: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<"You'll enjoy the best of backdrops, everything's included">;
+    locations: Schema.Attribute.Component<'homepage.locations_item', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
         {
           min: 1;
         },
         number
       >;
-    title: Attribute.String &
-      Attribute.Required &
-      Attribute.DefaultTo<'Locations'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Locations'>;
   };
 }
 
-export interface HomepageSpeakersSection extends Schema.Component {
+export interface HomepageSpeakersSection extends Struct.ComponentSchema {
   collectionName: 'comp_home_speakers_section';
   info: {
     displayName: 'speakers section';
     icon: 'picture';
   };
   attributes: {
-    speakers_link_text: Attribute.String &
-      Attribute.Required &
-      Attribute.DefaultTo<'View all speakers'>;
-    title: Attribute.String &
-      Attribute.Required &
-      Attribute.DefaultTo<'Speakers & special guests'>;
+    speakers_link_text: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'View all speakers'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Speakers & special guests'>;
   };
 }
 
-export interface SiteSocialMedia extends Schema.Component {
+export interface SiteSocialMedia extends Struct.ComponentSchema {
   collectionName: 'comp_site_social_medias';
   info: {
     description: '';
@@ -135,20 +134,20 @@ export interface SiteSocialMedia extends Schema.Component {
     icon: 'link';
   };
   attributes: {
-    label: Attribute.String;
-    platform: Attribute.Enumeration<
+    label: Schema.Attribute.String;
+    platform: Schema.Attribute.Enumeration<
       ['github', 'mastodon', 'youtube', 'twitter', 'instagram', 'linkedin']
     > &
-      Attribute.Required;
-    url: Attribute.String &
-      Attribute.Required &
-      Attribute.DefaultTo<'https://web.site'>;
+      Schema.Attribute.Required;
+    url: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'https://web.site'>;
   };
 }
 
-declare module '@strapi/types' {
-  export module Shared {
-    export interface Components {
+declare module '@strapi/strapi' {
+  export module Public {
+    export interface ComponentSchemas {
       'homepage.about_section': HomepageAboutSection;
       'homepage.accommodation_item': HomepageAccommodationItem;
       'homepage.accommodation_section': HomepageAccommodationSection;

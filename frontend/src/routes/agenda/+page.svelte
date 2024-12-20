@@ -17,7 +17,7 @@
     }
 
     function activityHeight(activity) {
-        const duration = activity.attributes.minutes;
+        const duration = activity.minutes;
         return (duration * 0.6 - 2).toString() + "rem";
     }
 
@@ -56,15 +56,15 @@
         <div class="columns">
             {#if current_day}
                 {#each current_day.tracks as track}
-                    {#if track.attributes.activities.data.length > 0}
+                    {#if track.activities.length > 0}
                         <div class="column">
-                            <h2 class="title is-3">{track.attributes.title}</h2>
-                            <p class="subtitle">{track.attributes.description}</p>
-                            {#each track.attributes.activities.data as activity}
-                                {#if activity.attributes.is_filler}
+                            <h2 class="title is-3">{track.title}</h2>
+                            <p class="subtitle">{track.description}</p>
+                            {#each track.activities as activity}
+                                {#if activity.is_filler}
                                     <ActivityFiller {activity} height={activityHeight(activity)} hideInMobile={true}/>
                                 {:else}
-                                    {#if !activity.attributes.is_across_tracks}
+                                    {#if !activity.is_across_tracks}
                                         <ActivityCard {activity} height={activityHeight(activity)}/>
                                     {:else}
                                         <div class="activity-wrapper">
