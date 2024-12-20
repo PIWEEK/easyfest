@@ -3,7 +3,7 @@ import { fetchCollection } from '../../services/api';
 export async function load({ params }) {
     let data = {}
 
-    const trackEntries = await fetchCollection("/tracks?populate[activities][populate][public_faces][populate][0]=photo");
+    const trackEntries = await fetchCollection("/tracks?populate[activities][populate][public_faces][populate]=photo");
     let tracks = [];
     if (trackEntries) {
         tracks = trackEntries;
@@ -63,11 +63,11 @@ function get_day(days, tracks, activity) {
         tracks: [],
     }
 
-    set_day_start(day, tracks);
+    set_day_start(day, tracks, activity);
 
     for (let [i, track] of tracks.entries()) {
         day.tracks.push({...track});
-        day.tracks[i].attributes.activities = [];
+        day.tracks[i].attributes.activities.data = [];
         day.tracks[i].attributes.start = day.start;
         day.tracks[i].attributes.end = day.start;
     }
@@ -79,7 +79,7 @@ function get_day(days, tracks, activity) {
 /**
  * Get the start time of the first activity of one day.
  */
-function set_day_start(day, tracks) {
+function set_day_start(day, tracks, activityOrig) {
     let day_start = null;
     for (let track of tracks) {
         for (let activity of track.attributes.activities.data) {
@@ -94,7 +94,11 @@ function set_day_start(day, tracks) {
                 }
         }
     }
-    day.start = day_start;
+    if (day_start) {
+        day.start = day_start;
+    } else {
+        day.start = new Date(activityOrig.attributes.start);
+    }
 }
 
 /**
@@ -108,7 +112,7 @@ function add_activity(track, activity) {
     const start = new Date(activity.attributes.start);
 
     if (start.getTime() > track.attributes.end.getTime()) {
-        track.attributes.activities.push({
+        track.attributes.activities.data.push({
             id: 0,
             attributes: {
                 is_filler: true,
@@ -119,5 +123,5 @@ function add_activity(track, activity) {
     }
 
     track.attributes.end = new Date(start.getTime() + activity.attributes.minutes * 60 * 1000);
-    track.attributes.activities.push(activity);
+    track.attributes.activities.data.push(activity);
 }

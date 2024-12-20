@@ -8,7 +8,7 @@
 
     let { data } = $props();
 
-    let current_day = $state(data.days?.length > 0 ? data.days[0] : null);
+    let current_day = $state.raw(data.days?.length > 0 ? data.days[0] : null);
     let container = $state();
     let containerWidth = $state();
 
@@ -45,7 +45,9 @@
             <ul>
                 {#each data.days as day}
                     <li class:is-active={day === current_day}>
-                        <a onclick={handleDayClick(day)}>{m.day()} {day.date} / {day.month}</a>
+                        <a onclick={() => handleDayClick(day)}>
+                            {m.day()} {day.date} / {day.month}
+                        </a>
                     </li>
                 {/each}
             </ul>
@@ -54,11 +56,11 @@
         <div class="columns">
             {#if current_day}
                 {#each current_day.tracks as track}
-                    {#if track.attributes.activities.length > 0}
+                    {#if track.attributes.activities.data.length > 0}
                         <div class="column">
                             <h2 class="title is-3">{track.attributes.title}</h2>
                             <p class="subtitle">{track.attributes.description}</p>
-                            {#each track.attributes.activities as activity}
+                            {#each track.attributes.activities.data as activity}
                                 {#if activity.attributes.is_filler}
                                     <ActivityFiller {activity} height={activityHeight(activity)} hideInMobile={true}/>
                                 {:else}
