@@ -1743,8 +1743,7 @@ export interface ApiSimplePageSimplePage extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::simple-page.simple-page'
     >;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.String &
+    path: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique &
       Schema.Attribute.SetPluginOptions<{
@@ -1755,6 +1754,7 @@ export interface ApiSimplePageSimplePage extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
+    publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{

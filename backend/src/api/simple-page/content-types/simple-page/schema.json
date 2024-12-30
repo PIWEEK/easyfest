@@ -16,7 +16,7 @@
     }
   },
   "attributes": {
-    "slug": {
+    "path": {
       "pluginOptions": {
         "i18n": {
           "localized": true

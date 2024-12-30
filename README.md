@@ -89,6 +89,12 @@ Use the [homepage single type](http://localhost:1337/admin/content-manager/singl
 
 Just make sure you click the `Save` and `Publish` buttons at the top right and refresh your browser to see the changes!
 
+### Customizing navigation
+
+By default, EasyFest creates a main navigation menu based in the `show_*` switches at the [settings single type](http://localhost:1337/admin/content-manager/singleType/api::setting.setting). But you may create your own menu by adding entries to the `nav_menu` section in the settings. Each entry will become a menu item, and you can specify a predefined page, or give it a free path string.
+
+You can also add new simple pages, with a title and a content, by adding items to the [simple page collection](http://localhost:1337/admin/content-manager/collection-types/api::simple-page.simple-page). Each page has also a path, that must match with the path in a menu entry if you want it to be accesible from the main menu.
+
 ### Customizing EasyFest styles
 
 Currently, EasyFest allows you to comfortably theme colors and typographies of your site using Penpot. To do so:
