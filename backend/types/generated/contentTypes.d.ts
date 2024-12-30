@@ -1566,6 +1566,12 @@ export interface ApiSettingSetting extends Struct.SingleTypeSchema {
           localized: false;
         };
       }>;
+    nav_menu: Schema.Attribute.Component<'site.nav-menu-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     register_cta: Schema.Attribute.String &
       Schema.Attribute.Required &

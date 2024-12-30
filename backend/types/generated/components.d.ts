@@ -126,6 +126,30 @@ export interface HomepageSpeakersSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SiteNavMenuItem extends Struct.ComponentSchema {
+  collectionName: 'components_site_nav_menu_items';
+  info: {
+    description: '';
+    displayName: 'Nav menu item';
+    icon: 'apps';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    page: Schema.Attribute.Enumeration<
+      [
+        'about-us',
+        'registration',
+        'accommodation-info',
+        'agenda',
+        'speakers',
+        'streaming',
+        'venue-info',
+      ]
+    >;
+    path: Schema.Attribute.String;
+  };
+}
+
 export interface SiteSocialMedia extends Struct.ComponentSchema {
   collectionName: 'comp_site_social_medias';
   info: {
@@ -155,6 +179,7 @@ declare module '@strapi/strapi' {
       'homepage.locations_item': HomepageLocationsItem;
       'homepage.locations_section': HomepageLocationsSection;
       'homepage.speakers_section': HomepageSpeakersSection;
+      'site.nav-menu-item': SiteNavMenuItem;
       'site.social-media': SiteSocialMedia;
     }
   }

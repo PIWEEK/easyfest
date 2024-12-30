@@ -265,6 +265,16 @@
         }
       },
       "component": "site.social-media"
+    },
+    "nav_menu": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "site.nav-menu-item"
     }
   }
 }

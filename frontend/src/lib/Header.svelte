@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-	import * as m from '$lib/paraglide/messages.js'
+    import * as m from '$lib/paraglide/messages.js'
+    import { i18n } from '$lib/i18n.js'
 
     import logoFallback from '../assets/images/easyfest-logo.svg'
 
@@ -123,34 +124,46 @@
         </div>
         {#if showMenu}
         <div id="mainMenu" class="navbar-menu">
-            <div class="navbar-start navbar-center">
-                {#if data.show_about_us}
-                <a class="navbar-item" href="/about-us">{m.about()}</a>
-                {/if}
-                {#if isRegistrationInfoActive}
-                <a class="navbar-item" href="/registration">{m.registration()}</a>
-                {/if}
-                {#if data.show_accommodation_info}
-                <a class="navbar-item" href="/accommodation-info">{m.accommodation_info()}</a>
-                {/if}
-                {#if data.show_agenda}
-                <a class="navbar-item" href="/agenda">{m.agenda()}</a>
-                {/if}
-                {#if data.show_speakers}
-                <a class="navbar-item" href="/speakers">{m.speakers()}</a>
-                {/if}
-                {#if data.show_streaming}
-                <a class="navbar-item" href="/streaming">{m.streaming()}</a>
-                {/if}
-                {#if data.show_venue_info}
-                <a class="navbar-item" href="/venue-info">{m.venue_info()}</a>
-                {/if}
-            </div>
-            <div class="navbar-end">
-                {#if isRegistrationOpen}
-                <a href="/registration" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
-                {/if}
-             </div>
+            {#if data.nav_menu.length === 0}
+                <div class="navbar-start navbar-center">
+                    {#if data.show_about_us}
+                    <a class="navbar-item" href="/about-us">{m.about()}</a>
+                    {/if}
+                    {#if isRegistrationInfoActive}
+                    <a class="navbar-item" href="/registration">{m.registration()}</a>
+                    {/if}
+                    {#if data.show_accommodation_info}
+                    <a class="navbar-item" href="/accommodation-info">{m.accommodation_info()}</a>
+                    {/if}
+                    {#if data.show_agenda}
+                    <a class="navbar-item" href="/agenda">{m.agenda()}</a>
+                    {/if}
+                    {#if data.show_speakers}
+                    <a class="navbar-item" href="/speakers">{m.speakers()}</a>
+                    {/if}
+                    {#if data.show_streaming}
+                    <a class="navbar-item" href="/streaming">{m.streaming()}</a>
+                    {/if}
+                    {#if data.show_venue_info}
+                    <a class="navbar-item" href="/venue-info">{m.venue_info()}</a>
+                    {/if}
+                </div>
+                <div class="navbar-end">
+                    {#if isRegistrationOpen}
+                    <a href="/registration" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
+                    {/if}
+                </div>
+            {:else}
+                <div class="navbar-start navbar-center">
+                    {#each data.nav_menu as nav_menu_item}
+                        {#if nav_menu_item.page}
+                            <a class="navbar-item" href="{i18n.resolveRoute(nav_menu_item.page)}">{nav_menu_item.label}</a>
+                        {:else}
+                            <a class="navbar-item" href="{nav_menu_item.path}">{nav_menu_item.label}</a>
+                        {/if}
+                    {/each}
+                </div>
+            {/if}
         </div>
         {/if}
     </div>

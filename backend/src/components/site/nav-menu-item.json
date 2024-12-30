@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_site_nav_menu_items",
+  "info": {
+    "displayName": "Nav menu item",
+    "icon": "apps",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "path": {
+      "type": "string",
+      "required": false
+    },
+    "page": {
+      "type": "enumeration",
+      "enum": [
+        "about-us",
+        "registration",
+        "accommodation-info",
+        "agenda",
+        "speakers",
+        "streaming",
+        "venue-info"
+      ]
+    }
+  }
+}
