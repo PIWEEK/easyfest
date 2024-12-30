@@ -81,17 +81,17 @@ EasyFest provides sane defaults for quickly getting the site up and running.
 
 You can go through the CMS and edit whatever you want, but it will probably come in handy to know the most relevant parts.
 
-In the [site single type](http://localhost:1337/admin/content-manager/singleType/api::site.site), you'll be able to edit the status of your event, and whether registrations are open.
+In the [site single type](http://localhost:1337/admin/content-manager/single-type/api::site.site), you'll be able to edit the status of your event, and whether registrations are open.
 
-In the [settings single type](http://localhost:1337/admin/content-manager/singleType/api::setting.setting), you can provide some global properties for the site, like the `title`, the logo of your event (`logo_horiz`), or your `social_media_links`. Switches starting with `show_*` will control the visibility of such pages; e.g. disable the Streaming page with the `show_streaming` switch if your event is face-to-face.
+In the [settings single type](http://localhost:1337/admin/content-manager/single-type/api::setting.setting), you can provide some global properties for the site, like the `title`, the logo of your event (`logo_horiz`), or your `social_media_links`. Switches starting with `show_*` will control the visibility of such pages; e.g. disable the Streaming page with the `show_streaming` switch if your event is face-to-face.
 
-Use the [homepage single type](http://localhost:1337/admin/content-manager/singleType/api::homepage.homepage) to customize the homepage contents. You'll find some default texts to help you along. For `activities_section` and `speakers_section`, you'll need to fill some contents in the [activity collection type](http://localhost:1337/admin/content-manager/collectionType/api::activity.activity) and the [public-profile collection type](http://localhost:1337/admin/content-manager/collectionType/api::public-profile.public-profile).
+Use the [homepage single type](http://localhost:1337/admin/content-manager/single-type/api::homepage.homepage) to customize the homepage contents. You'll find some default texts to help you along. For `activities_section` and `speakers_section`, you'll need to fill some contents in the [activity collection type](http://localhost:1337/admin/content-manager/collectionType/api::activity.activity) and the [public-profile collection type](http://localhost:1337/admin/content-manager/collectionType/api::public-profile.public-profile).
 
 Just make sure you click the `Save` and `Publish` buttons at the top right and refresh your browser to see the changes!
 
 ### Customizing navigation
 
-By default, EasyFest creates a main navigation menu based in the `show_*` switches at the [settings single type](http://localhost:1337/admin/content-manager/singleType/api::setting.setting). But you may create your own menu by adding entries to the `nav_menu` section in the settings. Each entry will become a menu item, and you can specify a predefined page, or give it a free path string.
+By default, EasyFest creates a main navigation menu based in the `show_*` switches at the [settings single type](http://localhost:1337/admin/content-manager/single-type/api::setting.setting). But you may create your own menu by adding entries to the `nav_menu` section in the settings. Each entry will become a menu item, and you can specify a predefined page, or give it a free path string.
 
 You can also add new simple pages, with a title and a content, by adding items to the [simple page collection](http://localhost:1337/admin/content-manager/collection-types/api::simple-page.simple-page). Each page has also a path, that must match with the path in a menu entry if you want it to be accesible from the main menu.
 
