@@ -1705,6 +1705,63 @@ export interface ApiSettingSetting extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiSimplePageSimplePage extends Struct.CollectionTypeSchema {
+  collectionName: 'simple_pages';
+  info: {
+    description: '';
+    displayName: 'simple-page';
+    pluralName: 'simple-pages';
+    singularName: 'simple-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    content: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::simple-page.simple-page'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSiteSite extends Struct.SingleTypeSchema {
   collectionName: 'sites';
   info: {
@@ -2607,6 +2664,7 @@ declare module '@strapi/strapi' {
       'api::registration.registration': ApiRegistrationRegistration;
       'api::seo.seo': ApiSeoSeo;
       'api::setting.setting': ApiSettingSetting;
+      'api::simple-page.simple-page': ApiSimplePageSimplePage;
       'api::site.site': ApiSiteSite;
       'api::speakers.speakers': ApiSpeakersSpeakers;
       'api::sponsor.sponsor': ApiSponsorSponsor;
