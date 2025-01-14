@@ -33,11 +33,11 @@
     }
 </script>
 
-<footer class="footer has-background-dark has-text-white">
+<footer class="footer has-text-white">
     <div class="container">
         <div class="columns">
             <div class="column">
-                <a href="/">
+                <a class="logo_footer" href="https://www.sociedadtolkien.org/">
                     {#if data.logo_horiz}
                     <img alt={data.title} src="{storage_url}{data.logo_horiz.url}"/>
                     {:else}
@@ -84,6 +84,11 @@
                         </a>
                     </li>
                     {/each}
+                    <li class="is-inline-block m-2">
+                        <a href="https://www.facebook.com/profile.php?id=61571579560904 " rel="me" target="_blank" class="icon has-text-white">
+                            <i class="fab fa-facebook-f fa-lg"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
             {/if}

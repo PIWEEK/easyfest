@@ -103,12 +103,12 @@
         }
     }
 </style>
-<nav class="navbar is-dark is-spaced" class:is-concealed={isNavbarHidden} aria-label="main-navigation">
+<nav class="navbar is-spaced" class:is-concealed={isNavbarHidden} aria-label="main-navigation">
      <div class="container">
         <div class="navbar-brand">
             <a href="/" class="navbar-item">
-                {#if data.logo_horiz}
-                <img alt={data.title} src="{storage_url}{data.logo_horiz.url}"/>
+                {#if data.logo_small}
+                <img alt={data.title} src="{storage_url}{data.logo_small.url}"/>
                 {:else}
                 <img alt={data.title} src={logoFallback}/>
                 {/if}

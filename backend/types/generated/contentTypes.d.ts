@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiAboutUsAboutUs extends Struct.SingleTypeSchema {
   collectionName: 'about_uses';
   info: {
+    description: '';
     displayName: 'about-us';
     pluralName: 'about-uses';
     singularName: 'about-us';
@@ -396,6 +397,12 @@ export interface ApiAboutUsAboutUs extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -940,6 +947,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     marquee_text: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'\uD83D\uDD25 Registration is open'>;
     publishedAt: Schema.Attribute.DateTime;
+    richtitle: Schema.Attribute.RichText;
     show_marquee_text: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<false>;
@@ -947,6 +955,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       'homepage.speakers_section',
       false
     >;
+    subtitle: Schema.Attribute.String;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'EasyFest, straightforward festival webpages'>;
@@ -1099,6 +1108,35 @@ export interface ApiOrgTeamOrgTeam extends Struct.SingleTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<'The organisation team'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPreciosPrecios extends Struct.SingleTypeSchema {
+  collectionName: 'preciosos';
+  info: {
+    displayName: 'precios';
+    pluralName: 'preciosos';
+    singularName: 'precios';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::precios.precios'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2662,6 +2700,7 @@ declare module '@strapi/strapi' {
       'api::news-item.news-item': ApiNewsItemNewsItem;
       'api::newsletter-subscription.newsletter-subscription': ApiNewsletterSubscriptionNewsletterSubscription;
       'api::org-team.org-team': ApiOrgTeamOrgTeam;
+      'api::precios.precios': ApiPreciosPrecios;
       'api::press-kit.press-kit': ApiPressKitPressKit;
       'api::privacy-policy.privacy-policy': ApiPrivacyPolicyPrivacyPolicy;
       'api::profile-contact.profile-contact': ApiProfileContactProfileContact;

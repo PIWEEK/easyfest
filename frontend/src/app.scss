@@ -1,47 +1,48 @@
 @use 'sass:map';
-@use 'design-system/colors.scss';
+// @use 'design-system/colors.scss';
 @use 'design-system/typographies.scss';
 
 // Theme configuration is done by giving value to Bulma variables
 // https://bulma.io/documentation/customize/concepts/
 
 // -- Initial variables (with a literal value)
+$Primary: #426A39ff;
+$Secondary: #84B642ff;
+$Secondary_Light: #cfb3ffff;
+$White: #f7f8f9ff;
+$Primary_Light: #caffe9ff;
+$White_Bis: #f1f2f4ff;
+$White_Ter: #dcdfe4ff;
+$Secondary_Lighter: #e4d4ffff;
+$Dark: #151132ff;
 
-$text: colors.$Dark;
-$family-sans-serif: map.get(typographies.$Body_Large, "font-family"), sans-serif;
+$text: $Dark;
+$family-primary:"Cormorant Infant", serif;
+$family-secondary:"Cinzel Decorative", serif;
 
-$size-1: map.get(typographies.$🖥_Title_Large , "font-size");
-$size-2: map.get(typographies.$🖥_Title_Medium, "font-size");
-$size-3: map.get(typographies.$🖥_Title_Small , "font-size");
-$size-4: map.get(typographies.$Body_Large , "font-size");
-$size-5: map.get(typographies.$Body_Medium, "font-size");
-$size-6: map.get(typographies.$Body_Small , "font-size");
-$size-7: map.get(typographies.$Body_Small_Uppercase, "font-size");
+$size-1: 63px;
+$size-2: 54px;
+$size-3: 31px;
+$size-4: 21px;
+$size-5: 18px;
+$size-6: 15px;
+$size-7: 13px;
 
 $radius-small: 0;
 $control-border-width: 2px;
 
 @use "bulma/sass" with (
-
     // -- Derived variables (that take value from other variables)
 
-    $primary: colors.$Primary,
-    // $primary-light: colors.$Primary_Light,
-    // $secondary /* custom */: colors.$Secondary,
-    // $secondary-light /* custom */: colors.$Secondary_Light,
-    // $secondary-lighter /* custom */: colors.$Secondary_Lighter,
-    $dark: colors.$Dark,
-    // $text-light: $text,
-    $text-strong: $text,
-    $white: colors.$White,
-    $white-bis: colors.$White_Bis,
-    $white-ter: colors.$White_Ter,
+    $primary: #426A39ff,
+    $dark: $Dark,
+    $white: $White,
+    $white-bis: $White_Bis,
+    $white-ter: $White_Ter,
+    $body-family:"Cormorant Infant",
+    $body-font-size:1.2rem,
+    $body-color:#1A1E18ff,
 );
-
-// $custom-colors: (
-//     "secondary": ($secondary, findColorInvert($secondary), $secondary-light),
-//     "secondary-lighter": ($secondary-lighter, findColorInvert($secondary-lighter)),
-// );
 
 // -- Import all bulma styles
 
@@ -50,20 +51,7 @@ $control-border-width: 2px;
 
 // -- Bulma style overrides
 
-.title {
-    font-size: $size-1;
-}
-
-.content h3 {
-    // color: $secondary;
-
-    &:not(:first-child) {
-        margin-top: 0;
-    }
-}
-
 .button {
-    border-radius: $radius-small;
 }
 
 .tag {
@@ -72,55 +60,117 @@ $control-border-width: 2px;
 
 // -- Custom helpers
 
-$genericTypographyFamilies: (
-    "Work Sans": sans-serif,
-    "Playfair Display": serif,
-    "Roboto Slab": serif,
-    "IBM Plex Mono": monospace,
-    "Kalam": (cursive, sans-serif),
-);
-
-@mixin mixTypographyClass($typographyMap) {
-    @each $prop, $value in $typographyMap {
-        @if $prop == "font-family" {
-            $value: $value, map.get($genericTypographyFamilies, $value);
-        }
-        #{$prop}: $value;
-    }
+@mixin mixTypographyClassEC($lineheight:1.2,$fontsize:54px,$fontfamily:$family-primary){
+    line-height: $lineheight;
+    font-style: normal;
+    text-transform: none;
+    font-weight: 400;
+    font-size: $fontsize;
+    letter-spacing: 0px;
+    font-family: $fontfamily;
 }
-
 .header--large {
-    @include mixTypographyClass(typographies.$📱_Title_Large);
+    @include mixTypographyClassEC(1.2,45px,$family-secondary);
     @include mixins.tablet {
-        @include mixTypographyClass(typographies.$🖥_Title_Large);
+        @include mixTypographyClassEC(1.2,56px,$family-secondary);
     };
 }
 .header--medium {
-    @include mixTypographyClass(typographies.$📱_Title_Medium);
+    @include mixTypographyClassEC(1.2,32px,$family-secondary);
     @include mixins.tablet {
-        @include mixTypographyClass(typographies.$🖥_Title_Medium);
+        @include mixTypographyClassEC(1.2,40px,$family-secondary);
     };
 }
 .header--small {
-    @include mixTypographyClass(typographies.$📱_Title_Small);
+    @include mixTypographyClassEC(1.2,16px);
     @include mixins.tablet {
-        @include mixTypographyClass(typographies.$🖥_Title_Small);
+        @include mixTypographyClassEC(1.2,31px);
     };
 }
 
 .text--large {
-    @include mixTypographyClass(typographies.$Body_Large);
+    @include mixTypographyClassEC(1.4,21px);
 }
 .text--medium {
-    @include mixTypographyClass(typographies.$Body_Medium);
+    @include mixTypographyClassEC(1.4,18px);
 }
 .text--small {
-    @include mixTypographyClass(typographies.$Body_Small);
+    @include mixTypographyClassEC(1.4,15px);
 }
 .text--small--uppercase {
-    @include mixTypographyClass(typographies.$Body_Small_Uppercase);
+    @include mixTypographyClassEC(1.4,13px);
 }
 
-.border-color--secondary {
-    border-color: colors.$Secondary_Light;
+
+body{
+    background-image: url('assets/images/backEC.jpg');
+    background-color: #426A39ff;
+    background-blend-mode: multiply;
+}
+.container_all{
+    box-shadow: 0 0 16px 8px rgba(0,0,0,0.5);
+
+}
+.navbar{
+    .navbar-item{
+        text-transform: uppercase;
+        font-weight: 600;
+        color: $Primary;
+        img{
+            max-height: 90px;
+        }
+    }
+}
+.hero-home{
+    background-image:linear-gradient(to right, rgba(66, 106, 57, 0.7), rgba(132, 182, 66, 0.7)),url('assets/images/BG_Fiesta_Hobbit_72_tr.webp'),linear-gradient(to right, rgba(66, 106, 57, 1), rgba(132, 182, 66, 1));
+    background-position: left 80%;
+    background-size: 120%;
+    background-blend-mode: normal,multiply;
+    background-repeat: no-repeat;
+    .hero-body{
+        padding:8rem 4rem;
+    }
+    .hero-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .title{
+        line-height: 69%;
+        margin-bottom: 0;
+    }
+    .subtitle_group{
+        display: flex;
+        justify-content: space-between;
+        text-transform: uppercase;
+        font-family: "cinzel decorative", serif;
+    }
+    .highlight{
+        max-width: 750px;
+        text-align: center;
+    }
+}
+.page_title{
+    background-image: linear-gradient(to right, #426A39, #84B642);
+    font-family: "cinzel decorative", serif;
+    padding:1rem 2rem;
+    .title {
+        font-size: $size-3;
+        color: $White;
+        @include mixins.mobile {
+            font-size: $size-5;
+        }
+    }
+}
+footer{
+    background-image: linear-gradient(to right, #426A39, #84B642);
+    .logo_footer{
+        max-width: 200px;
+        display: block;
+    }
+}
+
+.img_mark{
+    border:thick double $Primary;
+    border-radius: 8px;
 }

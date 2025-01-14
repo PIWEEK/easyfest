@@ -15,7 +15,8 @@
         "youtube",
         "twitter",
         "instagram",
-        "linkedin"
+        "linkedin",
+        "facebook"
       ],
       "required": true
     },

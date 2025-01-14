@@ -24,7 +24,8 @@
         "agenda",
         "speakers",
         "streaming",
-        "venue-info"
+        "venue-info",
+        "precios"
       ]
     }
   }

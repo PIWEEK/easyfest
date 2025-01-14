@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "preciosos",
+  "info": {
+    "singularName": "precios",
+    "pluralName": "preciosos",
+    "displayName": "precios"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  }
+}
