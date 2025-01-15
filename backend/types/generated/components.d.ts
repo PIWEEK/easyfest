@@ -145,6 +145,7 @@ export interface SiteNavMenuItem extends Struct.ComponentSchema {
         'streaming',
         'venue-info',
         'precios',
+        'preinscripcion',
       ]
     >;
     path: Schema.Attribute.String;

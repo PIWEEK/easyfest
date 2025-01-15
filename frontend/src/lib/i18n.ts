@@ -28,7 +28,7 @@ export const i18n = createI18n(runtime, {
 		},
 		"/contact-info" : {
 			en: "/contact-info",
-			es: "/contactar",
+			es: "/contacto",
 		},
 		"/cookie-policy" : {
 			en: "/cookie-policy",
@@ -97,6 +97,10 @@ export const i18n = createI18n(runtime, {
 		"/venue-info" : {
 			en: "/venue-info",
 			es: "/el-lugar",
+		},
+		"/precios" : {
+			en: "/prices",
+			es: "/precios",
 		},
     }
 });

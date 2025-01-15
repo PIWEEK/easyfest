@@ -199,16 +199,16 @@
 <section class="section">
     <div class="columns">
         <div class="column">
-            <a href="/el-lugar" class="button is-primary is-size-3-desktop is-uppercase is-fullwidth">El lugar</a>
+            <a href="/el-lugar" class="button is-primary is-size-4 is-size-3-widescreen is-uppercase is-fullwidth">El lugar</a>
         </div>
         <div class="column">
-            <a href="/precios" class="button is-primary is-size-3-desktop is-uppercase is-fullwidth">precios</a> 
+            <a href="/precios" class="button is-primary is-size-4 is-size-3-widescreen is-uppercase is-fullwidth">precios</a> 
         </div>
         <div class="column">
-            <a href="/como-llegar" class="button is-primary is-size-3-desktop is-uppercase is-fullwidth">Cómo llegar</a>
+            <a href="/como-llegar" class="button is-primary is-size-4 is-size-3-widescreen is-uppercase is-fullwidth">Cómo llegar</a>
         </div>
         <div class="column">
-            <a href="/contacto" class="button is-primary is-size-3-desktop is-uppercase is-fullwidth">Contacto</a>
+            <a href="/contacto" class="button is-primary is-size-4 is-size-3-widescreen is-uppercase is-fullwidth">Contacto</a>
         </div>
     </div>
 </section>

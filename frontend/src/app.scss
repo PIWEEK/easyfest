@@ -34,7 +34,7 @@ $control-border-width: 2px;
 @use "bulma/sass" with (
     // -- Derived variables (that take value from other variables)
 
-    $primary: #426A39ff,
+    $primary: $Primary,
     $dark: $Dark,
     $white: $White,
     $white-bis: $White_Bis,
@@ -42,6 +42,11 @@ $control-border-width: 2px;
     $body-family:"Cormorant Infant",
     $body-font-size:1.2rem,
     $body-color:#1A1E18ff,
+    $link: #af590c,
+    $section-padding:1rem 1.5rem,
+    $section-padding-desktop:2rem 2.5rem,
+    $family-secondary:$family-secondary,
+    $footer-padding:3rem 1.5rem 2rem,
 );
 
 // -- Import all bulma styles
@@ -106,10 +111,13 @@ body{
     background-image: url('assets/images/backEC.jpg');
     background-color: #426A39ff;
     background-blend-mode: multiply;
+    min-height: 100vh;
 }
 .container_all{
     box-shadow: 0 0 16px 8px rgba(0,0,0,0.5);
-
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
 }
 .navbar{
     .navbar-item{
@@ -149,6 +157,13 @@ body{
         max-width: 750px;
         text-align: center;
     }
+}
+.content_border{
+    border-image-source: url('assets/images/border_content.png');
+    border-image-slice: 65;
+    border-image-width: auto;
+    border-image-outset: 15px;
+    padding:3rem 2rem;
 }
 .page_title{
     background-image: linear-gradient(to right, #426A39, #84B642);

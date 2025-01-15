@@ -93,5 +93,11 @@
             </div>
             {/if}
         </div>
+        <div class="is-size-6 is-flex is-justify-content-center">
+            Ilustraciones de nuestra socia Lorena "Simbelmina"
+            <a href="https://www.instagram.com/lorenagarcia_art/" rel="me" target="_blank" class=" has-text-white">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
     </div>
 </footer>

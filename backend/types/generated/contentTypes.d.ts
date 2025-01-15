@@ -724,7 +724,8 @@ export interface ApiCodeOfConductCodeOfConduct extends Struct.SingleTypeSchema {
 export interface ApiContactInfoContactInfo extends Struct.SingleTypeSchema {
   collectionName: 'contact_infos';
   info: {
-    displayName: 'contact-info';
+    description: '';
+    displayName: 'contacto';
     pluralName: 'contact-infos';
     singularName: 'contact-info';
   };
@@ -746,6 +747,12 @@ export interface ApiContactInfoContactInfo extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1117,6 +1124,7 @@ export interface ApiOrgTeamOrgTeam extends Struct.SingleTypeSchema {
 export interface ApiPreciosPrecios extends Struct.SingleTypeSchema {
   collectionName: 'preciosos';
   info: {
+    description: '';
     displayName: 'precios';
     pluralName: 'preciosos';
     singularName: 'precios';
@@ -1124,19 +1132,33 @@ export interface ApiPreciosPrecios extends Struct.SingleTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    content: Schema.Attribute.RichText;
+    content: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::precios.precios'
-    > &
-      Schema.Attribute.Private;
+    >;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.Text;
+    title: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

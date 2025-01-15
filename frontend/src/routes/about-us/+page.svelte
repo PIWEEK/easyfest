@@ -8,7 +8,7 @@
 
 <section class="section">
     <div class="container">
-        <div class="content">
+        <div class="content content_border">
           <div class="columns ">
             <div class="column is-three-fifths">
               {#if data.content}

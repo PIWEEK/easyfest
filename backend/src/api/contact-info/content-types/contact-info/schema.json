@@ -4,7 +4,8 @@
   "info": {
     "singularName": "contact-info",
     "pluralName": "contact-infos",
-    "displayName": "contact-info"
+    "displayName": "contacto",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -32,6 +33,21 @@
         }
       },
       "type": "richtext"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

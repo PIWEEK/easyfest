@@ -119,6 +119,7 @@
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </button>
             {/if}
         </div>
