@@ -8,6 +8,6 @@
 <section class="section">
     <div class="container">
         <div class="content content_border">
-          Habitación Aleatoria
+          <iframe src="https://script.google.com/macros/s/AKfycbylIncfJPzsBjZUFmcoALoW3DCgJuT08NiJaFKznOuovF1tOg3te41AqZPzjvaFt28i/exec" width="100%" height="100%" style="min-height:600px;"></iframe>
     </div>
 </section>

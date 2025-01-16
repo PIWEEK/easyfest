@@ -8,6 +8,6 @@
 <section class="section">
     <div class="container">
         <div class="content content_border">
-          form doble
+          <iframe src="https://script.google.com/macros/s/AKfycbxHFtpZofZb15v69WZppff9n08zsHn-OaF4BcfDfJfeIZ6CZjQATua5Nwt_gZiaqKM7hw/exec" width="100%" height="100%" style="min-height:600px;"></iframe>
     </div>
 </section>
