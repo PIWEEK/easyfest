@@ -4,7 +4,7 @@
 </script>
 
 <section class="hero page_title">
-	<h3 class="title">Precios</h3>
+	<h3 class="title">{data.title}</h3>
 </section>
 <section class="section">
 	<div class="container">

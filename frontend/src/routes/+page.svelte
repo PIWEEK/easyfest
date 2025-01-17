@@ -143,7 +143,7 @@
                     {#if homepage.dates_and_location}
                     <p class="subtitle has-text-white">{homepage.dates_and_location}</p>
                     {/if}
-                    <h2 class="subtitle has-text-white">{homepage.subtitle}</h2>
+                    <h2 class="subtitle has-text-white has-text-right">{homepage.subtitle}</h2>
                 </div>
             </div>
             {#if highlightText}
@@ -199,16 +199,16 @@
 <section class="section">
     <div class="columns">
         <div class="column">
-            <a href="/el-lugar" class="button is-primary is-size-4 is-size-3-widescreen is-uppercase is-fullwidth">El lugar</a>
+            <a href="/el-lugar" class="button is-primary is-size-4 is-size-3-widescreen is-fullwidth is-family-secondary">El lugar</a>
         </div>
         <div class="column">
-            <a href="/precios" class="button is-primary is-size-4 is-size-3-widescreen is-uppercase is-fullwidth">precios</a> 
+            <a href="/precios" class="button is-primary is-size-4 is-size-3-widescreen  is-fullwidth is-family-secondary">Precios</a> 
         </div>
         <div class="column">
-            <a href="/como-llegar" class="button is-primary is-size-4 is-size-3-widescreen is-uppercase is-fullwidth">Cómo llegar</a>
+            <a href="/como-llegar" class="button is-primary is-size-4 is-size-3-widescreen  is-fullwidth is-family-secondary">Cómo Llegar</a>
         </div>
         <div class="column">
-            <a href="/contacto" class="button is-primary is-size-4 is-size-3-widescreen is-uppercase is-fullwidth">Contacto</a>
+            <a href="/contacto" class="button is-primary is-size-4 is-size-3-widescreen is-fullwidth is-family-secondary">Contacto</a>
         </div>
     </div>
 </section>

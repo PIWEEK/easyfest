@@ -130,22 +130,32 @@ body{
     }
 }
 .hero-home{
-    background-image:linear-gradient(to right, rgba(66, 106, 57, 0.7), rgba(132, 182, 66, 0.7)),url('assets/images/BG_Fiesta_Hobbit_72_tr.webp'),linear-gradient(to right, rgba(66, 106, 57, 1), rgba(132, 182, 66, 1));
+    background-image:linear-gradient(to right, rgba(66, 106, 57, 0.6), rgba(132, 182, 66, 0.6)),url('assets/images/BG_Fiesta_Hobbit_72_tr.webp'),linear-gradient(to right, rgba(66, 106, 57, 1), rgba(132, 182, 66, 1));
     background-position: left 80%;
     background-size: 120%;
     background-blend-mode: normal,multiply;
     background-repeat: no-repeat;
+    @include mixins.mobile {
+        background-size: cover;
+    }
     .hero-body{
         padding:8rem 4rem;
+        @include mixins.mobile {
+            padding:3rem 2rem;
+        }
     }
     .hero-content{
         display: flex;
         flex-direction: column;
         align-items: center;
+        
     }
     .title{
-        line-height: 69%;
+        line-height: 89%;
         margin-bottom: 0;
+        @include mixins.mobile {
+            font-size: 40px;
+        }
     }
     .subtitle_group{
         display: flex;

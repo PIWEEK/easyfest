@@ -12,7 +12,7 @@ export const i18n = createI18n(runtime, {
 		},
 		"/accommodation-info" : {
 			en: "/accommodation-info",
-			es: "/alojamiento",
+			es: "/como-llegar",
 		},
 		"/activities" : {
 			en: "/activities",

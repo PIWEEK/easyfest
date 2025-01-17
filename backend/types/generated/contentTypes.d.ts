@@ -725,7 +725,7 @@ export interface ApiContactInfoContactInfo extends Struct.SingleTypeSchema {
   collectionName: 'contact_infos';
   info: {
     description: '';
-    displayName: 'contacto';
+    displayName: 'contact';
     pluralName: 'contact-infos';
     singularName: 'contact-info';
   };
@@ -843,6 +843,35 @@ export interface ApiCookiePolicyCookiePolicy extends Struct.SingleTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<'Cookie policy'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiEnrollmentEnrollment extends Struct.SingleTypeSchema {
+  collectionName: 'enrollments';
+  info: {
+    displayName: 'enrollment';
+    pluralName: 'enrollments';
+    singularName: 'enrollment';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::enrollment.enrollment'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1125,7 +1154,7 @@ export interface ApiPreciosPrecios extends Struct.SingleTypeSchema {
   collectionName: 'preciosos';
   info: {
     description: '';
-    displayName: 'precios';
+    displayName: 'prices';
     pluralName: 'preciosos';
     singularName: 'precios';
   };
@@ -2717,6 +2746,7 @@ declare module '@strapi/strapi' {
       'api::contact-info.contact-info': ApiContactInfoContactInfo;
       'api::contact-type.contact-type': ApiContactTypeContactType;
       'api::cookie-policy.cookie-policy': ApiCookiePolicyCookiePolicy;
+      'api::enrollment.enrollment': ApiEnrollmentEnrollment;
       'api::faq.faq': ApiFaqFaq;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::news-item.news-item': ApiNewsItemNewsItem;
