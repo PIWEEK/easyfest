@@ -47,6 +47,7 @@ $control-border-width: 2px;
     $section-padding-desktop:2rem 2.5rem,
     $family-secondary:$family-secondary,
     $footer-padding:3rem 1.5rem 2rem,
+    $content-heading-color:$Primary,
 );
 
 // -- Import all bulma styles
@@ -250,4 +251,11 @@ footer{
   td:nth-of-type(3):before { content: "Desglose"; }
   td:nth-of-type(4):before { content: "Total";}
 
+}
+.content-comollegar{
+    h4{
+        margin-top:3rem;
+        margin-bottom:.6em;
+        font-family: $family-secondary;
+    }
 }

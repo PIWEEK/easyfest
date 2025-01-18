@@ -147,7 +147,7 @@
                 </div>
             </div>
             {#if highlightText}
-            <h4 class="highlight text--large has-text-white">{highlightText}</h4>
+            <h4 class="highlight is-size-4 is-size-5-mobile has-text-white has-text-weight-semibold">{highlightText}</h4>
             {/if}
         </div>
     </div>
@@ -187,7 +187,7 @@
                     <img src="{storage_url}{image.url}" alt={image.caption}/>
                 </figure>
             </div> -->
-            <div class="column is-three-fifths has-text-centered is-offset-one-fifth content text--large">
+            <div class="column is-three-fifths has-text-centered is-offset-one-fifth content is-size-6-mobile is-size-5">
                 <SvelteMarkdown options={{mangle: false}} source={mdContent} />
             </div>
         </div>
@@ -197,18 +197,15 @@
 <!-- botones de acceso a otras partes de la web -->
 
 <section class="section">
-    <div class="columns">
+    <div class="columns mb-6">
         <div class="column">
             <a href="/el-lugar" class="button is-primary is-size-4 is-size-3-widescreen is-fullwidth is-family-secondary">El lugar</a>
-        </div>
-        <div class="column">
-            <a href="/precios" class="button is-primary is-size-4 is-size-3-widescreen  is-fullwidth is-family-secondary">Precios</a> 
         </div>
         <div class="column">
             <a href="/como-llegar" class="button is-primary is-size-4 is-size-3-widescreen  is-fullwidth is-family-secondary">Cómo Llegar</a>
         </div>
         <div class="column">
-            <a href="/contacto" class="button is-primary is-size-4 is-size-3-widescreen is-fullwidth is-family-secondary">Contacto</a>
+            <a href="/precios" class="button is-primary is-size-4 is-size-3-widescreen  is-fullwidth is-family-secondary">Precios</a> 
         </div>
     </div>
 </section>

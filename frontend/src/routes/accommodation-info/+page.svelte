@@ -9,7 +9,7 @@
     <div class="container">
         <div class="content content_border">
           <div class="columns">
-            <div class="column is-three-fifths">
+            <div class="column is-three-fifths content-comollegar">
               {#if data.content}
               <SvelteMarkdown options={{mangle: false}} source={data.content}/>
               {/if}
