@@ -82,7 +82,7 @@
 			<div class="column">
 				<h5 class="is-family-secondary">Contacto</h5>
 				<p class="is-size-6">
-					Si tienes alguna duda, sugerencia, pregunta... escríbenos! Puedes contactar escribiendo un correo a: <a href="mailto:estelcon2025@sociedadtolkien.org">estelcon2025@sociedadtolkien.org</a>
+					Si tienes alguna duda, sugerencia, pregunta... ¡escríbenos! Puedes contactar escribiendo un correo a: <a href="mailto:estelcon2025@sociedadtolkien.org">estelcon2025@sociedadtolkien.org</a>
 				</p>
 			</div>
 			{#if data.social_media_links.length > 0}
