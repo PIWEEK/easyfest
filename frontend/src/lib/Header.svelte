@@ -106,7 +106,7 @@
 <nav class="navbar is-spaced" class:is-concealed={isNavbarHidden} aria-label="main-navigation">
      <div class="container">
         <div class="navbar-brand">
-            <a href="/" class="navbar-item">
+            <a href="/" class="navbar-item brand">
                 {#if data.logo_small}
                 <img alt={data.title} src="{storage_url}{data.logo_small.url}"/>
                 {:else}
