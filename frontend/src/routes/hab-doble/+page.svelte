@@ -8,8 +8,7 @@
 <section class="section">
     <div class="container">
         <div class="content content_border">
-          <h3>Se ha sobrepasado la capacidad del servidor que ofrece Google. Hasta nuevo aviso, se paraliza el proceso de preinscripción.
-            Disculpad las molestias y gracias.</h3>
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSepjjAUctIOl9nBbKpPCFuFpg9yJIR0-x8EOHVgUaID6X2Dhg/viewform?usp=sharing" width="100%" height="600px"></iframe>
         </div>
     </div>
 </section>
