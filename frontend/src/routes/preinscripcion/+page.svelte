@@ -14,30 +14,8 @@
 					{#if data.content}
 					<SvelteMarkdown options={{ mangle: false }} source={data.content} />
 					{/if}
-					<div class="columns is-multiline is-centered mt-6">
-						<div class="column is-6">
-							<a class="button is-primary is-family-secondary is-size-5 is-fullwidth" href="/hab-individual"
-								>Habitación Individual</a
-							>
-						</div>
-						<div class="column is-6">
-							<a class="button is-primary is-family-secondary is-size-5 is-fullwidth" href="/hab-doble"
-								>Habitación Doble</a
-							>
-						</div>
-						<div class="column is-6">
-							<a class="button is-primary is-family-secondary is-size-5 is-fullwidth" href="/hab-triple"
-								>Habitación Triple</a
-							>
-						</div>
-						<div class="column is-6">
-							<a class="button is-primary is-family-secondary is-size-5 is-fullwidth" href="/hab-aleatoria"
-								>Habitación Aleatoria</a
-							>
-						</div>
-					</div>
 				</div>
-        <div class="column">
+        		<div class="column">
 					<img class="" src="src/assets/images/Zanahorias_Hobbit_TR.webp" alt="comida hobbit" />
 				</div>
 			</div>
