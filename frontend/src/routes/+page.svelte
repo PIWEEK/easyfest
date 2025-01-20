@@ -118,7 +118,6 @@
     }
 
     const { homepage, speakers, site, ...settings } = data
-    console.log("------------", data)
     const highlightText = {
         [STATUS.HYPE]: homepage.highlight_hype,
         [STATUS.PUBLIC]: homepage.highlight_public,

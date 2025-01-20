@@ -34,8 +34,6 @@ export const actions = {
          }, null
       )
 
-      console.log("====res", res)
-
       return message(form, ((res && res.sent) ? 'success' : ''));
     }
   };

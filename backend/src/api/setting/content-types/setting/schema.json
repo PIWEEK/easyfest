@@ -275,6 +275,15 @@
         }
       },
       "component": "site.nav-menu-item"
+    },
+    "enrollment_active": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false
     }
   }
 }
