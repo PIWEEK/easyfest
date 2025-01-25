@@ -222,7 +222,7 @@ footer{
 }
 .table-precios {
 
-    td:nth-of-type(4) {
+    td:nth-of-type(3),td:nth-of-type(4) {
         font-weight: bold;
       }
 }
@@ -254,8 +254,8 @@ footer{
   }
   td:nth-of-type(1):before { content: "Descripción"; }
   td:nth-of-type(2):before { content: "Tipo"; }
-  td:nth-of-type(3):before { content: "Desglose"; }
-  td:nth-of-type(4):before { content: "Total";}
+  td:nth-of-type(3):before { content: "EC Parcial"; }
+  td:nth-of-type(4):before { content: "EC Completa";}
 
 }
 .content-comollegar{

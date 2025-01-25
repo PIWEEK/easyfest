@@ -12,7 +12,7 @@
 			<div class="columns">
 				<div class="column is-four-fifths">
 					{#if data.content}
-					<SvelteMarkdown options={{ mangle: false }} source={data.content} />
+						<SvelteMarkdown options={{ mangle: false }} source={data.content} />
 					{/if}
 				</div>
 				<div class="column is-flex is-justify-content-center is-align-items-center">
@@ -22,79 +22,68 @@
 		</div>
 		<div>
 			<table class="table table-precios is-fullwidth is-striped" id="priceTable">
-				<thead><tr><th>Descripción</th><th>Tipo</th><th>Desglose</th><th>Total</th></tr></thead
+				<thead><tr><th>Descripción</th><th>Tipo</th><th>EC Parcial</th><th>EC Completa</th></tr></thead
 				><tbody>
 					<tr
-						><td>1 Adulto</td><td>INDIVIDUAL</td><td>ADULTO 1 -&gt; 368 €<br /></td><td
-							>368,00 €<br /></td
+						><td>1 Adulto</td><td>INDIVIDUAL</td><td>261 €</td><td
+							>368 €</td
 						></tr
 					><tr
 						><td>1 Adulto + Niño (0-2 Años)</td><td>INDIVIDUAL</td><td
-							>ADULTO 1 -&gt; 368 €<br /><br />NIÑO -&gt; 0 €<br /></td
-						><td>368,00 €<br /></td></tr
+							>261 €</td
+						><td>368 €</td></tr
 					><tr
 						><td>1 Adulto + 2 Niños (0-2 Años)</td><td>DOBLE</td><td
-							>ADULTO 1 -&gt; 260 €<br /><br />NIÑO 1 -&gt; 0 €<br /><br />NIÑO 2 -&gt; 202 €<br
-							/></td
-						><td>462,00 €<br /></td></tr
+							>335 €</td
+						><td>462 €</td></tr
 					><tr
 						><td>1 Adulto + 1 Niño (3-11 Años)</td><td>INDIVIDUAL</td><td
-							>ADULTO 1 -&gt; 368 €<br /><br />NIÑO 1 -&gt; 108 €<br /></td
-						><td>476,00 €<br /></td></tr
+							>346 €</td
+						><td>476 €</td></tr
 					><tr
 						><td>1 Adulto + 1 Niño (0-2 Años) + Niño (3-11 Años)</td><td>DOBLE</td><td
-							>ADULTO 1 -&gt; 260 €<br /><br />NIÑO 1 -&gt; 0 €<br /><br />NIÑO 2 -&gt; 202 €<br
-							/></td
-						><td>462,00 €<br /></td></tr
+							>335 €</td
+						><td>462 €</td></tr
 					><tr
 						><td>1 Adulto + 2 Niños (3-11 Años)</td><td>DOBLE</td><td
-							>ADULTO 1 -&gt; 260 €<br /><br />NIÑO 1 -&gt; 108 €<br /><br />NIÑO 2 -&gt; 202 €<br
-							/></td
-						><td>570,00 €<br /></td></tr
+							>420 €</td
+						><td>570 €</td></tr
 					><tr
 						><td>2 Adultos</td><td>DOBLE</td><td
-							>ADULTO 1 -&gt; 260 €<br /><br />ADULTO 2 -&gt; 260 €<br /></td
-						><td>520,00 €<br /></td></tr
+							>378 €</td
+						><td>520 €</td></tr
 					><tr
 						><td>2 Adultos + Niño (0-2 Años)</td><td>DOBLE</td><td
-							>ADULTO 1 -&gt; 260 €<br /><br />ADULTO 2 -&gt; 260 €<br /><br />NIÑO 1 -&gt; 0 €<br
-							/></td
-						><td>520,00 €<br /></td></tr
+							>378 €</td
+						><td>520 €</td></tr
 					><tr
 						><td>2 Adultos + Niño (3-11 Años)</td><td>DOBLE</td><td
-							>ADULTO 1 -&gt; 260 €<br /><br />ADULTO 2 -&gt; 260 €<br /><br />NIÑO 1 -&gt; 108 €<br
-							/></td
-						><td>628,00 €<br /></td></tr
+							>463 €</td
+						><td>628 €</td></tr
 					><tr
 						><td>2 Adultos + 2 Niños (0-2 Años)</td><td>TRIPLE</td><td
-							>ADULTO 1 -&gt; 241 €<br /><br />ADULTO 2 -&gt; 241 €<br /><br />NIÑO 1 -&gt; 0 €<br
-							/><br />NIÑO 2 -&gt; 202 €<br /></td
-						><td>684,00 €<br /></td></tr
+							>498,80 €</td
+						><td>684 €</td></tr
 					><tr
 						><td>2 Adultos + Niño (0-2 Años) + Niño (3-11 Años)</td><td>TRIPLE</td><td
-							>ADULTO 1 -&gt; 241 €<br /><br />ADULTO 2 -&gt; 241 €<br /><br />NIÑO 1 -&gt; 0 €<br
-							/><br />NIÑO 2 -&gt; 202 €<br /></td
-						><td>684,00 €<br /></td></tr
+							>498,80 €</td
+						><td>684 €</td></tr
 					><tr
 						><td>2 Adultos + 2 Niños (3-11 Años)</td><td>TRIPLE</td><td
-							>ADULTO 1 -&gt; 241 €<br /><br />ADULTO 2 -&gt; 241 €<br /><br />NIÑO 1 -&gt; 108 €<br
-							/><br />NIÑO 2 -&gt; 202 €<br /></td
-						><td>792,00 €<br /></td></tr
+							>583,80</td
+						><td>792 €<br /></td></tr
 					><tr
 						><td>3 Adultos</td><td>TRIPLE</td><td
-							>ADULTO 1 -&gt; 241 €<br /><br />ADULTO 2 -&gt; 241 €<br /><br />ADULTO 3 -&gt; 241 €<br
-							/></td
-						><td>723,00 €<br /></td></tr
+							>529,20</td
+						><td>723 €</td></tr
 					><tr
 						><td>3 Adultos + Niño (0-2 Años)</td><td>TRIPLE</td><td
-							>ADULTO 1 -&gt; 241 €<br /><br />ADULTO 2 -&gt; 241 €<br /><br />ADULTO 3 -&gt; 241 €<br
-							/><br />NIÑO 1 -&gt; 0 €<br /></td
-						><td>723,00 €<br /></td></tr
+							>529,20 €</td
+						><td>723 €</td></tr
 					><tr
 						><td>3 Adultos + Niño (3-11 Años)</td><td>TRIPLE</td><td
-							>ADULTO 1 -&gt; 241 €<br /><br />ADULTO 2 -&gt; 241 €<br /><br />ADULTO 3 -&gt; 241 €<br
-							/><br />NIÑO 1 -&gt; 108 €<br /></td
-						><td>831,00 €<br /></td></tr
+							>614,20 €</td
+						><td>831 €</td></tr
 					><!----></tbody
 				>
 			</table>
