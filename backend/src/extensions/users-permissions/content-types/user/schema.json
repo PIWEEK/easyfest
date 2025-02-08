@@ -9,8 +9,7 @@
     "displayName": "User"
   },
   "options": {
-    "draftAndPublish": false,
-    "timestamps": true
+    "draftAndPublish": false
   },
   "attributes": {
     "username": {
@@ -71,6 +70,14 @@
       "relation": "manyToMany",
       "target": "api::activity.activity",
       "mappedBy": "staff"
+    },
+    "registrationType": {
+      "type": "enumeration",
+      "enum": [
+        "full",
+        "partial"
+      ],
+      "default": "full"
     }
   }
 }

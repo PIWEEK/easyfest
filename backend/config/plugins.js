@@ -1,5 +1,4 @@
 module.exports = ({ env }) => ({
-  // ...
   email: {
     config: {
       provider: 'strapi-provider-email-local-browser', // For community providers pass the full package name (e.g. provider: 'strapi-provider-email-mandrill')
@@ -13,5 +12,13 @@ module.exports = ({ env }) => ({
       },
     },
   },
-  // ...
+  'users-permissions': {
+    enabled: true,
+    config: {
+      jwtSecret: 'N1WVrkrjgmdjrSyTZYwUC6Fji41yoBjbMdN2qseiwZ8=',
+      jwt: {
+        expiresIn: '7d',
+      },
+    },
+  },
 });

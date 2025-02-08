@@ -1,22 +1,21 @@
 import { redirect } from '@sveltejs/kit';
-import { apiClient } from '../../services/api';
+import { fetchCMSData } from '../../services/api';
+import { isAuthorizedUser } from '../../services/users';
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ params, cookies }) {
+export async function load({ cookies }) {
 
-    const authToken = cookies ? cookies.get("easyfest-auth") : null
-    if (!authToken) {
-        redirect(302, "/get-link");
+    if (!isAuthorizedUser(cookies)) {
+        redirect(302, "/login");
     }
 
-    const user = await apiClient("GET", "users/me", {}, authToken)
-    console.log("user", user)
+    const { response, error } = await fetchCMSData("GET", "/users/me", {}, cookies) || {};
 
-    const activities = await apiClient("GET", "activities?populate=*", {}, authToken)
-    console.log("activities", activities)
+//     const activities = await apiClient("GET", "activities?populate=*", {}, authToken)
+//     console.log("activities", activities)
 
     return {
-        user,
-        activities: activities,
+        user: response,
+        // activities: activities,
     };
 }

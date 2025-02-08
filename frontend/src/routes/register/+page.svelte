@@ -1,7 +1,7 @@
 <script lang="ts">
     import { superForm } from 'sveltekit-superforms/client';
-  let { data } = $props();
-  
+	import * as m from '$lib/paraglide/messages.js'
+    let { data } = $props();
     const { form, errors, constraints, message } = superForm(data.form);
 </script>
 
@@ -9,13 +9,13 @@
     <div class="container">
         {#if $message == "success"}
             <img alt="" src="/img/envelope-open.png">
-            <h1 class="title is-3 mb-4">Check your email</h1>
-            <p class="block">We sent an email to you at {$form.email}</p>
-            <p class="block">It has a magic link to log in without a password.</p>
-            <p class="block"><a href="/get-link">Get a magic link for another email→</a></p>
+            <h1 class="title is-3 mb-4">{m.check_your_email()}</h1>
+            <p class="block">{m.we_sent_an_email(form.email)}</p>
+            <p class="block">{m.it_has_a_magic_link()}</p>
+            <p class="block"><a href="/get-link">{m.get_magic_link()}</a></p>
         {:else}
-            <h1 class="title is-3">Register</h1>
-            <p class="block">You need to register to be able to enter the tickets queue and get your tickets.</p>
+            <h1 class="title is-3">{m.register()}</h1>
+            <p class="block">{m.you_need_to_register()}</p>
             <form class="mt-4" method="POST">
 
                 <div class="field block">
@@ -51,11 +51,27 @@
                 </div>
 
                 <div class="field block">
+                    <label class="label is-sr-only" for="password">Password</label>
+                    <div class="control">
+                        <input class="input"
+                               type="password"
+                               name="password"
+                               placeholder="Enter your password"
+                               aria-invalid={$errors.password ? 'true' : undefined}
+                               bind:value={$form.password}
+                               {...$constraints.password}>
+                    </div>
+                    {#if $errors.password}
+                        <p class="help is-danger">{$errors.password}</p>
+                    {/if}
+                </div>
+
+                <div class="field block">
                     <label class="checkbox">
                         <input type="checkbox"
                             name="accept_code"
                             aria-invalid={$errors.accept_code ? 'true' : undefined}
-                            bind:value={$form.accept_code}
+                            bind:checked={$form.accept_code}
                             {...$constraints.accept_code} />
                         I've read and agreed with the <a href="/code-of-conduct" target="_blank">Code of conduct</a>
                     </label>
@@ -69,7 +85,7 @@
                         <input type="checkbox"
                             name="accept_terms"
                             aria-invalid={$errors.accept_terms ? 'true' : undefined}
-                            bind:value={$form.accept_terms}
+                            bind:checked={$form.accept_terms}
                             {...$constraints.accept_terms} />
                         I accept the <a href="/privacy-policy" target="_blank">Terms and Conditions</a>
                     </label>

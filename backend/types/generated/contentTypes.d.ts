@@ -1882,18 +1882,19 @@ export interface ApiSiteSite extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    eventStatus: Schema.Attribute.Enumeration<['hype', 'public', 'finished']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'hype'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::site.site'> &
       Schema.Attribute.Private;
+    loginEnabled: Schema.Attribute.Boolean;
     publishedAt: Schema.Attribute.DateTime;
     registration: Schema.Attribute.Enumeration<
       ['hidden', 'soon', 'open', 'finished']
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'hidden'>;
-    status: Schema.Attribute.Enumeration<['hype', 'public', 'finished']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'hype'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2687,7 +2688,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     activities_staff: Schema.Attribute.Relation<
@@ -2718,6 +2718,8 @@ export interface PluginUsersPermissionsUser
       }>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    registrationType: Schema.Attribute.Enumeration<['full', 'partial']> &
+      Schema.Attribute.DefaultTo<'full'>;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',

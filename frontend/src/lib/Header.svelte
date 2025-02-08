@@ -15,7 +15,11 @@
     const storage_url = import.meta.env.VITE_STORAGE_URL
     let { data } = $props();
 
+    const username = data.username;
+    const isLoggedIn = (data.username !== undefined);
+
     const isRegistrationOpen = data.registration === REGISTRATION.OPEN
+    const isLoginEnabled = data.loginEnabled
 
     const isRegistrationInfoActive = !isRegistrationOpen && data.registration !== REGISTRATION.HIDDEN
     const showMenu = data.show_about_us ||
@@ -149,11 +153,6 @@
                     <a class="navbar-item" href="/venue-info">{m.venue_info()}</a>
                     {/if}
                 </div>
-                <div class="navbar-end">
-                    {#if isRegistrationOpen}
-                    <a href="/registration" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
-                    {/if}
-                </div>
             {:else}
                 <div class="navbar-start navbar-center">
                     {#each data.nav_menu as nav_menu_item}
@@ -165,6 +164,17 @@
                     {/each}
                 </div>
             {/if}
+            <div class="navbar-end">
+                {#if isRegistrationOpen}
+                <a href="/registration" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
+                {:else if isLoginEnabled }
+                    {#if isLoggedIn}
+                        <a href="/me" class="button is-primary" title="{username}">Mis datos</a>
+                    {:else}
+                        <a href="/login" class="button is-primary">{m.login()}</a>
+                    {/if}
+                {/if}
+            </div>
         </div>
         {/if}
     </div>

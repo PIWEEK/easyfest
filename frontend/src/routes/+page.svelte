@@ -111,7 +111,7 @@
         }
 	});
 
-    const STATUS = {
+    const EVENT_STATUS = {
         HYPE: 'hype',
         PUBLIC: 'public',
         FINISHED: 'finished',
@@ -119,10 +119,10 @@
 
     const { homepage, speakers, site, ...settings } = data
     const highlightText = {
-        [STATUS.HYPE]: homepage.highlight_hype,
-        [STATUS.PUBLIC]: homepage.highlight_public,
-        [STATUS.FINISHED]: homepage.highlight_finished,
-    }[settings.status] ?? null
+        [EVENT_STATUS.HYPE]: homepage.highlight_hype,
+        [EVENT_STATUS.PUBLIC]: homepage.highlight_public,
+        [EVENT_STATUS.FINISHED]: homepage.highlight_finished,
+    }[settings.eventStatus] ?? null
 
     const REGISTRATION = {
         HIDDEN: 'hidden',

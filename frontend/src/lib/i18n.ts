@@ -46,9 +46,13 @@ export const i18n = createI18n(runtime, {
 			en: "/login",
 			es: "/entrar",
 		},
+		"/logout" : {
+			en: "/logout",
+			es: "/salir",
+		},
 		"/me" : {
 			en: "/me",
-			es: "/mi-cuenta",
+			es: "/mis-datos",
 		},
 		"/news-items" : {
 			en: "/news-items",
