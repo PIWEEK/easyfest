@@ -84,7 +84,7 @@ export const i18n = createI18n(runtime, {
 		},
 		"/speakers" : {
 			en: "/speakers",
-			es: "/ponentes",
+			es: "/invitados",
 		},
 		"/sponsors" : {
 			en: "/sponsors",
