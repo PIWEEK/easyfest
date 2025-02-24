@@ -166,13 +166,23 @@
     </div>
 </section>
 {/if} -->
+{#if homepage.richtitle}
+{@const mdrichtitle = homepage.richtitle}
+<section class="section">
+    <div class="container">
+        <div class="is-flex is-flex-direction-row is-justify-content-center">
+            <SvelteMarkdown source={mdrichtitle} />
+        </div>
 
+    </div>
+</section>
+{/if}
 {#if homepage.about_section}
 {@const title = homepage.about_section.title}
 {@const image = homepage.about_section.image}
 {@const mdContent = homepage.about_section.content}
 <section class="section">
-    <div class="container pb-6">
+    <div class="container">
         <div class="level columns">
             <div class="column">
                 <p class="title header--medium">{title}</p>
