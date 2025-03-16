@@ -19,6 +19,12 @@ module.exports = ({ env }) => ({
       jwt: {
         expiresIn: '7d',
       },
+      register: {
+        allowedFields: ["activities_staff","registrationType","dni",
+          "phone_number","last_name","pseudonym","smial","room_code",
+          "menu_type","menu_comment","premium","premium_comment",
+          "aide","mentee","mentor","childrens","name","room_type"],
+      },
     },
   },
 });
