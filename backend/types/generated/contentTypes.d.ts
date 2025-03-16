@@ -2694,29 +2694,42 @@ export interface PluginUsersPermissionsUser
       'manyToMany',
       'api::activity.activity'
     >;
+    aide: Schema.Attribute.Boolean;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    childrens: Schema.Attribute.Text;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    dni: Schema.Attribute.String;
     email: Schema.Attribute.Email &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    last_name: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    mentee: Schema.Attribute.Boolean;
+    mentor: Schema.Attribute.Boolean;
+    menu_comment: Schema.Attribute.Text;
+    menu_type: Schema.Attribute.Enumeration<['carne', 'pescado', 'vegano']>;
+    name: Schema.Attribute.String;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    phone_number: Schema.Attribute.BigInteger;
+    premium: Schema.Attribute.Boolean;
+    premium_comment: Schema.Attribute.Text;
     provider: Schema.Attribute.String;
+    pseudonym: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     registrationType: Schema.Attribute.Enumeration<['full', 'partial']> &
       Schema.Attribute.DefaultTo<'full'>;
@@ -2725,6 +2738,11 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    room_code: Schema.Attribute.String;
+    room_type: Schema.Attribute.Enumeration<
+      ['Individual', 'Doble', 'Triple', 'Aleatoria Doble', 'Aleatoria Triple']
+    >;
+    smial: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

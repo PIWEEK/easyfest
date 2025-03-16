@@ -78,6 +78,66 @@
         "partial"
       ],
       "default": "full"
+    },
+    "dni": {
+      "type": "string"
+    },
+    "phone_number": {
+      "type": "biginteger"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "pseudonym": {
+      "type": "string"
+    },
+    "smial": {
+      "type": "string"
+    },
+    "room_code": {
+      "type": "string"
+    },
+    "menu_type": {
+      "type": "enumeration",
+      "enum": [
+        "carne",
+        "pescado",
+        "vegano"
+      ]
+    },
+    "menu_comment": {
+      "type": "text"
+    },
+    "premium": {
+      "type": "boolean"
+    },
+    "premium_comment": {
+      "type": "text"
+    },
+    "aide": {
+      "type": "boolean"
+    },
+    "mentee": {
+      "type": "boolean"
+    },
+    "mentor": {
+      "type": "boolean"
+    },
+    "childrens": {
+      "type": "text"
+    },
+    "name": {
+      "type": "string"
+    },
+    "room_type": {
+      "type": "enumeration",
+      "enum": [
+        "Individual",
+        "Doble",
+        "Triple",
+        "Aleatoria Doble",
+        "Aleatoria Triple"
+      ]
     }
   }
 }
