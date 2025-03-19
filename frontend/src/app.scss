@@ -57,9 +57,6 @@ $control-border-width: 2px;
 
 // -- Bulma style overrides
 
-.button {
-}
-
 .tag {
     border-radius: $radius-small !important;
 }
@@ -263,5 +260,29 @@ footer{
         margin-top:3rem;
         margin-bottom:.6em;
         font-family: $family-secondary;
+    }
+}
+.user_data{
+    h3{
+        display: grid;
+        grid-template-columns: auto 1fr;
+        text-align: center;
+        align-items: baseline;
+        grid-gap: 6px;
+        &::after{
+            content: "";
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: $Primary;
+        }
+    }
+    label{
+        text-transform: uppercase;
+        color: $Primary;
+        font-size: 0.8rem;
+    }
+    .control p{
+        font-weight: 600;
     }
 }

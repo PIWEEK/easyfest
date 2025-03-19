@@ -169,9 +169,9 @@
                 <a href="/registration" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
                 {:else if isLoginEnabled }
                     {#if isLoggedIn}
-                        <a href="/me" class="button is-primary" title="{username}">Mis datos</a>
+                        <a href="/me" class="button is-primary is-uppercase" title="{username}">Mis datos</a>
                     {:else}
-                        <a href="/login" class="button is-primary">{m.login()}</a>
+                        <a href="/login" class="button is-primary is-uppercase  ">{m.login()}</a>
                     {/if}
                 {/if}
             </div>
