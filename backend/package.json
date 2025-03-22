@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@strapi/plugin-users-permissions": "5.6.0",
+    "@strapi/provider-email-nodemailer": "^5.11.3",
     "@strapi/strapi": "5.6.0",
     "better-sqlite3": "11.3.0",
     "fs-extra": "^10.0.0",

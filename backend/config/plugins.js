@@ -11,6 +11,22 @@ module.exports = ({ env }) => ({
         testAddress: 'juliasedefdjian@strapi.io',
       },
     },
+    // Uncomment this (and comment above) to use a real SMTP email.
+    // config: {
+    //   provider: 'nodemailer',
+    //   providerOptions: {
+    //     host: '<smtp host>',
+    //     port: 587,
+    //     auth: {
+    //       user: '<user>',
+    //       pass: '<password>',
+    //     },
+    //   },
+    //   settings: {
+    //     defaultFrom: 'from-email@example.com',
+    //     defaultReplyTo: 'no-reply-email@example.com',
+    //   },
+    // }
   },
   'users-permissions': {
     enabled: true,
