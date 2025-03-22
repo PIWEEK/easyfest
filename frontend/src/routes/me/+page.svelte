@@ -1,15 +1,10 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { invalidateAll } from '$app/navigation';
 	import * as m from '$lib/paraglide/messages.js';
 
 	interface Props {
 		data: import('./$types').PageData;
 	}
-
-	const logoutClick = () => {
-		invalidateAll(); // Makes all components to repaint
-	};
 
 	let { data }: Props = $props();
 </script>
@@ -17,7 +12,7 @@
 <section class="hero page_title">
 	<div class="is-flex is-align-items-center">
 		<h3 class="title mb-0 mr-4">Datos de inscripción</h3>
-		<a href="/logout" class="button is-primary" onclick={logoutClick}>
+		<a href="/logout" data-sveltekit-reload class="button is-primary">
 			{m.logout()}
 		</a>
 	</div>
