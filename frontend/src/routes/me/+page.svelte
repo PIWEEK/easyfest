@@ -22,7 +22,7 @@
 		<div class="content content_border">
 			{#if data.user}
 				<div class="columns user_data">
-					<div class="column is-three-fifths">
+					<div class="column">
 						<div class="card">
 							<div class="card-content">
 								<h3>Datos personales</h3>
@@ -193,7 +193,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="column">
+					<!-- <div class="column">
 
 						<div class="card">
 							<div class="card-content">
@@ -212,7 +212,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
 					<!-- <div class="content">
 					<h3>Extras</h3>
