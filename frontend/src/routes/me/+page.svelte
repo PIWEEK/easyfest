@@ -12,7 +12,7 @@
 <section class="hero page_title">
 	<div class="is-flex is-align-items-center">
 		<h3 class="title mb-0 mr-4">Datos de inscripción</h3>
-		<a href="/me-edit" data-sveltekit-reload class="button is-primary">
+		<a href="/me-edit" class="button is-primary">
 			{m.edit()}
 		</a>
 		<span class="is-flex-grow-1"></span>
