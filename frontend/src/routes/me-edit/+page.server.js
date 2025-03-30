@@ -1,0 +1,74 @@
+import { fail, redirect } from '@sveltejs/kit';
+import { message, superValidate } from 'sveltekit-superforms/server';
+import { z } from 'zod';
+import * as m from '$lib/paraglide/messages.js'
+import { zod } from 'sveltekit-superforms/adapters';
+import { fetchCMSData } from '../../services/api';
+import { isAuthorizedUser } from '../../services/users';
+import { getUserCard } from '../../services/users';
+
+let data = {}
+
+const schema = z.object({
+    pseudonym: z.string(),
+    menu_type: z.enum(["carne", "pescado", "vegano"]),
+    menu_comment: z.string(),
+});
+
+/** @type {import('./$types').PageLoad} */
+export async function load({ cookies }) {
+
+    if (!isAuthorizedUser(cookies)) {
+        redirect(302, "/login");
+    }
+
+    const { response, error } = await fetchCMSData("GET", "/users/me", {}, cookies) || {};
+    const form = await superValidate(response, zod(schema));
+
+    return {
+        user: response,
+        form: form,
+    };
+}
+
+export const actions = {
+    default: async ({ request, cookies }) => {
+        const form = await superValidate(request, zod(schema));
+  
+        if (!form.valid) {
+            return fail(400, { form });
+        }
+  
+        let userId;
+        {
+            const { response, error } = await fetchCMSData("GET", "/users/me", {}, cookies) || {};
+            if (error) {
+                if (error?.message) {
+                    return message(form, error.message);
+                } else {
+                    return message(form, m.an_error_has_occurred())
+                }
+            } else {
+                userId = response.id;
+            }
+        }
+  
+        const { response, error } = await fetchCMSData(
+          "PUT", "/users/" + userId, form.data, cookies, true
+        )
+  
+        if (response) {
+          redirect(302, "/me")
+        }
+  
+        let error_msg;
+        if (error?.status === 400) {
+          error_msg = m.email_or_password_incorrect();
+        } else if (error?.message) {
+          error_msg = error.message;
+        } else {
+          error_msg = m.an_error_has_occurred();
+        }
+        return message(form, error_msg);
+    }
+  };

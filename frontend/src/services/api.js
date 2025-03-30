@@ -30,8 +30,9 @@ export const encodeQuery = (query) =>
  * @param {string} path
  * @param {Record<string, unknown>} [payload]
  * @param {object} [cookies]
+ * @param {boolean} [forceApiToken]
  */
-export const fetchCMSData = async (method, path, payload, cookies) => {
+export const fetchCMSData = async (method, path, payload, cookies, forceApiToken) => {
   if (!base) {
     return {
       error: {
@@ -40,7 +41,7 @@ export const fetchCMSData = async (method, path, payload, cookies) => {
     };
   }
 
-  const authToken = getAuthToken(cookies);
+  const authToken = getAuthToken(cookies, forceApiToken);
   const authHeaders = authToken ? {"Authorization": `Bearer ${authToken}`} : {};
   const headers = {...baseHeaders, ...authHeaders};
 

@@ -15,6 +15,7 @@ if (!apiToken || apiToken.startsWith("<")) {
  */
 export const setUser = (cookies, jwt, user) => {
     const userCard = {
+        id: user.id,
         username: user.username,
         email: user.email,
     }
@@ -46,10 +47,11 @@ export const isAuthorizedUser = (cookies) => {
  * Return the JWT user token if authorized, or the general API token if not.
  * 
  * @param {object} cookies
+ * @param {boolean} forceApiToken
  */
-export const getAuthToken = (cookies) => {
+export const getAuthToken = (cookies, forceApiToken) => {
     const jwt = cookies?.get("jwt");
-    if (jwt) {
+    if (jwt && !forceApiToken) {
         return jwt;
     } else {
         return apiToken;

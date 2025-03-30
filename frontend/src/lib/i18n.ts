@@ -58,6 +58,10 @@ export const i18n = createI18n(runtime, {
 			en: "/me",
 			es: "/mis-datos",
 		},
+		"/me-edit" : {
+			en: "/me-edit",
+			es: "/mis-datos-editar",
+		},
 		"/new-password" : {
 			en: "/new-password",
 			es: "/nueva-contraseña",
