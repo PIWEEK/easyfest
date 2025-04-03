@@ -10,9 +10,16 @@ import { getUserCard } from '../../services/users';
 let data = {}
 
 const schema = z.object({
-    pseudonym: z.string(),
+    phone_number: z.string(),
+    smial: z.string().optional(),
+    pseudonym: z.string().optional(),
     menu_type: z.enum(["carne", "pescado", "vegano"]),
-    menu_comment: z.string(),
+    menu_comment: z.string().optional(),
+    mentor: z.boolean().optional(),
+    mentee: z.boolean().optional(),
+    aide: z.boolean().optional(),
+    premium: z.boolean().optional(),
+    premium_comment: z.string().optional(),
 });
 
 /** @type {import('./$types').PageLoad} */

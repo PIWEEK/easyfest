@@ -10,7 +10,7 @@ $Primary: #426A39ff;
 $Secondary: #84B642ff;
 $Secondary_Light: #cfb3ffff;
 $White: #f7f8f9ff;
-$Primary_Light: #caffe9ff;
+$Primary_Light: rgb(222, 235, 220);
 $White_Bis: #f1f2f4ff;
 $White_Ter: #dcdfe4ff;
 $Secondary_Lighter: #e4d4ffff;
@@ -48,6 +48,7 @@ $control-border-width: 2px;
     $family-secondary:$family-secondary,
     $footer-padding:3rem 1.5rem 2rem,
     $content-heading-color:$Primary,
+    $input-border-color:$Secondary
 );
 
 // -- Import all bulma styles
@@ -280,9 +281,21 @@ footer{
     label{
         text-transform: uppercase;
         color: $Primary;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
-    .control p{
+
+    .control {
+        p{
         font-weight: 600;
+        background-image: linear-gradient(150deg, $Primary_Light, #fff);
+        padding: 0.5rem;
+        border-radius: 5px;
+        min-height: 2.8rem;
+        }
+        input[type="checkbox"]{
+            transform: scale(1.5);
+            accent-color: $Primary;
+            padding: 0.5rem;
+        }
     }
 }
