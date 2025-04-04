@@ -60,8 +60,23 @@ export const actions = {
             }
         }
   
+        // Change undefined values to empty
+        const newData = {
+            ...form.data,
+            phone_number: form.data.phone_number || "",
+            smial: form.data.smial || "",
+            pseudonym: form.data.pseudonym || "",
+            menu_type: form.data.menu_type,
+            menu_comment: form.data.menu_comment || "",
+            mentor: form.data.mentor || false,
+            mentee: form.data.mentor || false,
+            aide: form.data.mentor || false,
+            premium: form.data.mentor || false,
+            premium_comment: form.data.premium_comment || "",
+        }
+
         const { response, error } = await fetchCMSData(
-          "PUT", "/users/" + userId, form.data, cookies, true
+          "PUT", "/users/" + userId, newData, cookies, true
         )
   
         if (response) {
