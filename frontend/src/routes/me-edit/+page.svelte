@@ -358,7 +358,6 @@
                                             {#if $errors.premium_comment}
                                                 <p class="help is-danger">{$errors.premium_comment}</p>
                                             {/if}
-                                            <p class="is-size-5">{data.user.premium_comment}</p>
                                         </div>
                                     </div>
                                     
