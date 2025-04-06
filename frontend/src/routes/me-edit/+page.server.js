@@ -69,9 +69,9 @@ export const actions = {
             menu_type: form.data.menu_type,
             menu_comment: form.data.menu_comment || "",
             mentor: form.data.mentor || false,
-            mentee: form.data.mentor || false,
-            aide: form.data.mentor || false,
-            premium: form.data.mentor || false,
+            mentee: form.data.mentee || false,
+            aide: form.data.aide || false,
+            premium: form.data.premium || false,
             premium_comment: form.data.premium_comment || "",
         }
 
