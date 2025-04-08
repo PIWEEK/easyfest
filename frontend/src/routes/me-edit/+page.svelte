@@ -322,7 +322,7 @@
                                         <div class="box"><img class="image" src="src/assets/images/camisetas_EC.webp" alt="Modelo Camiseta" /></div>
 
                                         <p>
-                                        Indica en observaciones cuántas camisetas quieres y especifica las tallas y modelo, después tendrás que hacer el ingreso del total de las camisetas al número de cuenta <b>IBAN: ES41 2100 4915 6513 0067 0672</b> <u>antes del 15 de Abril</u> con el concepto <b>EC Premium+DNI</b>.
+                                        Indica en observaciones cuántas camisetas quieres y especifica las tallas y modelo, después tendrás que hacer el ingreso del total de las camisetas al número de cuenta <b>IBAN: ES41 2100 4915 6513 0067 0672</b> <u>antes del 15 de Abril</u>. En beneficiario pon <b>"Sociedad Tolkien Española"</b> y en el concepto <b>EC Premium+DNI</b>.
                                         Para cualquier duda escribidnos un e-mail a <a href="mailto:estelcon2025@sociedadtolkien.org">estelcon2025@sociedadtolkien.org</a>
                                         </p>
                                     <div class="field">
