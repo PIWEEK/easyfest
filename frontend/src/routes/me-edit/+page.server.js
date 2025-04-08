@@ -30,10 +30,26 @@ export async function load({ cookies }) {
     }
 
     const { response, error } = await fetchCMSData("GET", "/users/me", {}, cookies) || {};
-    const form = await superValidate(response, zod(schema));
+
+    // Change undefined or null values to empty
+    const newUser = {
+        ...response,
+        phone_number: response.phone_number || "",
+        smial: response.smial || "",
+        pseudonym: response.pseudonym || "",
+        menu_type: response.menu_type || "carne",
+        menu_comment: response.menu_comment || "",
+        mentor: response.mentor || false,
+        mentee: response.mentee || false,
+        aide: response.aide || false,
+        premium: response.premium || false,
+        premium_comment: response.premium_comment || "",
+    }
+
+    const form = await superValidate(newUser, zod(schema));
 
     return {
-        user: response,
+        user: newUser,
         form: form,
     };
 }
