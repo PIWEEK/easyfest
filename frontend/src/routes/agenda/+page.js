@@ -97,7 +97,7 @@ function set_day_start(day, tracks, activityOrig) {
     if (day_start) {
         day.start = day_start;
     } else {
-        day.start = new Date(activityOrig.attributes.start);
+        day.start = new Date(activityOrig.start);
     }
 }
 
@@ -114,11 +114,9 @@ function add_activity(track, activity) {
     if (start.getTime() > track.end.getTime()) {
         track.activities.push({
             id: 0,
-            attributes: {
-                is_filler: true,
-                start: track.end,
-                minutes: (start.getTime() - track.end.getTime()) / 1000 / 60,
-            }
+            is_filler: true,
+            start: track.end,
+            minutes: (start.getTime() - track.end.getTime()) / 1000 / 60,
         })
     }
 

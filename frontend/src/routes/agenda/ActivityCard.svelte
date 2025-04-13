@@ -5,7 +5,7 @@
 
     const storage_url = import.meta.env.VITE_STORAGE_URL
 
-   let { activity, height } = $props();
+    let { activity, height } = $props();
 
     function handleProfileClick(publicprofile) {
         modals.open(Modal, { profile: publicprofile })
