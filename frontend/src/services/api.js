@@ -74,16 +74,17 @@ export const fetchCMSData = async (method, path, payload, cookies, forceApiToken
 export const fetchSingle = async (path, cookies) => {
   const { response, error } = await fetchCMSData("GET", path, {}, cookies);
   if (response) {
-    // For a single type, the response is like
-    //   {
-    //     "data": {
-    //       "id": 12345,
-    //       "attr1": val1,
-    //       "attr2": val2,
-    //       ...
-    //     },
-    //     "meta": {}
-    //   }
+    /* For a single CMS type, the response is like
+     *   {
+     *     "data": {
+     *       "id": 12345,
+     *       "attr1": val1,
+     *       "attr2": val2,
+     *       ...
+     *     },
+     *     "meta": {}
+     *   }
+     */
     return response.data;
   } else {
     console.error("->", error.message)
@@ -100,28 +101,53 @@ export const fetchSingle = async (path, cookies) => {
 export const fetchCollection = async (path, cookies) => {
   const { response, error } = await fetchCMSData("GET", path, {}, cookies);
   if (response) {
-    // for a collection type, the response is like
-    //   {
-    //     "data": [
-    //       {
-    //         "id": 12345,
-    //         "attr1": val1,
-    //         "attr2": val2,
-    //         ...
-    //       },
-    //       {
-    //         "id": 67890,
-    //         "attr1": val3,
-    //         "attr2": val4,
-    //         ...
-    //       },
-    //     ],
-    //     "meta": {}
-    //   }
+    /* for a collection CMS type, the response is like
+     *   {
+     *     "data": [
+     *       {
+     *         "id": 12345,
+     *         "attr1": val1,
+     *         "attr2": val2,
+     *         ...
+     *       },
+     *       {
+     *         "id": 67890,
+     *         "attr1": val3,
+     *         "attr2": val4,
+     *         ...
+     *       },
+     *     ],
+     *     "meta": {}
+     *   }
+    */
     return response.data;
   } else {
     console.error("->", error.message)
     return [];
+  }
+}
+
+/**
+ * Call backend API to retrieve a basic type.
+ * 
+ * @param {string} path
+ * @param {object} cookies
+ */
+export const fetchBasic = async (path, cookies) => {
+  const { response, error } = await fetchCMSData("GET", path, {}, cookies);
+  if (response) {
+    /* For a basic Strapi API type, the response is directly the requested object
+     *   {
+     *     "id": 12345,
+     *     "attr1": val1,
+     *     "attr2": val2,
+     *     ...
+     *   }
+     */
+    return response;
+  } else {
+    console.error("->", error.message)
+    return null;
   }
 }
 

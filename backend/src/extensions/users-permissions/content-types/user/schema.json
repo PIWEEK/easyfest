@@ -138,6 +138,18 @@
         "Aleatoria Doble",
         "Aleatoria Triple"
       ]
+    },
+    "activities_registered": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::activity.activity",
+      "mappedBy": "registered_users"
+    },
+    "activities_queued": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::activity.activity",
+      "mappedBy": "queued_users"
     }
   }
 }

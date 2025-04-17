@@ -589,6 +589,14 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
       'api::public-profile.public-profile'
     >;
     publishedAt: Schema.Attribute.DateTime;
+    queued_users: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    registered_users: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
     short_description: Schema.Attribute.Text &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -2690,6 +2698,14 @@ export interface PluginUsersPermissionsUser
     draftAndPublish: false;
   };
   attributes: {
+    activities_queued: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::activity.activity'
+    >;
+    activities_registered: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::activity.activity'
+    >;
     activities_staff: Schema.Attribute.Relation<
       'manyToMany',
       'api::activity.activity'

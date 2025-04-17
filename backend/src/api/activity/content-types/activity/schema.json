@@ -193,6 +193,18 @@
         "Workshop",
         "Party"
       ]
+    },
+    "registered_users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "activities_registered"
+    },
+    "queued_users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "activities_queued"
     }
   }
 }

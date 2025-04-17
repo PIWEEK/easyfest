@@ -6,7 +6,7 @@
 		data: import('./$types').PageData;
 	}
 
-	let { data }: Props = $props();
+	let { data, form }: Props = $props();
 </script>
 
 <section class="hero page_title">
@@ -30,7 +30,13 @@
 <section class="section">
 	<div class="container">
 		<div class="content content_border user_data">
-			{#if data.user}
+			{#if form?.success === true}
+				<p class="notification is-info">{form?.message}</p>
+			{/if}
+			{#if form?.success === false }
+				<p class="notification is-danger">{form?.message}</p>
+			{/if}
+ 			{#if data.user}
 				<div class="columns">
 					<div class="column">
 						<div class="card">
@@ -272,14 +278,71 @@
 				</div>
 				{/if}
 			
-				<!-- {#if data.activities.length > 0}
-                  <h2 class="title is-4">Activities you participate in:</h2>
-                  <ul class="list is-hoverable">
-                    {#each data.activities as activity}
-                    <li class="list-item">{activity.title}</li>
-                    {/each}
-                    </ul>
-                    {/if} -->
+				{#if (data.activities.length > 0) || (data.user.activities_registered.length > 0) || (data.user.activities_queued.length > 0)}
+					<form method="POST">
+						<div class="column">
+							<div class="card">
+								<div class="card-content">
+									<h3>Actividades</h3>
+									<div class="columns">
+										<div class="column">
+											<h4>Actividades con inscripción</h4>
+											<ul class="list">
+												{#each data.activities as activity}
+													<li class="list-item">
+														{activity.title}
+														<button class="button is-primary ml-auto"
+													            formaction="?/signIn&activityId={activity.documentId}">
+														  Inscribir
+														</button>
+													</li>
+												{/each}
+												{#if (data.activities.length === 0) }
+													<li class="list-item">
+														No queda ninguna actividad con inscripción.
+													</li>
+												{/if}
+											</ul>
+										</div>
+										<div class="column">
+											<h4>Actividades a las que te has inscrito</h4>
+											<ul class="list">
+												{#each data.user.activities_registered as activity}
+													<li class="list-item">
+														{activity.title}
+														<button class="button is-danger ml-auto"
+																formaction="?/signOut&activityId={activity.documentId}">
+														Cancelar
+														</button>
+													</li>
+												{/each}
+												{#if (data.user.activities_registered.length === 0) }
+													<li class="list-item">
+														No estás en ninguna actividad.
+													</li>
+												{/if}
+											</ul>
+											{#if (data.user.activities_queued.length > 0) }
+												<h4>Actividades en las que estás en cola</h4>
+												<ul class="list">
+													{#each data.user.activities_queued as activity}
+														<li class="list-item">
+															{activity.title}
+															<button class="button is-danger ml-auto"
+																	formaction="?/signOutQueued&activityId={activity.documentId}">
+															Cancelar
+															</button>
+														</li>
+													{/each}
+												</ul>
+											{/if}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>	
+				{/if}
 			
 		</div>
 	</div>
