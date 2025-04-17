@@ -48,7 +48,8 @@ $control-border-width: 2px;
     $family-secondary:$family-secondary,
     $footer-padding:3rem 1.5rem 2rem,
     $content-heading-color:$Primary,
-    $input-border-color:$Secondary
+    $input-border-color:$Secondary,
+    $card-header-background-color: $Primary_Light
 );
 
 // -- Import all bulma styles
@@ -117,6 +118,7 @@ body{
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto auto 1fr auto;
+    overflow: hidden;
 }
 .navbar{
     .navbar-item{
@@ -298,4 +300,12 @@ footer{
             padding: 0.5rem;
         }
     }
+}
+.agenda-section{
+    overflow: hidden;
+    
+}
+.agenda-table{
+    overflow-x: scroll;
+    padding: 10px;
 }

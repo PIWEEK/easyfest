@@ -38,48 +38,53 @@
         }
     });
 </script>
-  
-<section class="section">
+<section class="hero page_title">
+    <h3 class="title">Agenda</h3>
+  </section>
+<section class="section agenda-section">
     <div class="container" bind:this={container}>
-        <div class="tabs is-toggle">
-            <ul>
-                {#each data.days as day}
-                    <li class:is-active={day === current_day}>
-                        <a onclick={() => handleDayClick(day)}>
-                            {m.day()} {day.date} / {day.month}
-                        </a>
-                    </li>
-                {/each}
-            </ul>
-        </div>
-
-        <div class="columns">
-            {#if current_day}
-                {#each current_day.tracks as track}
-                    {#if track.activities.length > 0}
-                        <div class="column">
-                            <h2 class="title is-3">{track.title}</h2>
-                            <p class="subtitle">{track.description}</p>
-                            {#each track.activities as activity}
-                                {#if activity.is_filler}
-                                    <ActivityFiller {activity} height={activityHeight(activity)} hideInMobile={true}/>
-                                {:else}
-                                    {#if !activity.is_across_tracks}
-                                        <ActivityCard {activity} height={activityHeight(activity)}/>
-                                    {:else}
-                                        <div class="activity-wrapper">
-                                            <ActivityFiller {activity} height={activityHeight(activity)}/>
-                                            <div class="column-extender" style="width: {containerWidth}px">
+        <div class="content">
+            <div class="tabs is-toggle">
+                <ul>
+                    {#each data.days as day}
+                        <li class:is-active={day === current_day}>
+                            <a onclick={() => handleDayClick(day)}>
+                                {m.day()} {day.date} / {day.month}
+                            </a>
+                        </li>
+                    {/each}
+                </ul>
+            </div>
+            <div class="agenda-table">
+                <div class="columns is-1 mx-2">
+                    {#if current_day}
+                        {#each current_day.tracks as track}
+                            {#if track.activities.length > 0}
+                                <div class="column is-one-quarter-desktop is-half-tablet">
+                                    <h2 class="title is-4">{track.title}</h2>
+                                    <p class="subtitle">{track.description}</p>
+                                    {#each track.activities as activity}
+                                        {#if activity.is_filler}
+                                            <ActivityFiller {activity} height={activityHeight(activity)} hideInMobile={true}/>
+                                        {:else}
+                                            {#if !activity.is_across_tracks}
                                                 <ActivityCard {activity} height={activityHeight(activity)}/>
-                                            </div>
-                                        </div>
-                                    {/if}
-                                {/if}
-                            {/each}
-                        </div>
+                                            {:else}
+                                                <div class="activity-wrapper">
+                                                    <ActivityFiller {activity} height={activityHeight(activity)}/>
+                                                    <div class="column-extender" style="width: {containerWidth}px">
+                                                        <ActivityCard {activity} height={activityHeight(activity)}/>
+                                                    </div>
+                                                </div>
+                                            {/if}
+                                        {/if}
+                                    {/each}
+                                </div>
+                            {/if}
+                        {/each}
                     {/if}
-                {/each}
-            {/if}
+                </div>
+            </div>
         </div>
     </div>
 </section>
