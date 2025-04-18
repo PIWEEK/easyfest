@@ -1701,6 +1701,14 @@ export interface ApiSettingSetting extends Struct.SingleTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<true>;
+    show_activity_registration: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
     show_agenda: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{

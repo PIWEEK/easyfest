@@ -9,7 +9,8 @@ export async function load({ cookies }) {
         redirect(302, "/login");
     }
 
-	const [user, allActivities] = await Promise.all([
+	const [settings, user, allActivities] = await Promise.all([
+        fetchSingle("/setting", cookies),
         fetchBasic("/users/me?populate[activities_registered][filters][publishedAt][$notNull]=true&populate[activities_queued][filters][publishedAt][$notNull]=true", cookies),
         fetchCollection("/activities?filters[needs_registration][$eq]=true&sort=title:asc", cookies),
 	]);
@@ -18,24 +19,29 @@ export async function load({ cookies }) {
     const registeredIds = new Set(user.activities_registered.map(activity => activity.id));
     const queuedIds = new Set(user.activities_queued.map(activity => activity.id));
     const activities = allActivities.filter(activity => !registeredIds.has(activity.id) && (!queuedIds.has(activity.id)));
-    return { user, activities };
+    return { settings, user, activities };
 }
 
 export const actions = {
   signIn: async ({ url, cookies }) => {
-    const user = await fetchBasic("/users/me", cookies);
+    const activityId = url.searchParams.get("activityId"); 
+    const [settings, user, activity] = await Promise.all([
+        fetchSingle("/setting", cookies),
+        fetchBasic("/users/me", cookies),
+        fetchSingle(`/activities/${activityId}?populate[registered_users][count]=true`, cookies),
+    ]);
+    if (!settings.show_activity_registration) {
+        return { success: false, message: "La inscripción a actividades no está activada." };
+    }
     if (!user) {
         return { success: false, message: "No se ha podido encontrar el usuario." };
     }
-
-    const activityId = url.searchParams.get("activityId"); 
-    const activity = await fetchSingle(`/activities/${activityId}?populate[registered_users][count]=true`, cookies);
     if (!activity) {
         return { success: false, message: "No se ha podido encontrar la actividad." };
     }
 
     const limit = activity.attendees_limit;
-    const registeredCount = activity.registered_users.count;
+    const registeredCount = activity.registered_users?.count || 0;
 
     if (!limit || limit > registeredCount) {
         const { response, error } = await fetchCMSData(
@@ -77,13 +83,18 @@ export const actions = {
   },
 
   signOut: async ({ url, cookies }) => {
-    const user = await fetchBasic("/users/me", cookies);
+    const activityId = url.searchParams.get("activityId"); 
+    const [settings, user, activity] = await Promise.all([
+        fetchSingle("/setting", cookies),
+        fetchBasic("/users/me", cookies),
+        fetchSingle(`/activities/${activityId}`, cookies),
+    ]);
+    if (!settings.show_activity_registration) {
+        return { success: false, message: "La inscripción a actividades no está activada." };
+    }
     if (!user) {
         return { success: false, message: "No se ha podido encontrar el usuario." };
     }
-
-    const activityId = url.searchParams.get("activityId"); 
-    const activity = await fetchSingle(`/activities/${activityId}`, cookies);
     if (!activity) {
         return { success: false, message: "No se ha podido encontrar la actividad." };
     }
@@ -108,13 +119,18 @@ export const actions = {
   },
 
   signOutQueued: async ({ url, cookies }) => {
-    const user = await fetchBasic("/users/me", cookies);
+    const activityId = url.searchParams.get("activityId"); 
+    const [settings, user, activity] = await Promise.all([
+        fetchSingle("/setting", cookies),
+        fetchBasic("/users/me", cookies),
+        fetchSingle(`/activities/${activityId}`, cookies),
+    ]);
+    if (!settings.show_activity_registration) {
+        return { success: false, message: "La inscripción a actividades no está activada." };
+    }
     if (!user) {
         return { success: false, message: "No se ha podido encontrar el usuario." };
     }
-
-    const activityId = url.searchParams.get("activityId"); 
-    const activity = await fetchSingle(`/activities/${activityId}`, cookies);
     if (!activity) {
         return { success: false, message: "No se ha podido encontrar la actividad." };
     }

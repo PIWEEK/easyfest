@@ -278,7 +278,10 @@
 				</div>
 				{/if}
 			
-				{#if (data.activities.length > 0) || (data.user.activities_registered.length > 0) || (data.user.activities_queued.length > 0)}
+				{#if data.settings?.show_activity_registration &&
+    				 ((data.activities.length > 0) ||
+					  (data.user.activities_registered.length > 0) ||
+					  (data.user.activities_queued.length > 0))}
 					<form method="POST">
 						<div class="column">
 							<div class="card">

@@ -284,6 +284,16 @@
       },
       "type": "boolean",
       "default": false
+    },
+    "show_activity_registration": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }
