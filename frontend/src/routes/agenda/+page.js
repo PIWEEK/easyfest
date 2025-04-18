@@ -3,17 +3,34 @@ import { fetchCollection } from '../../services/api';
 export async function load({ params }) {
     let data = {}
 
-    const trackEntries = await fetchCollection("/tracks?populate[activities][populate][public_faces][populate]=photo");
+    const trackEntries = await fetchCollection("/tracks?populate[activities][populate][public_faces][populate]=photo&sort=order:asc");
     let tracks = [];
     if (trackEntries) {
         tracks = trackEntries;
     }
 
-    // Ensure correct ordering of tracks and activities
-    tracks.sort((a, b) => a.order - b.order);
+    // Add filler activities for is_across_tracks
     for (let track of tracks) {
-        track.activities.sort((a, b) => Date.parse(a.start) -
-                                                        Date.parse(b.start));
+        for (let activity of track.activities) {
+            if (activity.is_across_tracks) {
+                for (let track2 of tracks) {
+                    if (track2.id !== track.id) {
+                        track2.activities.push({
+                            ...activity,
+                            is_across_tracks: false,
+                            is_filler: true,
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    // Ensure correct ordering of activities
+    for (let track of tracks) {
+        track.activities.sort((a, b) =>
+             Date.parse(a.start) - Date.parse(b.start)
+        );
     }
 
     const days = pack_activities(tracks);
@@ -33,7 +50,19 @@ function pack_activities(tracks) {
     for (let [i, track] of tracks.entries()) {
         for (let activity of track.activities) {
             const day = get_day(days, tracks, activity);
-            add_activity(day.tracks[i], activity);
+
+            // Get the activities of the same day as the current one,
+            // in all the tracks.
+            const dayTracks = tracks.map(dayTrack => {
+                return {
+                    ...dayTrack,
+                    activities: dayTrack.activities.filter(
+                        a => new Date(a.start).getDay() === day.start.getDay()
+                    )
+                }
+            });
+
+            add_activity(day.tracks[i], activity, dayTracks);
         }
     }
 
@@ -108,15 +137,29 @@ function set_day_start(day, tracks, activityOrig) {
  * 
  * You need to call to this method in cronologic order.
  */
-function add_activity(track, activity) {
+function add_activity(track, activity, dayTracks) {
     const start = new Date(activity.start);
 
-    if (start.getTime() > track.end.getTime()) {
+    // If there is some hole with no activity in none of the tracks,
+    // remove the space in the grid.
+    let remove = 0;
+    const nextActivities = dayTracks.map(
+        dayTrack => dayTrack.activities.find(a => new Date(a.start) >= track.end)
+    ).filter(a => (a !== undefined));
+    const minStart = new Date(Math.min(...nextActivities.map(a => new Date(a.start))));
+    if (minStart > track.end) {
+        remove = minStart.getTime() - track.end.getTime();
+    }
+
+    // Add a filler activity between the end of the last activity
+    // (minus the removed hole) and the start of this one.
+    const fillerDuration = (start.getTime() - track.end.getTime()) - remove;
+    if (fillerDuration > 0) {
         track.activities.push({
             id: 0,
             is_filler: true,
             start: track.end,
-            minutes: (start.getTime() - track.end.getTime()) / 1000 / 60,
+            minutes: fillerDuration / 1000 / 60,
         })
     }
 

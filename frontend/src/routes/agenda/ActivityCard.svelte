@@ -13,7 +13,7 @@
 
     function activityHour(activity) {
         const start = new Date(activity.start);
-        return start.getHours().toString() + ":" + start.getMinutes().toString();
+        return `${start.getHours()}:${start.getMinutes().toString().padStart(2, '0')}`;
     }
 </script>
 

@@ -18,7 +18,7 @@
 
     function activityHeight(activity) {
         const duration = activity.minutes;
-        return (duration * 0.6 - 2).toString() + "rem";
+        return (duration * 0.5 - 2).toString() + "rem";
     }
 
     function handleResize() {
