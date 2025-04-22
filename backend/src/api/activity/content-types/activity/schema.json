@@ -188,10 +188,8 @@
       },
       "type": "enumeration",
       "enum": [
-        "Talk",
-        "Keynote",
-        "Workshop",
-        "Party"
+        "Charla",
+        "Taller"
       ]
     },
     "registered_users": {

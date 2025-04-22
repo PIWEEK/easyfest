@@ -620,9 +620,7 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    tag2: Schema.Attribute.Enumeration<
-      ['Talk', 'Keynote', 'Workshop', 'Party']
-    > &
+    tag2: Schema.Attribute.Enumeration<['Charla', 'Taller']> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -860,6 +858,7 @@ export interface ApiCookiePolicyCookiePolicy extends Struct.SingleTypeSchema {
 export interface ApiEnrollmentEnrollment extends Struct.SingleTypeSchema {
   collectionName: 'enrollments';
   info: {
+    description: '';
     displayName: 'enrollment';
     pluralName: 'enrollments';
     singularName: 'enrollment';

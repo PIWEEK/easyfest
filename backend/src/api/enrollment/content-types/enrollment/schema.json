@@ -4,7 +4,8 @@
   "info": {
     "singularName": "enrollment",
     "pluralName": "enrollments",
-    "displayName": "enrollment"
+    "displayName": "enrollment",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
