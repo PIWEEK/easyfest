@@ -59,27 +59,15 @@
     /* allow click-through to backdrop */
     pointer-events: auto;
   }
-
-  .contents {
-    min-width: 240px;
-    border-radius: 6px;
-    padding: 16px;
-    background: white;
-    display: flex;
-    flex-direction: column;
+  .modal-card-head{
+    align-items: start;
     justify-content: space-between;
-    pointer-events: auto;
+  }
+  .modal-card-title{
+    flex-grow: initial;
+    flex-shrink: initial;
   }
 
-  h2 {
-    text-align: center;
-    font-size: 24px;
-  }
-
-  p {
-    text-align: center;
-    margin-top: 16px;
-  }
 
   .actions {
     margin-top: 32px;

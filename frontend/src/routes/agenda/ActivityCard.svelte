@@ -79,12 +79,14 @@
 
     .card.clickable {
         cursor: pointer;
+        transition: all 0.2s ease-in-out;
     }
 
     .card.clickable:hover {
         background-color: var(--bulma-gray-light);
         .card-header {
-            background-color: var(--bulma-primary);
+            background-color: #e2c6ae;
+            transition: all 0.2s ease-in-out;
         }
     }
 

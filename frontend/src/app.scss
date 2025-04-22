@@ -15,6 +15,11 @@ $White_Bis: #f1f2f4ff;
 $White_Ter: #dcdfe4ff;
 $Secondary_Lighter: #e4d4ffff;
 $Dark: #151132ff;
+$ecviolet: #8d627b;
+$ecorange:#e8b290;
+$ecbeige: #c9aa88;
+$ecblue:#8EB1C7;
+$ecbrown:#af590c;
 
 $text: $Dark;
 $family-primary:"Cormorant Infant", serif;
@@ -49,7 +54,8 @@ $control-border-width: 2px;
     $footer-padding:3rem 1.5rem 2rem,
     $content-heading-color:$Primary,
     $input-border-color:$Secondary,
-    $card-header-background-color: $Primary_Light
+    $card-header-background-color: $Primary_Light,
+
 );
 
 // -- Import all bulma styles
@@ -59,9 +65,9 @@ $control-border-width: 2px;
 
 // -- Bulma style overrides
 
-.tag {
-    border-radius: $radius-small !important;
-}
+// .tag {
+//     border-radius: $radius-small !important;
+// }
 
 // -- Custom helpers
 
@@ -118,7 +124,6 @@ body{
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto auto 1fr auto;
-    overflow: hidden;
 }
 .navbar{
     .navbar-item{
@@ -302,10 +307,38 @@ footer{
     }
 }
 .agenda-section{
-    overflow: hidden;
-    
+    .tabs ul{
+        margin-inline-start: 0;
+    }
+    @media only screen and (max-width: 768px) {
+        .tabs ul a{
+            padding:0.4em 0.8em;
+        }
+    }
 }
 .agenda-table{
-    overflow-x: scroll;
-    padding: 10px;
+    position: relative;
+    overflow: scroll;
+    height: 100vh;
+    border:1px solid $Primary;
+    border-radius: 8px;
+    padding: 4px;
+    .columns{
+        position: absolute;
+        width: 100%;
+    }
+    .tag.is-info{
+        background-color: $ecviolet;
+        color: $White;
+    }
+    .column-header{
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-image: linear-gradient(to right, $Primary, $Secondary);
+        border-radius: 8px;
+        padding:1rem;
+        margin-bottom: 10px;
+        box-shadow: 0 10px 10px 0px rgba(0, 0, 0, 0.2), 0 -10px 10px 3px rgb(255, 255, 255);
+    }
 }

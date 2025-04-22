@@ -67,8 +67,8 @@
 
 <style>
     .navbar {
-        position: sticky;
-        top: 0;
+        /* position: sticky;
+        top: 0; */
         left: 0;
         width: 100%;
         transition: transform 0.1s ease-in-out;
