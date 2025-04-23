@@ -189,7 +189,8 @@
       "type": "enumeration",
       "enum": [
         "Charla",
-        "Taller"
+        "Taller",
+        "Infantil"
       ]
     },
     "registered_users": {

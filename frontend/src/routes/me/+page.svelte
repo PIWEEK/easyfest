@@ -16,6 +16,11 @@
 	];
 
 </script>
+{#if data.user}
+					{#if data.settings?.show_activity_registration &&
+						((data.activities.length > 0) ||
+						(data.user.activities_registered.length > 0) ||
+						(data.user.activities_queued.length > 0))}
 <div class="tabs is-centered is-medium mb-0">
 	<ul>
 	  {#each tabs as tab}
@@ -25,6 +30,8 @@
 	  {/each}
 	</ul>
 </div>
+{/if}
+{/if}
 <div class="tab-content">
 	{#if activeTab === 'tab1'}
 	<section class="hero page_title">

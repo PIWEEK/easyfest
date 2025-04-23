@@ -620,7 +620,7 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    tag2: Schema.Attribute.Enumeration<['Charla', 'Taller']> &
+    tag2: Schema.Attribute.Enumeration<['Charla', 'Taller', 'Infantil']> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
