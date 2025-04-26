@@ -6,7 +6,7 @@
 
     const storage_url = import.meta.env.VITE_STORAGE_URL
 
-    let { activity, height } = $props();
+    let { activity, height, adjust } = $props();
 
     function handleActivityClick() {
         if (activity.has_own_page) {
@@ -25,14 +25,14 @@
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
-<div class="card {activity.has_own_page ? 'clickable' : ''}" style="height: {height}"
+<div class="card {activity.has_own_page ? 'clickable' : ''}" style="height: {height}; margin-top: {adjust}"
      onclick={handleActivityClick} role="button" tabindex="0">
     <div class="card-header">
         <p class="card-header-title">
             {activityHour(activity)}
             {activity.title}
         </p>
-   </div>
+    </div>
     {#if activity.short_description || (activity.public_faces && activity.public_faces.length > 0)}
         <div class="card-content">
             {#if activity.short_description}

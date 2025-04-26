@@ -486,6 +486,13 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    adjust_start: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
     attendees_limit: Schema.Attribute.Integer &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
