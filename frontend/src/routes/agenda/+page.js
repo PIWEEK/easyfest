@@ -29,7 +29,8 @@ export async function load({ params }) {
     // Ensure correct ordering of activities
     for (let track of tracks) {
         track.activities.sort((a, b) =>
-             Date.parse(a.start) - Date.parse(b.start)
+            (startDate(a).getTime() + (a.is_filler ? 0 : 1)) -
+            (startDate(b).getTime() + (b.is_filler ? 0 : 1))
         );
     }
 
@@ -38,6 +39,20 @@ export async function load({ params }) {
         days
     };
 } 
+
+/**
+ * Get the date and time of activity start.
+ */
+function startDate(activity) {
+    return new Date(activity.start);
+}
+
+/**
+ * Get the date and time of activity end.
+ */
+function endDate(activity) {
+    return new Date(startDate(activity).getTime() + activity.minutes * 60 * 1000);
+}
 
 /**
  * Separate activities in days. Return an array of days,
@@ -51,14 +66,11 @@ function pack_activities(tracks) {
         for (let activity of track.activities) {
             const day = get_day(days, tracks, activity);
 
-            // Get the activities of the same day as the current one,
-            // in all the tracks.
+            // Get the tracks with only the activities of the current day.
             const dayTracks = tracks.map(dayTrack => {
                 return {
                     ...dayTrack,
-                    activities: dayTrack.activities.filter(
-                        a => new Date(a.start).getDay() === day.start.getDay()
-                    )
+                    activities: activitiesOfDay(dayTrack, day.start),
                 }
             });
 
@@ -70,13 +82,23 @@ function pack_activities(tracks) {
 }
 
 /**
+ * Get all activities in the track in the same day
+ * of the given date.
+ */
+function activitiesOfDay(track, date) {
+    return track.activities.filter(
+        a => startDate(a).getDate() === date.getDate()
+    )
+}
+
+/**
  * Get the day for this activity. If not exists, add one and
  * include in it all the tracks with empty activity lists.
  * 
  * Initialize each track with the day start.
  */
 function get_day(days, tracks, activity) {
-    const start = new Date(activity.start);
+    const start = startDate(activity);
     for (let day of days) {
         if (day.year === start.getFullYear() &&
             day.month === start.getMonth() &&
@@ -112,7 +134,7 @@ function set_day_start(day, tracks, activityOrig) {
     let day_start = null;
     for (let track of tracks) {
         for (let activity of track.activities) {
-            const start = new Date(activity.start);
+            const start = startDate(activity);
             if (day.year === start.getFullYear() &&
                 day.month === start.getMonth() &&
                 day.date === start.getDate()) {
@@ -126,7 +148,7 @@ function set_day_start(day, tracks, activityOrig) {
     if (day_start) {
         day.start = day_start;
     } else {
-        day.start = new Date(activityOrig.start);
+        day.start = startDate(activityOrig);
     }
 }
 
@@ -138,22 +160,11 @@ function set_day_start(day, tracks, activityOrig) {
  * You need to call to this method in cronologic order.
  */
 function add_activity(track, activity, dayTracks) {
-    const start = new Date(activity.start);
-
-    // If there is some hole with no activity in none of the tracks,
-    // remove the space in the grid.
-    let remove = 0;
-    const nextActivities = dayTracks.map(
-        dayTrack => dayTrack.activities.find(a => new Date(a.start) >= track.end)
-    ).filter(a => (a !== undefined));
-    const minStart = new Date(Math.min(...nextActivities.map(a => new Date(a.start))));
-    if (minStart > track.end) {
-        remove = minStart.getTime() - track.end.getTime();
-    }
+    const start = startDate(activity);
 
     // Add a filler activity between the end of the last activity
-    // (minus the removed hole) and the start of this one.
-    const fillerDuration = (start.getTime() - track.end.getTime()) - remove;
+    // and the start of this one.
+    const fillerDuration = (start.getTime() - track.end.getTime());
     if (fillerDuration > 0) {
         track.activities.push({
             id: 0,
