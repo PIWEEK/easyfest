@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount, onDestroy } from 'svelte';
+    import { onMount, onDestroy, tick } from 'svelte';
     import { browser } from '$app/environment';
     import * as m from '$lib/paraglide/messages.js'
     import { writable } from 'svelte/store';
@@ -14,11 +14,14 @@
 
     let current_day = $state.raw(data.days?.length > 0 ? data.days[0] : null);
     let container = $state();
-    let containerWidth = $state();
     let columnsContainer;
+    let containerWidth = $state();
     
     function handleDayClick(day) {
         current_day = day;
+        tick().then(() => {
+            handleResize();
+        });
     }
 
     function minutesBetween(start, end) {
@@ -44,10 +47,10 @@
     // TODO: move this into the database in Strapi
     const compressedIntervals = [
         [new Date("2025-05-08T21:00:00"), new Date("2025-05-08T22:30:00")],
-        [new Date("2025-05-09T08:00:00"), new Date("2025-05-09T10:30:00")],
+        [new Date("2025-05-09T08:00:00"), new Date("2025-05-09T10:00:00")],
         [new Date("2025-05-09T13:30:00"), new Date("2025-05-09T15:30:00")],
         [new Date("2025-05-09T21:00:00"), new Date("2025-05-09T22:30:00")],
-        [new Date("2025-05-10T08:00:00"), new Date("2025-05-10T10:30:00")],
+        [new Date("2025-05-10T08:00:00"), new Date("2025-05-10T10:00:00")],
         [new Date("2025-05-10T13:30:00"), new Date("2025-05-10T15:30:00")],
         [new Date("2025-05-10T22:00:00"), new Date("2025-05-11T00:00:00")],
         [new Date("2025-05-11T09:00:00"), new Date("2025-05-11T11:00:00")],
@@ -107,7 +110,8 @@
     }
 
     function handleResize() {
-        containerWidth = container.clientWidth;
+        containerWidth = columnsContainer.scrollWidth - 12;
+        console.log("Container width:", containerWidth);
     }
 
     onMount(() => {
@@ -218,7 +222,7 @@
                     {#if current_day}
                         {#each current_day.tracks as track}
                             {#if track.activities.length > 0}
-                                <div class="column is-half-mobile is-one-quarter-desktop">
+                                <div class="column is-half-mobile is-half-tablet is-one-quarter-desktop">
                                     <div class="column-header">
                                         <h4 class="title has-text-white is-size-6-mobile">{track.title}</h4>
                                         <p class="subtitle has-text-grey-light is-size-7-mobile">{track.description}</p>

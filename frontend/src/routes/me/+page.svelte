@@ -8,11 +8,11 @@
 
 	let { data, form }: Props = $props();
 	
-  	let activeTab = $state('tab1');
-
+  	const activeTab = data.activeTab;
+	console.log('activeTab', activeTab);
 	const tabs = [
-		{ name: 'Datos', id: 'tab1' },
-		{ name: 'Actividades', id: 'tab2' },
+		{ name: 'Datos', id: 'datos' },
+		{ name: 'Actividades', id: 'actividades' },
 	];
 
 </script>
@@ -25,7 +25,7 @@
 	<ul>
 	  {#each tabs as tab}
 		<li class={activeTab === tab.id ? 'is-active' : ''}>
-			<a href="" on:click={() => activeTab = tab.id}>{tab.name}</a>
+			<a data-sveltekit-reload href="?tab={tab.id}">{tab.name}</a>
 		</li>
 	  {/each}
 	</ul>
@@ -33,7 +33,7 @@
 {/if}
 {/if}
 <div class="tab-content">
-	{#if activeTab === 'tab1'}
+	{#if activeTab === 'datos'}
 	<section class="hero page_title">
 	<div class="is-flex is-align-items-center">
 		<h3 class="title mb-0 mr-4">Datos de inscripción</h3>
@@ -305,7 +305,7 @@
 			</div>
 		</div>	
 	</section>
-	{:else if activeTab === 'tab2'}
+	{:else if activeTab === 'actividades'}
 		<section class="hero page_title">
 			<div class="is-flex is-align-items-center">
 				<h3 class="title mb-0 mr-4">Actividades</h3>
@@ -337,7 +337,7 @@
 													<li class="list-item">
 														{activity.title}
 														<button class="button is-primary ml-auto"
-																formaction="?/signIn&activityId={activity.documentId}">
+																formaction="?/signIn&activityId={activity.documentId}&tab={activeTab}">
 														Inscribir
 														</button>
 													</li>
@@ -360,7 +360,7 @@
 														<li class="list-item">
 															{activity.title}
 															<button class="button is-danger ml-auto"
-																	formaction="?/signOut&activityId={activity.documentId}">
+																	formaction="?/signOut&activityId={activity.documentId}&tab={activeTab}">
 															Cancelar
 															</button>
 														</li>
@@ -378,7 +378,7 @@
 															<li class="list-item">
 																{activity.title}
 																<button class="button is-danger ml-auto"
-																		formaction="?/signOutQueued&activityId={activity.documentId}">
+																		formaction="?/signOutQueued&activityId={activity.documentId}&tab={activeTab}">
 																Cancelar
 																</button>
 															</li>

@@ -22,8 +22,8 @@
     }
     
     @include mixins.mobile {
-        .filler.hide-in-mobile {
-            display: none;
-        }
+        // .filler.hide-in-mobile {
+        //     display: none;
+        // }
     }
 </style>

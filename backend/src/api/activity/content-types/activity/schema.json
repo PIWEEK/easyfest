@@ -188,6 +188,7 @@
       },
       "type": "enumeration",
       "enum": [
+        "Actividad",
         "Charla",
         "Taller",
         "Infantil"

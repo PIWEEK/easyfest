@@ -3,13 +3,15 @@ import { fetchCMSData, fetchCollection, fetchSingle, fetchBasic } from '../../se
 import { isAuthorizedUser } from '../../services/users';
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ cookies }) {
+export async function load({ cookies, url }) {
 
     if (!isAuthorizedUser(cookies)) {
         redirect(302, "/login");
     }
 
-	const [settings, user, allActivities] = await Promise.all([
+    const activeTab = url.searchParams.get("tab") || "datos"; 
+
+    const [settings, user, allActivities] = await Promise.all([
         fetchSingle("/setting", cookies),
         fetchBasic("/users/me?populate[activities_registered][filters][publishedAt][$notNull]=true&populate[activities_queued][filters][publishedAt][$notNull]=true", cookies),
         fetchCollection("/activities?filters[needs_registration][$eq]=true&sort=title:asc", cookies),
@@ -19,7 +21,8 @@ export async function load({ cookies }) {
     const registeredIds = new Set(user.activities_registered.map(activity => activity.id));
     const queuedIds = new Set(user.activities_queued.map(activity => activity.id));
     const activities = allActivities.filter(activity => !registeredIds.has(activity.id) && (!queuedIds.has(activity.id)));
-    return { settings, user, activities };
+    return { settings, user, activities, activeTab };
+    
 }
 
 export const actions = {

@@ -63,7 +63,7 @@
                     {#if activity.tag1}
                         <span class="tag is-primary">{activity.tag1}</span>
                     {/if}
-                    {#if activity.tag2}
+                    {#if activity.tag2 && activity.tag2 !== "Actividad"}
                         <span class="tag is-info">{activity.tag2}</span>
                     {/if}
                 </p>
