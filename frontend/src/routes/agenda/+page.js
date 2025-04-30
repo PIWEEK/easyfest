@@ -14,7 +14,8 @@ export async function load({ params }) {
         for (let activity of track.activities) {
             if (activity.is_across_tracks) {
                 for (let track2 of tracks) {
-                    if (track2.id !== track.id) {
+                    if ((track2.id !== track.id) &&
+                        (activitiesOfDay(track2, startDate(activity)).length > 0)) {
                         track2.activities.push({
                             ...activity,
                             is_across_tracks: false,
