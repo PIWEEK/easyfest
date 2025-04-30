@@ -129,7 +129,7 @@
         </div>
         {#if showMenu}
         <div id="mainMenu" class="navbar-menu">
-            {#if data.nav_menu.length === 0}
+            {#if data.nav_menu?.length === 0}
                 <div class="navbar-start navbar-center">
                     {#if data.show_about_us}
                     <a class="navbar-item" href="/about-us">{m.about()}</a>

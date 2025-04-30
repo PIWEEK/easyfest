@@ -85,7 +85,7 @@
 					Si tienes alguna duda, sugerencia, pregunta... ¡escríbenos! Puedes contactar escribiendo un correo a: <a href="mailto:estelcon2025@sociedadtolkien.org">estelcon2025@sociedadtolkien.org</a>
 				</p>
 			</div>
-			{#if data.social_media_links.length > 0}
+			{#if data.social_media_links?.length > 0}
 				<div class="column is-flex is-flex-direction-column is-justify-content-center is-align-items-center is-one-third p-0">
 					<ul>
 						{#each data.social_media_links as link}
