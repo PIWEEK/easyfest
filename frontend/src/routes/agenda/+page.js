@@ -3,17 +3,36 @@ import { fetchCollection } from '../../services/api';
 export async function load({ params }) {
     let data = {}
 
-    const trackEntries = await fetchCollection("/tracks?populate[activities][populate][public_faces][populate]=photo");
+    const trackEntries = await fetchCollection("/tracks?populate[activities][populate][public_faces][populate]=photo&sort=order:asc");
     let tracks = [];
     if (trackEntries) {
         tracks = trackEntries;
     }
 
-    // Ensure correct ordering of tracks and activities
-    tracks.sort((a, b) => a.order - b.order);
+    // Add filler activities for is_across_tracks
     for (let track of tracks) {
-        track.activities.sort((a, b) => Date.parse(a.start) -
-                                                        Date.parse(b.start));
+        for (let activity of track.activities) {
+            if (activity.is_across_tracks) {
+                for (let track2 of tracks) {
+                    if ((track2.id !== track.id) &&
+                        (activitiesOfDay(track2, startDate(activity)).length > 0)) {
+                        track2.activities.push({
+                            ...activity,
+                            is_across_tracks: false,
+                            is_filler: true,
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    // Ensure correct ordering of activities
+    for (let track of tracks) {
+        track.activities.sort((a, b) =>
+            (startDate(a).getTime() + (a.is_filler ? 0 : 1)) -
+            (startDate(b).getTime() + (b.is_filler ? 0 : 1))
+        );
     }
 
     const days = pack_activities(tracks);
@@ -21,6 +40,20 @@ export async function load({ params }) {
         days
     };
 } 
+
+/**
+ * Get the date and time of activity start.
+ */
+function startDate(activity) {
+    return new Date(activity.start);
+}
+
+/**
+ * Get the date and time of activity end.
+ */
+function endDate(activity) {
+    return new Date(startDate(activity).getTime() + activity.minutes * 60 * 1000);
+}
 
 /**
  * Separate activities in days. Return an array of days,
@@ -33,11 +66,30 @@ function pack_activities(tracks) {
     for (let [i, track] of tracks.entries()) {
         for (let activity of track.activities) {
             const day = get_day(days, tracks, activity);
-            add_activity(day.tracks[i], activity);
+
+            // Get the tracks with only the activities of the current day.
+            const dayTracks = tracks.map(dayTrack => {
+                return {
+                    ...dayTrack,
+                    activities: activitiesOfDay(dayTrack, day.start),
+                }
+            });
+
+            add_activity(day.tracks[i], activity, dayTracks);
         }
     }
 
     return days;
+}
+
+/**
+ * Get all activities in the track in the same day
+ * of the given date.
+ */
+function activitiesOfDay(track, date) {
+    return track.activities.filter(
+        a => startDate(a).getDate() === date.getDate()
+    )
 }
 
 /**
@@ -47,7 +99,7 @@ function pack_activities(tracks) {
  * Initialize each track with the day start.
  */
 function get_day(days, tracks, activity) {
-    const start = new Date(activity.start);
+    const start = startDate(activity);
     for (let day of days) {
         if (day.year === start.getFullYear() &&
             day.month === start.getMonth() &&
@@ -83,7 +135,7 @@ function set_day_start(day, tracks, activityOrig) {
     let day_start = null;
     for (let track of tracks) {
         for (let activity of track.activities) {
-            const start = new Date(activity.start);
+            const start = startDate(activity);
             if (day.year === start.getFullYear() &&
                 day.month === start.getMonth() &&
                 day.date === start.getDate()) {
@@ -97,7 +149,7 @@ function set_day_start(day, tracks, activityOrig) {
     if (day_start) {
         day.start = day_start;
     } else {
-        day.start = new Date(activityOrig.attributes.start);
+        day.start = startDate(activityOrig);
     }
 }
 
@@ -108,17 +160,18 @@ function set_day_start(day, tracks, activityOrig) {
  * 
  * You need to call to this method in cronologic order.
  */
-function add_activity(track, activity) {
-    const start = new Date(activity.start);
+function add_activity(track, activity, dayTracks) {
+    const start = startDate(activity);
 
-    if (start.getTime() > track.end.getTime()) {
+    // Add a filler activity between the end of the last activity
+    // and the start of this one.
+    const fillerDuration = (start.getTime() - track.end.getTime());
+    if (fillerDuration > 0) {
         track.activities.push({
             id: 0,
-            attributes: {
-                is_filler: true,
-                start: track.end,
-                minutes: (start.getTime() - track.end.getTime()) / 1000 / 60,
-            }
+            is_filler: true,
+            start: track.end,
+            minutes: fillerDuration / 1000 / 60,
         })
     }
 

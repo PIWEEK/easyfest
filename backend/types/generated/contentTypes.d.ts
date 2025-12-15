@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiAboutUsAboutUs extends Struct.SingleTypeSchema {
   collectionName: 'about_uses';
   info: {
+    description: '';
     displayName: 'about-us';
     pluralName: 'about-uses';
     singularName: 'about-us';
@@ -396,6 +397,12 @@ export interface ApiAboutUsAboutUs extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -479,6 +486,13 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    adjust_start: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
     attendees_limit: Schema.Attribute.Integer &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -582,6 +596,14 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
       'api::public-profile.public-profile'
     >;
     publishedAt: Schema.Attribute.DateTime;
+    queued_users: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    registered_users: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
     short_description: Schema.Attribute.Text &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -606,7 +628,7 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
         };
       }>;
     tag2: Schema.Attribute.Enumeration<
-      ['Talk', 'Keynote', 'Workshop', 'Party']
+      ['Actividad', 'Charla', 'Taller', 'Infantil']
     > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -717,7 +739,8 @@ export interface ApiCodeOfConductCodeOfConduct extends Struct.SingleTypeSchema {
 export interface ApiContactInfoContactInfo extends Struct.SingleTypeSchema {
   collectionName: 'contact_infos';
   info: {
-    displayName: 'contact-info';
+    description: '';
+    displayName: 'contact';
     pluralName: 'contact-infos';
     singularName: 'contact-info';
   };
@@ -739,6 +762,12 @@ export interface ApiContactInfoContactInfo extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -829,6 +858,36 @@ export interface ApiCookiePolicyCookiePolicy extends Struct.SingleTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<'Cookie policy'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiEnrollmentEnrollment extends Struct.SingleTypeSchema {
+  collectionName: 'enrollments';
+  info: {
+    description: '';
+    displayName: 'enrollment';
+    pluralName: 'enrollments';
+    singularName: 'enrollment';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::enrollment.enrollment'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -940,6 +999,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     marquee_text: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'\uD83D\uDD25 Registration is open'>;
     publishedAt: Schema.Attribute.DateTime;
+    richtitle: Schema.Attribute.RichText;
     show_marquee_text: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<false>;
@@ -947,6 +1007,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       'homepage.speakers_section',
       false
     >;
+    subtitle: Schema.Attribute.String;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'EasyFest, straightforward festival webpages'>;
@@ -1099,6 +1160,50 @@ export interface ApiOrgTeamOrgTeam extends Struct.SingleTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<'The organisation team'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPreciosPrecios extends Struct.SingleTypeSchema {
+  collectionName: 'preciosos';
+  info: {
+    description: '';
+    displayName: 'prices';
+    pluralName: 'preciosos';
+    singularName: 'precios';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    content: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::precios.precios'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1543,6 +1648,13 @@ export interface ApiSettingSetting extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
+    enrollment_active: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1597,6 +1709,14 @@ export interface ApiSettingSetting extends Struct.SingleTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<true>;
+    show_activity_registration: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
     show_agenda: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -1786,18 +1906,19 @@ export interface ApiSiteSite extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    eventStatus: Schema.Attribute.Enumeration<['hype', 'public', 'finished']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'hype'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::site.site'> &
       Schema.Attribute.Private;
+    loginEnabled: Schema.Attribute.Boolean;
     publishedAt: Schema.Attribute.DateTime;
     registration: Schema.Attribute.Enumeration<
       ['hidden', 'soon', 'open', 'finished']
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'hidden'>;
-    status: Schema.Attribute.Enumeration<['hype', 'public', 'finished']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'hype'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2591,42 +2712,69 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
+    activities_queued: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::activity.activity'
+    >;
+    activities_registered: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::activity.activity'
+    >;
     activities_staff: Schema.Attribute.Relation<
       'manyToMany',
       'api::activity.activity'
     >;
+    aide: Schema.Attribute.Boolean;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    childrens: Schema.Attribute.Text;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    dni: Schema.Attribute.String;
     email: Schema.Attribute.Email &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    last_name: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    mentee: Schema.Attribute.Boolean;
+    mentor: Schema.Attribute.Boolean;
+    menu_comment: Schema.Attribute.Text;
+    menu_type: Schema.Attribute.Enumeration<['carne', 'pescado', 'vegano']>;
+    name: Schema.Attribute.String;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    phone_number: Schema.Attribute.BigInteger;
+    premium: Schema.Attribute.Boolean;
+    premium_comment: Schema.Attribute.Text;
     provider: Schema.Attribute.String;
+    pseudonym: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    registrationType: Schema.Attribute.Enumeration<['full', 'partial']> &
+      Schema.Attribute.DefaultTo<'full'>;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    room_code: Schema.Attribute.String;
+    room_type: Schema.Attribute.Enumeration<
+      ['Individual', 'Doble', 'Triple', 'Aleatoria Doble', 'Aleatoria Triple']
+    >;
+    smial: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2657,11 +2805,13 @@ declare module '@strapi/strapi' {
       'api::contact-info.contact-info': ApiContactInfoContactInfo;
       'api::contact-type.contact-type': ApiContactTypeContactType;
       'api::cookie-policy.cookie-policy': ApiCookiePolicyCookiePolicy;
+      'api::enrollment.enrollment': ApiEnrollmentEnrollment;
       'api::faq.faq': ApiFaqFaq;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::news-item.news-item': ApiNewsItemNewsItem;
       'api::newsletter-subscription.newsletter-subscription': ApiNewsletterSubscriptionNewsletterSubscription;
       'api::org-team.org-team': ApiOrgTeamOrgTeam;
+      'api::precios.precios': ApiPreciosPrecios;
       'api::press-kit.press-kit': ApiPressKitPressKit;
       'api::privacy-policy.privacy-policy': ApiPrivacyPolicyPrivacyPolicy;
       'api::profile-contact.profile-contact': ApiProfileContactProfileContact;

@@ -76,6 +76,12 @@
       "type": "component",
       "repeatable": false,
       "component": "homepage.accommodation_section"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "richtitle": {
+      "type": "richtext"
     }
   }
 }

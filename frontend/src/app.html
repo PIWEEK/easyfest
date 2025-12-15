@@ -1,32 +1,31 @@
 <!DOCTYPE html>
-<html lang="%paraglide.lang%" dir="%paraglide.textDirection%">
+<html lang="%paraglide.lang%" dir="%paraglide.textDirection%" data-theme="light">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.ico" />
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work%20Sans:700,400">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair%20Display:700">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto%20Slab:700">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM%20Plex%20Mono:700">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kalam:700">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Infant:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
 		<meta name="viewport" content="width=device-width initial-scale=1" />
 		%sveltekit.head%
 
-		<meta name="description" content="EasyFest provides a simple and straightforward event/festival webpage building toolkit.">
+		<meta name="description" content="¡Bienvenidos a la página oficial de la XXIX Mereth Aderthad, Estelcon 2025!">
 		<link rel="icon" href="%sveltekit.assets%/img/thumbnail.jpg" type="image/jpg">
 		<meta name="referrer" content="no-referrer-when-downgrade">
 
-		<meta property="og:site_name" content="Easy Fest">
+		<meta property="og:site_name" content="Estelcon 2025">
 		<meta property="og:type" content="website">
-		<meta property="og:title" content="Easy Fest | The best fest site!">
-		<meta property="og:description" content="EasyFest provides a simple and straightforward event/festival webpage building toolkit.">
-		<meta property="og:url" content="https://easyfest.site/">
+		<meta property="og:title" content="XXIX Mereth Aderthad - Estelcon 2025">
+		<meta property="og:description" content="Web oficial de la Estelcon, reunión anual de la Sociedad Tolkien Española">
+		<meta property="og:url" content="https://estelcon.sociedadtolkien.org/">
 		<meta property="og:image" content="%sveltekit.assets%/img/thumbnail.jpg">
-		<meta property="og:image:width" content="1000">
-		<meta property="og:image:height" content="667">
+		<meta property="og:image:width" content="600">
+		<meta property="og:image:height" content="600">
 
 		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
+		<div class="container container_all has-background-white" >%sveltekit.body%</div>
 	</body>
 </html>

@@ -34,7 +34,7 @@
       "default": "hidden",
       "required": true
     },
-    "status": {
+    "eventStatus": {
       "type": "enumeration",
       "enum": [
         "hype",
@@ -43,6 +43,9 @@
       ],
       "default": "hype",
       "required": true
+    },
+    "loginEnabled": {
+      "type": "boolean"
     }
   }
 }

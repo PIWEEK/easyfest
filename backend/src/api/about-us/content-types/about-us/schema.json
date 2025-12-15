@@ -4,7 +4,8 @@
   "info": {
     "singularName": "about-us",
     "pluralName": "about-uses",
-    "displayName": "about-us"
+    "displayName": "about-us",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -34,6 +35,22 @@
       "type": "richtext",
       "required": true,
       "default": "EasyFest provides a simple and straightforward event/festival webpage building toolkit."
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

@@ -275,6 +275,25 @@
         }
       },
       "component": "site.nav-menu-item"
+    },
+    "enrollment_active": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false
+    },
+    "show_activity_registration": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }

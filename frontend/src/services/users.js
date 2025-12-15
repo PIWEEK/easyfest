@@ -1,40 +1,71 @@
 import { apiClient } from "./api"
-import { localStorage } from "./storage"
 
-export const register = (email, password) {
-    const result = await apiClient("POST", "auth/local/register", {
-        username: email,
-        email,
-        password
-    })
+const apiToken = import.meta.env.VITE_API_TOKEN;
 
-    if (result.user) {
-        localStorage.set("token", result.jwt)
-        localStorage.set("user", result.user)
+if (!apiToken || apiToken.startsWith("<")) {
+  console.error("Please, define VITE_API_TOKEN in `.env`")
+}
+
+/**
+ * Store in cookies user information retrieved by login.
+ * 
+ * @param {object} cookies
+ * @param {string} jwt
+ * @param {object} user
+ */
+export const setUser = (cookies, jwt, user) => {
+    const userCard = {
+        id: user.id,
+        username: user.username,
+        email: user.email,
     }
-
-    return result.user
+    cookies.set("jwt", jwt, { path: "/" });
+    cookies.set("userCard", JSON.stringify(userCard), { path: "/" });
 }
 
-export const login = (email, password) {
-    const result = await apiClient("POST", "auth/local", {
-        identifier: email,
-        password
-    })
+/**
+ * Clear all the user info stored in cookies.
+ * 
+ * @param {object} cookies
+ */
+export const resetUser = (cookies) => {
+    cookies.delete("jwt", { path: "/" })
+    cookies.delete("userCard", { path: "/" })
+}
 
-    if (result.user) {
-        localStorage.set("token", result.jwt)
-        localStorage.set("user", result.user)
+/**
+ * Return true if the user has authenticated.
+ * 
+ * @param {object} cookies
+ */
+export const isAuthorizedUser = (cookies) => {
+    const jwt = cookies?.get("jwt");
+    return (jwt != undefined);
+}
+
+/**
+ * Return the JWT user token if authorized, or the general API token if not.
+ * 
+ * @param {object} cookies
+ * @param {boolean} forceApiToken
+ */
+export const getAuthToken = (cookies, forceApiToken) => {
+    const jwt = cookies?.get("jwt");
+    if (jwt && !forceApiToken) {
+        return jwt;
+    } else {
+        return apiToken;
     }
-
-    return result.user
 }
 
-export const logout = () => {
-    localStorage.remove("token")
-    localStorage.remove("user")
-}
-
-export const currentUser = () => {
-    return localStorage.get("user")
+/**
+ * Return the basic user card (username, email) if logged in, or undefined if not.
+ * 
+ * @param {object} cookies
+ */
+export const getUserCard = (cookies) => {
+    const userCard = cookies?.get("userCard");
+    if (userCard) {
+        return JSON.parse(userCard);
+    }
 }

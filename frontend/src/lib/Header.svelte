@@ -15,7 +15,11 @@
     const storage_url = import.meta.env.VITE_STORAGE_URL
     let { data } = $props();
 
+    const username = data.username;
+    const isLoggedIn = (data.username !== undefined);
+
     const isRegistrationOpen = data.registration === REGISTRATION.OPEN
+    const isLoginEnabled = data.loginEnabled
 
     const isRegistrationInfoActive = !isRegistrationOpen && data.registration !== REGISTRATION.HIDDEN
     const showMenu = data.show_about_us ||
@@ -63,8 +67,8 @@
 
 <style>
     .navbar {
-        position: sticky;
-        top: 0;
+        /* position: sticky;
+        top: 0; */
         left: 0;
         width: 100%;
         transition: transform 0.1s ease-in-out;
@@ -103,12 +107,12 @@
         }
     }
 </style>
-<nav class="navbar is-dark is-spaced" class:is-concealed={isNavbarHidden} aria-label="main-navigation">
+<nav class="navbar is-spaced" class:is-concealed={isNavbarHidden} aria-label="main-navigation">
      <div class="container">
         <div class="navbar-brand">
-            <a href="/" class="navbar-item">
-                {#if data.logo_horiz}
-                <img alt={data.title} src="{storage_url}{data.logo_horiz.url}"/>
+            <a href="/" class="navbar-item brand">
+                {#if data.logo_small}
+                <img alt={data.title} src="{storage_url}{data.logo_small.url}"/>
                 {:else}
                 <img alt={data.title} src={logoFallback}/>
                 {/if}
@@ -119,12 +123,13 @@
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </button>
             {/if}
         </div>
         {#if showMenu}
         <div id="mainMenu" class="navbar-menu">
-            {#if data.nav_menu.length === 0}
+            {#if data.nav_menu?.length === 0}
                 <div class="navbar-start navbar-center">
                     {#if data.show_about_us}
                     <a class="navbar-item" href="/about-us">{m.about()}</a>
@@ -148,11 +153,6 @@
                     <a class="navbar-item" href="/venue-info">{m.venue_info()}</a>
                     {/if}
                 </div>
-                <div class="navbar-end">
-                    {#if isRegistrationOpen}
-                    <a href="/registration" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
-                    {/if}
-                </div>
             {:else}
                 <div class="navbar-start navbar-center">
                     {#each data.nav_menu as nav_menu_item}
@@ -164,6 +164,17 @@
                     {/each}
                 </div>
             {/if}
+            <div class="navbar-end">
+                {#if isRegistrationOpen}
+                <a href="/registration" class="button is-primary register-cta register-cta--menu">{data.register_cta}</a>
+                {:else if isLoginEnabled }
+                    {#if isLoggedIn}
+                        <a href="/me" class="button is-primary is-uppercase" title="{username}">Mis datos</a>
+                    {:else}
+                        <a href="/login" class="button is-primary is-uppercase  ">{m.login()}</a>
+                    {/if}
+                {/if}
+            </div>
         </div>
         {/if}
     </div>

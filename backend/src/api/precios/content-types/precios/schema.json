@@ -1,0 +1,36 @@
+{
+  "kind": "singleType",
+  "collectionName": "preciosos",
+  "info": {
+    "singularName": "precios",
+    "pluralName": "preciosos",
+    "displayName": "prices",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "content": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

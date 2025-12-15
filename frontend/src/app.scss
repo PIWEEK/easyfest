@@ -1,47 +1,62 @@
 @use 'sass:map';
-@use 'design-system/colors.scss';
+// @use 'design-system/colors.scss';
 @use 'design-system/typographies.scss';
 
 // Theme configuration is done by giving value to Bulma variables
 // https://bulma.io/documentation/customize/concepts/
 
 // -- Initial variables (with a literal value)
+$Primary: #426A39ff;
+$Secondary: #84B642ff;
+$Secondary_Light: #cfb3ffff;
+$White: #f7f8f9ff;
+$Primary_Light: rgb(222, 235, 220);
+$White_Bis: #f1f2f4ff;
+$White_Ter: #dcdfe4ff;
+$Secondary_Lighter: #e4d4ffff;
+$Dark: #151132ff;
+$ecviolet: #8d627b;
+$ecorange:#e8b290;
+$ecbeige: #c9aa88;
+$ecblue:#8EB1C7;
+$ecbrown:#af590c;
 
-$text: colors.$Dark;
-$family-sans-serif: map.get(typographies.$Body_Large, "font-family"), sans-serif;
+$text: $Dark;
+$family-primary:"Cormorant Infant", serif;
+$family-secondary:"Cinzel Decorative", serif;
 
-$size-1: map.get(typographies.$🖥_Title_Large , "font-size");
-$size-2: map.get(typographies.$🖥_Title_Medium, "font-size");
-$size-3: map.get(typographies.$🖥_Title_Small , "font-size");
-$size-4: map.get(typographies.$Body_Large , "font-size");
-$size-5: map.get(typographies.$Body_Medium, "font-size");
-$size-6: map.get(typographies.$Body_Small , "font-size");
-$size-7: map.get(typographies.$Body_Small_Uppercase, "font-size");
+$size-1: 63px;
+$size-2: 54px;
+$size-3: 31px;
+$size-4: 21px;
+$size-5: 18px;
+$size-6: 15px;
+$size-7: 13px;
 
 $radius-small: 0;
 $control-border-width: 2px;
 
 @use "bulma/sass" with (
-
     // -- Derived variables (that take value from other variables)
 
-    $primary: colors.$Primary,
-    // $primary-light: colors.$Primary_Light,
-    // $secondary /* custom */: colors.$Secondary,
-    // $secondary-light /* custom */: colors.$Secondary_Light,
-    // $secondary-lighter /* custom */: colors.$Secondary_Lighter,
-    $dark: colors.$Dark,
-    // $text-light: $text,
-    $text-strong: $text,
-    $white: colors.$White,
-    $white-bis: colors.$White_Bis,
-    $white-ter: colors.$White_Ter,
-);
+    $primary: $Primary,
+    $dark: $Dark,
+    $white: $White,
+    $white-bis: $White_Bis,
+    $white-ter: $White_Ter,
+    $body-family:"Cormorant Infant",
+    $body-font-size:1.2rem,
+    $body-color:#1A1E18ff,
+    $link: #af590c,
+    $section-padding:1rem 1.5rem,
+    $section-padding-desktop:2rem 2.5rem,
+    $family-secondary:$family-secondary,
+    $footer-padding:3rem 1.5rem 2rem,
+    $content-heading-color:$Primary,
+    $input-border-color:$Secondary,
+    $card-header-background-color: $Primary_Light,
 
-// $custom-colors: (
-//     "secondary": ($secondary, findColorInvert($secondary), $secondary-light),
-//     "secondary-lighter": ($secondary-lighter, findColorInvert($secondary-lighter)),
-// );
+);
 
 // -- Import all bulma styles
 
@@ -50,77 +65,280 @@ $control-border-width: 2px;
 
 // -- Bulma style overrides
 
-.title {
-    font-size: $size-1;
-}
-
-.content h3 {
-    // color: $secondary;
-
-    &:not(:first-child) {
-        margin-top: 0;
-    }
-}
-
-.button {
-    border-radius: $radius-small;
-}
-
-.tag {
-    border-radius: $radius-small !important;
-}
+// .tag {
+//     border-radius: $radius-small !important;
+// }
 
 // -- Custom helpers
 
-$genericTypographyFamilies: (
-    "Work Sans": sans-serif,
-    "Playfair Display": serif,
-    "Roboto Slab": serif,
-    "IBM Plex Mono": monospace,
-    "Kalam": (cursive, sans-serif),
-);
-
-@mixin mixTypographyClass($typographyMap) {
-    @each $prop, $value in $typographyMap {
-        @if $prop == "font-family" {
-            $value: $value, map.get($genericTypographyFamilies, $value);
-        }
-        #{$prop}: $value;
-    }
+@mixin mixTypographyClassEC($lineheight:1.2,$fontsize:54px,$fontfamily:$family-primary){
+    line-height: $lineheight;
+    font-style: normal;
+    text-transform: none;
+    font-weight: 400;
+    font-size: $fontsize;
+    letter-spacing: 0px;
+    font-family: $fontfamily;
 }
-
 .header--large {
-    @include mixTypographyClass(typographies.$📱_Title_Large);
+    @include mixTypographyClassEC(1.2,45px,$family-secondary);
     @include mixins.tablet {
-        @include mixTypographyClass(typographies.$🖥_Title_Large);
+        @include mixTypographyClassEC(1.2,56px,$family-secondary);
     };
 }
 .header--medium {
-    @include mixTypographyClass(typographies.$📱_Title_Medium);
+    @include mixTypographyClassEC(1.2,32px,$family-secondary);
     @include mixins.tablet {
-        @include mixTypographyClass(typographies.$🖥_Title_Medium);
+        @include mixTypographyClassEC(1.2,40px,$family-secondary);
     };
 }
 .header--small {
-    @include mixTypographyClass(typographies.$📱_Title_Small);
+    @include mixTypographyClassEC(1.2,16px);
     @include mixins.tablet {
-        @include mixTypographyClass(typographies.$🖥_Title_Small);
+        @include mixTypographyClassEC(1.2,31px);
     };
 }
 
 .text--large {
-    @include mixTypographyClass(typographies.$Body_Large);
+    @include mixTypographyClassEC(1.4,21px);
 }
 .text--medium {
-    @include mixTypographyClass(typographies.$Body_Medium);
+    @include mixTypographyClassEC(1.4,18px);
 }
 .text--small {
-    @include mixTypographyClass(typographies.$Body_Small);
+    @include mixTypographyClassEC(1.4,15px);
 }
 .text--small--uppercase {
-    @include mixTypographyClass(typographies.$Body_Small_Uppercase);
+    @include mixTypographyClassEC(1.4,13px);
 }
 
-.border-color--secondary {
-    border-color: colors.$Secondary_Light;
+
+body{
+    background-image: url('assets/images/backEC.jpg');
+    background-color: #426A39;
+    background-blend-mode: multiply;
+    min-height: 100vh;
+}
+.container_all{
+    box-shadow: 0 0 16px 8px rgba(0,0,0,0.5);
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+}
+.navbar{
+    .navbar-item{
+        text-transform: uppercase;
+        font-weight: 600;
+        color: $Primary;
+        img{
+            max-height: 90px;
+        }
+        &.brand{
+            @include mixins.desktop{
+                padding: 0;
+                transform: scale(1.2);
+            }
+        }
+    }
+}
+.hero-home{
+    background-image:linear-gradient(to right, rgba(66, 106, 57, 0.6), rgba(132, 182, 66, 0.6)),url('assets/images/BG_Fiesta_Hobbit_72_tr.webp'),linear-gradient(to right, rgba(66, 106, 57, 1), rgba(132, 182, 66, 1));
+    background-position: left 80%;
+    background-size: 120%;
+    background-blend-mode: normal,multiply;
+    background-repeat: no-repeat;
+    @include mixins.mobile {
+        background-size: cover;
+    }
+    .hero-body{
+        padding:8rem 4rem;
+        @include mixins.mobile {
+            padding:3rem 2rem;
+        }
+    }
+    .hero-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+    .title{
+        line-height: 89%;
+        margin-bottom: 0;
+        @include mixins.mobile {
+            font-size: 40px;
+        }
+    }
+    .subtitle_group{
+        display: flex;
+        justify-content: space-between;
+        text-transform: uppercase;
+        font-family: "cinzel decorative", serif;
+    }
+    .highlight{
+        max-width: 750px;
+        text-align: center;
+    }
+}
+.content_border{
+    border-image-source: url('assets/images/border_content.png');
+    border-image-slice: 65;
+    border-image-width: auto;
+    border-image-outset: 15px;
+    padding:3rem 2rem;
+    @include mixins.mobile {
+        border-image: none;
+        padding:inherit;
+    }
+}
+.page_title{
+    background-image: linear-gradient(to right, #426A39, #84B642);
+    font-family: "cinzel decorative", serif;
+    padding:1rem 2rem;
+    .title {
+        font-size: $size-3;
+        color: $White;
+        @include mixins.mobile {
+            font-size: $size-5;
+        }
+    }
+}
+footer{
+    background-image: linear-gradient(to right, #426A39, #84B642);
+    .logo_footer{
+        max-width: 200px;
+        display: block;
+    }
+}
+.button-hero{
+    background-image: linear-gradient(to right, #426A39, #84B642);
+    &:hover{
+        background-image: linear-gradient(to right, #84B642, #426A39);
+    }
+}
+.img_mark{
+    border:thick double $Primary;
+    border-radius: 8px;
+}
+.img-draw{
+    @media only screen and (max-width: 768px) {
+        max-width: 300px;
+    }
+}
+.table-precios {
+
+    td:nth-of-type(3),td:nth-of-type(4) {
+        font-weight: bold;
+      }
+}
+@media only screen and (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  tr { border: 1px solid #ccc; }
+  td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 200px;
+    margin-left: 150px;
+  }
+  td:before {
+    position: absolute;
+    top: 12px;
+    left: 6px;
+    width: 200px;
+    padding-right: 40px;
+    white-space: nowrap;
+    margin-left: -150px;
+  }
+  td:nth-of-type(1):before { content: "Descripción"; }
+  td:nth-of-type(2):before { content: "Tipo"; }
+  td:nth-of-type(3):before { content: "EC Parcial"; }
+  td:nth-of-type(4):before { content: "EC Completa";}
+
+}
+.content-comollegar{
+    h4{
+        margin-top:3rem;
+        margin-bottom:.6em;
+        font-family: $family-secondary;
+    }
+}
+.user_data{
+    h3{
+        display: grid;
+        grid-template-columns: auto 1fr;
+        text-align: center;
+        align-items: baseline;
+        grid-gap: 6px;
+        &::after{
+            content: "";
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: $Primary;
+        }
+    }
+    label{
+        text-transform: uppercase;
+        color: $Primary;
+        font-size: 0.9rem;
+    }
+
+    .control {
+        p{
+        font-weight: 600;
+        background-image: linear-gradient(150deg, $Primary_Light, #fff);
+        padding: 0.5rem;
+        border-radius: 5px;
+        min-height: 2.8rem;
+        }
+        input[type="checkbox"]{
+            transform: scale(1.5);
+            accent-color: $Primary;
+            padding: 0.5rem;
+        }
+    }
+}
+.agenda-section{
+    .tabs ul{
+        margin-inline-start: 0;
+    }
+    @media only screen and (max-width: 768px) {
+        .tabs ul a{
+            padding:0.4em 0.8em;
+        }
+    }
+}
+.agenda-table{
+    position: relative;
+    overflow: scroll;
+    height: 100vh;
+    border:1px solid $Primary;
+    border-radius: 8px;
+    padding: 4px;
+    .columns{
+        position: absolute;
+        width: 100%;
+    }
+    .tag.is-info{
+        background-color: $ecviolet;
+        color: $White;
+    }
+    .column-header{
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-image: linear-gradient(to right, $Primary, $Secondary);
+        border-radius: 8px;
+        padding:1rem;
+        margin-bottom: 10px;
+        box-shadow: 0 10px 10px 0px rgba(0, 0, 0, 0.2), 0 -10px 10px 3px rgb(255, 255, 255);
+    }
 }

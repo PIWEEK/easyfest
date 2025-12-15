@@ -188,11 +188,32 @@
       },
       "type": "enumeration",
       "enum": [
-        "Talk",
-        "Keynote",
-        "Workshop",
-        "Party"
+        "Actividad",
+        "Charla",
+        "Taller",
+        "Infantil"
       ]
+    },
+    "registered_users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "activities_registered"
+    },
+    "queued_users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "activities_queued"
+    },
+    "adjust_start": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "integer",
+      "default": 0
     }
   }
 }

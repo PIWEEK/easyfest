@@ -3,6 +3,7 @@ import type { Schema, Struct } from '@strapi/strapi';
 export interface HomepageAboutSection extends Struct.ComponentSchema {
   collectionName: 'comp_home_about_section';
   info: {
+    description: '';
     displayName: 'about section';
     icon: 'picture';
   };
@@ -10,7 +11,6 @@ export interface HomepageAboutSection extends Struct.ComponentSchema {
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     title: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'An exciting event packed with'>;
   };
 }
@@ -144,6 +144,8 @@ export interface SiteNavMenuItem extends Struct.ComponentSchema {
         'speakers',
         'streaming',
         'venue-info',
+        'precios',
+        'preinscripcion',
       ]
     >;
     path: Schema.Attribute.String;
@@ -160,7 +162,15 @@ export interface SiteSocialMedia extends Struct.ComponentSchema {
   attributes: {
     label: Schema.Attribute.String;
     platform: Schema.Attribute.Enumeration<
-      ['github', 'mastodon', 'youtube', 'twitter', 'instagram', 'linkedin']
+      [
+        'github',
+        'mastodon',
+        'youtube',
+        'twitter',
+        'instagram',
+        'linkedin',
+        'facebook',
+      ]
     > &
       Schema.Attribute.Required;
     url: Schema.Attribute.String &

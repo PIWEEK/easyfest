@@ -26,7 +26,7 @@ export const actions = {
         "POST", "passwordless/send-link", {
            email: form.data.email,
            context: {}
-         }, null
+         }, ""
       )
 
       console.log("====res", res)
