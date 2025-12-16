@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import logoFallback from '../assets/images/easyfest-logo.svg';
+	import logoFallback from '../assets/images/easyfest_okhand.png'
 
 	const storage_url = import.meta.env.VITE_STORAGE_URL;
 	let { data } = $props();
@@ -33,11 +33,11 @@
 	};
 </script>
 
-<footer class="footer has-text-white">
+<footer class="footer">
 	<div class="container">
 		<div class="columns is-6">
 			<div class="column is-one-third">
-				<a class="logo_footer" href="https://www.sociedadtolkien.org/">
+				<a class="logo_footer" href="/">
 					{#if data.logo_horiz}
 						<img alt={data.title} src="{storage_url}{data.logo_horiz.url}" />
 					{:else}
@@ -47,16 +47,15 @@
 			</div>
 			{#if data.show_cookie_policy || data.show_privacy_policy}
 				<div class="column">
-					<p class="text--small--uppercase mb-4 has-text-white">{m.legal()}</p>
 					<ul>
 						{#if data.show_cookie_policy}
 							<li>
-								<a href="/cookie-policy" class="text--medium has-text-white">{m.cookie_policy()}</a>
+								<a href="/cookie-policy" class="text--medium">{m.cookie_policy()}</a>
 							</li>
 						{/if}
 						{#if data.show_privacy_policy}
 							<li>
-								<a href="/privacy-policy" class="text--medium has-text-white"
+								<a href="/privacy-policy" class="text--medium"
 									>{m.privacy_policy()}</a
 								>
 							</li>
@@ -64,27 +63,20 @@
 					</ul>
 				</div>
 			{/if}
-			<!-- <div class="column">
-                <p class="text--small--uppercase mb-4">{data.title}</p>
+			<div class="column">
                 <ul>
                     {#if data.show_org_team}
-                    <li><a href="/org-team" class="text--medium has-text-white">{m.org_team()}</a></li>
+                    <li><a href="/org-team" class="text--medium">{m.org_team()}</a></li>
                     {/if}
-                    <li><a href="/contact-info" class="text--medium has-text-white">{m.contact_info()}</a></li>
+                    <li><a href="/contact-info" class="text--medium">{m.contact_info()}</a></li>
                     {#if data.show_code_of_conduct}
-                    <li><a href="/code-of-conduct" class="text--medium has-text-white">{m.code_of_conduct()}</a></li>
+                    <li><a href="/code-of-conduct" class="text--medium">{m.code_of_conduct()}</a></li>
                     {/if}
                     {#if data.show_press_kit}
-                    <li><a href="/press-kit" class="text--medium has-text-white">{m.press_kit()}</a></li>
+                    <li><a href="/press-kit" class="text--medium">{m.press_kit()}</a></li>
                     {/if}
                 </ul>
-            </div> -->
-			<div class="column">
-				<h5 class="is-family-secondary">Contacto</h5>
-				<p class="is-size-6">
-					Si tienes alguna duda, sugerencia, pregunta... ¡escríbenos! Puedes contactar escribiendo un correo a: <a href="mailto:estelcon2025@sociedadtolkien.org">estelcon2025@sociedadtolkien.org</a>
-				</p>
-			</div>
+            </div>
 			{#if data.social_media_links?.length > 0}
 				<div class="column is-flex is-flex-direction-column is-justify-content-center is-align-items-center is-one-third p-0">
 					<ul>
@@ -95,7 +87,7 @@
 									href={link.url}
 									rel="me"
 									target="_blank"
-									class="icon text--medium has-text-white"
+									class="icon text--medium"
 								>
 									<img src={icon.url} alt={link.label || icon.name} />
 								</a>
@@ -106,7 +98,7 @@
 								href="https://www.facebook.com/profile.php?id=61571579560904 "
 								rel="me"
 								target="_blank"
-								class="icon has-text-white"
+								class="icon"
 							>
 								<i class="fab fa-facebook-f fa-lg"></i>
 							</a>
@@ -114,13 +106,6 @@
 					</ul>
 				</div>
 			{/if}
-		</div>
-		<div class="is-size-6 is-flex is-justify-content-center is-align-content-center">
-            <p>
-			Ilustraciones de nuestra socia <a
-            href="https://www.instagram.com/lorenagarcia_art/"
-            target="_blank">  Lorena "Simbelmina" <i class="fab fa-instagram"></i>
-			</a></p>
 		</div>
 	</div>
 </footer>

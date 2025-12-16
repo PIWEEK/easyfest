@@ -4,14 +4,14 @@
     let { data } = $props();
     const { form, errors, constraints, message } = superForm(data.form);
 </script>
-<section class="hero page_title">
+<section class="hero page-title">
 	<div class="is-flex is-align-items-center">
 		<h3 class="title mb-0 mr-4">{m.login()}</h3>
 	</div>
 </section>
 <section class="section">
     <div class="container">
-        <div class="content content_border">
+        <div class="content content-border">
             <div class="columns is-centered">
                 <div class="column is-half">
                     <div class="card my-5">

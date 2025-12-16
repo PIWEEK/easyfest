@@ -3,7 +3,7 @@ import * as runtime from "$lib/paraglide/runtime.js"
 
 export const i18n = createI18n(runtime, {
 
-    defaultLanguageTag: "es",
+    defaultLanguageTag: "en",
 
 	pathnames: {
 		"/about-us" : {
@@ -96,7 +96,7 @@ export const i18n = createI18n(runtime, {
 		},
 		"/speakers" : {
 			en: "/speakers",
-			es: "/invitados",
+			es: "/ponentes",
 		},
 		"/sponsors" : {
 			en: "/sponsors",
@@ -112,11 +112,11 @@ export const i18n = createI18n(runtime, {
 		},
 		"/venue-info" : {
 			en: "/venue-info",
-			es: "/el-lugar",
+			es: "/lugar",
 		},
-		"/precios" : {
-			en: "/prices",
-			es: "/precios",
+		"/price" : {
+			en: "/price",
+			es: "/precio",
 		},
     }
 });

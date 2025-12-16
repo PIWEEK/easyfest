@@ -5,57 +5,58 @@
 // Theme configuration is done by giving value to Bulma variables
 // https://bulma.io/documentation/customize/concepts/
 
-// -- Initial variables (with a literal value)
-$Primary: #426A39ff;
-$Secondary: #84B642ff;
-$Secondary_Light: #cfb3ffff;
-$White: #f7f8f9ff;
-$Primary_Light: rgb(222, 235, 220);
-$White_Bis: #f1f2f4ff;
-$White_Ter: #dcdfe4ff;
-$Secondary_Lighter: #e4d4ffff;
-$Dark: #151132ff;
-$ecviolet: #8d627b;
-$ecorange:#e8b290;
-$ecbeige: #c9aa88;
-$ecblue:#8EB1C7;
-$ecbrown:#af590c;
 
-$text: $Dark;
-$family-primary:"Cormorant Infant", serif;
-$family-secondary:"Cinzel Decorative", serif;
+// Color palette
+$color-dark: #151132ff;
+$color-primary: $color-dark;
+$color-secondary: #cfb3ffff;
+$color-secondary-light: #cfb3ffff;
+$color-white: #f7f8f9ff;
+$color-primary-light: rgba(203, 199, 238, 0.39);
+$color-white-bis: #f1f2f4ff;
+$color-white-ter: #dcdfe4ff;
+$color-secondary-lighter: #e4d4ffff;
+$color-violet: #8d627b;
+$color-orange: #e8b290;
+$color-beige: #c9aa88;
+$color-blue: #8EB1C7;
+$color-brown: #af590c;
 
-$size-1: 63px;
-$size-2: 54px;
-$size-3: 31px;
-$size-4: 21px;
-$size-5: 18px;
-$size-6: 15px;
-$size-7: 13px;
+$color-text: $color-dark;
+
+// Typography
+$font-family-primary: "Bricolage Grotesque", sans-serif;
+$font-family-secondary: "Bricolage Grotesque", sans-serif;
+
+// Font sizes
+$font-size-xxl: 4rem;    // 64px
+$font-size-xl: 3.375rem; // 54px
+$font-size-lg: 2rem;     // 32px
+$font-size-md: 1.25rem;  // 20px
+$font-size-base: 1.125rem; // 18px
+$font-size-sm: 0.875rem; // 14px
+$font-size-xs: 0.75rem;  // 12px
 
 $radius-small: 0;
-$control-border-width: 2px;
+$control-border-width: 0.125rem; // 2px
 
 @use "bulma/sass" with (
-    // -- Derived variables (that take value from other variables)
-
-    $primary: $Primary,
-    $dark: $Dark,
-    $white: $White,
-    $white-bis: $White_Bis,
-    $white-ter: $White_Ter,
-    $body-family:"Cormorant Infant",
-    $body-font-size:1.2rem,
-    $body-color:#1A1E18ff,
-    $link: #af590c,
-    $section-padding:1rem 1.5rem,
-    $section-padding-desktop:2rem 2.5rem,
-    $family-secondary:$family-secondary,
-    $footer-padding:3rem 1.5rem 2rem,
-    $content-heading-color:$Primary,
-    $input-border-color:$Secondary,
-    $card-header-background-color: $Primary_Light,
-
+    $primary: $color-primary,
+    $dark: $color-dark,
+    $white: $color-white,
+    $white-bis: $color-white-bis,
+    $white-ter: $color-white-ter,
+    $body-font-size: 1.2rem,
+    $body-color: #1A1E18ff,
+    $link: $color-brown,
+    $section-padding: 1rem 1.5rem,
+    $section-padding-desktop: 2rem 2.5rem,
+    $family-primary: $font-family-primary,
+    $family-secondary: $font-family-secondary,
+    $footer-padding: 3rem 1.5rem 2rem,
+    $content-heading-color: $color-primary,
+    $input-border-color: $color-secondary,
+    $card-header-background-color: $color-primary-light,
 );
 
 // -- Import all bulma styles
@@ -65,209 +66,289 @@ $control-border-width: 2px;
 
 // -- Bulma style overrides
 
-// .tag {
-//     border-radius: $radius-small !important;
-// }
-
 // -- Custom helpers
 
-@mixin mixTypographyClassEC($lineheight:1.2,$fontsize:54px,$fontfamily:$family-primary){
-    line-height: $lineheight;
+@mixin ec-typography($line-height: 1.2, $font-size: $font-size-xl, $font-family: $font-family-primary, $font-weight: 400, $text-transform: none) {
+    line-height: $line-height;
     font-style: normal;
-    text-transform: none;
-    font-weight: 400;
-    font-size: $fontsize;
-    letter-spacing: 0px;
-    font-family: $fontfamily;
+    text-transform: $text-transform;
+    font-weight: $font-weight;
+    font-size: $font-size;
+    letter-spacing: 0;
+    font-family: $font-family;
 }
+
 .header--large {
-    @include mixTypographyClassEC(1.2,45px,$family-secondary);
+    @include ec-typography(1.2, 3em, $font-family-secondary);
     @include mixins.tablet {
-        @include mixTypographyClassEC(1.2,56px,$family-secondary);
-    };
+        @include ec-typography(1.2, 5em, $font-family-secondary);
+    }
 }
 .header--medium {
-    @include mixTypographyClassEC(1.2,32px,$family-secondary);
+    @include ec-typography(1.2, 2rem, $font-family-secondary);
     @include mixins.tablet {
-        @include mixTypographyClassEC(1.2,40px,$family-secondary);
-    };
+        @include ec-typography(1.2, 2.5rem, $font-family-secondary);
+    }
 }
 .header--small {
-    @include mixTypographyClassEC(1.2,16px);
+    @include ec-typography(1.2, 1rem);
     @include mixins.tablet {
-        @include mixTypographyClassEC(1.2,31px);
-    };
+        @include ec-typography(1.2, $font-size-lg);
+    }
+}
+
+.footer .column {
+    display: flex;
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    @media only screen and (max-width: 48rem) {
+        align-items: flex-start;
+    }
+}
+
+.logo_footer {
+    img {
+        max-height: 5rem;
+    }
+}
+
+.tabs.is-toggle li.is-active a {
+    color: $color-white-bis;
+    border-color: $color-primary;
+    background-color: $color-primary;
 }
 
 .text--large {
-    @include mixTypographyClassEC(1.4,21px);
+    @include ec-typography(1.4, $font-size-md);
 }
 .text--medium {
-    @include mixTypographyClassEC(1.4,18px);
+    @include ec-typography(1.4, $font-size-base);
 }
 .text--small {
-    @include mixTypographyClassEC(1.4,15px);
+    @include ec-typography(1.4, $font-size-sm);
 }
 .text--small--uppercase {
-    @include mixTypographyClassEC(1.4,13px);
+    @include ec-typography(1.4, $font-size-xs, $font-family-primary, 400, uppercase);
 }
 
 
-body{
-    background-image: url('assets/images/backEC.jpg');
-    background-color: #426A39;
-    background-blend-mode: multiply;
+body {
+    // FIXME define in THEME
+    // background-image: url('assets/images/**.png');
+    // background-color: #426A39;
+    // background-blend-mode: multiply;
+    // background-position: top;
+    // background-size: cover;
     min-height: 100vh;
 }
-.container_all{
-    box-shadow: 0 0 16px 8px rgba(0,0,0,0.5);
+.container-all{
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto auto 1fr auto;
 }
-.navbar{
-    .navbar-item{
-        text-transform: uppercase;
+
+.navbar {
+    left: 0;
+    width: 100%;
+    transition: transform 0.1s ease-in-out;
+    padding: 2rem 5rem;
+
+    &-item {
         font-weight: 600;
-        color: $Primary;
-        img{
-            max-height: 90px;
+        color: $color-primary;
+
+        img {
+            max-height: 2rem;
+            transform: rotate(5deg);
         }
-        &.brand{
-            @include mixins.desktop{
+
+        &.brand {
+            // FIXME
+            @include mixins.desktop {
                 padding: 0;
                 transform: scale(1.2);
             }
         }
     }
+
+    &-center {
+        width: 100%;
+        justify-content: center;
+    }
+    &-right {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    &-left {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    &-burger {
+        color: $color-primary;
+        &:hover {
+            background-color: $color-primary-light;
+        }
+    }
 }
-.hero-home{
-    background-image:linear-gradient(to right, rgba(66, 106, 57, 0.6), rgba(132, 182, 66, 0.6)),url('assets/images/BG_Fiesta_Hobbit_72_tr.webp'),linear-gradient(to right, rgba(66, 106, 57, 1), rgba(132, 182, 66, 1));
-    background-position: left 80%;
-    background-size: 120%;
-    background-blend-mode: normal,multiply;
-    background-repeat: no-repeat;
+
+.is-concealed {
+    transform: translateY(-100%);
+}
+
+.hero {
+    font-family: $font-family-primary;
+}
+
+.hero-home {
+    padding: 3em 0;
     @include mixins.mobile {
         background-size: cover;
     }
-    .hero-body{
-        padding:8rem 4rem;
+    .hero-body {
+        padding: 8rem 4rem;
         @include mixins.mobile {
-            padding:3rem 2rem;
+            padding: 3rem 2rem;
         }
     }
-    .hero-content{
+    .hero-content {
         display: flex;
         flex-direction: column;
         align-items: center;
-        
     }
-    .title{
-        line-height: 89%;
+    .title {
+        line-height: 0.89;
         margin-bottom: 0;
         @include mixins.mobile {
-            font-size: 40px;
+            font-size: 2.5rem;
         }
     }
-    .subtitle_group{
+    .subtitle_group {
+        padding: 1em 0;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        text-transform: uppercase;
-        font-family: "cinzel decorative", serif;
-    }
-    .highlight{
-        max-width: 750px;
-        text-align: center;
+
+        h2 {
+            font-size: $font-size-xl;
+        }
+
+        p {
+            font-size: $font-size-lg;
+        }
     }
 }
-.content_border{
-    border-image-source: url('assets/images/border_content.png');
-    border-image-slice: 65;
-    border-image-width: auto;
-    border-image-outset: 15px;
-    padding:3rem 2rem;
+.content-border{
     @include mixins.mobile {
         border-image: none;
         padding:inherit;
     }
 }
-.page_title{
-    background-image: linear-gradient(to right, #426A39, #84B642);
-    font-family: "cinzel decorative", serif;
-    padding:1rem 2rem;
+
+.page-title {
+    padding: 2rem 5rem;
     .title {
-        font-size: $size-3;
-        color: $White;
+        font-size: $font-size-lg;
         @include mixins.mobile {
-            font-size: $size-5;
+            font-size: $font-size-base;
         }
     }
 }
-footer{
-    background-image: linear-gradient(to right, #426A39, #84B642);
-    .logo_footer{
-        max-width: 200px;
+
+.section {
+    padding: 2rem 5rem;
+}
+
+footer {
+    background-image: linear-gradient(to right, $color-dark, $color-dark);
+    color: $color-white;
+    a {
+        color: $color-white;
+    }
+    .logo-footer {
+        max-width: 12.5rem; // 200px
         display: block;
     }
 }
+
 .button-hero{
-    background-image: linear-gradient(to right, #426A39, #84B642);
-    &:hover{
-        background-image: linear-gradient(to right, #84B642, #426A39);
+    /* todo */
+}
+
+.img-mark {
+    border: thick double $color-primary;
+    border-radius: 0.5rem;
+}
+.img-draw {
+    @media only screen and (max-width: 48rem) {
+        max-width: 18.75rem; // 300px
     }
 }
-.img_mark{
-    border:thick double $Primary;
-    border-radius: 8px;
-}
-.img-draw{
-    @media only screen and (max-width: 768px) {
-        max-width: 300px;
+.table-prices {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+
+    tr {
+        border-bottom: 1px solid $color-secondary;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 0.75rem 1rem;
+    }
+
+    th {
+        background-color: $color-primary-light;
+        color: $color-dark;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
     }
 }
-.table-precios {
 
-    td:nth-of-type(3),td:nth-of-type(4) {
-        font-weight: bold;
-      }
+@media only screen and (max-width: 48rem) {
+        table, thead, tbody, th, td, tr {
+                display: block;
+        }
+        thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+        }
+        tr {
+                border: 1px solid #ccc;
+        }
+        td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 12.5rem; // 200px
+                margin-left: 9.375rem; // 150px
+        }
+        td:before {
+                position: absolute;
+                top: 0.75rem; // 12px
+                left: 0.375rem; // 6px
+                width: 12.5rem; // 200px
+                padding-right: 2.5rem; // 40px
+                white-space: nowrap;
+                margin-left: -9.375rem; // -150px
+        }
+        td:nth-of-type(1):before { content: "Descripción"; }
+        td:nth-of-type(2):before { content: "Tipo"; }
+        td:nth-of-type(3):before { content: "EC Parcial"; }
+        td:nth-of-type(4):before { content: "EC Completa"; }
 }
-@media only screen and (max-width: 768px) {
-  table, thead, tbody, th, td, tr {
-    display: block;
-  }
-  thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-  tr { border: 1px solid #ccc; }
-  td {
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 200px;
-    margin-left: 150px;
-  }
-  td:before {
-    position: absolute;
-    top: 12px;
-    left: 6px;
-    width: 200px;
-    padding-right: 40px;
-    white-space: nowrap;
-    margin-left: -150px;
-  }
-  td:nth-of-type(1):before { content: "Descripción"; }
-  td:nth-of-type(2):before { content: "Tipo"; }
-  td:nth-of-type(3):before { content: "EC Parcial"; }
-  td:nth-of-type(4):before { content: "EC Completa";}
-
-}
-.content-comollegar{
+.content-location {
     h4{
         margin-top:3rem;
         margin-bottom:.6em;
-        font-family: $family-secondary;
     }
 }
 .user_data{
@@ -282,26 +363,26 @@ footer{
             display: block;
             width: 100%;
             height: 1px;
-            background-color: $Primary;
+            background-color: $color-primary;
         }
     }
     label{
         text-transform: uppercase;
-        color: $Primary;
+        color: $color-primary;
         font-size: 0.9rem;
     }
 
     .control {
         p{
         font-weight: 600;
-        background-image: linear-gradient(150deg, $Primary_Light, #fff);
+        background-image: linear-gradient(150deg, $color-primary-light, #fff);
         padding: 0.5rem;
         border-radius: 5px;
         min-height: 2.8rem;
         }
         input[type="checkbox"]{
             transform: scale(1.5);
-            accent-color: $Primary;
+            accent-color: $color-primary;
             padding: 0.5rem;
         }
     }
@@ -316,29 +397,37 @@ footer{
         }
     }
 }
-.agenda-table{
+.agenda-table {
     position: relative;
     overflow: scroll;
     height: 100vh;
-    border:1px solid $Primary;
-    border-radius: 8px;
-    padding: 4px;
-    .columns{
+
+    .card {
+        border: 1px solid $color-secondary;
+    }
+
+    .card.clickable:hover {
+        .card-header {
+           background-color: $color-secondary-lighter;
+        }
+    }
+
+    .columns {
         position: absolute;
         width: 100%;
     }
-    .tag.is-info{
-        background-color: $ecviolet;
-        color: $White;
+
+    .tag.is-info {
+        background-color: $color-violet;
+        color: $color-white;
     }
-    .column-header{
+    .column-header {
         position: sticky;
         top: 0;
         z-index: 10;
-        background-image: linear-gradient(to right, $Primary, $Secondary);
-        border-radius: 8px;
-        padding:1rem;
-        margin-bottom: 10px;
-        box-shadow: 0 10px 10px 0px rgba(0, 0, 0, 0.2), 0 -10px 10px 3px rgb(255, 255, 255);
+        background-color: $color-primary;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 0.625rem;
     }
 }

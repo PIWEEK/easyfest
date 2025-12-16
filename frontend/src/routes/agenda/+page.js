@@ -1,13 +1,10 @@
-import { fetchCollection } from '../../services/api';
+import { fetchSingle, fetchCollection } from '../../services/api';
+export async function load({ params, cookies }) {
+    // Fetch agenda single type
+    const agenda = await fetchSingle('/agenda', cookies);
 
-export async function load({ params }) {
-    let data = {}
-
-    const trackEntries = await fetchCollection("/tracks?populate[activities][populate][public_faces][populate]=photo&sort=order:asc");
-    let tracks = [];
-    if (trackEntries) {
-        tracks = trackEntries;
-    }
+    const trackEntries = await fetchCollection("/tracks?populate[activities][populate][public_faces][populate]=photo&sort=order:asc", cookies);
+    let tracks = trackEntries || [];
 
     // Add filler activities for is_across_tracks
     for (let track of tracks) {
@@ -37,9 +34,10 @@ export async function load({ params }) {
 
     const days = pack_activities(tracks);
     return {
-        days
+        days,
+        agenda
     };
-} 
+}
 
 /**
  * Get the date and time of activity start.

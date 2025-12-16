@@ -43,6 +43,8 @@
     "password_length": "Password length must be at least 6 characters",
     "passwords_must_match": "Passwords must match",
     "press_kit": "Press kit",
+    "price": "Price",
+    "prices": "Prices",
     "privacy_policy": "Privacy policy",
     "register": "Register",
     "registration": "Registration",

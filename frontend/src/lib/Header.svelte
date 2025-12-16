@@ -3,7 +3,7 @@
     import * as m from '$lib/paraglide/messages.js'
     import { i18n } from '$lib/i18n.js'
 
-    import logoFallback from '../assets/images/easyfest-logo.svg'
+    import logoFallback from '../assets/images/easyfest_logo.png'
 
     const REGISTRATION = {
         HIDDEN: 'hidden',
@@ -12,7 +12,6 @@
         FINISHED: 'finished',
     }
 
-    const storage_url = import.meta.env.VITE_STORAGE_URL
     let { data } = $props();
 
     const username = data.username;
@@ -28,7 +27,8 @@
         data.show_agenda ||
         data.show_speakers ||
         data.show_streaming ||
-        data.show_venue_info
+        data.show_venue_info ||
+        data.show_prices
 
     let navbarHiddenClass = '';
     let isNavbarHidden = $state(false);
@@ -66,23 +66,6 @@
 </script>
 
 <style>
-    .navbar {
-        /* position: sticky;
-        top: 0; */
-        left: 0;
-        width: 100%;
-        transition: transform 0.1s ease-in-out;
-    }
-
-    .is-concealed {
-        transform: translateY(-100%);
-    }
-
-    .navbar-center {
-        width: 100%;
-        justify-content: center;
-    }
-
     .register-cta.register-cta--sticky {
         position: fixed;
         bottom: 0;
@@ -107,7 +90,7 @@
         }
     }
 </style>
-<nav class="navbar is-spaced" class:is-concealed={isNavbarHidden} aria-label="main-navigation">
+<nav class="navbar" class:is-concealed={isNavbarHidden} aria-label="main-navigation">
      <div class="container">
         <div class="navbar-brand">
             <a href="/" class="navbar-item brand">
@@ -130,7 +113,7 @@
         {#if showMenu}
         <div id="mainMenu" class="navbar-menu">
             {#if data.nav_menu?.length === 0}
-                <div class="navbar-start navbar-center">
+                <div class="navbar-start navbar-right">
                     {#if data.show_about_us}
                     <a class="navbar-item" href="/about-us">{m.about()}</a>
                     {/if}
@@ -152,9 +135,12 @@
                     {#if data.show_venue_info}
                     <a class="navbar-item" href="/venue-info">{m.venue_info()}</a>
                     {/if}
+                    {#if data.show_prices}
+                    <a class="navbar-item" href="/price">{m.prices()}</a>
+                    {/if}
                 </div>
             {:else}
-                <div class="navbar-start navbar-center">
+                <div class="navbar-start navbar-right">
                     {#each data.nav_menu as nav_menu_item}
                         {#if nav_menu_item.page}
                             <a class="navbar-item" href="{i18n.resolveRoute(nav_menu_item.page)}">{nav_menu_item.label}</a>

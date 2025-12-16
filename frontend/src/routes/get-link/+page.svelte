@@ -9,13 +9,13 @@
     <div class="container">
         {#if $message == "success"}
             <img alt="" src="/img/envelope-open.png">
-            <h1 class="title is-3 mb-4">Check your email</h1>
+            <h1 class="title is-3 mb-4">{data.title}</h1>
             <p class="block">We sent an email to you at {$form.email}</p>
             <p class="block">It has a magic link to log in without a password.</p>
             <p class="block"><a href="/get-link">Get a magic link for another email→</a></p>
         {:else}
             <img alt="" src="/img/envelope-closed.png">
-            <h1 class="title is-3">Get the magic link to sign in</h1>
+            <h1 class="title is-3">{data.title}</h1>
             <p class="block">We will send you an email with your personal code and a magic link to sign in.</p>
             <form class="mt-4" method="POST">
 

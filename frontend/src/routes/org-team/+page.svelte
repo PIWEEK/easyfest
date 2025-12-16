@@ -20,9 +20,11 @@
   }
 </script>
 
+<section class="hero page-title">
+	<h3 class="title">{data.org_team.title}</h3>
+</section>
 <section class="section">
     <div class="container">
-        <h1 class="title">{data.org_team.title}</h1>
         <div class="content">
           {#if data.org_team.content}
           <SvelteMarkdown options={{mangle: false}} source={data.org_team.content}/>

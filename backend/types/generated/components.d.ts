@@ -144,7 +144,7 @@ export interface SiteNavMenuItem extends Struct.ComponentSchema {
         'speakers',
         'streaming',
         'venue-info',
-        'precios',
+        'price',
         'preinscripcion',
       ]
     >;

@@ -63,7 +63,7 @@
                     {#if activity.tag1}
                         <span class="tag is-primary">{activity.tag1}</span>
                     {/if}
-                    {#if activity.tag2 && activity.tag2 !== "Actividad"}
+                    {#if activity.tag2 && activity.tag2 !== activity.tag1}
                         <span class="tag is-info">{activity.tag2}</span>
                     {/if}
                 </p>
@@ -75,6 +75,11 @@
 <style>
     .card {
         margin-bottom: 2rem;
+        box-shadow: none;
+    }
+
+    .card-header {
+        box-shadow: none;
     }
 
     .card.clickable {
@@ -83,9 +88,7 @@
     }
 
     .card.clickable:hover {
-        background-color: var(--bulma-gray-light);
         .card-header {
-            background-color: #e2c6ae;
             transition: all 0.2s ease-in-out;
         }
     }

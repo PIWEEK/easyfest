@@ -1,45 +1,42 @@
 module.exports = ({ env }) => ({
   email: {
     config: {
-      provider: 'strapi-provider-email-local-browser', // For community providers pass the full package name (e.g. provider: 'strapi-provider-email-mandrill')
-      providerOptions: {
-        browser: 'chromium'
-      },
+      provider: env('EMAIL_PROVIDER', 'strapi-provider-email-local-browser'),
+      providerOptions: env('EMAIL_PROVIDER', 'strapi-provider-email-local-browser') === 'strapi-provider-email-local-browser'
+        ? {
+            browser: env('EMAIL_PROVIDER_BROWSER', 'chromium')
+          }
+        : env('EMAIL_PROVIDER', '') === 'nodemailer'
+        ? {
+            host: env('EMAIL_SMTP_HOST'),
+            port: env.int('EMAIL_SMTP_PORT', 587),
+            auth: {
+              user: env('EMAIL_SMTP_USER'),
+              pass: env('EMAIL_SMTP_PASS'),
+            },
+          }
+        : {},
       settings: {
-        defaultFrom: 'juliasedefdjian@strapi.io',
-        defaultReplyTo: 'juliasedefdjian@strapi.io',
-        testAddress: 'juliasedefdjian@strapi.io',
+        defaultFrom: env('EMAIL_DEFAULT_FROM', 'juliasedefdjian@strapi.io'),
+        defaultReplyTo: env('EMAIL_DEFAULT_REPLY_TO', 'juliasedefdjian@strapi.io'),
+        testAddress: env('EMAIL_TEST_ADDRESS', 'juliasedefdjian@strapi.io'),
       },
     },
-    // Uncomment this (and comment above) to use a real SMTP email.
-    // config: {
-    //   provider: 'nodemailer',
-    //   providerOptions: {
-    //     host: '<smtp host>',
-    //     port: 587,
-    //     auth: {
-    //       user: '<user>',
-    //       pass: '<password>',
-    //     },
-    //   },
-    //   settings: {
-    //     defaultFrom: 'from-email@example.com',
-    //     defaultReplyTo: 'no-reply-email@example.com',
-    //   },
-    // }
   },
   'users-permissions': {
     enabled: true,
     config: {
-      jwtSecret: 'N1WVrkrjgmdjrSyTZYwUC6Fji41yoBjbMdN2qseiwZ8=',
+      jwtSecret: env('JWT_SECRET', 'default_jwt_secret'),
       jwt: {
         expiresIn: '7d',
       },
       register: {
-        allowedFields: ["activities_staff","registrationType","dni",
+        allowedFields: [
+          "activities_staff","registrationType","dni",
           "phone_number","last_name","pseudonym","smial","room_code",
           "menu_type","menu_comment","premium","premium_comment",
-          "aide","mentee","mentor","childrens","name","room_type"],
+          "aide","mentee","mentor","childrens","name","room_type"
+        ],
       },
     },
   },

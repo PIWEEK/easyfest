@@ -170,5 +170,5 @@ export const apiClient = (method, path, data, authToken) => {
 
 	return axios(`${base}/${path}`, config)
     .then(response => response.data)
-    .catch((err) => console.error("######error",  err.response.data.error))
+    .catch((err) => console.error("###### error:",  err.response.data.error))
 }

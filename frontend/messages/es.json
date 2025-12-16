@@ -1,7 +1,7 @@
 {
     "$schema": "https://inlang.com/schema/inlang-message-format",
-    "accommodation_info": "Como llegar",
-    "about": "XXIX Mereth Aderthad",
+    "accommodation_info": "Cómo llegar",
+    "about": "Sobre nosotros",
     "agenda": "Agenda",
     "an_error_has_occurred": "Ha ocurrido un error",
     "cancel": "Cancelar",
@@ -17,7 +17,6 @@
     "edit": "Editar",
     "edit_pseudonym": "Indica tu pseudónimo en la STE",
     "edit_premium_comment": "Indica aquí el número y tallas de camiseta que quieres.",
-    
     "edit_menu_options": "Dinos si tienes cualquier particularidad con las comidas (alergias, intolerancias, etc.).",
     "enter_your_email": "Introduce tu email",
     "enter_your_email_and_password": "Tienes que introducir tu email y contraseña para ver tus datos de inscripción",
@@ -45,6 +44,8 @@
     "password_length": "La longitud de la contraseña debe ser al menos de 6 caracteres.",
     "passwords_must_match": "Las contraseñas deben coincidir",
     "press_kit": "Kit de prensa",
+    "price": "Precio",
+    "prices": "Precios",
     "privacy_policy": "Política de privacidad",
     "register": "Registro",
     "registration": "Registro",
@@ -52,7 +53,7 @@
     "send": "Enviar",
     "speakers": "Ponentes",
     "streaming": "Streaming",
-    "venue_info": "El lugar",
+    "venue_info": "Lugar",
     "we_sent_an_email": "Te hemos enviado un correo a {email}",
     "you_need_to_register": "Necesitas registrarte para entrar en la cola de espera y conseguir tus entradas."
 }

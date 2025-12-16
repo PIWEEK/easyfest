@@ -19,12 +19,12 @@
   }
 </script>
 
-<section class="hero page_title">
+<section class="hero page-title">
 	<h3 class="title">{data.speakers.title}</h3>
 </section>
 <section class="section">
     <div class="container">
-        <div class="content content_border">
+        <div class="content content-border">
           {#if data.speakers.content}
           <SvelteMarkdown options={{mangle: false}} source={data.speakers.content}/>
           {/if}

@@ -118,12 +118,6 @@
     }
 
     const { homepage, speakers, site, ...settings } = data
-    const highlightText = {
-        [EVENT_STATUS.HYPE]: homepage.highlight_hype,
-        [EVENT_STATUS.PUBLIC]: homepage.highlight_public,
-        [EVENT_STATUS.FINISHED]: homepage.highlight_finished,
-    }[settings.eventStatus] ?? null
-
     const REGISTRATION = {
         HIDDEN: 'hidden',
         SOON: 'soon',
@@ -132,22 +126,20 @@
     }
 </script>
 
-<section class="hero hero-home has-text-white">
+<section class="hero hero-home">
     <div class="hero-body">
         <div class="hero-content">
             <div class="title_group">
-                <!-- <h1 class="title header--large has-text-weight-bold has-text-white">{homepage.title}</h1> -->
-                <p class="title header--large has-text-weight-bold has-text-white">El Dia<br>De los Portadores</p>
+                <h1 class="title header--large has-text-weight-bold">{homepage.title}</h1>
                 <div class="subtitle_group">
-                    {#if homepage.dates_and_location}
-                    <p class="subtitle has-text-white">{homepage.dates_and_location}</p>
+                    {#if homepage && homepage.subtitle}
+                    <h2 class="subtitle">{homepage.subtitle}</h2>
                     {/if}
-                    <h2 class="subtitle has-text-white has-text-right">{homepage.subtitle}</h2>
+                    {#if homepage && homepage.dates_and_location}
+                    <p class="subtitle">{homepage.dates_and_location}</p>
+                    {/if}
                 </div>
             </div>
-            {#if highlightText}
-            <h4 class="highlight is-size-4 is-size-5-mobile has-text-white has-text-weight-semibold">{highlightText}</h4>
-            {/if}
         </div>
     </div>
 </section>
@@ -166,7 +158,7 @@
     </div>
 </section>
 {/if} -->
-{#if homepage.richtitle}
+{#if homepage && homepage.richtitle}
 {@const mdrichtitle = homepage.richtitle}
 <section class="section">
     <div class="container">
@@ -177,7 +169,7 @@
     </div>
 </section>
 {/if}
-{#if homepage.about_section}
+{#if homepage && homepage.about_section}
 {@const title = homepage.about_section.title}
 {@const image = homepage.about_section.image}
 {@const mdContent = homepage.about_section.content}
@@ -203,22 +195,6 @@
     </div>
 </section>
 {/if}
-<!-- botones de acceso a otras partes de la web -->
-
-<section class="section">
-    <div class="columns mb-6">
-        <div class="column">
-            <a href="/el-lugar" class="button is-primary is-size-4 is-size-3-widescreen is-fullwidth is-family-secondary">El lugar</a>
-        </div>
-        <div class="column">
-            <a href="/como-llegar" class="button is-primary is-size-4 is-size-3-widescreen  is-fullwidth is-family-secondary">Cómo Llegar</a>
-        </div>
-        <div class="column">
-            <a href="/precios" class="button is-primary is-size-4 is-size-3-widescreen  is-fullwidth is-family-secondary">Precios</a> 
-        </div>
-    </div>
-</section>
-
 
  <!-- cierre botones de acceso a otras partes de la web -->
 {#if homepage.show_marquee_text && homepage.marquee_text}

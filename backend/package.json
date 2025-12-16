@@ -10,17 +10,17 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-users-permissions": "5.6.0",
-    "@strapi/provider-email-nodemailer": "^5.11.3",
-    "@strapi/strapi": "5.6.0",
-    "better-sqlite3": "11.3.0",
-    "fs-extra": "^10.0.0",
-    "mime-types": "^2.1.27",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-router-dom": "^6.0.0",
+    "@strapi/plugin-users-permissions": "^5.12.1",
+    "@strapi/provider-email-nodemailer": "^5.12.1",
+    "@strapi/strapi": "^5.12.1",
+    "better-sqlite3": "^8.6.0",
+    "fs-extra": "^11.2.0",
+    "mime-types": "^2.1.35",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
     "strapi-provider-email-local-browser": "^0.0.1",
-    "styled-components": "^6.0.0"
+    "styled-components": "^6.1.8"
   },
   "author": {
     "name": "A Strapi developer"
