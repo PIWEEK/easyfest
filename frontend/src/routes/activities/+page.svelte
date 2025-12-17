@@ -12,7 +12,7 @@
 
 <section class="section">
     <div class="container">
-        <h1>Activities</h1>
+    <h1>{data.title}</h1>
 
         {#each data.activities as activity}
 
@@ -37,7 +37,6 @@
     }
     p {
       color: purple;
-      font-family: 'Comic Sans MS', cursive;
       font-size: 1em;
     }
 </style>

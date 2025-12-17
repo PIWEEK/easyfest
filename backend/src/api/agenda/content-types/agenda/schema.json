@@ -32,6 +32,15 @@
         }
       },
       "type": "richtext"
+    },
+    "mode": {
+      "type": "enumeration",
+      "enum": ["by-day", "all-days"],
+      "default": "by-day",
+      "required": false,
+      "config": {
+        "description": "Determines if agenda is shown by day or for all days"
+      }
     }
   }
 }

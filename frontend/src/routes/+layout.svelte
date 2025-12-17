@@ -8,13 +8,27 @@
   import Header from "$lib/Header.svelte"
   import Footer from "$lib/Footer.svelte"
 
+  import { siteConfig } from '$lib/siteConfig';
+
   let { data, children } = $props();
 
   const title = data.tagline ? `${data.title} | ${data.tagline}` : data.title
 </script>
 
 <svelte:head>
-  <title>{title}</title>
+  <title>{siteConfig.title}</title>
+  <meta name="description" content={siteConfig.description} />
+  <link rel="icon" href={siteConfig.image} type="image/jpg" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <meta property="og:site_name" content={siteConfig.siteName} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={siteConfig.title} />
+  <meta property="og:description" content={siteConfig.description} />
+  <meta property="og:url" content={siteConfig.url} />
+  <meta property="og:image" content={siteConfig.image} />
+  <meta property="og:image:width" content={siteConfig.imageWidth} />
+  <meta property="og:image:height" content={siteConfig.imageHeight} />
 </svelte:head>
 
 <ParaglideJS {i18n}>

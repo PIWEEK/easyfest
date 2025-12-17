@@ -111,20 +111,13 @@
         }
 	});
 
-    const STATUS = {
+    const EVENT_STATUS = {
         HYPE: 'hype',
         PUBLIC: 'public',
         FINISHED: 'finished',
     }
 
     const { homepage, speakers, site, ...settings } = data
-    console.log("------------", data)
-    const highlightText = {
-        [STATUS.HYPE]: homepage.highlight_hype,
-        [STATUS.PUBLIC]: homepage.highlight_public,
-        [STATUS.FINISHED]: homepage.highlight_finished,
-    }[settings.status] ?? null
-
     const REGISTRATION = {
         HIDDEN: 'hidden',
         SOON: 'soon',
@@ -133,35 +126,25 @@
     }
 </script>
 
-<section class="hero is-medium has-background-dark has-text-white">
-    <div class=" ">
-        <div class=" ">
-            <div class="columns">
-                <div class="hero-content column is-half">
-                    {#if homepage.dates_and_location}
-                    <p class="has-text-secondary-light header-date">{homepage.dates_and_location}</p>
+<section class="hero hero-home">
+    <div class="hero-body">
+        <div class="hero-content">
+            <div class="title_group">
+                <h1 class="title header--large has-text-weight-bold">{homepage.title}</h1>
+                <div class="subtitle_group">
+                    {#if homepage && homepage.subtitle}
+                    <h2 class="subtitle">{homepage.subtitle}</h2>
                     {/if}
-                    <p class="title header--large has-text-white">{homepage.title}</p>
-                    {#if highlightText}
-                    <p class="subtitle text--large has-text-white">{highlightText}</p>
+                    {#if homepage && homepage.dates_and_location}
+                    <p class="subtitle">{homepage.dates_and_location}</p>
                     {/if}
-                </div>
-                <div class="column is-half">
-                    <figure class="hero-image image">
-                        {#if homepage.hero_image}
-                        {@const image = homepage.hero_image}
-                        <img src="{storage_url}{image.url}" alt={image.caption}/>
-                        {:else}
-                        <img src={heroFallback} alt=""/>
-                        {/if}
-                    </figure>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-{#if site.registration === REGISTRATION.SOON}
+<!-- {#if site.registration === REGISTRATION.SOON}
 <section class="has-background-primary-light p-5">
     <div class="container">
         <p>To enter the tickets queue you'll need to be registered.</p>
@@ -174,14 +157,24 @@
         <a href="/tickets" class="button">Tickets</a>
     </div>
 </section>
-{/if}
+{/if} -->
+{#if homepage && homepage.richtitle}
+{@const mdrichtitle = homepage.richtitle}
+<section class="section">
+    <div class="container">
+        <div class="is-flex is-flex-direction-row is-justify-content-center">
+            <SvelteMarkdown source={mdrichtitle} />
+        </div>
 
-{#if homepage.about_section}
+    </div>
+</section>
+{/if}
+{#if homepage && homepage.about_section}
 {@const title = homepage.about_section.title}
 {@const image = homepage.about_section.image}
 {@const mdContent = homepage.about_section.content}
 <section class="section">
-    <div class="container pb-6">
+    <div class="container">
         <div class="level columns">
             <div class="column">
                 <p class="title header--medium">{title}</p>
@@ -190,12 +183,12 @@
     </div>
     <div class="container">
         <div class="level columns">
-            <div class="column">
+            <!-- <div class="column">
                 <figure class="image is-5by4">
                     <img src="{storage_url}{image.url}" alt={image.caption}/>
                 </figure>
-            </div>
-            <div class="column content text--large">
+            </div> -->
+            <div class="column is-three-fifths has-text-centered is-offset-one-fifth content is-size-6-mobile is-size-5">
                 <SvelteMarkdown options={{mangle: false}} source={mdContent} />
             </div>
         </div>
@@ -203,6 +196,7 @@
 </section>
 {/if}
 
+ <!-- cierre botones de acceso a otras partes de la web -->
 {#if homepage.show_marquee_text && homepage.marquee_text}
 <aside class="has-background-primary-light">
     <div bind:this={marqueeElement} class="marquee level is-mobile text--small--uppercase py-4">
@@ -466,29 +460,4 @@
         }
     }
 
-    .hero {
-        margin-bottom: 80px;
-    }
-
-    .hero-content {
-        padding: 8rem 5rem;
-    }
-
-    @media (max-width: 769px) {
-        .hero-content {
-            padding: 3rem 2rem;
-        }
-    }
-
-    .hero-image {
-        aspect-ratio: 2 / 1;
-        height: calc(100% + 80px);
-    }
-
-    .hero-image > img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        object-position: left;
-    }
 </style>

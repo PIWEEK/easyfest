@@ -255,6 +255,16 @@
       "default": true,
       "required": true
     },
+    "show_prices": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
     "social_media_links": {
       "displayName": "Social media",
       "type": "component",
@@ -275,6 +285,25 @@
         }
       },
       "component": "site.nav-menu-item"
+    },
+    "enrollment_active": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false
+    },
+    "show_activity_registration": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }

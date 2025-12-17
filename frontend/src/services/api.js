@@ -1,10 +1,11 @@
 import axios from 'axios'
 import qs from 'qs';
+import { getAuthToken } from './users';
 
 const base = import.meta.env.VITE_API_URL
 
 if (!base) {
-  console.error("Please, define API_URL in `.env.local`")
+  console.error("Please, define VITE_API_URL in `.env`")
 }
 
 const baseHeaders = {
@@ -28,13 +29,19 @@ export const encodeQuery = (query) =>
  * @param {string} method ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
  * @param {string} path
  * @param {Record<string, unknown>} [payload]
- * @param {string} [authToken]
+ * @param {object} [cookies]
+ * @param {boolean} [forceApiToken]
  */
-export const fetchCMSData = async (method, path, payload, authToken) => {
+export const fetchCMSData = async (method, path, payload, cookies, forceApiToken) => {
   if (!base) {
-    return null;
+    return {
+      error: {
+        message: "You need to configure base URL in .env file."
+      }
+    };
   }
 
+  const authToken = getAuthToken(cookies, forceApiToken);
   const authHeaders = authToken ? {"Authorization": `Bearer ${authToken}`} : {};
   const headers = {...baseHeaders, ...authHeaders};
 
@@ -43,13 +50,18 @@ export const fetchCMSData = async (method, path, payload, authToken) => {
     headers: {...baseHeaders, ...authHeaders},
     data: payload && JSON.stringify(payload),
   }
-
+  
   try {
     const response = await axios(`${base}${path}`, config);
-    return response.data;
-  } catch(err) {
-    console.error(`ERROR fetching data $(method) $(path)`, err);
-    return null;
+    return { response: response.data };
+  } catch(error) {
+    console.error(`ERROR fetching data ${method} ${base}${path}`, error.toJSON());
+    return {
+      error: {
+        status: error.status,
+        message: error.message
+      }
+    };
   }
 }
 
@@ -57,23 +69,26 @@ export const fetchCMSData = async (method, path, payload, authToken) => {
  * Call backend API to retrieve a single type.
  * 
  * @param {string} path
+ * @param {object} cookies
  */
-export const fetchSingle = async (path) => {
-  const result = await fetchCMSData("GET", path);
-  if (result) {
-    // For a single type, the response is like
-    //   {
-    //     "data": {
-    //       "id": 12345,
-    //       "attributes": {
-    //         "attr1": val1,
-    //         "attr2": val2,
-    //         ...
-    //       }
-    //     },
-    //     "meta": {}
-    //   }
-    return result.data;
+export const fetchSingle = async (path, cookies) => {
+  const { response, error } = await fetchCMSData("GET", path, {}, cookies);
+  if (response) {
+    /* For a single CMS type, the response is like
+     *   {
+     *     "data": {
+     *       "id": 12345,
+     *       "attr1": val1,
+     *       "attr2": val2,
+     *       ...
+     *     },
+     *     "meta": {}
+     *   }
+     */
+    return response.data;
+  } else {
+    console.error("->", error.message)
+    return null;
   }
 }
 
@@ -81,33 +96,58 @@ export const fetchSingle = async (path) => {
  * call backend api to retrieve a collection type.
  * 
  * @param {string} path
+ * @param {object} cookies
  */
-export const fetchCollection = async (path) => {
-  const result = await fetchCMSData("GET", path);
-  if (result) {
-    // for a collection type, the response is like
-    //   {
-    //     "data": [
-    //       {
-    //         "id": 12345,
-    //         "attributes": {
-    //           "attr1": val1,
-    //           "attr2": val2,
-    //           ...
-    //         }
-    //       },
-    //       {
-    //         "id": 67890,
-    //         "attributes": {
-    //           "attr1": val3,
-    //           "attr2": val4,
-    //           ...
-    //         }
-    //       },
-    //     ],
-    //     "meta": {}
-    //   }
-    return result.data;
+export const fetchCollection = async (path, cookies) => {
+  const { response, error } = await fetchCMSData("GET", path, {}, cookies);
+  if (response) {
+    /* for a collection CMS type, the response is like
+     *   {
+     *     "data": [
+     *       {
+     *         "id": 12345,
+     *         "attr1": val1,
+     *         "attr2": val2,
+     *         ...
+     *       },
+     *       {
+     *         "id": 67890,
+     *         "attr1": val3,
+     *         "attr2": val4,
+     *         ...
+     *       },
+     *     ],
+     *     "meta": {}
+     *   }
+    */
+    return response.data;
+  } else {
+    console.error("->", error.message)
+    return [];
+  }
+}
+
+/**
+ * Call backend API to retrieve a basic type.
+ * 
+ * @param {string} path
+ * @param {object} cookies
+ */
+export const fetchBasic = async (path, cookies) => {
+  const { response, error } = await fetchCMSData("GET", path, {}, cookies);
+  if (response) {
+    /* For a basic Strapi API type, the response is directly the requested object
+     *   {
+     *     "id": 12345,
+     *     "attr1": val1,
+     *     "attr2": val2,
+     *     ...
+     *   }
+     */
+    return response;
+  } else {
+    console.error("->", error.message)
+    return null;
   }
 }
 
@@ -130,5 +170,5 @@ export const apiClient = (method, path, data, authToken) => {
 
 	return axios(`${base}/${path}`, config)
     .then(response => response.data)
-    .catch((err) => console.error("######error",  err.response.data.error))
+    .catch((err) => console.error("###### error:",  err.response.data.error))
 }

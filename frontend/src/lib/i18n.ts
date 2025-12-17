@@ -3,7 +3,7 @@ import * as runtime from "$lib/paraglide/runtime.js"
 
 export const i18n = createI18n(runtime, {
 
-    defaultLanguageTag: "es",
+    defaultLanguageTag: "en",
 
 	pathnames: {
 		"/about-us" : {
@@ -12,7 +12,7 @@ export const i18n = createI18n(runtime, {
 		},
 		"/accommodation-info" : {
 			en: "/accommodation-info",
-			es: "/alojamiento",
+			es: "/como-llegar",
 		},
 		"/activities" : {
 			en: "/activities",
@@ -28,7 +28,7 @@ export const i18n = createI18n(runtime, {
 		},
 		"/contact-info" : {
 			en: "/contact-info",
-			es: "/contactar",
+			es: "/contacto",
 		},
 		"/cookie-policy" : {
 			en: "/cookie-policy",
@@ -38,6 +38,10 @@ export const i18n = createI18n(runtime, {
 			en: "/faqs",
 			es: "/faqs",
 		},
+		"/forgot-password" : {
+			en: "/forgot-password",
+			es: "/contraseña-olvidada",
+		},
 		"/get-link" : {
 			en: "/get-link",
 			es: "/obtener-enlace",
@@ -46,9 +50,21 @@ export const i18n = createI18n(runtime, {
 			en: "/login",
 			es: "/entrar",
 		},
+		"/logout" : {
+			en: "/logout",
+			es: "/salir",
+		},
 		"/me" : {
 			en: "/me",
-			es: "/mi-cuenta",
+			es: "/mis-datos",
+		},
+		"/me-edit" : {
+			en: "/me-edit",
+			es: "/mis-datos-editar",
+		},
+		"/new-password" : {
+			en: "/new-password",
+			es: "/nueva-contraseña",
 		},
 		"/news-items" : {
 			en: "/news-items",
@@ -96,7 +112,11 @@ export const i18n = createI18n(runtime, {
 		},
 		"/venue-info" : {
 			en: "/venue-info",
-			es: "/el-lugar",
+			es: "/lugar",
+		},
+		"/price" : {
+			en: "/price",
+			es: "/precio",
 		},
     }
 });

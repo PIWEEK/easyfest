@@ -19,20 +19,22 @@
   }
 </script>
 
+<section class="hero page-title">
+	<h3 class="title">{data.speakers.title}</h3>
+</section>
 <section class="section">
     <div class="container">
-        <h1 class="title">{data.speakers.title}</h1>
-        <div class="content">
+        <div class="content content-border">
           {#if data.speakers.content}
           <SvelteMarkdown options={{mangle: false}} source={data.speakers.content}/>
           {/if}
 
-          <div class="columns is-multiline">
+          <div class="columns is-multiline mt-6">
             {#each data.speaker_profiles as speaker_profile, i}
 
-                <div class="column is-one-quarter">
+                <div class="column is-half">
                     <div class="card">
-                        <div class="card-image">
+                        <div class="card-image is-clickable">
                           <img onclick={() => handleClick(speaker_profile)} src="{storage_url}{speaker_profile.photo.url}"/>
                         </div>
                         <div class="card-content">
