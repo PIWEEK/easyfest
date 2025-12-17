@@ -1,10 +1,8 @@
 @use 'sass:map';
-// @use 'design-system/colors.scss';
 @use 'design-system/typographies.scss';
 
 // Theme configuration is done by giving value to Bulma variables
 // https://bulma.io/documentation/customize/concepts/
-
 
 // Color palette
 $color-dark: #151132ff;
@@ -19,415 +17,450 @@ $color-secondary-lighter: #e4d4ffff;
 $color-violet: #8d627b;
 $color-orange: #e8b290;
 $color-beige: #c9aa88;
-$color-blue: #8EB1C7;
+$color-blue: #8eb1c7;
 $color-brown: #af590c;
 
 $color-text: $color-dark;
 
 // Typography
-$font-family-primary: "Bricolage Grotesque", sans-serif;
-$font-family-secondary: "Bricolage Grotesque", sans-serif;
+$font-family-primary: 'Bricolage Grotesque', sans-serif;
+$font-family-secondary: 'Bricolage Grotesque', sans-serif;
 
 // Font sizes
-$font-size-xxl: 4rem;    // 64px
+$font-size-xxl: 4rem; // 64px
 $font-size-xl: 3.375rem; // 54px
-$font-size-lg: 2rem;     // 32px
-$font-size-md: 1.25rem;  // 20px
+$font-size-lg: 2rem; // 32px
+$font-size-md: 1.25rem; // 20px
 $font-size-base: 1.125rem; // 18px
 $font-size-sm: 0.875rem; // 14px
-$font-size-xs: 0.75rem;  // 12px
+$font-size-xs: 0.75rem; // 12px
 
 $radius-small: 0;
 $control-border-width: 0.125rem; // 2px
 
-@use "bulma/sass" with (
-    $primary: $color-primary,
-    $dark: $color-dark,
-    $white: $color-white,
-    $white-bis: $color-white-bis,
-    $white-ter: $color-white-ter,
-    $body-font-size: 1.2rem,
-    $body-color: #1A1E18ff,
-    $link: $color-brown,
-    $section-padding: 1rem 1.5rem,
-    $section-padding-desktop: 2rem 2.5rem,
-    $family-primary: $font-family-primary,
-    $family-secondary: $font-family-secondary,
-    $footer-padding: 3rem 1.5rem 2rem,
-    $content-heading-color: $color-primary,
-    $input-border-color: $color-secondary,
-    $card-header-background-color: $color-primary-light,
+@use 'bulma/sass' with (
+	$primary: $color-primary,
+	$dark: $color-dark,
+	$white: $color-white,
+	$white-bis: $color-white-bis,
+	$white-ter: $color-white-ter,
+	$body-font-size: 1.2rem,
+	$body-color: #1a1e18ff,
+	$link: $color-brown,
+	$section-padding: 1rem 1.5rem,
+	$section-padding-desktop: 2rem 2.5rem,
+	$family-primary: $font-family-primary,
+	$family-secondary: $font-family-secondary,
+	$footer-padding: 3rem 1.5rem 2rem,
+	$content-heading-color: $color-primary,
+	$input-border-color: $color-secondary,
+	$card-header-background-color: $color-primary-light
 );
 
 // -- Import all bulma styles
 
-@use "bulma/sass/utilities/mixins";
-@use "bulma-list/sass/bulma-list";
+@use 'bulma/sass/utilities/mixins';
+@use 'bulma-list/sass/bulma-list';
 
 // -- Bulma style overrides
 
 // -- Custom helpers
 
-@mixin ec-typography($line-height: 1.2, $font-size: $font-size-xl, $font-family: $font-family-primary, $font-weight: 400, $text-transform: none) {
-    line-height: $line-height;
-    font-style: normal;
-    text-transform: $text-transform;
-    font-weight: $font-weight;
-    font-size: $font-size;
-    letter-spacing: 0;
-    font-family: $font-family;
+@mixin ec-typography(
+	$line-height: 1.2,
+	$font-size: $font-size-xl,
+	$font-family: $font-family-primary,
+	$font-weight: 400,
+	$text-transform: none
+) {
+	line-height: $line-height;
+	font-style: normal;
+	text-transform: $text-transform;
+	font-weight: $font-weight;
+	font-size: $font-size;
+	letter-spacing: 0;
+	font-family: $font-family;
 }
 
 .header--large {
-    @include ec-typography(1.2, 3em, $font-family-secondary);
-    @include mixins.tablet {
-        @include ec-typography(1.2, 5em, $font-family-secondary);
-    }
+	@include ec-typography(1.2, 3em, $font-family-secondary);
+	@include mixins.tablet {
+		@include ec-typography(1.2, 5em, $font-family-secondary);
+	}
 }
 .header--medium {
-    @include ec-typography(1.2, 2rem, $font-family-secondary);
-    @include mixins.tablet {
-        @include ec-typography(1.2, 2.5rem, $font-family-secondary);
-    }
+	@include ec-typography(1.2, 2rem, $font-family-secondary);
+	@include mixins.tablet {
+		@include ec-typography(1.2, 2.5rem, $font-family-secondary);
+	}
 }
 .header--small {
-    @include ec-typography(1.2, 1rem);
-    @include mixins.tablet {
-        @include ec-typography(1.2, $font-size-lg);
-    }
+	@include ec-typography(1.2, 1rem);
+	@include mixins.tablet {
+		@include ec-typography(1.2, $font-size-lg);
+	}
 }
 
 .footer .column {
-    display: flex;
-    flex-basis: 0;
-    flex-grow: 1;
-    flex-shrink: 1;
-    align-content: center;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-basis: 0;
+	flex-grow: 1;
+	flex-shrink: 1;
+	align-content: center;
+	flex-direction: column;
+	align-items: center;
 
-    @media only screen and (max-width: 48rem) {
-        align-items: flex-start;
-    }
+	@media only screen and (max-width: 48rem) {
+		align-items: flex-start;
+	}
 }
 
 .logo_footer {
-    img {
-        max-height: 5rem;
-    }
+	img {
+		max-height: 5rem;
+	}
 }
 
 .tabs.is-toggle li.is-active a {
-    color: $color-white-bis;
-    border-color: $color-primary;
-    background-color: $color-primary;
+	color: $color-white-bis;
+	border-color: $color-primary;
+	background-color: $color-primary;
 }
 
 .text--large {
-    @include ec-typography(1.4, $font-size-md);
-}
-.text--medium {
-    @include ec-typography(1.4, $font-size-base);
-}
-.text--small {
-    @include ec-typography(1.4, $font-size-sm);
-}
-.text--small--uppercase {
-    @include ec-typography(1.4, $font-size-xs, $font-family-primary, 400, uppercase);
+	@include ec-typography(1.4, $font-size-md);
 }
 
+.text--medium {
+	@include ec-typography(1.4, $font-size-base);
+}
+
+.text--small {
+	@include ec-typography(1.4, $font-size-sm);
+}
+
+.text--small--uppercase {
+	@include ec-typography(1.4, $font-size-xs, $font-family-primary, 400, uppercase);
+}
 
 body {
-    // FIXME define in THEME
-    // background-image: url('assets/images/**.png');
-    // background-color: #426A39;
-    // background-blend-mode: multiply;
-    // background-position: top;
-    // background-size: cover;
-    min-height: 100vh;
+	// FIXME define in THEME
+	// background-image: url('assets/images/**.png');
+	// background-color: #426A39;
+	// background-blend-mode: multiply;
+	// background-position: top;
+	// background-size: cover;
+	min-height: 100vh;
 }
-.container-all{
-    min-height: 100vh;
-    display: grid;
-    grid-template-rows: auto auto 1fr auto;
+
+.container-all {
+	min-height: 100vh;
+	display: grid;
+	grid-template-rows: auto auto 1fr auto;
 }
 
 .navbar {
-    left: 0;
-    width: 100%;
-    transition: transform 0.1s ease-in-out;
-    padding: 2rem 5rem;
+	left: 0;
+	width: 100%;
+	transition: transform 0.1s ease-in-out;
+	padding: 2rem 5rem;
 
-    &-item {
-        font-weight: 600;
-        color: $color-primary;
+	&-item {
+		font-weight: 600;
+		color: $color-primary;
 
-        img {
-            max-height: 2rem;
-            transform: rotate(5deg);
-        }
+		img {
+			max-height: 2rem;
+			transform: rotate(5deg);
+		}
 
-        &.brand {
-            // FIXME
-            @include mixins.desktop {
-                padding: 0;
-                transform: scale(1.2);
-            }
-        }
-    }
+		&.brand {
+			// FIXME
+			@include mixins.desktop {
+				padding: 0;
+				transform: scale(1.2);
+			}
+		}
+	}
 
-    &-center {
-        width: 100%;
-        justify-content: center;
-    }
-    &-right {
-        width: 100%;
-        justify-content: flex-end;
-    }
-    &-left {
-        width: 100%;
-        justify-content: flex-start;
-    }
-    &-burger {
-        color: $color-primary;
-        &:hover {
-            background-color: $color-primary-light;
-        }
-    }
+	&-center {
+		width: 100%;
+		justify-content: center;
+	}
+	&-right {
+		width: 100%;
+		justify-content: flex-end;
+	}
+	&-left {
+		width: 100%;
+		justify-content: flex-start;
+	}
+	&-burger {
+		color: $color-primary;
+		&:hover {
+			background-color: $color-primary-light;
+		}
+	}
 }
 
 .is-concealed {
-    transform: translateY(-100%);
+	transform: translateY(-100%);
 }
 
 .hero {
-    font-family: $font-family-primary;
+	font-family: $font-family-primary;
 }
 
 .hero-home {
-    padding: 3em 0;
-    @include mixins.mobile {
-        background-size: cover;
-    }
+	padding: 3em 0;
+	@include mixins.mobile {
+		background-size: cover;
+	}
+
     .hero-body {
-        padding: 8rem 4rem;
-        @include mixins.mobile {
-            padding: 3rem 2rem;
-        }
-    }
-    .hero-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .title {
-        line-height: 0.89;
-        margin-bottom: 0;
-        @include mixins.mobile {
-            font-size: 2.5rem;
-        }
-    }
-    .subtitle_group {
-        padding: 1em 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+		padding: 8rem 4rem;
+		@include mixins.mobile {
+			padding: 3rem 2rem;
+		}
+	}
 
-        h2 {
-            font-size: $font-size-xl;
-        }
+	.hero-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 
-        p {
-            font-size: $font-size-lg;
-        }
-    }
+	.title {
+		line-height: 0.89;
+		margin-bottom: 0;
+		@include mixins.mobile {
+			font-size: 2.5rem;
+		}
+	}
+
+	.subtitle_group {
+		padding: 1em 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		h2 {
+			font-size: $font-size-xl;
+		}
+
+		p {
+			font-size: $font-size-lg;
+		}
+	}
 }
-.content-border{
-    @include mixins.mobile {
-        border-image: none;
-        padding:inherit;
-    }
+
+.content-border {
+	@include mixins.mobile {
+		border-image: none;
+		padding: inherit;
+	}
 }
 
 .page-title {
-    padding: 2rem 5rem;
-    .title {
-        font-size: $font-size-lg;
-        @include mixins.mobile {
-            font-size: $font-size-base;
-        }
-    }
+	padding: 2rem 5rem;
+	.title {
+		font-size: $font-size-lg;
+		@include mixins.mobile {
+			font-size: $font-size-base;
+		}
+	}
 }
 
 .section {
-    padding: 2rem 5rem;
+	padding: 2rem 5rem;
 }
 
 footer {
-    background-image: linear-gradient(to right, $color-dark, $color-dark);
-    color: $color-white;
-    a {
-        color: $color-white;
-    }
-    .logo-footer {
-        max-width: 12.5rem; // 200px
-        display: block;
-    }
+	background-image: linear-gradient(to right, $color-dark, $color-dark);
+	color: $color-white;
+	a {
+		color: $color-white;
+	}
+	.logo-footer {
+		max-width: 12.5rem; // 200px
+		display: block;
+	}
 }
 
-.button-hero{
-    /* todo */
+.button-hero {
+	/* todo */
 }
 
 .img-mark {
-    border: thick double $color-primary;
-    border-radius: 0.5rem;
+	border: thick double $color-primary;
+	border-radius: 0.5rem;
 }
+
 .img-draw {
-    @media only screen and (max-width: 48rem) {
-        max-width: 18.75rem; // 300px
-    }
+	@media only screen and (max-width: 48rem) {
+		max-width: 18.75rem; // 300px
+	}
 }
+
 .table-prices {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 2rem;
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 2rem;
 
-    tr {
-        border-bottom: 1px solid $color-secondary;
-    }
+	tr {
+		border-bottom: 1px solid $color-secondary;
+	}
 
-    th, td {
-        text-align: left;
-        padding: 0.75rem 1rem;
-    }
+	th,
+	td {
+		text-align: left;
+		padding: 0.75rem 1rem;
+	}
 
-    th {
-        background-color: $color-primary-light;
-        color: $color-dark;
-    }
+	th {
+		background-color: $color-primary-light;
+		color: $color-dark;
+	}
 
-    tbody tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
+	tbody tr:nth-child(even) {
+		background-color: #f9f9f9;
+	}
 }
 
 @media only screen and (max-width: 48rem) {
-        table, thead, tbody, th, td, tr {
-                display: block;
-        }
-        thead tr {
-                position: absolute;
-                top: -9999px;
-                left: -9999px;
-        }
-        tr {
-                border: 1px solid #ccc;
-        }
-        td {
-                border: none;
-                border-bottom: 1px solid #eee;
-                position: relative;
-                padding-left: 12.5rem; // 200px
-                margin-left: 9.375rem; // 150px
-        }
-        td:before {
-                position: absolute;
-                top: 0.75rem; // 12px
-                left: 0.375rem; // 6px
-                width: 12.5rem; // 200px
-                padding-right: 2.5rem; // 40px
-                white-space: nowrap;
-                margin-left: -9.375rem; // -150px
-        }
-        td:nth-of-type(1):before { content: "Descripción"; }
-        td:nth-of-type(2):before { content: "Tipo"; }
-        td:nth-of-type(3):before { content: "EC Parcial"; }
-        td:nth-of-type(4):before { content: "EC Completa"; }
+	table,
+	thead,
+	tbody,
+	th,
+	td,
+	tr {
+		display: block;
+	}
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	tr {
+		border: 1px solid #ccc;
+	}
+	td {
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 12.5rem; // 200px
+		margin-left: 9.375rem; // 150px
+	}
+	td:before {
+		position: absolute;
+		top: 0.75rem; // 12px
+		left: 0.375rem; // 6px
+		width: 12.5rem; // 200px
+		padding-right: 2.5rem; // 40px
+		white-space: nowrap;
+		margin-left: -9.375rem; // -150px
+	}
+	td:nth-of-type(1):before {
+		content: 'Descripción';
+	}
+	td:nth-of-type(2):before {
+		content: 'Tipo';
+	}
+	td:nth-of-type(3):before {
+		content: 'EC Parcial';
+	}
+	td:nth-of-type(4):before {
+		content: 'EC Completa';
+	}
 }
+
 .content-location {
-    h4{
-        margin-top:3rem;
-        margin-bottom:.6em;
-    }
+	h4 {
+		margin-top: 3rem;
+		margin-bottom: 0.6em;
+	}
 }
-.user_data{
-    h3{
-        display: grid;
-        grid-template-columns: auto 1fr;
-        text-align: center;
-        align-items: baseline;
-        grid-gap: 6px;
-        &::after{
-            content: "";
-            display: block;
-            width: 100%;
-            height: 1px;
-            background-color: $color-primary;
-        }
-    }
-    label{
-        text-transform: uppercase;
-        color: $color-primary;
-        font-size: 0.9rem;
-    }
 
-    .control {
-        p{
-        font-weight: 600;
-        background-image: linear-gradient(150deg, $color-primary-light, #fff);
-        padding: 0.5rem;
-        border-radius: 5px;
-        min-height: 2.8rem;
-        }
-        input[type="checkbox"]{
-            transform: scale(1.5);
-            accent-color: $color-primary;
-            padding: 0.5rem;
-        }
-    }
+.user_data {
+	h3 {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		text-align: center;
+		align-items: baseline;
+		grid-gap: 6px;
+		&::after {
+			content: '';
+			display: block;
+			width: 100%;
+			height: 1px;
+			background-color: $color-primary;
+		}
+	}
+	label {
+		text-transform: uppercase;
+		color: $color-primary;
+		font-size: 0.9rem;
+	}
+
+	.control {
+		p {
+			font-weight: 600;
+			background-image: linear-gradient(150deg, $color-primary-light, #fff);
+			padding: 0.5rem;
+			border-radius: 5px;
+			min-height: 2.8rem;
+		}
+		input[type='checkbox'] {
+			transform: scale(1.5);
+			accent-color: $color-primary;
+			padding: 0.5rem;
+		}
+	}
 }
-.agenda-section{
-    .tabs ul{
-        margin-inline-start: 0;
-    }
-    @media only screen and (max-width: 768px) {
-        .tabs ul a{
-            padding:0.4em 0.8em;
-        }
-    }
+
+.agenda-section {
+	.tabs ul {
+		margin-inline-start: 0;
+	}
+	@media only screen and (max-width: 768px) {
+		.tabs ul a {
+			padding: 0.4em 0.8em;
+		}
+	}
 }
+
 .agenda-table {
-    position: relative;
-    overflow: scroll;
-    height: 100vh;
+	position: relative;
+	overflow: scroll;
+	height: 100vh;
 
-    .card {
-        border: 1px solid $color-secondary;
-    }
+	.card {
+		border: 1px solid $color-secondary;
+	}
 
-    .card.clickable:hover {
-        .card-header {
-           background-color: $color-secondary-lighter;
-        }
-    }
+	.card.clickable:hover {
+		.card-header {
+			background-color: $color-secondary-lighter;
+		}
+	}
 
-    .columns {
-        position: absolute;
-        width: 100%;
-    }
+	.columns {
+		position: absolute;
+		width: 100%;
+	}
 
-    .tag.is-info {
-        background-color: $color-violet;
-        color: $color-white;
-    }
-    .column-header {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        background-color: $color-primary;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        margin-bottom: 0.625rem;
-    }
+	.tag.is-info {
+		background-color: $color-violet;
+		color: $color-white;
+	}
+
+	.column-header {
+		position: sticky;
+		top: 0;
+		z-index: 10;
+		background-color: $color-primary;
+		border-radius: 0.5rem;
+		padding: 1rem;
+		margin-bottom: 0.625rem;
+	}
 }
