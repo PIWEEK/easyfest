@@ -2,9 +2,9 @@
 	"name": "frontend",
 	"version": "0.0.1",
 	"private": true,
-	"engines": {
-		"node": ">=20.0.0 <=22.12.0"
-	},
+		"engines": {
+			"node": ">=22.16.0 <23.0.0"
+		},
 	"scripts": {
 		"sync-penpot": "penpot-export",
 		"dev": "vite dev",
