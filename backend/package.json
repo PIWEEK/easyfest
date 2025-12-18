@@ -10,10 +10,10 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-users-permissions": "^5.12.1",
-    "@strapi/provider-email-nodemailer": "^5.12.1",
-    "@strapi/strapi": "^5.12.1",
-    "better-sqlite3": "^8.6.0",
+    "@strapi/plugin-users-permissions": "^5.32.0",
+    "@strapi/provider-email-nodemailer": "^5.32.0",
+    "@strapi/strapi": "^5.32.0",
+    "better-sqlite3": "^12.5.0",
     "fs-extra": "^11.2.0",
     "mime-types": "^2.1.35",
     "react": "^18.2.0",
@@ -30,7 +30,7 @@
     "telemetryDisabled": true
   },
   "engines": {
-    "node": ">=20.0.0 <21.0.0"
+    "node": ">=22.16.0 <23.0.0"
   },
   "license": "MIT"
 }
