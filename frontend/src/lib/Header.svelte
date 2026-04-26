@@ -4,6 +4,7 @@
     import { i18n } from '$lib/i18n.js'
 
     import logoFallback from '../assets/images/easyfest_logo.png'
+    const storage_url = import.meta.env.VITE_STORAGE_URL;
 
     const REGISTRATION = {
         HIDDEN: 'hidden',
