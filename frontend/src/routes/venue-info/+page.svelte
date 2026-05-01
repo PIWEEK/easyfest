@@ -10,7 +10,7 @@
     <div class="container">
         <div class="content content-border">
           <div class="columns">
-            <div class="column is-three-fifths">
+            <div class="column is-five-fifths">
               {#if data.content}
               <SvelteMarkdown options={{mangle: false}} source={data.content}/>
               {/if}

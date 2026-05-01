@@ -1,6 +1,7 @@
 @use 'sass:map';
 @use 'design-system/typographies.scss';
 
+
 // Theme configuration is done by giving value to Bulma variables
 // https://bulma.io/documentation/customize/concepts/
 
@@ -23,8 +24,8 @@ $color-brown: #af590c;
 $color-text: $color-dark;
 
 // Typography
-$font-family-primary: 'Bricolage Grotesque', sans-serif;
-$font-family-secondary: 'Bricolage Grotesque', sans-serif;
+$font-family-primary: 'Vollkorn', serif;
+$font-family-secondary: 'Arial', sans-serif;
 
 // Font sizes
 $font-size-xxl: 4rem; // 64px
@@ -463,3 +464,4 @@ footer {
 		margin-bottom: 0.625rem;
 	}
 }
+@import 'https://fonts.googleapis.com/css?family=Vollkorn:400,700';
