@@ -6,14 +6,14 @@
 // https://bulma.io/documentation/customize/concepts/
 
 // Color palette
-$color-dark: #151132ff;
-$color-primary: $color-dark;
-$color-secondary: #cfb3ffff;
-$color-secondary-light: #cfb3ffff;
-$color-white: #f7f8f9ff;
-$color-primary-light: rgba(203, 199, 238, 0.39);
+$color-dark: #0d3b44;
+$color-primary: #0d3b44;
+$color-secondary: #43b2dc;
+$color-secondary-light: #ffffff;
+$color-white: #ffffff;
+$color-primary-light: #ffffff;
 $color-white-bis: #f1f2f4ff;
-$color-white-ter: #dcdfe4ff;
+$color-white-ter: rgb(5, 33, 80);
 $color-secondary-lighter: #e4d4ffff;
 $color-violet: #8d627b;
 $color-orange: #e8b290;
@@ -24,8 +24,8 @@ $color-brown: #af590c;
 $color-text: $color-dark;
 
 // Typography
-$font-family-primary: 'Vollkorn', serif;
-$font-family-secondary: 'Arial', sans-serif;
+$font-family-primary: 'Cinzel', sans-serifS;
+$font-family-secondary: 'Lora', sans-serif;
 
 // Font sizes
 $font-size-xxl: 4rem; // 64px
@@ -46,7 +46,7 @@ $control-border-width: 0.125rem; // 2px
 	$white-bis: $color-white-bis,
 	$white-ter: $color-white-ter,
 	$body-font-size: 1.2rem,
-	$body-color: #1a1e18ff,
+	$body-color: #0d3b44,
 	$link: $color-brown,
 	$section-padding: 1rem 1.5rem,
 	$section-padding-desktop: 2rem 2.5rem,
@@ -152,6 +152,7 @@ body {
 	// background-position: top;
 	// background-size: cover;
 	min-height: 100vh;
+	font-family: 'Lora', sans-serif;
 }
 
 .container-all {
@@ -162,16 +163,27 @@ body {
 
 .navbar {
 	left: 0;
-	width: 100%;
+	background-color: #cceaf5;
+	width: 100vw !important;
+	margin-left: calc(-50vw + 50%) !important; 
 	transition: transform 0.1s ease-in-out;
-	padding: 2rem 5rem;
-
+	padding: 2rem 0;
+	font-family: 'Cinzel', sans-serif;
 	&-item {
 		font-weight: 600;
 		color: $color-primary;
+		padding-left: 1.5rem !important; 
+    	padding-right: 1.5rem !important;
+		&:hover {
+			background-color: #43b2dc !important;
+			color: $color-white !important; 
+			border-radius: 30px !important;
+		}
 
 		img {
-			max-height: 2rem;
+			/*max-height: 2rem;*/
+			max-height: 3rem;
+			transform: rotate(5deg);
 		}
 
 		&.brand {
@@ -190,10 +202,12 @@ body {
 	&-right {
 		width: 100%;
 		justify-content: flex-end;
+	padding-right: 5rem;
 	}
 	&-left {
 		width: 100%;
 		justify-content: flex-start;
+	padding-left: 5rem;
 	}
 	&-burger {
 		color: $color-primary;
@@ -278,11 +292,15 @@ body {
 footer {
 	background-image: linear-gradient(to right, $color-dark, $color-dark);
 	color: $color-white;
+	width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+    position: relative;
+    left: 0;
 	a {
 		color: $color-white;
 	}
 	.logo-footer {
-		max-width: 12.5rem; // 200px
+		max-width: 1rem; // 200px
 		display: block;
 	}
 }
