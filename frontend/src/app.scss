@@ -1,6 +1,7 @@
 @use 'sass:map';
 @use 'design-system/typographies.scss';
 
+
 // Theme configuration is done by giving value to Bulma variables
 // https://bulma.io/documentation/customize/concepts/
 
@@ -480,3 +481,4 @@ footer {
 		margin-bottom: 0.625rem;
 	}
 }
+@import 'https://fonts.googleapis.com/css?family=Vollkorn:400,700';
