@@ -37,7 +37,7 @@
 	<div class="container">
 		<div class="columns is-6">
 			<div class="column is-one-third">
-				<a class="logo_footer" href="/">
+				<a class="logo_footer" href="https://www.sociedadtolkien.org/" target="_blank" rel="noopener noreferrer">
 					{#if data.logo_horiz}
 						<img alt={data.title} src="{storage_url}{data.logo_horiz.url}" />
 					{:else}

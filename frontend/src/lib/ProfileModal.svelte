@@ -109,5 +109,24 @@
       display: flex;
       justify-content: flex-end;
     }
+
+    @media screen and (max-width: 768px) {
+  .modal-card-head {
+    position: relative;
+    padding-right: 4rem;
+  }
+
+  .modal-card-head .delete {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: block !important;
+    z-index: 10;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+  }
+}
   
   </style>
