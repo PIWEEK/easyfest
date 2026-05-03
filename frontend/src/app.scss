@@ -1,7 +1,6 @@
 @use 'sass:map';
 @use 'design-system/typographies.scss';
 
-
 // Theme configuration is done by giving value to Bulma variables
 // https://bulma.io/documentation/customize/concepts/
 
@@ -152,7 +151,7 @@ body {
 	// background-position: top;
 	// background-size: cover;
 	min-height: 100vh;
-	font-family: 'Lora', sans-serif;
+	font-family: $font-family-secondary;
 }
 
 .container-all {
@@ -165,18 +164,18 @@ body {
 	left: 0;
 	background-color: #cceaf5;
 	width: 100vw !important;
-	margin-left: calc(-50vw + 50%) !important; 
+	margin-left: calc(-50vw + 50%) !important;
 	transition: transform 0.1s ease-in-out;
 	padding: 2rem 0;
-	font-family: 'Cinzel', sans-serif;
+	font-family: $font-family-primary;
 	&-item {
 		font-weight: 600;
 		color: $color-primary;
-		padding-left: 1.5rem !important; 
-    	padding-right: 1.5rem !important;
+		padding-left: 1.5rem !important;
+		padding-right: 1.5rem !important;
 		&:hover {
 			background-color: #43b2dc !important;
-			color: $color-white !important; 
+			color: $color-white !important;
 			border-radius: 30px !important;
 		}
 
@@ -186,10 +185,24 @@ body {
 		}
 
 		&.brand {
-			// FIXME
 			@include mixins.desktop {
 				padding: 0;
 				transform: scale(1.2);
+				transform-origin: left center;
+			}
+		}
+
+		.brand-home-label {
+			font-family: $font-family-primary;
+			font-size: 1em;
+			font-weight: 600;
+			line-height: inherit;
+			color: inherit;
+			white-space: nowrap;
+
+			@include mixins.desktop {
+				transform: scale(0.8333);
+				transform-origin: left center;
 			}
 		}
 	}
@@ -201,13 +214,15 @@ body {
 	&-right {
 		width: 100%;
 		justify-content: flex-end;
-	padding-right: 5rem;
+		padding-right: 5rem;
 	}
+
 	&-left {
 		width: 100%;
 		justify-content: flex-start;
-	padding-left: 5rem;
+		padding-left: 5rem;
 	}
+
 	&-burger {
 		color: $color-primary;
 		&:hover {
@@ -230,7 +245,7 @@ body {
 		background-size: cover;
 	}
 
-    .hero-body {
+	.hero-body {
 		padding: 8rem 4rem;
 		@include mixins.mobile {
 			padding: 3rem 2rem;
@@ -292,9 +307,9 @@ footer {
 	background-image: linear-gradient(to right, $color-dark, $color-dark);
 	color: $color-white;
 	width: 100vw !important;
-    margin-left: calc(-50vw + 50%) !important;
-    position: relative;
-    left: 0;
+	margin-left: calc(-50vw + 50%) !important;
+	position: relative;
+	left: 0;
 	a {
 		color: $color-white;
 	}
@@ -391,6 +406,31 @@ footer {
 	}
 }
 
+.content {
+	ul {
+		list-style: none;
+		padding-left: 0;
+		margin-left: 0;
+	}
+
+	ul li {
+		position: relative;
+		padding-left: 1.4rem;
+		margin-bottom: 0.75rem;
+		line-height: 1.65;
+	}
+
+	ul li::before {
+		content: '✦';
+		position: absolute;
+		left: 0;
+		top: 0.05rem;
+		color: #b06b2d;
+		font-size: 0.9rem;
+		line-height: 1.65;
+	}
+}
+
 .content-location {
 	h4 {
 		margin-top: 3rem;
@@ -481,4 +521,7 @@ footer {
 		margin-bottom: 0.625rem;
 	}
 }
-@import 'https://fonts.googleapis.com/css?family=Vollkorn:400,700';
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+/* @import 'https://fonts.googleapis.com/css?family=Vollkorn:400,700'; */
