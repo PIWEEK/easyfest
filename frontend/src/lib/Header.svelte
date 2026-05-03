@@ -100,7 +100,9 @@
                 {:else}
                 <img alt={data.title} src={logoFallback}/>
                 {/if}
+                <span class="brand-home-label">Mereth Gaerlen</span>
             </a>
+
             {#if showMenu}
             <button class="navbar-burger" aria-label="menu" aria-expanded="false" data-menu-id="mainMenu"
                onclick={hamburgerClick}>

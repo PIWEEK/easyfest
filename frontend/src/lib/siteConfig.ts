@@ -1,9 +1,9 @@
 export const siteConfig = {
-  title: "EasyFest",
-  description: "EasyFest, straightforward festival webpages",
+  title: "Estelcon 2026",
+  description: "Estelcon 2026, 'Mereth Gaerlen'",
   url: "",
-  image: "/img/thumbnail.jpg",
+  image: "/img/easyfest_logo.png",
   imageWidth: "600",
   imageHeight: "600",
-  siteName: "easyfest"
+  siteName: "estelcon2026"
 };
