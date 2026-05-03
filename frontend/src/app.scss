@@ -1,6 +1,7 @@
 @use 'sass:map';
 @use 'design-system/typographies.scss';
 
+
 // Theme configuration is done by giving value to Bulma variables
 // https://bulma.io/documentation/customize/concepts/
 
@@ -23,7 +24,7 @@ $color-brown: #af590c;
 $color-text: $color-dark;
 
 // Typography
-$font-family-primary: 'Cinzel', sans-serifS;
+$font-family-primary: 'Cinzel', sans-serif;
 $font-family-secondary: 'Lora', sans-serif;
 
 // Font sizes
@@ -151,7 +152,7 @@ body {
 	// background-position: top;
 	// background-size: cover;
 	min-height: 100vh;
-	font-family: $font-family-secondary;
+	font-family: 'Lora', sans-serif;
 }
 
 .container-all {
@@ -167,7 +168,7 @@ body {
 	margin-left: calc(-50vw + 50%) !important; 
 	transition: transform 0.1s ease-in-out;
 	padding: 2rem 0;
-	font-family: $font-family-primary;
+	font-family: 'Cinzel', sans-serif;
 	&-item {
 		font-weight: 600;
 		color: $color-primary;
@@ -185,23 +186,10 @@ body {
 		}
 
 		&.brand {
+			// FIXME
 			@include mixins.desktop {
+				padding: 0;
 				transform: scale(1.2);
-				transform-origin: left center;
-			}
-		}
-
-		.brand-home-label {
-			font-family: $font-family-primary;
-			font-size: 1em;
-			font-weight: 600;
-			line-height: inherit;
-			color: inherit;
-			white-space: nowrap;
-
-			@include mixins.desktop {
-				transform: scale(0.8333);
-				transform-origin: left center;
 			}
 		}
 	}
@@ -213,15 +201,13 @@ body {
 	&-right {
 		width: 100%;
 		justify-content: flex-end;
-		padding-right: 5rem;
+	padding-right: 5rem;
 	}
-
 	&-left {
 		width: 100%;
 		justify-content: flex-start;
-		padding-left: 5rem;
+	padding-left: 5rem;
 	}
-
 	&-burger {
 		color: $color-primary;
 		&:hover {
@@ -405,31 +391,6 @@ footer {
 	}
 }
 
-.content {
-	ul {
-		list-style: none;
-		padding-left: 0;
-		margin-left: 0;
-	}
-
-	ul li {
-		position: relative;
-		padding-left: 1.4rem;
-		margin-bottom: 0.75rem;
-		line-height: 1.65;
-	}
-
-	ul li::before {
-		content: "✦";
-		position: absolute;
-		left: 0;
-		top: 0.05rem;
-		color: #b06b2d;
-		font-size: 0.9rem;
-		line-height: 1.65;
-	}
-}
-
 .content-location {
 	h4 {
 		margin-top: 3rem;
@@ -520,7 +481,4 @@ footer {
 		margin-bottom: 0.625rem;
 	}
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
-/* @import 'https://fonts.googleapis.com/css?family=Vollkorn:400,700'; */
+@import 'https://fonts.googleapis.com/css?family=Vollkorn:400,700';
