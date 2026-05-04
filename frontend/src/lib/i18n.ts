@@ -1,122 +1,121 @@
-import { createI18n } from "@inlang/paraglide-sveltekit"
-import * as runtime from "$lib/paraglide/runtime.js"
+import { createI18n } from '@inlang/paraglide-sveltekit';
+import * as runtime from '$lib/paraglide/runtime.js';
 
 export const i18n = createI18n(runtime, {
-
-    defaultLanguageTag: "es",
+	defaultLanguageTag: 'es',
 
 	pathnames: {
-		"/about-us" : {
-			en: "/about-us",
-			es: "/sobre-nosotros",
+		'/about-us': {
+			en: '/about-us',
+			es: '/sobre-el-evento'
 		},
-		"/accommodation-info" : {
-			en: "/accommodation-info",
-			es: "/como-llegar",
+		'/accommodation-info': {
+			en: '/accommodation-info',
+			es: '/como-llegar'
 		},
-		"/activities" : {
-			en: "/activities",
-			es: "/actividades",
+		'/activities': {
+			en: '/activities',
+			es: '/actividades'
 		},
-		"/agenda" : {
-			en: "/agenda",
-			es: "/agenda",
+		'/agenda': {
+			en: '/agenda',
+			es: '/agenda'
 		},
-		"/code-of-conduct" : {
-			en: "/code-of-conduct",
-			es: "/codigo-de-conducta",
+		'/code-of-conduct': {
+			en: '/code-of-conduct',
+			es: '/codigo-de-conducta'
 		},
-		"/contact-info" : {
-			en: "/contact-info",
-			es: "/contacto",
+		'/contact-info': {
+			en: '/contact-info',
+			es: '/contacto'
 		},
-		"/cookie-policy" : {
-			en: "/cookie-policy",
-			es: "/politica-de-cookies",
+		'/cookie-policy': {
+			en: '/cookie-policy',
+			es: '/politica-de-cookies'
 		},
-		"/faqs" : {
-			en: "/faqs",
-			es: "/faqs",
+		'/faqs': {
+			en: '/faqs',
+			es: '/faqs'
 		},
-		"/forgot-password" : {
-			en: "/forgot-password",
-			es: "/contraseña-olvidada",
+		'/forgot-password': {
+			en: '/forgot-password',
+			es: '/contraseña-olvidada'
 		},
-		"/get-link" : {
-			en: "/get-link",
-			es: "/obtener-enlace",
+		'/get-link': {
+			en: '/get-link',
+			es: '/obtener-enlace'
 		},
-		"/login" : {
-			en: "/login",
-			es: "/entrar",
+		'/login': {
+			en: '/login',
+			es: '/entrar'
 		},
-		"/logout" : {
-			en: "/logout",
-			es: "/salir",
+		'/logout': {
+			en: '/logout',
+			es: '/salir'
 		},
-		"/me" : {
-			en: "/me",
-			es: "/mis-datos",
+		'/me': {
+			en: '/me',
+			es: '/mis-datos'
 		},
-		"/me-edit" : {
-			en: "/me-edit",
-			es: "/mis-datos-editar",
+		'/me-edit': {
+			en: '/me-edit',
+			es: '/mis-datos-editar'
 		},
-		"/new-password" : {
-			en: "/new-password",
-			es: "/nueva-contraseña",
+		'/new-password': {
+			en: '/new-password',
+			es: '/nueva-contraseña'
 		},
-		"/news-items" : {
-			en: "/news-items",
-			es: "/noticias",
+		'/news-items': {
+			en: '/news-items',
+			es: '/noticias'
 		},
-		"/org-team" : {
-			en: "/org-team",
-			es: "/equipo-organizador",
+		'/org-team': {
+			en: '/org-team',
+			es: '/equipo-organizador'
 		},
-		"/press-kit" : {
-			en: "/press-kit",
-			es: "/prensa",
+		'/press-kit': {
+			en: '/press-kit',
+			es: '/prensa'
 		},
-		"/privacy-policy" : {
-			en: "/privacy-policy",
-			es: "/politica-de-privacidad",
+		'/privacy-policy': {
+			en: '/privacy-policy',
+			es: '/politica-de-privacidad'
 		},
-		"/register" : {
-			en: "/register",
-			es: "/registro",
+		'/register': {
+			en: '/register',
+			es: '/registro'
 		},
-		"/registration" : {
-			en: "/registration",
-			es: "/inscripcion",
+		'/registration': {
+			en: '/registration',
+			es: '/inscripcion'
 		},
-		"/seo" : {
-			en: "/seo",
-			es: "/seo",
+		'/seo': {
+			en: '/seo',
+			es: '/seo'
 		},
-		"/speakers" : {
-			en: "/speakers",
-			es: "/invitados",
+		'/speakers': {
+			en: '/speakers',
+			es: '/invitados'
 		},
-		"/sponsors" : {
-			en: "/sponsors",
-			es: "/patrocinadores",
+		'/sponsors': {
+			en: '/sponsors',
+			es: '/patrocinadores'
 		},
-		"/streaming" : {
-			en: "/streaming",
-			es: "/streaming",
+		'/streaming': {
+			en: '/streaming',
+			es: '/streaming'
 		},
-		"/tracks" : {
-			en: "/tracks",
-			es: "/tracks",
+		'/tracks': {
+			en: '/tracks',
+			es: '/tracks'
 		},
-		"/venue-info" : {
-			en: "/venue-info",
-			es: "/lugar",
+		'/venue-info': {
+			en: '/venue-info',
+			es: '/lugar'
 		},
-		"/price" : {
-			en: "/price",
-			es: "/precio",
-		},
-    }
+		'/price': {
+			en: '/price',
+			es: '/precio'
+		}
+	}
 });

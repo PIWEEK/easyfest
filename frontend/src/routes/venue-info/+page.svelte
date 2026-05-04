@@ -7,11 +7,12 @@
 <section class="hero page-title">
 	<h3 class="title">{data.title || m.venue_info()}</h3>
 </section>
+
 <section class="section">
 	<div class="container">
 		<div class="content content-border">
 			<div class="columns">
-				<div class="column is-five-fifths">
+				<div class="column is-five-fifths content-location">
 					{#if data.content}
 						<div class="strapi-markdown venue-markdown">
 							<SvelteMarkdown options={{ mangle: false }} source={data.content} />
@@ -25,14 +26,7 @@
 
 <style>
 	:global(.venue-markdown) {
-		max-width: 1100px;
-		margin: 0 auto;
-	}
-
-	:global(.venue-markdown p) {
-		font-size: clamp(1.05rem, 1.8vw, 1.45rem);
-		line-height: 1.65;
-		margin: 1.5rem 0;
+		width: 100%;
 	}
 
 	:global(.venue-markdown strong) {
@@ -94,22 +88,12 @@
 	}
 
 	@media screen and (max-width: 768px) {
-		:global(.venue-markdown) {
-			max-width: 100%;
-		}
-
-		:global(.venue-markdown p) {
-			font-size: 1.05rem;
-			line-height: 1.6;
-			margin: 1.25rem 0;
-		}
-
 		:global(.venue-markdown p:has(img)) {
 			grid-template-columns: 1fr;
 			gap: 1rem;
-			padding: 0.75rem;
+			padding: 0.9rem;
 			margin: 1.75rem 0;
-			border-radius: 1.25rem;
+			border-radius: 1.2rem;
 			box-shadow: 0 12px 28px rgba(13, 59, 68, 0.12);
 		}
 
