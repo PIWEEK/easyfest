@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import SvelteMarkdown from '@humanspeak/svelte-markdown';
 
-	import heroFallback from '../assets/images/easyfest-illustration.png';
+	import heroLosPuertosGrises from '../assets/images/Los_Puertos_Grises.jpg';
 	import Marquee from '../lib/Marquee';
 
 	const storage_url = import.meta.env.VITE_STORAGE_URL;
@@ -23,6 +23,7 @@
 
 	/** @type {HTMLDivElement} */
 	let /* binded */ marqueeElement = $state();
+
 	onMount(() => {
 		if (!marqueeElement) return;
 		new Marquee(marqueeElement, 50);
@@ -135,9 +136,7 @@
 	const daysUntilEvent = Math.max(0, Math.ceil((eventStartDate - today) / (1000 * 60 * 60 * 24)));
 	const eventStatus = settings.eventStatus ?? settings.event_status ?? EVENT_STATUS.HYPE;
 
-	const heroImage = homepage?.hero_image?.url
-		? `${storage_url}${homepage.hero_image.url}`
-		: heroFallback;
+	const heroImage = heroLosPuertosGrises;
 </script>
 
 <section class="hero hero-home home-hero">
@@ -149,7 +148,7 @@
 				</div>
 
 				<div class="home-hero__overlay"></div>
-
+				<p class="home-hero__image-credit">© Ted Nasmith - And Aragorn Came</p>
 				<div class="home-hero__content">
 					<div class="home-hero__text">
 						{#if homepage && homepage.title}
@@ -206,6 +205,26 @@
 		</div>
 	</div>
 </section>
+
+{#if homepage?.show_marquee_text && homepage?.marquee_text}
+	<section class="home-news" aria-label="Novedades">
+		<div class="container">
+			<div class="home-news__card">
+				<div class="home-news__label">
+					<span aria-hidden="true">✦</span>
+					<span>Novedades</span>
+				</div>
+
+				<div class="home-news__marquee-wrapper">
+					<div bind:this={marqueeElement} class="marquee home-news__marquee">
+						<div>{homepage.marquee_text}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{/if}
+
 <section class="home-expectations">
 	<div class="container">
 		<div class="home-expectations__heading">
@@ -245,6 +264,7 @@
 		</div>
 	</div>
 </section>
+
 {#if homepage && homepage.about_section}
 	{@const title = homepage.about_section.title}
 	{@const image = homepage.about_section.image}
@@ -259,11 +279,6 @@
 		</div>
 		<div class="container">
 			<div class="level columns">
-				<!-- <div class="column">
-                <figure class="image is-5by4">
-                    <img src="{storage_url}{image.url}" alt={image.caption}/>
-                </figure>
-            </div> -->
 				<div
 					class="column is-three-fifths has-text-centered is-offset-one-fifth content is-size-6-mobile is-size-5"
 				>
@@ -272,14 +287,6 @@
 			</div>
 		</div>
 	</section>
-{/if}
-
-{#if homepage.show_marquee_text && homepage.marquee_text}
-	<aside class="has-background-primary-light">
-		<div bind:this={marqueeElement} class="marquee level is-mobile text--small--uppercase py-4">
-			<div>{homepage.marquee_text}</div>
-		</div>
-	</aside>
 {/if}
 
 {#if settings.show_agenda && homepage.activities_section}
@@ -523,7 +530,7 @@
 		overflow: hidden;
 		min-height: 34rem;
 		background: var(--home-dark);
-		box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.16);
+		box-shadow: 0 0.8rem 1.8rem rgba(0, 0, 0, 0.1);
 	}
 
 	.home-hero__shell::before {
@@ -532,7 +539,7 @@
 		inset: 0;
 		z-index: 3;
 		pointer-events: none;
-		opacity: 0.5;
+		opacity: 0.35;
 		background-image:
 			radial-gradient(
 				circle at 18% 12%,
@@ -577,22 +584,47 @@
 		object-fit: cover;
 	}
 
+	.home-hero__image-credit {
+		position: absolute;
+		top: 2rem;
+		right: 2rem;
+		z-index: 6;
+		display: inline-flex;
+		align-items: center;
+		max-width: calc(100% - 4rem);
+		margin: 0;
+		padding: 0.28rem 0.55rem;
+		border: 1px solid rgba(255, 255, 255, 0.22);
+		border-radius: 999px;
+		background: rgba(8, 33, 38, 0.52);
+		color: rgba(255, 255, 255, 0.96);
+		font-family: var(--bulma-family-secondary, inherit);
+		font-size: 0.72rem;
+		line-height: 1;
+		letter-spacing: 0.02em;
+		text-align: right;
+		white-space: nowrap;
+		box-shadow: 0 0.35rem 0.9rem rgba(0, 0, 0, 0.18);
+		backdrop-filter: blur(4px);
+		pointer-events: none;
+	}
+
 	.home-hero__overlay {
 		z-index: 2;
 		background:
 			linear-gradient(
 				90deg,
 				rgba(var(--home-dark-rgb), 0.96) 0%,
-				rgba(var(--home-dark-rgb), 0.9) 22%,
-				rgba(var(--home-dark-rgb), 0.62) 42%,
-				rgba(var(--home-dark-rgb), 0.2) 64%,
-				rgba(var(--home-dark-rgb), 0.06) 100%
+				rgba(var(--home-dark-rgb), 0.88) 22%,
+				rgba(var(--home-dark-rgb), 0.56) 42%,
+				rgba(var(--home-dark-rgb), 0.16) 64%,
+				rgba(var(--home-dark-rgb), 0.03) 100%
 			),
 			linear-gradient(
 				180deg,
-				rgba(var(--home-dark-rgb), 0.22) 0%,
-				rgba(var(--home-dark-rgb), 0.08) 45%,
-				rgba(var(--home-dark-rgb), 0.24) 100%
+				rgba(var(--home-dark-rgb), 0.18) 0%,
+				rgba(var(--home-dark-rgb), 0.04) 45%,
+				rgba(var(--home-dark-rgb), 0.18) 100%
 			);
 	}
 
@@ -813,6 +845,98 @@
 		color: var(--home-gold);
 		font-size: 3rem;
 		line-height: 1;
+	}
+
+	/* =========================
+	   NOVEDADES
+	   ========================= */
+
+	.home-news {
+		--home-gold: #d7b56d;
+		--home-dark: var(--bulma-dark, #123f46);
+
+		position: relative;
+		z-index: 2;
+		padding: 2rem 1.5rem 0;
+		background: #f6f1e8;
+	}
+
+	.home-news__card {
+		position: relative;
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 1rem;
+		align-items: center;
+		overflow: hidden;
+		padding: 0.9rem 1rem;
+		border: 1px solid rgba(215, 181, 109, 0.52);
+		border-radius: 1.25rem;
+		background:
+			radial-gradient(circle at 10% 50%, rgba(215, 181, 109, 0.18), transparent 14rem),
+			rgba(255, 255, 255, 0.82);
+		box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.06);
+		backdrop-filter: blur(8px);
+	}
+
+	.home-news__card::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 1.25rem;
+		left: 1.25rem;
+		height: 2px;
+		background: linear-gradient(90deg, transparent, var(--home-gold), transparent);
+		pointer-events: none;
+	}
+
+	.home-news__label {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.45rem;
+		padding: 0.55rem 0.85rem;
+		border-radius: 999px;
+		background: var(--home-dark);
+		color: var(--home-gold);
+		font-family: var(--bulma-family-primary, inherit);
+		font-size: 0.78rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+
+	.home-news__marquee-wrapper {
+		position: relative;
+		overflow: hidden;
+		min-width: 0;
+		color: rgba(18, 63, 70, 0.88);
+		font-size: 1rem;
+		line-height: 1.45;
+		background: transparent;
+
+		-webkit-mask-image: linear-gradient(
+			90deg,
+			transparent 0,
+			#000 1.25rem,
+			#000 calc(100% - 6rem),
+			transparent 100%
+		);
+		mask-image: linear-gradient(
+			90deg,
+			transparent 0,
+			#000 1.25rem,
+			#000 calc(100% - 6rem),
+			transparent 100%
+		);
+	}
+
+	.home-news__marquee {
+		margin: 0;
+	}
+
+	.home-news__marquee > * {
+		padding-right: 6rem;
 	}
 
 	/* =========================
@@ -1078,12 +1202,40 @@
 			height: clamp(31rem, 118vw, 38rem);
 			overflow: hidden;
 			background: var(--home-dark);
-			box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.16);
+			box-shadow: none;
 		}
 
 		.home-hero__media img {
 			height: 100%;
 			object-fit: cover;
+		}
+
+		.home-hero__image-credit {
+			position: relative;
+			top: auto;
+			right: auto;
+			bottom: auto;
+			z-index: 5;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: fit-content;
+			max-width: calc(100% - 2rem);
+			margin: 0.45rem auto 0;
+			padding: 0.24rem 0.48rem;
+			border: 1px solid rgba(255, 255, 255, 0.22);
+			border-radius: 999px;
+			background: rgba(8, 33, 38, 0.52);
+			color: rgba(255, 255, 255, 0.96);
+			font-family: var(--bulma-family-secondary, inherit);
+			font-size: 0.66rem;
+			line-height: 1.1;
+			letter-spacing: 0.02em;
+			text-align: center;
+			white-space: normal;
+			box-shadow: none;
+			backdrop-filter: blur(4px);
+			pointer-events: none;
 		}
 
 		.home-hero__overlay {
@@ -1152,6 +1304,44 @@
 
 		.home-hero__countdown strong {
 			font-size: 2.4rem;
+		}
+
+		.home-news {
+			padding: 1.5rem 1rem 0;
+		}
+
+		.home-news__card {
+			grid-template-columns: 1fr;
+			gap: 0.85rem;
+			padding: 1rem;
+			text-align: center;
+		}
+
+		.home-news__label {
+			justify-self: center;
+		}
+
+		.home-news__marquee-wrapper {
+			font-size: 0.95rem;
+
+			-webkit-mask-image: linear-gradient(
+				90deg,
+				transparent 0,
+				#000 0.9rem,
+				#000 calc(100% - 3rem),
+				transparent 100%
+			);
+			mask-image: linear-gradient(
+				90deg,
+				transparent 0,
+				#000 0.9rem,
+				#000 calc(100% - 3rem),
+				transparent 100%
+			);
+		}
+
+		.home-news__marquee > * {
+			padding-right: 3rem;
 		}
 
 		.home-expectations {

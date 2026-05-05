@@ -1,7 +1,8 @@
 <script lang="ts">
 	import SvelteMarkdown from '@humanspeak/svelte-markdown';
 	import * as m from '$lib/paraglide/messages.js';
-	import treasureImage from '../../assets/images/tesoro.jpg';
+	import roomImage from '../../assets/images/camarote.jpeg';
+	import treasureImage from '../../assets/images/tesoro.jpeg';
 
 	type Price = {
 		name: string;
@@ -27,6 +28,10 @@
 		const parsedValue = Number(normalizedValue);
 
 		return Number.isNaN(parsedValue) ? 0 : parsedValue;
+	}
+
+	function isPricePending(value: number | string): boolean {
+		return getNumericValue(value) === 0;
 	}
 
 	function getAccommodationOrder(price: Price): number {
@@ -65,17 +70,15 @@
 
 		<div class="prices-treasure" aria-hidden="true">
 			<div class="prices-treasure__image">
-				<img src={treasureImage} alt="" />
+				<img src={roomImage} alt="" />
+				<span class="prices-treasure__credit">© Eduardo Francisco</span>
 			</div>
 
 			<div class="prices-treasure__content">
 				<p class="prices-treasure__title">Elige tu camarote para la travesía</p>
 
 				<div class="strapi-markdown prices-treasure__text">
-					<p>
-						Consulta aquí los precios de las habitaciones y los complementos premium antes de la
-						inscripción.
-					</p>
+					<p>Consulta aquí los precios de las habitaciones antes de la inscripción.</p>
 				</div>
 			</div>
 		</div>
@@ -104,14 +107,41 @@
 								{/if}
 							</div>
 
-							<div class="prices-card__amount">
-								<span>{priceObj.value}</span>
-								<small>{priceObj.currency}</small>
+							<div
+								class="prices-card__amount"
+								class:prices-card__amount--pending={isPricePending(priceObj.value)}
+							>
+								{#if isPricePending(priceObj.value)}
+									<span>PRECIO POR DETERMINAR</span>
+								{:else}
+									<span>{priceObj.value}</span>
+									<small>{priceObj.currency}</small>
+								{/if}
 							</div>
 						</article>
 					{/each}
 				</div>
 			</section>
+		{/if}
+
+		{#if accommodationPrices.length > 0 && premiumPrices.length > 0}
+			<div class="prices-treasure prices-treasure--between" aria-hidden="true">
+				<div class="prices-treasure__image">
+					<img src={treasureImage} alt="" />
+					<span class="prices-treasure__credit">© Valera Lutfullina</span>
+				</div>
+
+				<div class="prices-treasure__content">
+					<p class="prices-treasure__title">Añade extras a tu travesía</p>
+
+					<div class="strapi-markdown prices-treasure__text">
+						<p>
+							Además del alojamiento, puedes consultar aquí los complementos premium disponibles
+							para añadir a tu inscripción.
+						</p>
+					</div>
+				</div>
+			</div>
 		{/if}
 
 		{#if premiumPrices.length > 0}
@@ -135,9 +165,16 @@
 								{/if}
 							</div>
 
-							<div class="prices-card__amount">
-								<span>{priceObj.value}</span>
-								<small>{priceObj.currency}</small>
+							<div
+								class="prices-card__amount"
+								class:prices-card__amount--pending={isPricePending(priceObj.value)}
+							>
+								{#if isPricePending(priceObj.value)}
+									<span>PRECIO POR DETERMINAR</span>
+								{:else}
+									<span>{priceObj.value}</span>
+									<small>{priceObj.currency}</small>
+								{/if}
 							</div>
 						</article>
 					{/each}
@@ -148,22 +185,45 @@
 </section>
 
 <style>
+	/* ==========================================================================
+	   Layout general
+	   ========================================================================== */
+
+	.prices-page {
+		padding-top: 2rem;
+		padding-bottom: 4rem;
+	}
+
+	.prices-intro {
+		margin-bottom: 2rem;
+	}
+
+	/* ==========================================================================
+	   Tarjetas con imagen
+	   ========================================================================== */
+
 	.prices-treasure {
 		position: relative;
 		display: grid;
-		grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-		gap: 2rem;
+		grid-template-columns: minmax(0, 0.45fr) minmax(0, 1.55fr);
+		gap: 1.5rem;
 		align-items: center;
 		margin: 0 0 2.5rem;
-		padding: 1.25rem;
+		padding: 1.1rem;
+		overflow: hidden;
 		border: 1px solid rgba(18, 63, 70, 0.1);
 		border-radius: 1.5rem;
 		background:
 			radial-gradient(circle at 12% 18%, rgba(215, 181, 109, 0.16), transparent 16rem),
 			rgba(255, 255, 255, 0.76);
 		box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.05);
-		overflow: hidden;
 		backdrop-filter: blur(8px);
+		text-align: left;
+	}
+
+	.prices-treasure--between {
+		margin-top: 2.5rem;
+		margin-bottom: 0;
 	}
 
 	.prices-treasure::before {
@@ -194,8 +254,8 @@
 
 	.prices-treasure__image {
 		position: relative;
+		height: 11rem;
 		overflow: hidden;
-		min-height: 13rem;
 		border-radius: 1.15rem;
 		background: var(--bulma-dark, #123f46);
 	}
@@ -214,20 +274,34 @@
 		display: block;
 		width: 100%;
 		height: 100%;
-		min-height: 13rem;
 		object-fit: cover;
+		object-position: center;
+	}
+
+	.prices-treasure__credit {
+		position: absolute;
+		right: 0.75rem;
+		bottom: 0.75rem;
+		z-index: 2;
+		display: inline-flex;
+		align-items: center;
+		padding: 0.28rem 0.55rem;
+		border: 1px solid rgba(255, 255, 255, 0.22);
+		border-radius: 999px;
+		background: rgba(8, 33, 38, 0.52);
+		color: rgba(255, 255, 255, 0.96);
+		font-size: 0.72rem;
+		line-height: 1;
+		letter-spacing: 0.02em;
+		white-space: nowrap;
+		box-shadow: 0 0.35rem 0.9rem rgba(0, 0, 0, 0.18);
+		backdrop-filter: blur(4px);
+		pointer-events: none;
 	}
 
 	.prices-treasure__content {
-		max-width: 34rem;
-	}
-
-	.prices-treasure__eyebrow {
-		margin: 0 0 0.4rem;
-		color: var(--bulma-primary, #0b4f4a);
-		font-size: 0.78rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
+		width: 90%;
+		max-width: none;
 	}
 
 	.prices-treasure__title {
@@ -236,41 +310,30 @@
 		font-family: var(--bulma-family-primary, inherit);
 		font-size: 1.65rem;
 		line-height: 1.15;
+		text-align: left;
 	}
 
 	.prices-treasure__text {
 		margin: 0;
 		color: rgba(18, 63, 70, 0.78);
+		font-family: inherit;
+		font-size: inherit;
+		line-height: inherit;
+		text-align: left;
 	}
 
 	.prices-treasure__text p {
 		margin: 0;
+		color: inherit;
+		font-family: inherit;
+		font-size: inherit;
+		line-height: inherit;
+		text-align: left;
 	}
 
-	@media (max-width: 768px) {
-		.prices-treasure {
-			grid-template-columns: 1fr;
-			gap: 1.25rem;
-			padding: 1rem;
-		}
-
-		.prices-treasure__image,
-		.prices-treasure__image img {
-			min-height: 11rem;
-		}
-
-		.prices-treasure__title {
-			font-size: 1.4rem;
-		}
-	}
-	.prices-page {
-		padding-top: 2rem;
-		padding-bottom: 4rem;
-	}
-
-	.prices-intro {
-		margin-bottom: 2rem;
-	}
+	/* ==========================================================================
+	   Bloques de precios
+	   ========================================================================== */
 
 	.prices-block {
 		margin-top: 2.5rem;
@@ -282,18 +345,10 @@
 
 	.prices-block__header {
 		display: flex;
+		gap: 2rem;
 		align-items: flex-end;
 		justify-content: space-between;
-		gap: 2rem;
 		margin-bottom: 1.25rem;
-	}
-
-	.prices-block__eyebrow {
-		margin: 0 0 0.35rem;
-		color: var(--bulma-primary, #0b4f4a);
-		font-size: 0.78rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
 	}
 
 	.prices-block__title {
@@ -313,6 +368,10 @@
 		text-align: right;
 	}
 
+	/* ==========================================================================
+	   Listado de precios
+	   ========================================================================== */
+
 	.prices-card-list {
 		overflow: hidden;
 		border: 1px solid rgba(18, 63, 70, 0.1);
@@ -330,9 +389,8 @@
 		align-items: center;
 		padding: 1.25rem 1.35rem;
 		border-bottom: 1px solid rgba(18, 63, 70, 0.1);
-		transition:
-			background 180ms ease,
-			box-shadow 180ms ease;
+		text-align: left;
+		transition: background 180ms ease;
 	}
 
 	.prices-card:last-child {
@@ -354,8 +412,18 @@
 		background: rgba(255, 255, 255, 0.92);
 	}
 
-	.prices-card:hover::before {
+	.prices-block--accommodation .prices-card:hover::before {
+		background: #2f6f8f;
+	}
+
+	.prices-block--premium .prices-card:hover::before {
 		background: #d7b56d;
+	}
+
+	.prices-card__content {
+		max-width: calc(100% - 2rem);
+		padding-right: 2rem;
+		text-align: left;
 	}
 
 	.prices-card__content h5 {
@@ -364,13 +432,16 @@
 		font-family: var(--bulma-family-primary, inherit);
 		font-size: 1.2rem;
 		line-height: 1.25;
+		text-align: left;
 	}
 
 	.prices-card__content p {
+		max-width: 72%;
 		margin: 0;
 		color: rgba(18, 63, 70, 0.82);
 		font-size: 1rem;
 		line-height: 1.45;
+		text-align: left;
 	}
 
 	.prices-card__amount {
@@ -396,7 +467,62 @@
 		opacity: 0.78;
 	}
 
+	.prices-card__amount--pending {
+		max-width: 12rem;
+		white-space: normal;
+	}
+
+	.prices-card__amount--pending span {
+		font-size: 0.95rem;
+		line-height: 1.2;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	/* ==========================================================================
+	   Anulación del justificado global dentro de tarjetas
+	   ========================================================================== */
+
+	.prices-treasure p,
+	.prices-treasure li,
+	.prices-card p,
+	.prices-card li {
+		text-align: left;
+		text-justify: auto;
+		hyphens: none;
+	}
+
+	/* ==========================================================================
+	   Responsive
+	   ========================================================================== */
+
 	@media (max-width: 768px) {
+		.prices-treasure {
+			grid-template-columns: 1fr;
+			gap: 1.25rem;
+			padding: 1rem;
+		}
+
+		.prices-treasure__image {
+			height: 10rem;
+		}
+
+		.prices-treasure__credit {
+			right: 0.55rem;
+			bottom: 0.55rem;
+			padding: 0.24rem 0.48rem;
+			font-size: 0.66rem;
+		}
+
+		.prices-treasure__content {
+			width: 100%;
+			max-width: 100%;
+		}
+
+		.prices-treasure__title {
+			font-size: 1.4rem;
+		}
+
 		.prices-block__header {
 			display: block;
 		}
@@ -411,8 +537,21 @@
 			gap: 1rem;
 		}
 
+		.prices-card__content {
+			max-width: 100%;
+			padding-right: 0;
+		}
+
+		.prices-card__content p {
+			max-width: 100%;
+		}
+
 		.prices-card__amount {
 			text-align: left;
+		}
+
+		.prices-card__amount--pending {
+			max-width: 100%;
 		}
 	}
 </style>

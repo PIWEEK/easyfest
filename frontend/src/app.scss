@@ -157,6 +157,50 @@ body {
 	font-family: $font-family-secondary;
 }
 
+/* ==========================================================================
+   Justificación de textos de contenido
+   Solo escritorio y tablet
+   ========================================================================== */
+
+@media (min-width: 769px) {
+	.content,
+	.content-border,
+	.strapi-markdown {
+		p,
+		li {
+			text-align: justify;
+			text-justify: inter-word;
+			hyphens: auto;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			text-align: inherit;
+		}
+	}
+}
+
+/* ==========================================================================
+   Móvil y pantallas pequeñas
+   Se mantiene alineación natural a la izquierda
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.content,
+	.content-border,
+	.strapi-markdown {
+		p,
+		li {
+			text-align: left;
+			hyphens: none;
+		}
+	}
+}
+
 .container-all {
 	min-height: 100vh;
 	display: grid;
