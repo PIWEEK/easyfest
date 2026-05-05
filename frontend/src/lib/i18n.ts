@@ -23,7 +23,7 @@ export const i18n = createI18n(runtime, {
 		},
 		'/code-of-conduct': {
 			en: '/code-of-conduct',
-			es: '/codigo-de-conducta'
+			es: '/charte-partie'
 		},
 		'/contact-info': {
 			en: '/contact-info',
