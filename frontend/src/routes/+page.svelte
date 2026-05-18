@@ -122,7 +122,7 @@
 		FINISHED: 'finished'
 	};
 
-	const { homepage, speakers, site, ...settings } = data;
+	const { homepage, speakers, site, registrationInfo, ...settings } = data;
 
 	const REGISTRATION = {
 		HIDDEN: 'hidden',
@@ -134,8 +134,31 @@
 	const eventStartDate = new Date('2026-09-24T00:00:00');
 	const today = new Date();
 	const daysUntilEvent = Math.max(0, Math.ceil((eventStartDate - today) / (1000 * 60 * 60 * 24)));
-	const eventStatus = settings.eventStatus ?? settings.event_status ?? EVENT_STATUS.HYPE;
 
+	const eventStatus = site?.eventStatus ?? site?.event_status ?? EVENT_STATUS.HYPE;
+	function plainStatusText(content, fallback) {
+		if (!content) return fallback;
+
+		return content
+			.replace(/[#*_`>~-]/g, '')
+			.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+			.trim();
+	}
+
+	const registrationSoonText = plainStatusText(
+		registrationInfo?.content_soon,
+		'Pronto abriremos las inscripciones'
+	);
+
+	const registrationOpenText = plainStatusText(
+		registrationInfo?.content_open,
+		'¡Inscripciones abiertas!'
+	);
+
+	const registrationFinishedText = plainStatusText(
+		registrationInfo?.content_finished,
+		'Inscripciones finalizadas'
+	);
 	const heroImage = heroLosPuertosGrises;
 </script>
 
@@ -148,7 +171,7 @@
 				</div>
 
 				<div class="home-hero__overlay"></div>
-				<p class="home-hero__image-credit">© Ted Nasmith - And Aragorn Came</p>
+				<p class="home-hero__image-credit">© Ted Nasmith - Thus Came Aragorn</p>
 				<div class="home-hero__content">
 					<div class="home-hero__text">
 						{#if homepage && homepage.title}
@@ -183,14 +206,14 @@
 									class="button home-hero__button-primary home-hero__button-primary--disabled"
 									aria-disabled="true"
 								>
-									Pronto abriremos las inscripciones
+									{registrationSoonText}
 								</span>
 							{:else if eventStatus === EVENT_STATUS.PUBLIC}
 								<a href="/inscripcion" class="button is-primary home-hero__button-primary">
-									¡Inscripciones abiertas! <span aria-hidden="true"> →</span>
+									{registrationOpenText} <span aria-hidden="true"> →</span>
 								</a>
 							{:else if eventStatus === EVENT_STATUS.FINISHED}
-								<p class="home-hero__registration-message">Inscripciones finalizadas</p>
+								<p class="home-hero__registration-message">{registrationFinishedText}</p>
 							{/if}
 						</div>
 					</div>

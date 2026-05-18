@@ -16,19 +16,26 @@ const sitePath = `/site?${encodeQuery({
 	populate: '*'
 })}`;
 
+const registrationInfoPath = `/registration-info?${encodeQuery({
+	populate: '*'
+})}`;
+
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
 	let data = {};
 
-	const [homepageData, speakersData, siteData] = await Promise.all([
+	const [homepageData, speakersData, siteData, registrationInfoData] = await Promise.all([
 		fetchSingle(homepagePath),
 		fetchSingle(speakersPath),
-		fetchSingle(sitePath)
+		fetchSingle(sitePath),
+		fetchSingle(registrationInfoPath)
 	]);
+
 	data = {
 		homepage: homepageData,
 		speakers: speakersData,
 		site: siteData,
+		registrationInfo: registrationInfoData
 	};
 
 	return data;

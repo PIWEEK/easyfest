@@ -131,27 +131,20 @@
 
 	.charter-card__image {
 		position: relative;
-		height: 11rem;
 		overflow: hidden;
 		border-radius: 1.15rem;
-		background: var(--bulma-dark, #123f46);
+		background: transparent;
 	}
 
 	.charter-card__image::after {
-		content: '';
-		position: absolute;
-		inset: 0;
-		background:
-			linear-gradient(90deg, rgba(18, 63, 70, 0.2), transparent 45%),
-			linear-gradient(180deg, transparent 40%, rgba(18, 63, 70, 0.35));
-		pointer-events: none;
+		display: none;
 	}
 
 	.charter-card__image img {
 		display: block;
 		width: 100%;
-		height: 100%;
-		object-fit: cover;
+		height: auto;
+		object-fit: contain;
 		object-position: center;
 	}
 
@@ -247,7 +240,8 @@
 		}
 
 		.charter-card__image {
-			height: 10rem;
+			height: auto;
+			aspect-ratio: auto;
 		}
 
 		.charter-card__credit {

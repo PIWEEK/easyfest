@@ -1,8 +1,12 @@
 <script lang="ts">
 	import SvelteMarkdown from '@humanspeak/svelte-markdown';
+	import { modals } from 'svelte-modals';
 	import * as m from '$lib/paraglide/messages.js';
+	import ActivityModal from '$lib/ActivityModal.svelte';
 	import roomImage from '../../assets/images/camarote.jpeg';
 	import treasureImage from '../../assets/images/tesoro.jpeg';
+
+	const storage_url = import.meta.env.VITE_STORAGE_URL;
 
 	type Price = {
 		name: string;
@@ -11,9 +15,17 @@
 		currency: string;
 	};
 
+	type StrapiImage = {
+		url: string;
+		alternativeText?: string;
+		caption?: string;
+		name?: string;
+	};
+
 	interface Data {
 		prices: Price[];
 		content?: string;
+		tshirtImages?: StrapiImage[];
 	}
 
 	export let data: Data;
@@ -24,7 +36,6 @@
 		const normalizedValue = String(value)
 			.replace(',', '.')
 			.replace(/[^\d.]/g, '');
-
 		const parsedValue = Number(normalizedValue);
 
 		return Number.isNaN(parsedValue) ? 0 : parsedValue;
@@ -45,11 +56,53 @@
 		return 99;
 	}
 
+	function isTshirtPrice(price: Price): boolean {
+		return price.name.toLowerCase().includes('camiseta');
+	}
+
+	function getStrapiMediaUrl(image?: StrapiImage | null): string {
+		if (!image?.url) return '';
+
+		if (image.url.startsWith('http')) {
+			return image.url;
+		}
+
+		return `${storage_url}${image.url}`;
+	}
+
+	function openTshirtModal(price: Price) {
+		const tshirtImageUrls = (data.tshirtImages ?? [])
+			.map((image) => getStrapiMediaUrl(image))
+			.filter(Boolean);
+
+		modals.open(ActivityModal, {
+			activity: {
+				title: price.name,
+				short_description: price.description,
+				long_description:
+					tshirtImageUrls.length > 0
+						? tshirtImageUrls
+								.map((url, index) => {
+									const label =
+										index === 0
+											? 'Diseño delantero de la camiseta'
+											: 'Diseño trasero de la camiseta';
+									return `![${label}](${url})`;
+								})
+								.join(' ')
+						: 'El diseño de la camiseta todavía no está disponible.',
+				tag1: 'Diseño'
+			}
+		});
+	}
+
 	$: accommodationPrices = (
 		data.prices?.filter((price) => getNumericValue(price.value) > 100) ?? []
 	).sort((a, b) => getAccommodationOrder(a) - getAccommodationOrder(b));
 
-	$: premiumPrices = data.prices?.filter((price) => getNumericValue(price.value) <= 100) ?? [];
+	$: premiumPrices = (
+		data.prices?.filter((price) => getNumericValue(price.value) <= 100) ?? []
+	).sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }));
 </script>
 
 <section class="hero page-title">
@@ -92,8 +145,6 @@
 					<div>
 						<h4 id="accommodation-prices-title" class="prices-block__title">Habitaciones</h4>
 					</div>
-
-					<!--<p class="prices-block__note">Precio por persona según modalidad de habitación.</p>-->
 				</div>
 
 				<div class="prices-card-list">
@@ -150,33 +201,59 @@
 					<div>
 						<h4 id="premium-prices-title" class="prices-block__title">Inscripción premium</h4>
 					</div>
-
-					<!--<p class="prices-block__note">Complementos opcionales disponibles durante la inscripción.</p>-->
 				</div>
 
 				<div class="prices-card-list">
 					{#each premiumPrices as priceObj}
-						<article class="prices-card">
-							<div class="prices-card__content">
-								<h5>{priceObj.name}</h5>
-
-								{#if priceObj.description}
-									<p>{priceObj.description}</p>
-								{/if}
-							</div>
-
-							<div
-								class="prices-card__amount"
-								class:prices-card__amount--pending={isPricePending(priceObj.value)}
+						{#if isTshirtPrice(priceObj)}
+							<button
+								class="prices-card prices-card--clickable"
+								type="button"
+								onclick={() => openTshirtModal(priceObj)}
 							>
-								{#if isPricePending(priceObj.value)}
-									<span>PRECIO POR DETERMINAR</span>
-								{:else}
-									<span>{priceObj.value}</span>
-									<small>{priceObj.currency}</small>
-								{/if}
-							</div>
-						</article>
+								<div class="prices-card__content">
+									<h5>{priceObj.name}</h5>
+
+									{#if priceObj.description}
+										<p>{priceObj.description}</p>
+									{/if}
+								</div>
+
+								<div
+									class="prices-card__amount"
+									class:prices-card__amount--pending={isPricePending(priceObj.value)}
+								>
+									{#if isPricePending(priceObj.value)}
+										<span>PRECIO POR DETERMINAR</span>
+									{:else}
+										<span>{priceObj.value}</span>
+										<small>{priceObj.currency}</small>
+									{/if}
+								</div>
+							</button>
+						{:else}
+							<article class="prices-card">
+								<div class="prices-card__content">
+									<h5>{priceObj.name}</h5>
+
+									{#if priceObj.description}
+										<p>{priceObj.description}</p>
+									{/if}
+								</div>
+
+								<div
+									class="prices-card__amount"
+									class:prices-card__amount--pending={isPricePending(priceObj.value)}
+								>
+									{#if isPricePending(priceObj.value)}
+										<span>PRECIO POR DETERMINAR</span>
+									{:else}
+										<span>{priceObj.value}</span>
+										<small>{priceObj.currency}</small>
+									{/if}
+								</div>
+							</article>
+						{/if}
 					{/each}
 				</div>
 			</section>
@@ -185,10 +262,6 @@
 </section>
 
 <style>
-	/* ==========================================================================
-	   Layout general
-	   ========================================================================== */
-
 	.prices-page {
 		padding-top: 2rem;
 		padding-bottom: 4rem;
@@ -197,10 +270,6 @@
 	.prices-intro {
 		margin-bottom: 2rem;
 	}
-
-	/* ==========================================================================
-	   Tarjetas con imagen
-	   ========================================================================== */
 
 	.prices-treasure {
 		position: relative;
@@ -313,7 +382,8 @@
 		text-align: left;
 	}
 
-	.prices-treasure__text {
+	.prices-treasure__text,
+	.prices-treasure__text p {
 		margin: 0;
 		color: rgba(18, 63, 70, 0.78);
 		font-family: inherit;
@@ -321,19 +391,6 @@
 		line-height: inherit;
 		text-align: left;
 	}
-
-	.prices-treasure__text p {
-		margin: 0;
-		color: inherit;
-		font-family: inherit;
-		font-size: inherit;
-		line-height: inherit;
-		text-align: left;
-	}
-
-	/* ==========================================================================
-	   Bloques de precios
-	   ========================================================================== */
 
 	.prices-block {
 		margin-top: 2.5rem;
@@ -359,19 +416,6 @@
 		line-height: 1.15;
 	}
 
-	.prices-block__note {
-		max-width: 24rem;
-		margin: 0;
-		color: rgba(18, 63, 70, 0.72);
-		font-size: 1rem;
-		line-height: 1.45;
-		text-align: right;
-	}
-
-	/* ==========================================================================
-	   Listado de precios
-	   ========================================================================== */
-
 	.prices-card-list {
 		overflow: hidden;
 		border: 1px solid rgba(18, 63, 70, 0.1);
@@ -387,8 +431,12 @@
 		grid-template-columns: minmax(0, 1fr) auto;
 		gap: 2rem;
 		align-items: center;
+		width: 100%;
 		padding: 1.25rem 1.35rem;
+		border: 0;
 		border-bottom: 1px solid rgba(18, 63, 70, 0.1);
+		background: transparent;
+		font: inherit;
 		text-align: left;
 		transition: background 180ms ease;
 	}
@@ -418,6 +466,21 @@
 
 	.prices-block--premium .prices-card:hover::before {
 		background: #d7b56d;
+	}
+
+	.prices-card--clickable {
+		cursor: pointer;
+	}
+
+	.prices-card--clickable .prices-card__content::after {
+		content: 'Pulsa aquí para ver el diseño';
+		display: inline-flex;
+		margin-top: 0.55rem;
+		color: #b06b2d;
+		font-family: var(--bulma-family-primary, inherit);
+		font-size: 0.85rem;
+		font-weight: 700;
+		text-transform: uppercase;
 	}
 
 	.prices-card__content {
@@ -479,10 +542,6 @@
 		text-transform: uppercase;
 	}
 
-	/* ==========================================================================
-	   Anulación del justificado global dentro de tarjetas
-	   ========================================================================== */
-
 	.prices-treasure p,
 	.prices-treasure li,
 	.prices-card p,
@@ -491,10 +550,6 @@
 		text-justify: auto;
 		hyphens: none;
 	}
-
-	/* ==========================================================================
-	   Responsive
-	   ========================================================================== */
 
 	@media (max-width: 768px) {
 		.prices-treasure {
@@ -525,11 +580,6 @@
 
 		.prices-block__header {
 			display: block;
-		}
-
-		.prices-block__note {
-			margin-top: 0.75rem;
-			text-align: left;
 		}
 
 		.prices-card {

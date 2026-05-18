@@ -1,113 +1,483 @@
 <script lang="ts">
-    import SvelteMarkdown from '@humanspeak/svelte-markdown'
-    import type { PageData } from './$types';
-    import { superForm } from 'sveltekit-superforms/client';
-    import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
-    
-  interface Props {
-    data: import('./$types').PageData;
-  }
+	import SvelteMarkdown from '@humanspeak/svelte-markdown';
+	import timonIcon from '../../assets/images/timon.svg';
+	import skullIcon from '../../assets/images/calavera.svg';
 
-  let { data }: Props = $props();
-  
-    const { form, errors, constraints } = superForm(data.form);
+	let { data } = $props();
+
+	const EVENT_STATUS = {
+		HYPE: 'hype',
+		PUBLIC: 'public',
+		FINISHED: 'finished'
+	};
+
+	const registrationInfo = data.fetch_registration_info_data ?? {};
+	const site = data.fetch_site_data ?? {};
+	const eventStatus = site.eventStatus ?? EVENT_STATUS.HYPE;
+	const registrationFormUrl = 'https://forms.gle/WumaSCAoXLTspAe2A';
+
+	function parseRegistrationContent(content?: string) {
+		if (!content) {
+			return {
+				normalBlocks: [],
+				steps: []
+			};
+		}
+
+		const blocks = content
+			.trim()
+			.split(/\n\s*\n/)
+			.map((block) => block.trim())
+			.filter(Boolean);
+
+		const normalBlocks = [];
+		const steps = [];
+
+		for (const block of blocks) {
+			const match = block.match(/^(\d+)[\).\s-]+([\s\S]*)$/);
+
+			if (match) {
+				steps.push(match[2].trim());
+			} else {
+				normalBlocks.push(block);
+			}
+		}
+
+		return { normalBlocks, steps };
+	}
+
+	function statusLabel(content: string | undefined, fallback: string) {
+		if (!content) return fallback;
+
+		return content
+			.replace(/[#*_`>~-]/g, '')
+			.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+			.trim();
+	}
+
+	const registrationContent = $derived(parseRegistrationContent(registrationInfo.content));
+	const soonLabel = $derived(
+		statusLabel(registrationInfo.content_soon, 'Pronto abriremos las inscripciones')
+	);
+	const openLabel = $derived(
+		statusLabel(registrationInfo.content_open, '¡Inscripciones abiertas!')
+	);
+	const finishedLabel = $derived(
+		statusLabel(registrationInfo.content_finished, 'Inscripciones finalizadas')
+	);
 </script>
 
-<section class="section">
-    <div class="container">
-        <div class="content is-normal">
-            {#if data.fetch_registration_info_data.content}
-            {data.fetch_registration_info_data.content}
-            {/if}
-        </div>
+<section class="hero page-title">
+	<h3 class="title">{registrationInfo.title}</h3>
+</section>
 
-        {#if data.fetch_site_data.registration == "soon"}
+<section class="section registration-page">
+	<div class="container">
+		<div class="content content-border">
+			<section class="registration-status">
+				<div class="registration-status__sign">
+					<img
+						class="registration-status__icon registration-status__icon--left"
+						src={timonIcon}
+						alt=""
+					/>
 
-        <div class="content is-normal">
-          <SvelteMarkdown options={{mangle: false}} source={data.fetch_registration_info_data.content_soon ?? ''}/>
-        </div>
-        {/if}
+					<div class="registration-status__buttons">
+						{#if eventStatus === EVENT_STATUS.HYPE}
+							<span
+								class="button registration-status__button registration-status__button--disabled"
+								aria-disabled="true"
+							>
+								{soonLabel}
+							</span>
+						{:else if eventStatus === EVENT_STATUS.PUBLIC}
+							<a
+								href={registrationFormUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="button registration-status__button"
+							>
+								{openLabel} <span aria-hidden="true">→</span>
+							</a>
+						{:else if eventStatus === EVENT_STATUS.FINISHED}
+							<p class="registration-status__message">{finishedLabel}</p>
+						{/if}
+					</div>
 
-        {#if data.fetch_site_data.registration == "open"}
-            <div>
-              <SvelteMarkdown options={{mangle: false}} source={data.fetch_registration_info_data.content_open ?? ''}/>
-            </div>
-        {/if}
+					<img
+						class="registration-status__icon registration-status__icon--right"
+						src={skullIcon}
+						alt=""
+					/>
+				</div>
+			</section>
 
-        {#if data.fetch_site_data.registration == "finished"}
-            <div>
-              <SvelteMarkdown options={{mangle: false}} source={data.fetch_registration_info_data.content_closed ?? ''}/>
-            </div>
-        {/if}
+			<section class="registration-process">
+				{#if registrationContent.normalBlocks.length > 0}
+					<div class="registration-process__intro">
+						{#each registrationContent.normalBlocks as block}
+							<SvelteMarkdown options={{ mangle: false }} source={block} />
+						{/each}
+					</div>
+				{/if}
 
-        {#if data.fetch_site_data.registration == "open"}
-          <form class="box" method="POST">
-              <div class="field">
-                  <label class="label" for="fullname">Full name</label>
-                  <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="text" name="fullname" aria-invalid={$errors.fullname ? 'true' : undefined}
-                    bind:value={$form.fullname}
-                    {...$constraints.fullname}>
-                  </div>
-                  {#if $errors.fullname}
-                      <p class="help is-danger">{$errors.fullname}</p>{/if}
-              </div>
-
-              <div class="field">
-                  <label class="label" for="email">Email</label>
-                  <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" name="email" aria-invalid={$errors.email ? 'true' : undefined}
-                    bind:value={$form.email}
-                    {...$constraints.email}>
-                  </div>
-                  {#if $errors.email}
-                      <p class="help is-danger">{$errors.email}</p>{/if}
-              </div>
-
-              <div class="field">
-                  <label class="label" for="title">Title</label>
-                  <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="text" name="title" aria-invalid={$errors.title ? 'true' : undefined}
-                    bind:value={$form.title}
-                    {...$constraints.title}>
-                  </div>
-                  {#if $errors.title}
-                      <p class="help is-danger">{$errors.title}</p>{/if}
-              </div>
-          
-              <div class="field">
-                  <label class="label" for="organization">Organization</label>
-                  <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="text" name="organization" aria-invalid={$errors.organization ? 'true' : undefined}
-                    bind:value={$form.organization}
-                    {...$constraints.organization}>
-                  </div>
-                  {#if $errors.organization}
-                      <p class="help is-danger">{$errors.organization}</p>{/if}
-              </div>
-
-              <div class="field">
-                  <label class="label" for="pronouns">Pronouns</label>
-                  <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="text" name="pronouns" aria-invalid={$errors.pronouns ? 'true' : undefined}
-                    bind:value={$form.pronouns}
-                    {...$constraints.pronouns}>
-                  </div>
-                  {#if $errors.pronouns}
-                      <p class="help is-danger">{$errors.pronouns}</p>{/if}
-              </div>
-              <div class="field is-grouped">
-                  <div class="control">
-                    <button class="button is-link">Submit</button>
-                  </div>
-              </div>
-          </form>
-        {/if}
-    </div>
+				{#if registrationContent.steps.length > 0}
+					<ol class="registration-steps">
+						{#each registrationContent.steps as step, index}
+							<li class="registration-step">
+								<span class="registration-step__number">{index + 1}</span>
+								<div class="registration-step__content">
+									<SvelteMarkdown options={{ mangle: false }} source={step} />
+								</div>
+							</li>
+						{/each}
+					</ol>
+				{/if}
+			</section>
+		</div>
+	</div>
 </section>
 
 <style>
-  form {
-    margin-top: 1rem;
-  }
+	.registration-status {
+		margin-bottom: 3rem;
+	}
+
+	.registration-status__sign {
+		position: relative;
+		display: grid;
+		grid-template-columns: 6.5rem minmax(0, 1fr) 6.5rem;
+		align-items: center;
+		gap: 1rem;
+		max-width: min(100%, 52rem);
+		margin-right: auto;
+		margin-left: auto;
+		padding: 1rem;
+		background:
+			linear-gradient(
+				90deg,
+				rgba(70, 38, 15, 0.28),
+				transparent 14%,
+				transparent 86%,
+				rgba(70, 38, 15, 0.28)
+			),
+			repeating-linear-gradient(
+				90deg,
+				#8a5a2b 0,
+				#8a5a2b 1.7rem,
+				#7a4b22 1.7rem,
+				#7a4b22 1.9rem,
+				#9b6a35 1.9rem,
+				#9b6a35 3.6rem
+			);
+		border: 3px solid #4d2b13;
+		box-shadow:
+			inset 0 0 0 2px rgba(255, 226, 154, 0.22),
+			inset 0 0 1.8rem rgba(45, 22, 8, 0.5),
+			0 1.1rem 2.4rem rgba(13, 59, 68, 0.24);
+	}
+
+	.registration-status__sign::before,
+	.registration-status__sign::after {
+		content: '';
+		position: absolute;
+		top: 0.75rem;
+		width: 0.7rem;
+		height: 0.7rem;
+		border-radius: 50%;
+		background: radial-gradient(circle, #f3d27a 0 28%, #6c3d1b 30% 100%);
+		box-shadow:
+			0 0 0 2px rgba(45, 22, 8, 0.35),
+			0 0.15rem 0.25rem rgba(0, 0, 0, 0.35);
+	}
+
+	.registration-status__sign::before {
+		left: 0.75rem;
+	}
+
+	.registration-status__sign::after {
+		right: 0.75rem;
+	}
+
+	.registration-status__icon {
+		display: block;
+		width: 100%;
+		max-width: 4.8rem;
+		height: auto;
+		justify-self: center;
+		opacity: 0.92;
+		filter: brightness(0) invert(1) drop-shadow(0 0.25rem 0.25rem rgba(45, 22, 8, 0.45));
+	}
+
+	.registration-status__icon--left {
+		transform: rotate(-8deg);
+	}
+
+	.registration-status__icon--right {
+		transform: rotate(8deg);
+	}
+
+	.registration-status__buttons {
+		position: relative;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.9rem;
+		max-width: 100%;
+		padding: 1.15rem 1.4rem;
+		background:
+			linear-gradient(rgba(255, 244, 207, 0.92), rgba(255, 244, 207, 0.92)),
+			radial-gradient(circle at 20% 20%, rgba(176, 107, 45, 0.18), transparent 34%),
+			radial-gradient(circle at 80% 80%, rgba(13, 59, 68, 0.12), transparent 38%);
+		border: 2px solid rgba(77, 43, 19, 0.78);
+		box-shadow:
+			inset 0 0 0 3px rgba(255, 255, 255, 0.35),
+			0 0.55rem 1rem rgba(45, 22, 8, 0.24);
+	}
+
+	.registration-status__buttons::before,
+	.registration-status__buttons::after {
+		content: '';
+		position: absolute;
+		right: 1rem;
+		left: 1rem;
+		height: 1px;
+		background: linear-gradient(90deg, transparent, rgba(77, 43, 19, 0.5), transparent);
+	}
+
+	.registration-status__buttons::before {
+		top: 0.55rem;
+	}
+
+	.registration-status__buttons::after {
+		bottom: 0.55rem;
+	}
+
+	.registration-status__button {
+		position: relative;
+		z-index: 1;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		max-width: 100%;
+		height: auto;
+		min-height: auto;
+		padding: 1rem 2.1rem;
+		overflow: hidden;
+		border: 1px solid rgba(255, 244, 207, 0.72);
+		border-radius: 999px;
+		background:
+			linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 38%),
+			linear-gradient(180deg, #ffe6a3 0%, #d7b56d 54%, #a96b2b 100%);
+		color: #0d3b44;
+		font-family: var(--bulma-family-primary, inherit);
+		font-size: 1.1rem;
+		font-weight: 900;
+		line-height: 1.2;
+		text-align: center;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.38);
+		white-space: normal;
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.72),
+			inset 0 -0.25rem 0 rgba(77, 43, 19, 0.22),
+			0 0.9rem 1.8rem rgba(45, 22, 8, 0.28);
+		transition:
+			transform 180ms ease,
+			box-shadow 180ms ease,
+			filter 180ms ease;
+	}
+
+	.registration-status__button::before {
+		content: '';
+		position: absolute;
+		inset: 0.28rem;
+		border: 1px solid rgba(77, 43, 19, 0.28);
+		border-radius: inherit;
+		pointer-events: none;
+	}
+
+	.registration-status__button::after {
+		content: '';
+		position: absolute;
+		top: -60%;
+		left: -35%;
+		width: 32%;
+		height: 220%;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+		transform: rotate(18deg);
+		transition: left 260ms ease;
+		pointer-events: none;
+	}
+
+	.registration-status__button:hover {
+		border-color: rgba(255, 244, 207, 0.9);
+		background:
+			linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 38%),
+			linear-gradient(180deg, #fff0bd 0%, #ddb96d 54%, #a96b2b 100%);
+		color: #0d3b44;
+		filter: brightness(1.03);
+		transform: translateY(-2px);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.8),
+			inset 0 -0.25rem 0 rgba(77, 43, 19, 0.24),
+			0 1.1rem 2rem rgba(45, 22, 8, 0.34);
+	}
+
+	.registration-status__button:hover::after {
+		left: 105%;
+	}
+
+	.registration-status__button span {
+		display: inline-block;
+		margin-left: 0.35rem;
+		line-height: 1;
+		transition: transform 180ms ease;
+	}
+
+	.registration-status__button:hover span {
+		transform: translateX(3px);
+	}
+
+	.registration-status__button--disabled,
+	.registration-status__button--disabled:hover {
+		cursor: not-allowed;
+		border-color: rgba(255, 244, 207, 0.36);
+		background:
+			linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 38%),
+			linear-gradient(180deg, rgba(215, 181, 109, 0.52), rgba(169, 107, 43, 0.44));
+		color: rgba(13, 59, 68, 0.62);
+		text-shadow: none;
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.26),
+			inset 0 -0.2rem 0 rgba(77, 43, 19, 0.12),
+			0 0.65rem 1.2rem rgba(45, 22, 8, 0.18);
+		filter: none;
+		transform: none;
+	}
+
+	.registration-status__button--disabled::after {
+		display: none;
+	}
+
+	.registration-status__button--disabled:hover span {
+		transform: none;
+	}
+
+	.registration-status__message {
+		position: relative;
+		z-index: 1;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		max-width: 100%;
+		margin: 0;
+		padding: 0.9rem 1.4rem;
+		border: 2px solid #4d2b13;
+		background: rgba(13, 59, 68, 0.88);
+		color: rgba(255, 244, 207, 0.96);
+		font-family: var(--bulma-family-primary, inherit);
+		font-weight: 700;
+		line-height: 1.25;
+		text-align: center;
+		white-space: normal;
+		box-shadow:
+			inset 0 0 0 2px rgba(255, 255, 255, 0.08),
+			0 0.55rem 1rem rgba(45, 22, 8, 0.24);
+	}
+
+	.registration-process__intro {
+		margin-bottom: 2rem;
+	}
+
+	.registration-steps {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.registration-step {
+		position: relative;
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 1.1rem;
+		margin-bottom: 1.4rem;
+	}
+
+	.registration-step:not(:last-child)::before {
+		content: '';
+		position: absolute;
+		top: 3rem;
+		bottom: -1.4rem;
+		left: 1.35rem;
+		width: 0.35rem;
+		background: repeating-linear-gradient(
+			180deg,
+			#b06b2d 0,
+			#b06b2d 0.45rem,
+			#d7b56d 0.45rem,
+			#d7b56d 0.9rem
+		);
+		border-radius: 999px;
+		box-shadow: inset 0 0 0 1px rgba(13, 59, 68, 0.12);
+	}
+
+	.registration-step__number {
+		position: relative;
+		z-index: 1;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 3rem;
+		height: 3rem;
+		border: 3px solid #b06b2d;
+		border-radius: 50%;
+		background: #ffffff;
+		color: #0d3b44;
+		font-family: var(--bulma-family-primary, inherit);
+		font-weight: 700;
+		box-shadow:
+			0 0 0 0.35rem rgba(255, 255, 255, 0.95),
+			0 0.5rem 1rem rgba(13, 59, 68, 0.12);
+	}
+
+	.registration-step__content {
+		padding: 1rem 1.25rem;
+		border-left: 4px solid #43b2dc;
+		background: rgba(255, 255, 255, 0.72);
+		box-shadow: 0 0.6rem 1.4rem rgba(13, 59, 68, 0.08);
+	}
+
+	.registration-step__content :global(p) {
+		margin: 0;
+	}
+
+	@media screen and (max-width: 768px) {
+		.registration-status__sign {
+			grid-template-columns: 3.8rem minmax(0, 1fr) 3.8rem;
+			gap: 0.55rem;
+			padding: 0.7rem;
+		}
+
+		.registration-status__buttons {
+			padding: 0.95rem 0.8rem;
+		}
+
+		.registration-status__icon {
+			max-width: 3.1rem;
+		}
+
+		.registration-status__button,
+		.registration-status__message {
+			width: 100%;
+			font-size: 0.95rem;
+		}
+
+		.registration-step {
+			gap: 0.85rem;
+		}
+
+		.registration-step__content {
+			padding: 0.9rem 1rem;
+		}
+	}
 </style>
