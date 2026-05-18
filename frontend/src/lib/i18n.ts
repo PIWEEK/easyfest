@@ -7,7 +7,7 @@ export const i18n = createI18n(runtime, {
 	pathnames: {
 		'/about-us': {
 			en: '/about-us',
-			es: '/sobre-el-evento'
+			es: '/el-evento'
 		},
 		'/accommodation-info': {
 			en: '/accommodation-info',
@@ -95,7 +95,7 @@ export const i18n = createI18n(runtime, {
 		},
 		'/speakers': {
 			en: '/speakers',
-			es: '/invitados'
+			es: '/invitadas'
 		},
 		'/sponsors': {
 			en: '/sponsors',
@@ -115,7 +115,7 @@ export const i18n = createI18n(runtime, {
 		},
 		'/price': {
 			en: '/price',
-			es: '/precio'
+			es: '/precios'
 		}
 	}
 });

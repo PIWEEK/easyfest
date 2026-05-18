@@ -220,6 +220,7 @@ body {
 		color: $color-primary;
 		padding-left: 1.5rem !important;
 		padding-right: 1.5rem !important;
+		white-space: nowrap;
 		&:hover {
 			background-color: #43b2dc !important;
 			color: $color-white !important;
@@ -228,7 +229,7 @@ body {
 
 		img {
 			max-height: 3rem;
-			transform: rotate(5deg);
+			transform: rotate(var(--logo-rotation, 5deg));
 		}
 
 		&.brand {
@@ -240,10 +241,12 @@ body {
 		}
 
 		.brand-home-label {
+			display: flex;
+			flex-direction: column;
 			font-family: $font-family-primary;
 			font-size: 1em;
 			font-weight: 600;
-			line-height: inherit;
+			line-height: 1.05;
 			color: inherit;
 			white-space: nowrap;
 
@@ -262,6 +265,7 @@ body {
 		width: 100%;
 		justify-content: flex-end;
 		padding-right: 5rem;
+		gap: 0.25rem;
 	}
 
 	&-left {
