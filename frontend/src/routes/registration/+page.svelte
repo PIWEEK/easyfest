@@ -153,6 +153,8 @@
 		margin-right: auto;
 		margin-left: auto;
 		padding: 1rem;
+		overflow: hidden;
+		border: 3px solid #4d2b13;
 		background:
 			linear-gradient(
 				90deg,
@@ -170,7 +172,6 @@
 				#9b6a35 1.9rem,
 				#9b6a35 3.6rem
 			);
-		border: 3px solid #4d2b13;
 		box-shadow:
 			inset 0 0 0 2px rgba(255, 226, 154, 0.22),
 			inset 0 0 1.8rem rgba(45, 22, 8, 0.5),
@@ -225,11 +226,11 @@
 		gap: 0.9rem;
 		max-width: 100%;
 		padding: 1.15rem 1.4rem;
+		border: 2px solid rgba(77, 43, 19, 0.78);
 		background:
 			linear-gradient(rgba(255, 244, 207, 0.92), rgba(255, 244, 207, 0.92)),
 			radial-gradient(circle at 20% 20%, rgba(176, 107, 45, 0.18), transparent 34%),
 			radial-gradient(circle at 80% 80%, rgba(13, 59, 68, 0.12), transparent 38%);
-		border: 2px solid rgba(77, 43, 19, 0.78);
 		box-shadow:
 			inset 0 0 0 3px rgba(255, 255, 255, 0.35),
 			0 0.55rem 1rem rgba(45, 22, 8, 0.24);
@@ -253,15 +254,25 @@
 		bottom: 0.55rem;
 	}
 
-	.registration-status__button {
+	.registration-status__button,
+	.registration-status__message {
 		position: relative;
 		z-index: 1;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		max-width: 100%;
-		height: auto;
+		font-family: var(--bulma-family-primary, inherit);
+		line-height: 1.25;
+		text-align: center;
+		white-space: normal;
+		overflow-wrap: anywhere;
+		hyphens: none;
+	}
+
+	.registration-status__button {
 		min-height: auto;
+		height: auto;
 		padding: 1rem 2.1rem;
 		overflow: hidden;
 		border: 1px solid rgba(255, 244, 207, 0.72);
@@ -270,13 +281,9 @@
 			linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 38%),
 			linear-gradient(180deg, #ffe6a3 0%, #d7b56d 54%, #a96b2b 100%);
 		color: #0d3b44;
-		font-family: var(--bulma-family-primary, inherit);
 		font-size: 1.1rem;
 		font-weight: 900;
-		line-height: 1.2;
-		text-align: center;
 		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.38);
-		white-space: normal;
 		box-shadow:
 			inset 0 1px 0 rgba(255, 255, 255, 0.72),
 			inset 0 -0.25rem 0 rgba(77, 43, 19, 0.22),
@@ -329,6 +336,7 @@
 
 	.registration-status__button span {
 		display: inline-block;
+		flex-shrink: 0;
 		margin-left: 0.35rem;
 		line-height: 1;
 		transition: transform 180ms ease;
@@ -364,22 +372,12 @@
 	}
 
 	.registration-status__message {
-		position: relative;
-		z-index: 1;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		max-width: 100%;
 		margin: 0;
 		padding: 0.9rem 1.4rem;
 		border: 2px solid #4d2b13;
 		background: rgba(13, 59, 68, 0.88);
 		color: rgba(255, 244, 207, 0.96);
-		font-family: var(--bulma-family-primary, inherit);
 		font-weight: 700;
-		line-height: 1.25;
-		text-align: center;
-		white-space: normal;
 		box-shadow:
 			inset 0 0 0 2px rgba(255, 255, 255, 0.08),
 			0 0.55rem 1rem rgba(45, 22, 8, 0.24);
@@ -410,6 +408,7 @@
 		bottom: -1.4rem;
 		left: 1.35rem;
 		width: 0.35rem;
+		border-radius: 999px;
 		background: repeating-linear-gradient(
 			180deg,
 			#b06b2d 0,
@@ -417,7 +416,6 @@
 			#d7b56d 0.45rem,
 			#d7b56d 0.9rem
 		);
-		border-radius: 999px;
 		box-shadow: inset 0 0 0 1px rgba(13, 59, 68, 0.12);
 	}
 
@@ -452,24 +450,57 @@
 	}
 
 	@media screen and (max-width: 768px) {
-		.registration-status__sign {
-			grid-template-columns: 3.8rem minmax(0, 1fr) 3.8rem;
-			gap: 0.55rem;
-			padding: 0.7rem;
+		.registration-status {
+			margin-bottom: 2.25rem;
 		}
 
-		.registration-status__buttons {
-			padding: 0.95rem 0.8rem;
+		.registration-status__sign {
+			display: block;
+			max-width: 100%;
+			padding: 0.85rem;
 		}
 
 		.registration-status__icon {
-			max-width: 3.1rem;
+			position: relative;
+			display: block;
+			width: 3.25rem;
+			max-width: 3.25rem;
+			margin-right: auto;
+			margin-left: auto;
+			opacity: 0.92;
+			pointer-events: none;
+		}
+
+		.registration-status__icon--left {
+			margin-bottom: 0.65rem;
+			transform: rotate(-8deg);
+		}
+
+		.registration-status__icon--right {
+			margin-top: 0.65rem;
+			transform: rotate(8deg);
+		}
+
+		.registration-status__buttons {
+			z-index: 1;
+			width: 100%;
+			min-width: 0;
+			padding: 1rem 0.85rem;
 		}
 
 		.registration-status__button,
 		.registration-status__message {
 			width: 100%;
-			font-size: 0.95rem;
+			max-width: 100%;
+			min-width: 0;
+			padding: 0.9rem 1rem;
+			overflow: visible;
+			font-size: clamp(0.88rem, 3.7vw, 1rem);
+			line-height: 1.25;
+		}
+
+		.registration-status__button span {
+			margin-left: 0.25rem;
 		}
 
 		.registration-step {

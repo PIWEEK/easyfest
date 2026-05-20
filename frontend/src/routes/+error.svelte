@@ -1,27 +1,25 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/state';
-	import * as m from '$lib/paraglide/messages.js'
+	import * as m from '$lib/paraglide/messages.js';
+	import ErrorView from '$lib/ErrorView.svelte';
+
+	const errorTitle =
+		page.status === 403
+			? m.error_403_forbidden()
+			: page.status === 404
+				? m.error_404_not_found()
+				: page.status === 500
+					? m.error_500_internal_error()
+					: m.error_generic({ status: page.status });
+
+	const errorMessage =
+		page.status === 403
+			? m.error_403_message()
+			: page.status === 404
+				? m.error_404_message()
+				: page.status === 500
+					? m.error_500_message()
+					: page.error?.message || m.an_error_has_occurred();
 </script>
 
-<section class="section">
-    <div class="container">
-        {#if page.status === 404}
-            <h1 class="title">{m.error_404_not_found()}</h1>
-            <div class="content">
-                <p>{m.error_404_message()}</p>
-            </div>
-        {:else if page.status === 500}
-            <h1 class="title">{m.error_500_internal_error()}</h1>
-            <div class="content">
-                <p>{m.error_500_message()}</p>
-            </div>
-        {:else}
-            <h1 class="title">{m.error_generic({status:page.status})}</h1>
-            {#if page.error.message}
-                <div class="content">
-                    <p>{page.error.message}</p>
-                </div>
-            {/if}
-        {/if}
-    </div>
-</section>
+<ErrorView status={page.status} title={errorTitle} message={errorMessage} />

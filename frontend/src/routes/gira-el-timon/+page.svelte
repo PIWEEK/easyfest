@@ -100,14 +100,16 @@
 			{/if}
 
 			<div class="wheel-game">
-				<button
-					class="button wheel-spin-button"
-					type="button"
-					disabled={isSpinning}
-					onclick={spinWheel}
-				>
-					{isSpinning ? 'El timón está girando...' : 'Pulsa para girar el timón'}
-				</button>
+				<div class="wheel-actions">
+					<button
+						class="button wheel-spin-button"
+						type="button"
+						disabled={isSpinning}
+						onclick={spinWheel}
+					>
+						{isSpinning ? 'El timón está girando...' : 'Pulsa para girar el timón'}
+					</button>
+				</div>
 
 				<div class="wheel-stage">
 					<div class="wheel-pointer" aria-hidden="true"></div>
@@ -161,16 +163,27 @@
 	.wheel-game {
 		display: grid;
 		justify-items: center;
-		gap: 2rem;
-		padding: 1rem 0 2rem;
+		gap: 3.25rem;
+		padding: 1rem 0 3.5rem;
+	}
+
+	.wheel-actions {
+		position: relative;
+		z-index: 20;
+		display: flex;
+		justify-content: center;
+		width: 100%;
 	}
 
 	.wheel-spin-button {
+		position: relative;
+		z-index: 21;
 		padding: 1rem 2rem;
 		background: #d7b56d;
 		color: #0d3b44;
 		font-family: var(--bulma-family-primary, inherit);
 		font-weight: 800;
+		line-height: 1.15;
 		box-shadow: 0 0.8rem 1.8rem rgba(13, 59, 68, 0.18);
 	}
 
@@ -184,10 +197,10 @@
 		--number-radius: 11.5rem;
 
 		position: relative;
-		width: min(100%, 34rem);
-		aspect-ratio: 1;
 		display: grid;
 		place-items: center;
+		width: min(100%, 34rem);
+		aspect-ratio: 1;
 	}
 
 	.wheel-pointer {
@@ -257,12 +270,10 @@
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		transform: translate(-50%, -50%) rotate(var(--angle))
-			translateY(calc(-1 * var(--number-radius))) rotate(calc(-1 * var(--angle)));
-		width: 3rem;
-		height: 3rem;
 		display: grid;
 		place-items: center;
+		width: 3rem;
+		height: 3rem;
 		border: 2px solid #0d3b44;
 		border-radius: 50%;
 		background: rgba(255, 244, 207, 0.96);
@@ -270,6 +281,8 @@
 		font-family: var(--bulma-family-primary, inherit);
 		font-weight: 800;
 		box-shadow: 0 0.45rem 0.9rem rgba(13, 59, 68, 0.16);
+		transform: translate(-50%, -50%) rotate(var(--angle))
+			translateY(calc(-1 * var(--number-radius))) rotate(calc(-1 * var(--angle)));
 	}
 
 	.wheel__number span {
@@ -289,8 +302,8 @@
 	.prize-modal__backdrop {
 		position: absolute;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.55);
 		border: 0;
+		background: rgba(0, 0, 0, 0.55);
 	}
 
 	.prize-card {
@@ -298,20 +311,20 @@
 		z-index: 1;
 		width: min(100%, 34rem);
 		padding: 2rem;
-		background: #fff4cf;
 		border: 3px solid #4d2b13;
+		background: #fff4cf;
+		text-align: center;
 		box-shadow:
 			inset 0 0 0 4px rgba(255, 255, 255, 0.38),
 			0 1.4rem 3rem rgba(0, 0, 0, 0.32);
-		text-align: center;
 	}
 
 	.prize-card__eyebrow {
 		margin-bottom: 0.4rem;
+		color: #b06b2d;
 		font-family: var(--bulma-family-primary, inherit);
 		font-weight: 800;
 		text-transform: uppercase;
-		color: #b06b2d;
 	}
 
 	.prize-card__title {
@@ -330,15 +343,56 @@
 	}
 
 	@media screen and (max-width: 768px) {
+		.wheel-game {
+			gap: 3rem;
+			padding-bottom: 4rem;
+		}
+
 		.wheel-stage {
 			--number-radius: 7.4rem;
+
 			width: min(100%, 22rem);
+		}
+
+		.wheel-spin-button {
+			width: min(100%, 18rem);
+			white-space: normal;
 		}
 
 		.wheel__number {
 			width: 2.25rem;
 			height: 2.25rem;
 			font-size: 0.9rem;
+		}
+	}
+
+	@media screen and (max-width: 420px) {
+		.wheel-stage {
+			--number-radius: 6.55rem;
+		}
+
+		.wheel-pointer {
+			top: -2.15rem;
+			width: 3rem;
+			height: 3.9rem;
+		}
+
+		.wheel-pointer::before {
+			width: 1.15rem;
+			height: 1.15rem;
+			border-width: 2px;
+		}
+
+		.wheel-pointer::after {
+			top: 0.85rem;
+			width: 1.7rem;
+			height: 2.8rem;
+		}
+
+		.wheel__number {
+			width: 2rem;
+			height: 2rem;
+			font-size: 0.82rem;
 		}
 	}
 </style>

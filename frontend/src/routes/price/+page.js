@@ -2,30 +2,32 @@ import { encodeQuery, fetchBasic, fetchCollection } from '../../services/api';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({}) {
-	const tshirtFrontImagePath = `/upload/files?${encodeQuery({
+	const tshirtImagesPath = `/upload/files?${encodeQuery({
 		filters: {
 			name: {
-				$eq: 'camiseta.jpg'
+				$startsWith: 'camiseta'
+			}
+		},
+		sort: ['name:asc']
+	})}`;
+
+	const allIncludedPriceCardPath = `/upload/files?${encodeQuery({
+		filters: {
+			name: {
+				$eq: 'carta_ti.jpeg'
 			}
 		}
 	})}`;
 
-	const tshirtBackImagePath = `/upload/files?${encodeQuery({
-		filters: {
-			name: {
-				$eq: 'camiseta_trasera.jpg'
-			}
-		}
-	})}`;
-
-	const [priceEntries, tshirtFrontImages, tshirtBackImages] = await Promise.all([
+	const [priceEntries, tshirtImages, allIncludedPriceCards] = await Promise.all([
 		fetchCollection('/prices?populate=*'),
-		fetchBasic(tshirtFrontImagePath),
-		fetchBasic(tshirtBackImagePath)
+		fetchBasic(tshirtImagesPath),
+		fetchBasic(allIncludedPriceCardPath)
 	]);
 
 	return {
 		prices: priceEntries ?? [],
-		tshirtImages: [tshirtFrontImages?.[0], tshirtBackImages?.[0]].filter(Boolean)
+		tshirtImages: tshirtImages ?? [],
+		allIncludedPriceCard: allIncludedPriceCards?.[0] ?? null
 	};
 }
