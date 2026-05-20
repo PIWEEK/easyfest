@@ -131,9 +131,35 @@
 		FINISHED: 'finished'
 	};
 
-	const eventStartDate = new Date('2026-09-24T00:00:00');
-	const today = new Date();
-	const daysUntilEvent = Math.max(0, Math.ceil((eventStartDate - today) / (1000 * 60 * 60 * 24)));
+	const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+	function localDate(year, month, day) {
+		return new Date(year, month - 1, day);
+	}
+
+	function startOfLocalDay(date) {
+		return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+	}
+
+	const eventStartDate = localDate(2026, 9, 24);
+	const eventEndDate = localDate(2026, 9, 27);
+	const postEventDate = localDate(2026, 9, 28);
+	const today = startOfLocalDay(new Date());
+	// const today = localDate(2026, 9, 24);
+	// const today = localDate(2026, 9, 25);
+	// const today = localDate(2026, 9, 30);
+
+	const daysUntilEvent = Math.max(0, Math.round((eventStartDate - today) / MS_PER_DAY));
+
+	let heroStatusMessage = '';
+
+	if (today >= postEventDate) {
+		heroStatusMessage = 'Nos vemos en la próxima EstelCon';
+	} else if (today.getTime() === eventStartDate.getTime()) {
+		heroStatusMessage = '¡Hoy comienza esta travesía!';
+	} else if (today > eventStartDate && today <= eventEndDate) {
+		heroStatusMessage = 'La Mereth Gaerlen ya está en marcha';
+	}
 
 	const eventStatus = site?.eventStatus ?? site?.event_status ?? EVENT_STATUS.HYPE;
 	function plainStatusText(content, fallback) {
@@ -160,6 +186,19 @@
 		'Inscripciones finalizadas'
 	);
 	const heroImage = heroLosPuertosGrises;
+
+	function getStrapiMediaUrl(image) {
+		if (!image?.url) return '';
+
+		if (image.url.startsWith('http')) {
+			return image.url;
+		}
+
+		return `${storage_url}${image.url}`;
+	}
+
+	const wheelGameImageUrl = getStrapiMediaUrl(data.wheelGameImage);
+	const showWheelGame = Boolean(wheelGameImageUrl && data.wheelGamePage);
 </script>
 
 <section class="hero hero-home home-hero">
@@ -219,11 +258,17 @@
 					</div>
 				</div>
 
-				<div class="home-hero__countdown">
-					<span>Faltan</span>
-					<strong>{daysUntilEvent}</strong>
-					<span>días</span>
-				</div>
+				{#if heroStatusMessage}
+					<div class="home-hero__event-message">
+						<p>{heroStatusMessage}</p>
+					</div>
+				{:else}
+					<div class="home-hero__countdown">
+						<span>Faltan</span>
+						<strong>{daysUntilEvent}</strong>
+						<span>días</span>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>
@@ -255,36 +300,57 @@
 		</div>
 
 		<div class="home-expectations__grid">
-			<article class="home-expectations__card">
+			<div class="home-expectations__card">
 				<div class="home-expectations__icon">📜</div>
 				<h3>Conferencias</h3>
 				<p>
 					Encuentros, conversaciones y reflexiones para compartir la obra de Tolkien desde distintas
 					miradas.
 				</p>
-			</article>
+			</div>
 
-			<article class="home-expectations__card">
+			<div class="home-expectations__card">
 				<div class="home-expectations__icon">🪶</div>
 				<h3>Talleres</h3>
 				<p>
 					Actividades participativas para crear, aprender y disfrutar en comunidad durante el
 					evento.
 				</p>
-			</article>
+			</div>
 
-			<article class="home-expectations__card">
+			<div class="home-expectations__card">
 				<div class="home-expectations__icon">🎶</div>
 				<h3>Conciertos y lecturas</h3>
 				<p>Música, relatos y momentos compartidos en un ambiente cuidado junto al mar.</p>
-			</article>
+			</div>
 
-			<article class="home-expectations__card">
+			<div class="home-expectations__card">
 				<div class="home-expectations__icon">⚓</div>
 				<h3>Más actividades</h3>
 				<p>Artesanía, juegos y propuestas para vivir la Estelcon durante todo el día.</p>
-			</article>
+			</div>
 		</div>
+
+		{#if showWheelGame}
+			<div class="home-wheel-game" aria-labelledby="home-wheel-game-title">
+				<a href="/gira-el-timon" class="home-wheel-game__card">
+					<div class="home-wheel-game__media">
+						<img src={wheelGameImageUrl} alt="Gira el timón" />
+						<span class="home-wheel-game__credit">© The Buccaneers - Winslow Homer</span>
+					</div>
+
+					<div class="home-wheel-game__content">
+						<h2 id="home-wheel-game-title">¡Gira el timón!</h2>
+						<p>Pon a prueba tu suerte y descubre qué rumbo toma tu travesía.</p>
+
+						<span class="home-wheel-game__button">
+							<span aria-hidden="true">✦</span>
+							<span>Jugar ahora</span>
+						</span>
+					</div>
+				</a>
+			</div>
+		{/if}
 	</div>
 </section>
 
@@ -519,23 +585,21 @@
 {/if}
 
 <style>
-	/* =========================
-	   GLOBAL
-	   ========================= */
-
 	img {
 		width: 100%;
 	}
 
-	/* =========================
-	   HOME HERO
-	   ========================= */
-
-	.home-hero {
+	.home-hero,
+	.home-news,
+	.home-expectations {
 		--home-gold: #d7b56d;
 		--home-dark: var(--bulma-dark, #123f46);
 		--home-dark-rgb: 7, 56, 64;
+	}
 
+	/* HOME HERO */
+
+	.home-hero {
 		position: relative;
 		overflow: hidden;
 		background: #f6f1e8;
@@ -550,8 +614,8 @@
 
 	.home-hero__shell {
 		position: relative;
-		overflow: hidden;
 		min-height: 34rem;
+		overflow: hidden;
 		background: var(--home-dark);
 		box-shadow: 0 0.8rem 1.8rem rgba(0, 0, 0, 0.1);
 	}
@@ -561,24 +625,14 @@
 		position: absolute;
 		inset: 0;
 		z-index: 3;
-		pointer-events: none;
-		opacity: 0.35;
 		background-image:
-			radial-gradient(
-				circle at 18% 12%,
-				rgba(255, 255, 255, 0.08) 0,
-				rgba(255, 255, 255, 0.08) 1px,
-				transparent 1px
-			),
-			radial-gradient(
-				circle at 82% 28%,
-				rgba(255, 255, 255, 0.08) 0,
-				rgba(255, 255, 255, 0.08) 1px,
-				transparent 1px
-			);
+			radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px),
+			radial-gradient(circle at 82% 28%, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px);
 		background-size:
 			180px 180px,
 			220px 220px;
+		opacity: 0.35;
+		pointer-events: none;
 	}
 
 	.home-hero__shell::after {
@@ -607,6 +661,25 @@
 		object-fit: cover;
 	}
 
+	.home-hero__overlay {
+		z-index: 2;
+		background:
+			linear-gradient(
+				90deg,
+				rgba(var(--home-dark-rgb), 0.96) 0%,
+				rgba(var(--home-dark-rgb), 0.88) 22%,
+				rgba(var(--home-dark-rgb), 0.56) 42%,
+				rgba(var(--home-dark-rgb), 0.16) 64%,
+				rgba(var(--home-dark-rgb), 0.03) 100%
+			),
+			linear-gradient(
+				180deg,
+				rgba(var(--home-dark-rgb), 0.18) 0%,
+				rgba(var(--home-dark-rgb), 0.04) 45%,
+				rgba(var(--home-dark-rgb), 0.18) 100%
+			);
+	}
+
 	.home-hero__image-credit {
 		position: absolute;
 		top: 2rem;
@@ -630,25 +703,6 @@
 		box-shadow: 0 0.35rem 0.9rem rgba(0, 0, 0, 0.18);
 		backdrop-filter: blur(4px);
 		pointer-events: none;
-	}
-
-	.home-hero__overlay {
-		z-index: 2;
-		background:
-			linear-gradient(
-				90deg,
-				rgba(var(--home-dark-rgb), 0.96) 0%,
-				rgba(var(--home-dark-rgb), 0.88) 22%,
-				rgba(var(--home-dark-rgb), 0.56) 42%,
-				rgba(var(--home-dark-rgb), 0.16) 64%,
-				rgba(var(--home-dark-rgb), 0.03) 100%
-			),
-			linear-gradient(
-				180deg,
-				rgba(var(--home-dark-rgb), 0.18) 0%,
-				rgba(var(--home-dark-rgb), 0.04) 45%,
-				rgba(var(--home-dark-rgb), 0.18) 100%
-			);
 	}
 
 	.home-hero__content {
@@ -722,9 +776,7 @@
 		text-decoration: underline;
 	}
 
-	/* =========================
-	   HOME HERO - BOTONES
-	   ========================= */
+	/* HOME HERO - CTA */
 
 	.home-hero__buttons {
 		display: flex;
@@ -745,9 +797,9 @@
 		background: var(--home-gold);
 		color: var(--home-dark);
 		font-weight: 700;
-		white-space: normal;
-		text-align: center;
 		line-height: 1.25;
+		text-align: center;
+		white-space: normal;
 		box-shadow: 0 0.8rem 1.8rem rgba(0, 0, 0, 0.18);
 	}
 
@@ -760,6 +812,21 @@
 		box-shadow: 0 0.9rem 2rem rgba(0, 0, 0, 0.22);
 	}
 
+	.home-hero__button-primary--disabled,
+	.home-hero__button-primary--disabled:hover {
+		cursor: not-allowed;
+		background: rgba(215, 181, 109, 0.42);
+		color: rgba(255, 255, 255, 0.84);
+		line-height: 1.25;
+		text-align: center;
+		white-space: normal;
+		box-shadow:
+			inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+			0 0.6rem 1.4rem rgba(0, 0, 0, 0.16);
+		filter: none;
+		transform: none;
+	}
+
 	.home-hero__button-arrow {
 		display: inline-block;
 		line-height: 1;
@@ -768,21 +835,6 @@
 
 	.home-hero__button-primary:hover .home-hero__button-arrow {
 		transform: translateX(3px);
-	}
-
-	.home-hero__button-primary--disabled,
-	.home-hero__button-primary--disabled:hover {
-		cursor: not-allowed;
-		background: rgba(215, 181, 109, 0.42);
-		color: rgba(255, 255, 255, 0.84);
-		box-shadow:
-			inset 0 0 0 1px rgba(255, 255, 255, 0.16),
-			0 0.6rem 1.4rem rgba(0, 0, 0, 0.16);
-		filter: none;
-		transform: none;
-		white-space: normal;
-		text-align: center;
-		line-height: 1.25;
 	}
 
 	.home-hero__registration-message {
@@ -802,33 +854,24 @@
 		white-space: normal;
 	}
 
-	/* =========================
-	   HOME HERO - CONTADOR
-	   ========================= */
+	/* HOME HERO - CONTADOR Y MENSAJE */
 
-	.home-hero__countdown {
+	.home-hero__countdown,
+	.home-hero__event-message {
 		position: absolute;
 		right: 2rem;
 		bottom: 2rem;
 		z-index: 5;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: 0.15rem;
-		width: 8.8rem;
-		min-height: 8.8rem;
-		padding: 1rem;
 		border-radius: 1.2rem;
 		background: rgba(var(--home-dark-rgb), 0.92);
-		color: white;
 		text-align: center;
 		box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.22);
 		backdrop-filter: blur(8px);
 		overflow: visible;
 	}
 
-	.home-hero__countdown::before {
+	.home-hero__countdown::before,
+	.home-hero__event-message::before {
 		content: '';
 		position: absolute;
 		inset: 0.55rem;
@@ -837,7 +880,8 @@
 		pointer-events: none;
 	}
 
-	.home-hero__countdown::after {
+	.home-hero__countdown::after,
+	.home-hero__event-message::after {
 		content: '✦';
 		position: absolute;
 		top: 0.55rem;
@@ -852,8 +896,21 @@
 		pointer-events: none;
 	}
 
+	.home-hero__countdown {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.15rem;
+		width: 8.8rem;
+		min-height: 8.8rem;
+		padding: 1rem;
+		color: white;
+	}
+
 	.home-hero__countdown span,
-	.home-hero__countdown strong {
+	.home-hero__countdown strong,
+	.home-hero__event-message p {
 		position: relative;
 		z-index: 1;
 		font-family: var(--bulma-family-primary, inherit);
@@ -870,14 +927,30 @@
 		line-height: 1;
 	}
 
-	/* =========================
-	   NOVEDADES
-	   ========================= */
+	.home-hero__event-message {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: min(24rem, calc(100% - 4rem));
+		min-height: 8rem;
+		padding: 1.45rem 1.7rem;
+		color: var(--home-gold);
+	}
+
+	.home-hero__event-message p {
+		margin: 0;
+		color: var(--home-gold);
+		font-size: 1.55rem;
+		font-weight: 900;
+		line-height: 1.12;
+		letter-spacing: 0.01em;
+		text-wrap: balance;
+		text-transform: uppercase;
+	}
+
+	/* NOVEDADES */
 
 	.home-news {
-		--home-gold: #d7b56d;
-		--home-dark: var(--bulma-dark, #123f46);
-
 		position: relative;
 		z-index: 2;
 		padding: 2rem 1.5rem 0;
@@ -925,19 +998,19 @@
 		font-size: 0.78rem;
 		font-weight: 700;
 		letter-spacing: 0.06em;
+		line-height: 1;
 		text-transform: uppercase;
 		white-space: nowrap;
 	}
 
 	.home-news__marquee-wrapper {
 		position: relative;
-		overflow: hidden;
 		min-width: 0;
+		overflow: hidden;
+		background: transparent;
 		color: rgba(18, 63, 70, 0.88);
 		font-size: 1rem;
 		line-height: 1.45;
-		background: transparent;
-
 		-webkit-mask-image: linear-gradient(
 			90deg,
 			transparent 0,
@@ -962,16 +1035,12 @@
 		padding-right: 6rem;
 	}
 
-	/* =========================
-	   LO QUE TE ESPERA
-	   ========================= */
+	/* LO QUE TE ESPERA */
 
 	.home-expectations {
-		--home-gold: #d7b56d;
-
 		position: relative;
 		overflow: hidden;
-		padding: 3.25rem 1.5rem 3.75rem;
+		padding: 3.25rem 1.5rem 4.25rem;
 		background:
 			radial-gradient(circle at 10% 20%, rgba(215, 181, 109, 0.08), transparent 18rem),
 			radial-gradient(circle at 90% 80%, rgba(7, 56, 64, 0.06), transparent 20rem), #f6f1e8;
@@ -981,10 +1050,10 @@
 		content: '';
 		position: absolute;
 		inset: 0;
-		opacity: 0.22;
-		pointer-events: none;
 		background-image: radial-gradient(circle, rgba(7, 56, 64, 0.08) 1px, transparent 1px);
 		background-size: 38px 38px;
+		opacity: 0.22;
+		pointer-events: none;
 	}
 
 	.home-expectations .container {
@@ -1020,14 +1089,14 @@
 
 	.home-expectations__card {
 		position: relative;
-		overflow: hidden;
 		min-height: 15rem;
+		overflow: hidden;
 		padding: 1.75rem 1.35rem;
 		border: 1px solid rgba(7, 56, 64, 0.08);
 		border-radius: 1.35rem;
 		background: rgba(255, 255, 255, 0.74);
-		box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.06);
 		text-align: center;
+		box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.06);
 		backdrop-filter: blur(8px);
 		transition:
 			transform 180ms ease,
@@ -1088,14 +1157,154 @@
 		line-height: 1.55;
 	}
 
-	/* =========================
-	   CAROUSEL / SPEAKERS
-	   ========================= */
+	/* GIRA EL TIMON */
+	/* GIRA EL TIMON */
+
+	.home-wheel-game {
+		position: relative;
+		margin-top: 3rem;
+	}
+
+	.home-wheel-game__card {
+		position: relative;
+		display: grid;
+		grid-template-columns: minmax(17rem, 0.82fr) minmax(0, 1.18fr);
+		align-items: stretch;
+		max-width: 62rem;
+		margin: 0 auto;
+		overflow: hidden;
+		border: 1px solid rgba(215, 181, 109, 0.62);
+		border-top-color: var(--home-gold);
+		border-top-width: 2px;
+		border-radius: 1.35rem;
+		background:
+			radial-gradient(circle at 72% 28%, rgba(215, 181, 109, 0.18), transparent 13rem),
+			rgba(255, 255, 255, 0.84);
+		color: var(--home-dark);
+		text-decoration: none;
+		box-shadow: 0 1.25rem 2.6rem rgba(13, 59, 68, 0.1);
+		backdrop-filter: blur(8px);
+		transition:
+			transform 180ms ease,
+			box-shadow 180ms ease,
+			border-color 180ms ease;
+	}
+
+	.home-wheel-game__card::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 50%;
+		width: 0;
+		height: 0;
+		border-right: 0.55rem solid transparent;
+		border-left: 0.55rem solid transparent;
+		border-top: 0.7rem solid var(--home-gold);
+		transform: translateX(-50%);
+		z-index: 2;
+	}
+
+	.home-wheel-game__card:hover {
+		border-color: rgba(215, 181, 109, 0.95);
+		box-shadow: 0 1.5rem 3rem rgba(13, 59, 68, 0.16);
+		transform: translateY(-0.2rem);
+	}
+
+	.home-wheel-game__media {
+		position: relative;
+		min-height: 22rem;
+		overflow: hidden;
+		background: var(--home-dark);
+	}
+
+	.home-wheel-game__media img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		filter: saturate(0.96) contrast(1.04);
+		transition: transform 220ms ease;
+	}
+
+	.home-wheel-game__card:hover .home-wheel-game__media img {
+		transform: scale(1.025);
+	}
+
+	.home-wheel-game__credit {
+		position: absolute;
+		right: 0.75rem;
+		bottom: 0.75rem;
+		padding: 0.18rem 0.45rem;
+		border-radius: 999px;
+		background: rgba(13, 59, 68, 0.75);
+		color: white;
+		font-size: 0.7rem;
+		font-weight: 700;
+		line-height: 1;
+	}
+
+	.home-wheel-game__content {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 2rem clamp(1.5rem, 4vw, 3.25rem);
+		text-align: left;
+	}
+
+	.home-wheel-game__content::before {
+		content: '';
+		width: 3rem;
+		height: 1px;
+		margin-bottom: 1.35rem;
+		background: var(--home-gold);
+	}
+
+	.home-wheel-game__content h2 {
+		margin: 0;
+		color: var(--home-dark);
+		font-family: var(--bulma-family-primary, inherit);
+		font-size: clamp(2rem, 4vw, 3.28rem);
+		font-weight: 400;
+		line-height: 0.95;
+		text-transform: uppercase;
+	}
+
+	.home-wheel-game__content p {
+		max-width: 28rem;
+		margin: 1.15rem 0 0;
+		color: var(--home-muted);
+		font-size: 1.13rem;
+		line-height: 1.55;
+	}
+
+	.home-wheel-game__button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.45rem;
+		width: fit-content;
+		margin-top: 1.45rem;
+		padding: 0.55rem 0.85rem;
+		border-radius: 999px;
+		background: var(--home-dark);
+		color: var(--home-gold);
+		font-family: var(--bulma-family-primary, inherit);
+		font-size: 0.78rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		line-height: 1;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+
+	/* CAROUSEL / SPEAKERS */
 
 	.carousel {
 		overflow-x: auto;
-		scroll-snap-type: x mandatory;
 		scroll-behavior: smooth;
+		scroll-snap-type: x mandatory;
 		user-select: none;
 	}
 
@@ -1117,9 +1326,7 @@
 		object-fit: cover;
 	}
 
-	/* =========================
-	   MARQUEE
-	   ========================= */
+	/* MARQUEE */
 
 	.marquee {
 		position: relative;
@@ -1145,9 +1352,7 @@
 		}
 	}
 
-	/* =========================
-	   FEATURED TALKS
-	   ========================= */
+	/* FEATURED TALKS */
 
 	.featured-talks {
 		margin: 0;
@@ -1163,15 +1368,13 @@
 		padding: 1.5rem;
 	}
 
-	/* =========================
-	   RESPONSIVE - TABLET
-	   ========================= */
-
 	@media (min-width: 769px) {
 		.featured-talks-item {
 			padding: 5rem;
 		}
 	}
+
+	/* RESPONSIVE */
 
 	@media (max-width: 1023px) {
 		.home-hero__shell {
@@ -1183,7 +1386,8 @@
 			padding: 1.8rem 1.6rem 2rem;
 		}
 
-		.home-hero__countdown {
+		.home-hero__countdown,
+		.home-hero__event-message {
 			right: 1.25rem;
 			bottom: 1.25rem;
 		}
@@ -1192,10 +1396,6 @@
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 	}
-
-	/* =========================
-	   RESPONSIVE - MÓVIL
-	   ========================= */
 
 	@media (max-width: 768px) {
 		.home-hero {
@@ -1207,8 +1407,8 @@
 		}
 
 		.home-hero__shell {
-			overflow: visible;
 			min-height: 0;
+			overflow: visible;
 			background: transparent;
 			box-shadow: none;
 		}
@@ -1233,34 +1433,6 @@
 			object-fit: cover;
 		}
 
-		.home-hero__image-credit {
-			position: relative;
-			top: auto;
-			right: auto;
-			bottom: auto;
-			z-index: 5;
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			width: fit-content;
-			max-width: calc(100% - 2rem);
-			margin: 0.45rem auto 0;
-			padding: 0.24rem 0.48rem;
-			border: 1px solid rgba(255, 255, 255, 0.22);
-			border-radius: 999px;
-			background: rgba(8, 33, 38, 0.52);
-			color: rgba(255, 255, 255, 0.96);
-			font-family: var(--bulma-family-secondary, inherit);
-			font-size: 0.66rem;
-			line-height: 1.1;
-			letter-spacing: 0.02em;
-			text-align: center;
-			white-space: normal;
-			box-shadow: none;
-			backdrop-filter: blur(4px);
-			pointer-events: none;
-		}
-
 		.home-hero__overlay {
 			position: absolute;
 			inset: 0 0 auto;
@@ -1276,12 +1448,32 @@
 			pointer-events: none;
 		}
 
+		.home-hero__image-credit {
+			position: relative;
+			top: auto;
+			right: auto;
+			bottom: auto;
+			z-index: 5;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: fit-content;
+			max-width: calc(100% - 2rem);
+			margin: 0.45rem auto 0;
+			padding: 0.24rem 0.48rem;
+			font-size: 0.66rem;
+			line-height: 1.1;
+			text-align: center;
+			white-space: normal;
+			box-shadow: none;
+		}
+
 		.home-hero__content {
 			position: absolute;
 			inset: 0 0 auto;
 			z-index: 4;
 			max-width: none;
-			padding: 1.5rem 1.25rem 1.5rem;
+			padding: 1.5rem 1.25rem;
 			color: white;
 		}
 
@@ -1301,11 +1493,11 @@
 			width: auto;
 			max-width: min(100%, 22rem);
 			padding: 0.8rem 1rem;
+			overflow-wrap: anywhere;
 			font-size: 0.98rem;
 			line-height: 1.25;
-			white-space: normal;
 			text-align: center;
-			overflow-wrap: anywhere;
+			white-space: normal;
 			word-break: normal;
 		}
 
@@ -1313,20 +1505,35 @@
 			display: inline;
 		}
 
-		.home-hero__countdown {
+		.home-hero__countdown,
+		.home-hero__event-message {
 			position: relative;
 			right: auto;
 			bottom: auto;
 			z-index: 5;
-			width: min(8rem, 72vw);
-			min-height: 7.8rem;
 			margin: 1rem auto 0;
 			background: rgba(var(--home-dark-rgb), 0.94);
 			box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
 		}
 
+		.home-hero__countdown {
+			width: min(8rem, 72vw);
+			min-height: 7.8rem;
+		}
+
 		.home-hero__countdown strong {
 			font-size: 2.4rem;
+		}
+
+		.home-hero__event-message {
+			width: min(100%, 24rem);
+			min-height: auto;
+			padding: 1.1rem 1.2rem;
+		}
+
+		.home-hero__event-message p {
+			font-size: 1.25rem;
+			line-height: 1.16;
 		}
 
 		.home-news {
@@ -1346,7 +1553,6 @@
 
 		.home-news__marquee-wrapper {
 			font-size: 0.95rem;
-
 			-webkit-mask-image: linear-gradient(
 				90deg,
 				transparent 0,
@@ -1377,6 +1583,48 @@
 
 		.home-expectations__card {
 			min-height: auto;
+		}
+
+		.home-wheel-game {
+			margin-top: 2rem;
+		}
+
+		.home-wheel-game__card {
+			grid-template-columns: 1fr;
+			border-radius: 1.15rem;
+		}
+
+		.home-wheel-game__media {
+			min-height: 18rem;
+		}
+
+		.home-wheel-game__content {
+			padding: 1.35rem 1.15rem 1.45rem;
+			text-align: center;
+		}
+
+		.home-wheel-game__content::before {
+			display: none;
+		}
+
+		.home-wheel-game__content h2 {
+			font-size: clamp(1.6rem, 8.8vw, 2.08rem);
+		}
+
+		.home-wheel-game__content p {
+			max-width: none;
+			font-size: 1rem;
+		}
+
+		.home-wheel-game__button {
+			margin-right: auto;
+			margin-left: auto;
+		}
+
+		.home-wheel-game__credit {
+			right: 0.6rem;
+			bottom: 0.6rem;
+			font-size: 0.66rem;
 		}
 	}
 </style>

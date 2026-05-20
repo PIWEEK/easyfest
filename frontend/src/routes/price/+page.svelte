@@ -2,7 +2,7 @@
 	import SvelteMarkdown from '@humanspeak/svelte-markdown';
 	import { modals } from 'svelte-modals';
 	import * as m from '$lib/paraglide/messages.js';
-	import ActivityModal from '$lib/ActivityModal.svelte';
+	import PriceImageModal from '$lib/PriceImageModal.svelte';
 	import roomImage from '../../assets/images/camarote.jpeg';
 	import treasureImage from '../../assets/images/tesoro.jpeg';
 
@@ -26,6 +26,7 @@
 		prices: Price[];
 		content?: string;
 		tshirtImages?: StrapiImage[];
+		allIncludedPriceCard?: StrapiImage | null;
 	}
 
 	export let data: Data;
@@ -60,6 +61,15 @@
 		return price.name.toLowerCase().includes('camiseta');
 	}
 
+	function isAllIncludedPrice(price: Price): boolean {
+		const normalizedName = price.name
+			.toLowerCase()
+			.normalize('NFD')
+			.replace(/[\u0300-\u036f]/g, '');
+
+		return normalizedName.includes('todo incluido');
+	}
+
 	function getStrapiMediaUrl(image?: StrapiImage | null): string {
 		if (!image?.url) return '';
 
@@ -75,24 +85,36 @@
 			.map((image) => getStrapiMediaUrl(image))
 			.filter(Boolean);
 
-		modals.open(ActivityModal, {
-			activity: {
-				title: price.name,
-				short_description: price.description,
-				long_description:
-					tshirtImageUrls.length > 0
-						? tshirtImageUrls
-								.map((url, index) => {
-									const label =
-										index === 0
-											? 'Diseño delantero de la camiseta'
-											: 'Diseño trasero de la camiseta';
-									return `![${label}](${url})`;
-								})
-								.join(' ')
-						: 'El diseño de la camiseta todavía no está disponible.',
-				tag1: 'Diseño'
-			}
+		modals.open(PriceImageModal, {
+			title: price.name,
+			short_description: price.description,
+			images: tshirtImageUrls.map((url, index) => ({
+				url,
+				alt: index === 0 ? 'Diseño delantero de la camiseta' : 'Diseño trasero de la camiseta'
+			})),
+			tag1: 'Diseño',
+			imageZoom: true,
+			unavailableText: 'El diseño de la camiseta todavía no está disponible.'
+		});
+	}
+
+	function openAllIncludedModal(price: Price) {
+		const priceCardUrl = getStrapiMediaUrl(data.allIncludedPriceCard);
+
+		modals.open(PriceImageModal, {
+			title: price.name,
+			short_description: price.description,
+			images: priceCardUrl
+				? [
+						{
+							url: priceCardUrl,
+							alt: 'Carta de precios todo incluido'
+						}
+					]
+				: [],
+			tag1: 'Carta de precios',
+			imageZoom: true,
+			unavailableText: 'La carta de precios todavía no está disponible.'
 		});
 	}
 
@@ -210,6 +232,32 @@
 								class="prices-card prices-card--clickable"
 								type="button"
 								onclick={() => openTshirtModal(priceObj)}
+							>
+								<div class="prices-card__content">
+									<h5>{priceObj.name}</h5>
+
+									{#if priceObj.description}
+										<p>{priceObj.description}</p>
+									{/if}
+								</div>
+
+								<div
+									class="prices-card__amount"
+									class:prices-card__amount--pending={isPricePending(priceObj.value)}
+								>
+									{#if isPricePending(priceObj.value)}
+										<span>PRECIO POR DETERMINAR</span>
+									{:else}
+										<span>{priceObj.value}</span>
+										<small>{priceObj.currency}</small>
+									{/if}
+								</div>
+							</button>
+						{:else if isAllIncludedPrice(priceObj)}
+							<button
+								class="prices-card prices-card--clickable prices-card--price-card"
+								type="button"
+								onclick={() => openAllIncludedModal(priceObj)}
 							>
 								<div class="prices-card__content">
 									<h5>{priceObj.name}</h5>
@@ -481,6 +529,10 @@
 		font-size: 0.85rem;
 		font-weight: 700;
 		text-transform: uppercase;
+	}
+
+	.prices-card--price-card .prices-card__content::after {
+		content: 'Pulsa aquí para ver la carta de precios';
 	}
 
 	.prices-card__content {

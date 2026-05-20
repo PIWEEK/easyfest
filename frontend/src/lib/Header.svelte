@@ -67,17 +67,20 @@
 			: null
 	].filter(Boolean) as MenuItem[];
 
+	const featuredMenuItems: MenuItem[] = [
+		data.show_speakers
+			? {
+					label: m.speakers(),
+					href: i18n.resolveRoute('/speakers')
+				}
+			: null
+	].filter(Boolean) as MenuItem[];
+
 	const secondaryMenuItems: MenuItem[] = [
 		data.show_agenda
 			? {
 					label: m.agenda(),
 					href: i18n.resolveRoute('/agenda')
-				}
-			: null,
-		data.show_speakers
-			? {
-					label: m.speakers(),
-					href: i18n.resolveRoute('/speakers')
 				}
 			: null,
 		data.show_streaming
@@ -95,13 +98,15 @@
 	]
 		.filter(Boolean)
 		.sort((a, b) => a.label.localeCompare(b.label, 'es', { sensitivity: 'base' })) as MenuItem[];
-
 	const menuItems: MenuItem[] = hasCustomNavMenu
 		? customMenuItems
-		: [...priorityMenuItems, ...secondaryMenuItems];
+		: [...priorityMenuItems, ...featuredMenuItems, ...secondaryMenuItems];
 
-	const desktopPrimaryMenuItems = menuItems.length > 5 ? menuItems.slice(0, 4) : menuItems;
-	const desktopOverflowMenuItems = menuItems.length > 5 ? menuItems.slice(4) : [];
+	const hasHeaderCta = isRegistrationOpen && Boolean(data.register_cta);
+	const shouldUseDesktopOverflow = hasHeaderCta ? menuItems.length >= 5 : menuItems.length >= 6;
+
+	const desktopPrimaryMenuItems = shouldUseDesktopOverflow ? menuItems.slice(0, 4) : menuItems;
+	const desktopOverflowMenuItems = shouldUseDesktopOverflow ? menuItems.slice(4) : [];
 
 	const showMenu = menuItems.length > 0;
 
