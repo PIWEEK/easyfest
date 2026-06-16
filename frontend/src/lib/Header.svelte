@@ -98,9 +98,15 @@
 	]
 		.filter(Boolean)
 		.sort((a, b) => a.label.localeCompare(b.label, 'es', { sensitivity: 'base' })) as MenuItem[];
+
+	const activityProposalMenuItem: MenuItem = {
+		label: 'Propuesta de Actividades',
+		href: i18n.resolveRoute('/propuesta-actividades')
+	};
+
 	const menuItems: MenuItem[] = hasCustomNavMenu
-		? customMenuItems
-		: [...priorityMenuItems, ...featuredMenuItems, ...secondaryMenuItems];
+		? [...customMenuItems, activityProposalMenuItem]
+		: [...priorityMenuItems, ...featuredMenuItems, activityProposalMenuItem, ...secondaryMenuItems];
 
 	const hasHeaderCta = isRegistrationOpen && Boolean(data.register_cta);
 	const shouldUseDesktopOverflow = hasHeaderCta ? menuItems.length >= 5 : menuItems.length >= 6;

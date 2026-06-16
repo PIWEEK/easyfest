@@ -7,6 +7,7 @@
 	import treasureImage from '../../assets/images/tesoro.jpeg';
 
 	const storage_url = import.meta.env.VITE_STORAGE_URL;
+	const premiumMarkerRegex = /\s*\*Premium\s*$/i;
 
 	type Price = {
 		name: string;
@@ -46,8 +47,20 @@
 		return getNumericValue(value) === 0;
 	}
 
+	function isPremiumPrice(price: Price): boolean {
+		return premiumMarkerRegex.test(price.name);
+	}
+
+	function getDisplayPriceName(price: Price): string {
+		return price.name.replace(premiumMarkerRegex, '').trim();
+	}
+
+	function getFormattedPriceName(price: Price): string {
+		return getDisplayPriceName(price).replace(/\(([^)]+)\)/g, '<strong>($1)</strong>');
+	}
+
 	function getAccommodationOrder(price: Price): number {
-		const name = price.name.toLowerCase();
+		const name = getDisplayPriceName(price).toLowerCase();
 
 		if (name.includes('individual')) return 1;
 		if (name.includes('doble')) return 2;
@@ -58,11 +71,11 @@
 	}
 
 	function isTshirtPrice(price: Price): boolean {
-		return price.name.toLowerCase().includes('camiseta');
+		return getDisplayPriceName(price).toLowerCase().includes('camiseta');
 	}
 
 	function isAllIncludedPrice(price: Price): boolean {
-		const normalizedName = price.name
+		const normalizedName = getDisplayPriceName(price)
 			.toLowerCase()
 			.normalize('NFD')
 			.replace(/[\u0300-\u036f]/g, '');
@@ -86,7 +99,7 @@
 			.filter(Boolean);
 
 		modals.open(PriceImageModal, {
-			title: price.name,
+			title: getDisplayPriceName(price),
 			short_description: price.description,
 			images: tshirtImageUrls.map((url, index) => ({
 				url,
@@ -102,7 +115,7 @@
 		const priceCardUrl = getStrapiMediaUrl(data.allIncludedPriceCard);
 
 		modals.open(PriceImageModal, {
-			title: price.name,
+			title: getDisplayPriceName(price),
 			short_description: price.description,
 			images: priceCardUrl
 				? [
@@ -118,13 +131,13 @@
 		});
 	}
 
-	$: accommodationPrices = (
-		data.prices?.filter((price) => getNumericValue(price.value) > 100) ?? []
-	).sort((a, b) => getAccommodationOrder(a) - getAccommodationOrder(b));
+	$: accommodationPrices = (data.prices?.filter((price) => !isPremiumPrice(price)) ?? []).sort(
+		(a, b) => getAccommodationOrder(a) - getAccommodationOrder(b)
+	);
 
-	$: premiumPrices = (
-		data.prices?.filter((price) => getNumericValue(price.value) <= 100) ?? []
-	).sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }));
+	$: premiumPrices = (data.prices?.filter((price) => isPremiumPrice(price)) ?? []).sort((a, b) =>
+		getDisplayPriceName(a).localeCompare(getDisplayPriceName(b), 'es', { sensitivity: 'base' })
+	);
 </script>
 
 <section class="hero page-title">
@@ -173,7 +186,7 @@
 					{#each accommodationPrices as priceObj}
 						<article class="prices-card">
 							<div class="prices-card__content">
-								<h5>{priceObj.name}</h5>
+								<h5>{@html getFormattedPriceName(priceObj)}</h5>
 
 								{#if priceObj.description}
 									<p>{priceObj.description}</p>
@@ -234,7 +247,7 @@
 								onclick={() => openTshirtModal(priceObj)}
 							>
 								<div class="prices-card__content">
-									<h5>{priceObj.name}</h5>
+									<h5>{@html getFormattedPriceName(priceObj)}</h5>
 
 									{#if priceObj.description}
 										<p>{priceObj.description}</p>
@@ -260,7 +273,7 @@
 								onclick={() => openAllIncludedModal(priceObj)}
 							>
 								<div class="prices-card__content">
-									<h5>{priceObj.name}</h5>
+									<h5>{@html getFormattedPriceName(priceObj)}</h5>
 
 									{#if priceObj.description}
 										<p>{priceObj.description}</p>
@@ -282,7 +295,7 @@
 						{:else}
 							<article class="prices-card">
 								<div class="prices-card__content">
-									<h5>{priceObj.name}</h5>
+									<h5>{@html getFormattedPriceName(priceObj)}</h5>
 
 									{#if priceObj.description}
 										<p>{priceObj.description}</p>

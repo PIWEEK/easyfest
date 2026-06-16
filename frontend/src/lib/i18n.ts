@@ -81,6 +81,10 @@ export const i18n = createI18n(runtime, {
 			en: '/privacy-policy',
 			es: '/politica-de-privacidad'
 		},
+		'/propuesta-actividades': {
+			en: '/activity-proposal',
+			es: '/propuesta-actividades'
+		},
 		'/register': {
 			en: '/register',
 			es: '/registro'
