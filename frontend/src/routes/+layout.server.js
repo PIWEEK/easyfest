@@ -19,9 +19,10 @@ const ROUTE_VISIBILITY_FLAGS = {
 	'/prensa': 'show_press_kit',
 	'/press-kit': 'show_press_kit',
 
-	'/patrocinadores': 'show_sponsors_info',
+	'/esteltienda': 'show_sponsors_info',
 	'/sponsors': 'show_sponsors_info',
 
+	'/estel-tienda': 'show_streaming',
 	'/streaming': 'show_streaming',
 
 	'/seo': 'show_seo',
@@ -42,13 +43,23 @@ function getVisibilityFlag(pathname) {
 export async function load({ cookies, url }) {
 	let data = {};
 
-	const [settingsEntry, siteEntry] = await Promise.all([
+	const [settingsEntry, siteEntry, sponsorsInfoEntry, streamingEntry] = await Promise.all([
 		fetchSingle('/setting?populate=*', cookies),
-		fetchSingle('/site', cookies)
+		fetchSingle('/site', cookies),
+		fetchSingle('/sponsors-info', cookies),
+		fetchSingle('/streaming', cookies)
 	]);
 
 	if (settingsEntry || siteEntry) {
 		data = { ...settingsEntry, ...siteEntry };
+	}
+
+	if (sponsorsInfoEntry?.title) {
+		data.sponsors_info_title = sponsorsInfoEntry.title.trim();
+	}
+
+	if (streamingEntry?.title) {
+		data.streaming_title = streamingEntry.title.trim();
 	}
 
 	const visibilityFlag = getVisibilityFlag(url.pathname);

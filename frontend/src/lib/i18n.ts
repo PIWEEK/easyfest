@@ -102,12 +102,12 @@ export const i18n = createI18n(runtime, {
 			es: '/invitadas'
 		},
 		'/sponsors': {
-			en: '/sponsors',
-			es: '/patrocinadores'
+			en: '/esteltienda',
+			es: '/esteltienda'
 		},
 		'/streaming': {
-			en: '/streaming',
-			es: '/streaming'
+			en: '/estel-tienda',
+			es: '/estel-tienda'
 		},
 		'/tracks': {
 			en: '/tracks',

@@ -1,14 +1,17 @@
-import { fetchCollection } from '../../services/api';
+import { fetchSingle } from '../../services/api';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({}) {
-    let data = {}
-    const sponsorEntries = await fetchCollection("/sponsors?populate=*");
-    if (sponsorEntries) {
-        data = {
-            sponsors: sponsorEntries
-        };
-    }
-    return data;
+	const sponsorsInfoEntry = await fetchSingle('/sponsors-info');
+
+	if (sponsorsInfoEntry?.title) {
+		sponsorsInfoEntry.title = sponsorsInfoEntry.title.trim();
+	}
+
+	return (
+		sponsorsInfoEntry ?? {
+			title: '',
+			content: ''
+		}
+	);
 }
- 

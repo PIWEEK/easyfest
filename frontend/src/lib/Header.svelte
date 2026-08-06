@@ -73,6 +73,18 @@
 					label: m.speakers(),
 					href: i18n.resolveRoute('/speakers')
 				}
+			: null,
+		data.show_sponsors_info
+			? {
+					label: data.sponsors_info_title,
+					href: i18n.resolveRoute('/sponsors')
+				}
+			: null,
+		data.show_streaming
+			? {
+					label: data.streaming_title,
+					href: i18n.resolveRoute('/streaming')
+				}
 			: null
 	].filter(Boolean) as MenuItem[];
 
@@ -81,12 +93,6 @@
 			? {
 					label: m.agenda(),
 					href: i18n.resolveRoute('/agenda')
-				}
-			: null,
-		data.show_streaming
-			? {
-					label: m.streaming(),
-					href: i18n.resolveRoute('/streaming')
 				}
 			: null,
 		data.show_venue_info
@@ -99,14 +105,25 @@
 		.filter(Boolean)
 		.sort((a, b) => a.label.localeCompare(b.label, 'es', { sensitivity: 'base' })) as MenuItem[];
 
-	const activityProposalMenuItem: MenuItem = {
-		label: 'Propuesta de Actividades',
-		href: i18n.resolveRoute('/propuesta-actividades')
-	};
+	function isPricesMenuItem(menuItem: MenuItem) {
+		const pricesHref = i18n.resolveRoute('/price');
+		const normalizedLabel = menuItem.label.toLocaleLowerCase('es');
 
-	const menuItems: MenuItem[] = hasCustomNavMenu
-		? [...customMenuItems, activityProposalMenuItem]
-		: [...priorityMenuItems, ...featuredMenuItems, activityProposalMenuItem, ...secondaryMenuItems];
+		return menuItem.href === pricesHref || normalizedLabel === m.prices().toLocaleLowerCase('es');
+	}
+
+	function movePricesToEnd(menuItems: MenuItem[]) {
+		const pricesMenuItems = menuItems.filter(isPricesMenuItem);
+		const otherMenuItems = menuItems.filter((menuItem) => !isPricesMenuItem(menuItem));
+
+		return [...otherMenuItems, ...pricesMenuItems];
+	}
+
+	const menuItems: MenuItem[] = movePricesToEnd(
+		hasCustomNavMenu
+			? customMenuItems
+			: [...priorityMenuItems, ...featuredMenuItems, ...secondaryMenuItems]
+	);
 
 	const hasHeaderCta = isRegistrationOpen && Boolean(data.register_cta);
 	const shouldUseDesktopOverflow = hasHeaderCta ? menuItems.length >= 5 : menuItems.length >= 6;
