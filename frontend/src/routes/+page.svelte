@@ -3,6 +3,7 @@
 	import SvelteMarkdown from '@humanspeak/svelte-markdown';
 
 	import heroLosPuertosGrises from '../assets/images/Los_Puertos_Grises.jpg';
+	import estelTiendaImage from '../assets/images/propuesta-actividades.jpg';
 	import Marquee from '../lib/Marquee';
 
 	const storage_url = import.meta.env.VITE_STORAGE_URL;
@@ -199,6 +200,12 @@
 
 	const wheelGameImageUrl = getStrapiMediaUrl(data.wheelGameImage);
 	const showWheelGame = Boolean(wheelGameImageUrl && data.wheelGamePage);
+	const estelTiendaHref = settings.show_streaming
+		? '/estel-tienda'
+		: settings.show_sponsors_info
+			? '/esteltienda'
+			: null;
+	const showEstelTiendaPromo = Boolean(estelTiendaHref);
 </script>
 
 <section class="hero hero-home home-hero">
@@ -331,24 +338,50 @@
 			</div>
 		</div>
 
-		{#if showWheelGame}
+		{#if showWheelGame || showEstelTiendaPromo}
 			<div class="home-wheel-game" aria-labelledby="home-wheel-game-title">
-				<a href="/gira-el-timon" class="home-wheel-game__card">
-					<div class="home-wheel-game__media">
-						<img src={wheelGameImageUrl} alt="Gira el timón" />
-						<span class="home-wheel-game__credit">© The Buccaneers - Winslow Homer</span>
-					</div>
+				<div
+					class="home-wheel-game__cards"
+					class:home-wheel-game__cards--single={!showWheelGame || !showEstelTiendaPromo}
+				>
+					{#if showWheelGame}
+						<a href="/gira-el-timon" class="home-wheel-game__card">
+							<div class="home-wheel-game__media">
+								<img src={wheelGameImageUrl} alt="Gira el timón" />
+								<span class="home-wheel-game__credit">© Winslow Homer - The Buccaneers</span>
+							</div>
 
-					<div class="home-wheel-game__content">
-						<h2 id="home-wheel-game-title">¡Gira el timón!</h2>
-						<p>Pon a prueba tu suerte y descubre qué rumbo toma tu travesía.</p>
+							<div class="home-wheel-game__content">
+								<h2 id="home-wheel-game-title">¡Gira el timón!</h2>
+								<p>Pon a prueba tu suerte y descubre qué rumbo toma tu travesía.</p>
 
-						<span class="home-wheel-game__button">
-							<span aria-hidden="true">✦</span>
-							<span>Jugar ahora</span>
-						</span>
-					</div>
-				</a>
+								<span class="home-wheel-game__button">
+									<span aria-hidden="true">✦</span>
+									<span>Jugar ahora</span>
+								</span>
+							</div>
+						</a>
+					{/if}
+
+					{#if showEstelTiendaPromo}
+						<a href={estelTiendaHref} class="home-wheel-game__card">
+							<div class="home-wheel-game__media home-wheel-game__media--esteltienda">
+								<img src={estelTiendaImage} alt="EstelTienda" />
+								<span class="home-wheel-game__credit">© John Howe - Gandalf The Grey</span>
+							</div>
+
+							<div class="home-wheel-game__content">
+								<h2>EstelTienda</h2>
+								<p>Conoce los puestos y propuestas artesanas de esta edición.</p>
+
+								<span class="home-wheel-game__button">
+									<span aria-hidden="true">✦</span>
+									<span>Ver EstelTienda</span>
+								</span>
+							</div>
+						</a>
+					{/if}
+				</div>
 			</div>
 		{/if}
 	</div>
@@ -1165,13 +1198,24 @@
 		margin-top: 3rem;
 	}
 
+	.home-wheel-game__cards {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1.5rem;
+		max-width: 82rem;
+		margin: 0 auto;
+	}
+
+	.home-wheel-game__cards--single {
+		grid-template-columns: minmax(0, 62rem);
+		justify-content: center;
+	}
+
 	.home-wheel-game__card {
 		position: relative;
 		display: grid;
-		grid-template-columns: minmax(17rem, 0.82fr) minmax(0, 1.18fr);
+		grid-template-columns: minmax(13rem, 0.9fr) minmax(0, 1.1fr);
 		align-items: stretch;
-		max-width: 62rem;
-		margin: 0 auto;
 		overflow: hidden;
 		border: 1px solid rgba(215, 181, 109, 0.62);
 		border-top-color: var(--home-gold);
@@ -1212,7 +1256,7 @@
 
 	.home-wheel-game__media {
 		position: relative;
-		min-height: 22rem;
+		min-height: 18rem;
 		overflow: hidden;
 		background: var(--home-dark);
 	}
@@ -1225,6 +1269,10 @@
 		object-position: center;
 		filter: saturate(0.96) contrast(1.04);
 		transition: transform 220ms ease;
+	}
+
+	.home-wheel-game__media--esteltienda img {
+		object-position: 58% center;
 	}
 
 	.home-wheel-game__card:hover .home-wheel-game__media img {
@@ -1249,7 +1297,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		padding: 2rem clamp(1.5rem, 4vw, 3.25rem);
+		padding: 1.6rem clamp(1.2rem, 2.6vw, 2rem);
 		text-align: left;
 	}
 
@@ -1265,17 +1313,17 @@
 		margin: 0;
 		color: var(--home-dark);
 		font-family: var(--bulma-family-primary, inherit);
-		font-size: clamp(2rem, 4vw, 3.28rem);
+		font-size: clamp(1.8rem, 2.6vw, 2.45rem);
 		font-weight: 400;
 		line-height: 0.95;
 		text-transform: uppercase;
 	}
 
 	.home-wheel-game__content p {
-		max-width: 28rem;
+		max-width: 24rem;
 		margin: 1.15rem 0 0;
 		color: var(--home-muted);
-		font-size: 1.13rem;
+		font-size: 1rem;
 		line-height: 1.55;
 	}
 
@@ -1587,6 +1635,15 @@
 
 		.home-wheel-game {
 			margin-top: 2rem;
+		}
+
+		.home-wheel-game__cards {
+			grid-template-columns: 1fr;
+			gap: 1.2rem;
+		}
+
+		.home-wheel-game__cards--single {
+			grid-template-columns: 1fr;
 		}
 
 		.home-wheel-game__card {

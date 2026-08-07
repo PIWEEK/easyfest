@@ -4,6 +4,7 @@
 	import Modal from '$lib/ProfileModal.svelte';
 
 	const storage_url = import.meta.env.VITE_STORAGE_URL;
+	const content_separator = '-----';
 
 	/**
 	 * @typedef {Object} Props
@@ -12,6 +13,12 @@
 
 	/** @type {Props} */
 	let { data } = $props();
+
+	const content_parts = (data.speakers.content ?? '').split(content_separator);
+	const main_guests_content = content_parts[0]?.trim() ?? '';
+	const other_guests_content = content_parts.slice(1).join(content_separator).trim();
+	const main_guest_profiles = (data.speaker_profiles ?? []).slice(0, 2);
+	const other_guest_profiles = (data.speaker_profiles ?? []).slice(2);
 
 	function handleClick(speaker_profile) {
 		modals.open(Modal, { profile: speaker_profile });
@@ -24,12 +31,50 @@
 <section class="section">
 	<div class="container">
 		<div class="content content-border">
-			{#if data.speakers.content}
-				<SvelteMarkdown options={{ mangle: false }} source={data.speakers.content} />
+			{#if main_guests_content}
+				<SvelteMarkdown options={{ mangle: false }} source={main_guests_content} />
 			{/if}
 
 			<div class="columns is-multiline mt-6">
-				{#each data.speaker_profiles as speaker_profile, i}
+				{#each main_guest_profiles as speaker_profile, i}
+					<div class="column is-half">
+						<div class="card speaker-card">
+							<div class="card-image speaker-card__image-wrap is-clickable">
+								<img
+									class="speaker-card__image"
+									onclick={() => handleClick(speaker_profile)}
+									src="{storage_url}{speaker_profile.photo.url}"
+									alt={speaker_profile.fullname}
+								/>
+							</div>
+
+							<div class="card-content">
+								{#if speaker_profile.is_guest}
+									<p class="speaker-card__tag">Invitada principal</p>
+								{/if}
+
+								<p class="title is-4">
+									{speaker_profile.fullname}
+									{#if speaker_profile.nickname}
+										"{speaker_profile.nickname}"
+									{/if}
+								</p>
+
+								{#if speaker_profile.title}
+									<p class="subtitle is-6">{speaker_profile.title}</p>
+								{/if}
+							</div>
+						</div>
+					</div>
+				{/each}
+			</div>
+
+			{#if other_guests_content}
+				<SvelteMarkdown options={{ mangle: false }} source={other_guests_content} />
+			{/if}
+
+			<div class="columns is-multiline mt-6">
+				{#each other_guest_profiles as speaker_profile, i}
 					<div class="column is-half">
 						<div class="card speaker-card">
 							<div class="card-image speaker-card__image-wrap is-clickable">
