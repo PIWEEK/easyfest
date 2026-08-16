@@ -77,6 +77,11 @@ function pack_activities(tracks) {
         }
     }
 
+    // Days are discovered in track/activity walk order, not calendar order.
+    days.sort((a, b) =>
+        a.year - b.year || a.month - b.month || a.date - b.date
+    );
+
     return days;
 }
 
