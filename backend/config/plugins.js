@@ -32,10 +32,7 @@ module.exports = ({ env }) => ({
       },
       register: {
         allowedFields: [
-          "activities_staff","registrationType","dni",
-          "phone_number","last_name","pseudonym","smial","room_code",
-          "menu_type","menu_comment","premium","premium_comment",
-          "aide","mentee","mentor","childrens","name","room_type"
+	    "room_code","room_type","registration","name","surname","pseudonym","smial","cond_random","phone_number","dni","aide","mentee","age","mentor","minor","minor_adds","menu","allergy","late_arrival","pre_exit","gala_dinner","all_inclusive","shirt","song_book","supplement","price"
         ],
       },
     },

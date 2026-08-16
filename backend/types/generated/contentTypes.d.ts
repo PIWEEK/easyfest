@@ -2787,9 +2787,11 @@ export interface PluginUsersPermissionsUser
       'manyToMany',
       'api::activity.activity'
     >;
-    aide: Schema.Attribute.Boolean;
+    age: Schema.Attribute.Enumeration<['Adulto', 'Menor']>;
+    all_inclusive: Schema.Attribute.Boolean;
+    allergy: Schema.Attribute.String;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    childrens: Schema.Attribute.Text;
+    cond_random: Schema.Attribute.String;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -2801,17 +2803,20 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    last_name: Schema.Attribute.String;
+    gala_dinner: Schema.Attribute.String;
+    late_arrival: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
-    mentee: Schema.Attribute.Boolean;
+    mentee: Schema.Attribute.Enumeration<['S\u00ED', 'No', 'S\u00ED, pero']>;
     mentor: Schema.Attribute.Boolean;
-    menu_comment: Schema.Attribute.Text;
-    menu_type: Schema.Attribute.Enumeration<['carne', 'pescado', 'vegano']>;
+    menu: Schema.Attribute.String;
+    menu_adds: Schema.Attribute.String;
+    minor: Schema.Attribute.String;
+    minor_adds: Schema.Attribute.String;
     name: Schema.Attribute.String;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
@@ -2819,13 +2824,14 @@ export interface PluginUsersPermissionsUser
         minLength: 6;
       }>;
     phone_number: Schema.Attribute.BigInteger;
-    premium: Schema.Attribute.Boolean;
-    premium_comment: Schema.Attribute.Text;
+    pre_exit: Schema.Attribute.String;
+    price: Schema.Attribute.String;
     provider: Schema.Attribute.String;
     pseudonym: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    registrationType: Schema.Attribute.Enumeration<['full', 'partial']> &
-      Schema.Attribute.DefaultTo<'full'>;
+    registration: Schema.Attribute.Enumeration<
+      ['completa', 'parcial', 'aleatoria']
+    >;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',
@@ -2835,7 +2841,11 @@ export interface PluginUsersPermissionsUser
     room_type: Schema.Attribute.Enumeration<
       ['Individual', 'Doble', 'Triple', 'Aleatoria Doble', 'Aleatoria Triple']
     >;
+    shirt: Schema.Attribute.String;
     smial: Schema.Attribute.String;
+    song_book: Schema.Attribute.String;
+    supplement: Schema.Attribute.String;
+    surname: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

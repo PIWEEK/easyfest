@@ -11,6 +11,7 @@
   "options": {
     "draftAndPublish": false
   },
+  "pluginOptions": {},
   "attributes": {
     "username": {
       "type": "string",
@@ -71,21 +72,13 @@
       "target": "api::activity.activity",
       "mappedBy": "staff"
     },
-    "registrationType": {
-      "type": "enumeration",
-      "enum": [
-        "full",
-        "partial"
-      ],
-      "default": "full"
-    },
     "dni": {
       "type": "string"
     },
     "phone_number": {
       "type": "biginteger"
     },
-    "last_name": {
+    "surname": {
       "type": "string"
     },
     "pseudonym": {
@@ -97,34 +90,14 @@
     "room_code": {
       "type": "string"
     },
-    "menu_type": {
-      "type": "enumeration",
-      "enum": [
-        "carne",
-        "pescado",
-        "vegano"
-      ]
-    },
-    "menu_comment": {
-      "type": "text"
-    },
-    "premium": {
-      "type": "boolean"
-    },
-    "premium_comment": {
-      "type": "text"
-    },
-    "aide": {
-      "type": "boolean"
-    },
-    "mentee": {
-      "type": "boolean"
+    "menu_adds": {
+      "type": "string"
     },
     "mentor": {
       "type": "boolean"
     },
-    "childrens": {
-      "type": "text"
+    "minor": {
+      "type": "string"
     },
     "name": {
       "type": "string"
@@ -150,6 +123,65 @@
       "relation": "manyToMany",
       "target": "api::activity.activity",
       "mappedBy": "queued_users"
+    },
+    "registration": {
+      "type": "enumeration",
+      "enum": [
+        "completa",
+        "parcial",
+        "aleatoria"
+      ]
+    },
+    "cond_random": {
+      "type": "string"
+    },
+    "mentee": {
+      "type": "enumeration",
+      "enum": [
+        "Sí",
+        "No",
+        "Sí, pero"
+      ]
+    },
+    "age": {
+      "type": "enumeration",
+      "enum": [
+        "Adulto",
+        "Menor"
+      ]
+    },
+    "minor_adds": {
+      "type": "string"
+    },
+    "menu": {
+      "type": "string"
+    },
+    "allergy": {
+      "type": "string"
+    },
+    "late_arrival": {
+      "type": "string"
+    },
+    "pre_exit": {
+      "type": "string"
+    },
+    "gala_dinner": {
+      "type": "string"
+    },
+    "all_inclusive": {
+      "type": "boolean"
+    },
+    "song_book": {
+      "type": "string"
+    },
+    "supplement": {
+      "type": "string"
+    },
+    "price": {
+      "type": "string"
+    },
+    "shirt": {
+      "type": "string"
     }
   }
 }
