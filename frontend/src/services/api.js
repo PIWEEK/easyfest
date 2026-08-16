@@ -13,6 +13,19 @@ const baseHeaders = {
 	Accept: 'application/json'
 };
 
+/** Strapi users-permissions auth routes that must use the Public role (no Bearer token). */
+const PUBLIC_AUTH_PATHS = [
+	'/auth/local',
+	'/auth/local/register',
+	'/auth/forgot-password',
+	'/auth/reset-password'
+];
+
+const isPublicAuthPath = (path) => {
+	const pathname = path.split('?')[0];
+	return PUBLIC_AUTH_PATHS.includes(pathname);
+};
+
 /**
  * Build a query string from a values object.
  *
@@ -41,9 +54,9 @@ export const fetchCMSData = async (method, path, payload, cookies, forceApiToken
 		};
 	}
 
-	const authToken = getAuthToken(cookies, forceApiToken);
+	// API tokens override Public-role access and 403 these endpoints.
+	const authToken = isPublicAuthPath(path) ? null : getAuthToken(cookies, forceApiToken);
 	const authHeaders = authToken ? { Authorization: `Bearer ${authToken}` } : {};
-	const headers = { ...baseHeaders, ...authHeaders };
 
 	const config = {
 		method,
