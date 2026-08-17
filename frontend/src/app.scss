@@ -354,7 +354,12 @@ body {
 	padding: 2rem 5rem;
 }
 
-footer {
+/* Ojo: selector por etiqueta, no por clase. Sin acotar a .site-footer, esta
+   regla "full-bleed" (100vw + margen negativo para centrarse rompiendo el
+   contenedor) se aplica a CUALQUIER <footer> de la página — incluido el
+   <footer class="modal-card-foot"> de los modales de Bulma, sacándolo
+   completamente de la caja del modal. */
+footer.site-footer {
 	background-image: linear-gradient(to right, $color-dark, $color-dark);
 	color: $color-white;
 	width: 100vw !important;
@@ -566,10 +571,37 @@ footer {
 		position: sticky;
 		top: 0;
 		z-index: 10;
+		width: 100%;
+		height: 6rem;
+		box-sizing: border-box;
+		overflow: hidden;
 		background-color: $color-primary;
 		border-radius: 0.5rem;
 		padding: 1rem;
 		margin-bottom: 0.625rem;
+
+		.title,
+		.subtitle {
+			overflow-wrap: break-word;
+			word-break: break-word;
+			white-space: normal;
+		}
+
+		.title {
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.subtitle {
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 	}
 }
 

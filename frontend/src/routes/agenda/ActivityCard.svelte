@@ -58,14 +58,9 @@
                  {/if}   
              {/each}
 
-            {#if activity.tag1 || activity.tag2}
+            {#if activity.tag2}
                 <p class="tags is-pulled-right is-pulled-bottom">
-                    {#if activity.tag1}
-                        <span class="tag is-primary">{activity.tag1}</span>
-                    {/if}
-                    {#if activity.tag2 && activity.tag2 !== activity.tag1}
-                        <span class="tag is-info">{activity.tag2}</span>
-                    {/if}
+                    <span class="tag is-info">{activity.tag2}</span>
                 </p>
             {/if}
          </div>
@@ -76,10 +71,29 @@
     .card {
         margin-bottom: 2rem;
         box-shadow: none;
+        /* La altura representa la duración de la actividad y no puede crecer con
+           el contenido: cualquier exceso se recorta aquí, nunca se ve fuera de la caja. */
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
     }
 
     .card-header {
         box-shadow: none;
+        flex-shrink: 0;
+    }
+
+    .card-header-title {
+        text-align: left;
+        /* Bulma pone .card-header-title en display:flex; sin min-width:0 el
+           texto, al ser un ítem flex, no se encoge por debajo de su ancho de
+           contenido y nunca salta de línea. (flex-shrink:0 haría lo mismo por
+           el lado contrario, así que aquí no lo usamos). */
+        min-width: 0;
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
 
     .card.clickable {
@@ -93,6 +107,18 @@
         }
     }
 
+    .card-content {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        /* Bulma pone 1.5rem de padding en los 4 lados; el hueco con el título
+           de arriba queda muy grande, lo reducimos a la mitad solo por arriba. */
+        padding-top: 0.75rem;
+    }
+
     .tags {
         position: absolute;
         bottom: 1rem;
@@ -101,6 +127,10 @@
 
     .short-description {
         margin-bottom: 0.5rem;
+        text-align: left;
+        min-width: 0;
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
 
     .card .media {
@@ -110,5 +140,16 @@
     .media + .media {
         margin-top: 0.25rem;
         padding-top: 0.25rem;
+    }
+
+    .public-face .content {
+        text-align: left;
+        /* Sin límite de líneas: que use el espacio que haya. .media es flex, así
+           que también necesita min-width:0 para poder envolver en vez de
+           desbordar (mismo motivo que .card-header-title). El único límite real
+           es el overflow:hidden de .card/.card-content si de verdad no cabe. */
+        min-width: 0;
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
 </style>

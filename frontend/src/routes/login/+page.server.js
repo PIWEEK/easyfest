@@ -9,7 +9,7 @@ import { isAuthorizedUser, setUser } from '../../services/users';
 let data = {};
 
 const schema = z.object({
-	email: z.string().email(),
+	username: z.string().min(1),
 	password: z.string()
 });
 
@@ -33,7 +33,7 @@ export const actions = {
 			'POST',
 			'/auth/local',
 			{
-				identifier: form.data.email,
+				identifier: form.data.username,
 				password: form.data.password
 			},
 			cookies
@@ -46,7 +46,7 @@ export const actions = {
 
 		let error_msg;
 		if (error?.status === 400) {
-			error_msg = m.email_or_password_incorrect();
+			error_msg = m.username_or_password_incorrect();
 		} else if (error?.status === 403) {
 			error_msg = m.login_forbidden();
 		} else if (error?.message) {

@@ -47,12 +47,6 @@
 					href: i18n.resolveRoute('/about-us')
 				}
 			: null,
-		data.show_accommodation_info
-			? {
-					label: m.accommodation_info(),
-					href: i18n.resolveRoute('/accommodation-info')
-				}
-			: null,
 		isRegistrationInfoActive
 			? {
 					label: m.registration(),
@@ -76,25 +70,19 @@
 			: null,
 		data.show_sponsors_info
 			? {
-					label: data.sponsors_info_title,
+					label: m.sponsors(),
 					href: i18n.resolveRoute('/sponsors')
 				}
 			: null,
 		data.show_streaming
 			? {
-					label: data.streaming_title,
+					label: m.streaming(),
 					href: i18n.resolveRoute('/streaming')
 				}
 			: null
 	].filter(Boolean) as MenuItem[];
 
 	const secondaryMenuItems: MenuItem[] = [
-		data.show_agenda
-			? {
-					label: m.agenda(),
-					href: i18n.resolveRoute('/agenda')
-				}
-			: null,
 		data.show_venue_info
 			? {
 					label: m.venue_info(),
@@ -104,6 +92,34 @@
 	]
 		.filter(Boolean)
 		.sort((a, b) => a.label.localeCompare(b.label, 'es', { sensitivity: 'base' })) as MenuItem[];
+
+	// Algunos ítems van siempre justo después de otro concreto, al margen de
+	// dónde caerían por su grupo/orden alfabético habitual.
+	const pinnedAfterItems: Array<{ item: MenuItem | null; afterHref: string }> = [
+		{
+			// La agenda, justo después de "El evento".
+			item: data.show_agenda ? { label: m.agenda(), href: i18n.resolveRoute('/agenda') } : null,
+			afterHref: i18n.resolveRoute('/about-us')
+		},
+		{
+			// "Cómo llegar", justo después de "El lugar".
+			item: data.show_accommodation_info
+				? { label: m.accommodation_info(), href: i18n.resolveRoute('/accommodation-info') }
+				: null,
+			afterHref: i18n.resolveRoute('/venue-info')
+		}
+	];
+
+	function withPinnedItems(menuItems: MenuItem[]) {
+		return pinnedAfterItems.reduce((items, { item, afterHref }) => {
+			if (!item) return items;
+
+			const afterIndex = items.findIndex((menuItem) => menuItem.href === afterHref);
+			const insertAt = afterIndex === -1 ? items.length : afterIndex + 1;
+
+			return [...items.slice(0, insertAt), item, ...items.slice(insertAt)];
+		}, menuItems);
+	}
 
 	function isPricesMenuItem(menuItem: MenuItem) {
 		const pricesHref = i18n.resolveRoute('/price');
@@ -122,7 +138,7 @@
 	const menuItems: MenuItem[] = movePricesToEnd(
 		hasCustomNavMenu
 			? customMenuItems
-			: [...priorityMenuItems, ...featuredMenuItems, ...secondaryMenuItems]
+			: withPinnedItems([...priorityMenuItems, ...featuredMenuItems, ...secondaryMenuItems])
 	);
 
 	const hasHeaderCta = isRegistrationOpen && Boolean(data.register_cta);
