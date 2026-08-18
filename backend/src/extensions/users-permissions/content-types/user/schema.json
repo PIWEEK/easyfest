@@ -182,6 +182,16 @@
     },
     "shirt": {
       "type": "string"
+    },
+    "aide": {
+      "type": "enumeration",
+      "enum": [
+        "No",
+        "General",
+        "Audiovisuales",
+        "Cualquier tipo",
+        "Apoyo Técnico"
+      ]
     }
   }
 }

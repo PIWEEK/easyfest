@@ -17,93 +17,93 @@
   },
   "attributes": {
     "title": {
+      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "type": "string",
       "required": true
     },
     "short_description": {
+      "type": "text",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      },
-      "type": "text"
+      }
     },
     "long_description": {
+      "type": "richtext",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      },
-      "type": "richtext"
+      }
     },
     "start": {
+      "type": "datetime",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      },
-      "type": "datetime"
+      }
     },
     "minutes": {
+      "type": "integer",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "type": "integer",
       "min": 0
     },
     "attendees_limit": {
+      "type": "integer",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       },
-      "type": "integer",
       "min": 0
     },
     "logistics": {
+      "type": "richtext",
+      "private": true,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      },
-      "type": "richtext",
-      "private": true
+      }
     },
     "comments": {
+      "type": "richtext",
+      "private": true,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      },
-      "type": "richtext",
-      "private": true
+      }
     },
     "has_own_page": {
+      "type": "boolean",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       },
-      "type": "boolean",
-      "default": false,
-      "required": true
+      "required": true,
+      "default": false
     },
     "needs_registration": {
+      "type": "boolean",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       },
-      "type": "boolean",
-      "default": false,
-      "required": true
+      "required": true,
+      "default": false
     },
     "public_faces": {
       "type": "relation",
@@ -118,38 +118,25 @@
       "private": true,
       "inversedBy": "activities_staff"
     },
-    "format": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "enumeration",
-      "enum": [
-        "in person",
-        "online",
-        "hybrid"
-      ]
-    },
     "is_all_day": {
+      "type": "boolean",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       },
-      "type": "boolean",
-      "default": false,
-      "required": true
+      "required": true,
+      "default": false
     },
     "is_all_event": {
+      "type": "boolean",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       },
-      "type": "boolean",
-      "default": false,
-      "required": true
+      "required": true,
+      "default": false
     },
     "track": {
       "type": "relation",
@@ -158,41 +145,14 @@
       "inversedBy": "activities"
     },
     "is_across_tracks": {
+      "type": "boolean",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       },
-      "type": "boolean",
-      "default": false,
-      "required": true
-    },
-    "tag1": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "enumeration",
-      "enum": [
-        "Basic",
-        "Intermediate",
-        "Advanced"
-      ]
-    },
-    "tag2": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "enumeration",
-      "enum": [
-        "Actividad",
-        "Charla",
-        "Taller",
-        "Infantil"
-      ]
+      "required": true,
+      "default": false
     },
     "registered_users": {
       "type": "relation",
@@ -207,13 +167,37 @@
       "inversedBy": "activities_queued"
     },
     "adjust_start": {
+      "type": "integer",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "type": "integer",
       "default": 0
+    },
+    "format": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "tag1": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "tag2": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

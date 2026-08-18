@@ -576,7 +576,7 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    format: Schema.Attribute.Enumeration<['in person', 'online', 'hybrid']> &
+    format: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -682,15 +682,13 @@ export interface ApiActivityActivity extends Struct.CollectionTypeSchema {
           localized: false;
         };
       }>;
-    tag1: Schema.Attribute.Enumeration<['Basic', 'Intermediate', 'Advanced']> &
+    tag1: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    tag2: Schema.Attribute.Enumeration<
-      ['Actividad', 'Charla', 'Taller', 'Infantil']
-    > &
+    tag2: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -2788,6 +2786,9 @@ export interface PluginUsersPermissionsUser
       'api::activity.activity'
     >;
     age: Schema.Attribute.Enumeration<['Adulto', 'Menor']>;
+    aide: Schema.Attribute.Enumeration<
+      ['No', 'General', 'Audiovisuales', 'Cualquier tipo', 'Apoyo T\u00E9cnico']
+    >;
     all_inclusive: Schema.Attribute.Boolean;
     allergy: Schema.Attribute.String;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
