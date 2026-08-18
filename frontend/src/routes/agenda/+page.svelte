@@ -25,6 +25,13 @@
 		});
 	}
 
+	function formatDayLabel(day) {
+		const date = new Date(day.year, day.month, day.date);
+		const weekday = date.toLocaleDateString('es-ES', { weekday: 'long' });
+		const dayMonth = date.toLocaleDateString('es-ES', { day: 'numeric', month: 'long' });
+		return `${weekday} ${dayMonth}`;
+	}
+
 	function minutesBetween(start, end) {
 		if (end > start) {
 			return (end - start) / 1000 / 60;
@@ -116,6 +123,53 @@
 		return (-minutes * 2).toString() + 'px';
 	}
 
+	/**
+	 * Last moment of activity in the day, to know where the hour guide should stop.
+	 */
+	function dayEnd(day) {
+		let end = day.start;
+		for (const track of day.tracks) {
+			for (const activity of track.activities) {
+				if (activity.is_filler) continue;
+				const activityEnd = endDate(activity);
+				if (activityEnd > end) {
+					end = activityEnd;
+				}
+			}
+		}
+		return end;
+	}
+
+	/**
+	 * Hour marks (label + vertical offset) for the day's time guide, using the
+	 * same compressed time scale (factor 7, 0.3rem/minute) as activityHeight/
+	 * activityAdjust, so it lines up with the tracks without touching their logic.
+	 */
+	// Espacio ocupado por la cabecera de sala (.column-header: height 6rem fija
+	// + margin-bottom 0.625rem) antes de que empiece a apilarse la primera
+	// actividad/filler de cada columna.
+	const TRACKS_TOP_OFFSET_REM = 6.625;
+
+	function hourMarks(day) {
+		if (!day) return [];
+		const end = dayEnd(day);
+		const marks = [];
+		let cursor = new Date(day.start);
+		cursor.setMinutes(0, 0, 0);
+		if (cursor < day.start) {
+			cursor = new Date(cursor.getTime() + 60 * 60 * 1000);
+		}
+		while (cursor <= end) {
+			const minutesOffset = compressMinutes(day.start, cursor, 7) * 0.3;
+			marks.push({
+				label: cursor.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
+				offset: (TRACKS_TOP_OFFSET_REM + minutesOffset).toString() + 'rem'
+			});
+			cursor = new Date(cursor.getTime() + 60 * 60 * 1000);
+		}
+		return marks;
+	}
+
 	function handleResize() {
 		containerWidth = columnsContainer.scrollWidth - 12;
 		console.log('Container width:', containerWidth);
@@ -188,8 +242,7 @@
 					{#each data.days as day}
 						<li class:is-active={day === current_day}>
 							<a onclick={() => handleDayClick(day)}>
-								{m.day()}
-								{day.date} / {day.month + 1}
+								{formatDayLabel(day)}
 							</a>
 						</li>
 					{/each}
@@ -246,7 +299,12 @@
 			{#if agenda.displayMode === 'all-days'}
 				{#each data.days as day}
 					<div class="agenda-table" style="margin-bottom:2rem;">
-						<h4 class="title is-size-5">{m.day()} {day.date} / {day.month + 1}</h4>
+						<h4 class="title is-size-5">{formatDayLabel(day)}</h4>
+						<div class="time-gutter" aria-hidden="true">
+							{#each hourMarks(day) as mark}
+								<span class="time-gutter__mark" style="top: {mark.offset}">{mark.label}</span>
+							{/each}
+						</div>
 						<div
 							class="columns is-1 is-mobile"
 							bind:this={columnsContainer}
@@ -301,6 +359,13 @@
 				{/each}
 			{:else}
 				<div class="agenda-table" bind:this={scrollContainer}>
+					{#if current_day}
+						<div class="time-gutter" aria-hidden="true">
+							{#each hourMarks(current_day) as mark}
+								<span class="time-gutter__mark" style="top: {mark.offset}">{mark.label}</span>
+							{/each}
+						</div>
+					{/if}
 					<div
 						class="columns is-1 is-mobile"
 						bind:this={columnsContainer}
@@ -361,7 +426,17 @@
 				style:opacity={$arrowsVisibleOnHover || $showLeftArrow ? '0.8' : '0.3'}
 			>
 				<span class="icon">
-					<i class="fas fa-arrow-left"></i>
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<polyline points="15 6 9 12 15 18" />
+					</svg>
 				</span>
 			</div>
 			<div
@@ -370,7 +445,17 @@
 				style:opacity={$arrowsVisibleOnHover || $showRightArrow ? '0.8' : '0.3'}
 			>
 				<span class="icon">
-					<i class="fas fa-arrow-right"></i>
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<polyline points="9 6 15 12 9 18" />
+					</svg>
 				</span>
 			</div>
 		</div>
@@ -379,6 +464,88 @@
 
 <style lang="scss">
 	@use 'bulma/sass/layout/container';
+
+	/* Guía horaria a la izquierda de cada tabla de agenda. Se reserva el hueco
+	   desplazando .columns explícitamente con left/width (en vez de depender de la
+	   "posición estática" implícita de un padding, que es ambigua para hijos con
+	   position:absolute) — así no hay dudas de dónde empieza cada cosa. El cálculo
+	   de containerWidth se mide en vivo (scrollWidth), así que sigue siendo correcto
+	   con el nuevo ancho disponible. */
+	$gutter-width: 5rem;
+
+	:global(.agenda-table .columns) {
+		left: $gutter-width;
+		width: calc(100% - #{$gutter-width});
+	}
+
+	/* position: sticky (solo en el eje horizontal, con left: 0) para que la guía no
+	   se desplace con el scroll horizontal de las columnas/salas, pero sí siga el
+	   scroll vertical con normalidad. height: 0: no roba espacio en el flujo normal
+	   (los <span> de las horas son position:absolute dentro y escapan gracias a
+	   overflow: visible). */
+	.time-gutter {
+		position: sticky;
+		left: 0;
+		width: $gutter-width;
+		height: 0;
+		overflow: visible;
+		z-index: 20;
+		pointer-events: none;
+	}
+
+	/* Parche visual: como la guía y las tarjetas comparten el mismo scroll
+	   horizontal, al desplazarte más allá del primer tramo la guía puede acabar
+	   encima de una tarjeta. Cada marca de hora lleva su propia "píldora" con
+	   fondo (mismo estilo que los tags de las tarjetas: blanco, redondeado,
+	   sombra suave), así solo tapa lo justo detrás del texto, no toda la
+	   columna — no es la solución definitiva. */
+	.time-gutter__mark {
+		position: absolute;
+		right: 0.5rem;
+		transform: translateY(-50%);
+		padding: 0.2rem 0.65rem;
+		border-radius: 999px;
+		background: #43b2dc;
+		border: 1px solid rgba(13, 59, 68, 0.12);
+		box-shadow: 0 2px 6px rgba(13, 59, 68, 0.15);
+		font-family: 'Lora', sans-serif;
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: #ffffff;
+		white-space: nowrap;
+	}
+
+	/* La estrella "✦" la pone .content ul li::before (regla global) posicionada en
+	   absoluto pegada al borde izquierdo, lo que deja huecos distintos a cada lado
+	   del texto. Aquí la desactivamos y la reponemos como parte del grupo
+	   estrella+texto dentro del propio botón, centrado como una unidad, para que
+	   el hueco a izquierda y derecha del texto sea el mismo. */
+	:global(.agenda-section .tabs.is-toggle li::before) {
+		content: none;
+	}
+
+	:global(.agenda-section .tabs.is-toggle li) {
+		padding-left: 0;
+	}
+
+	:global(.agenda-section .tabs.is-toggle a) {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.6rem;
+	}
+
+	:global(.agenda-section .tabs.is-toggle a::before) {
+		content: '✦';
+		color: #b06b2d;
+		font-size: 0.85rem;
+		line-height: 1;
+	}
+
+	:global(.agenda-section .tabs.is-toggle li.is-active a::before) {
+		color: #e8b290;
+	}
+
 	.activity-wrapper {
 		position: relative;
 	}
@@ -394,10 +561,14 @@
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
-		font-size: 1.2em;
-		color: #ccc;
+		color: #0d3b44;
 		opacity: 0;
 		transition: opacity 0.3s ease-in-out;
+	}
+
+	.arrow :global(svg) {
+		width: 1.4em;
+		height: 1.4em;
 	}
 
 	.arrow-left {

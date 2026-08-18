@@ -6,6 +6,14 @@ export async function load({ params, cookies }) {
     const trackEntries = await fetchCollection("/tracks?populate[activities][populate][public_faces][populate]=photo&sort=order:asc", cookies);
     let tracks = trackEntries || [];
 
+    // Cada actividad viene anidada dentro de su track, sin el campo `track` propio
+    // (el modal de actividad lo necesita para mostrar la ubicación).
+    for (let track of tracks) {
+        for (let activity of track.activities) {
+            activity.track = { title: track.title };
+        }
+    }
+
     // Add filler activities for is_across_tracks
     for (let track of tracks) {
         for (let activity of track.activities) {
