@@ -608,9 +608,7 @@
 	}
 
 	.prices-treasure p,
-	.prices-treasure li,
-	.prices-card p,
-	.prices-card li {
+	.prices-card p {
 		text-align: left;
 		text-justify: auto;
 		hyphens: none;

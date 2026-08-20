@@ -33,10 +33,6 @@
 
 <style>
     .short {
-        font-size: 0.8em;  
-    }
-    p {
-      color: purple;
-      font-size: 1em;
+        font-size: 0.8em;
     }
 </style>

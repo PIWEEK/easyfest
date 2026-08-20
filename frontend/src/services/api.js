@@ -144,7 +144,8 @@ export const fetchCollection = async (path, cookies) => {
  * Call backend API to retrieve a basic type.
  *
  * @param {string} path
- * @param {object} cookies
+ * @param {object} [cookies] Omitido en llamadas desde el navegador (p.ej. onMount de
+ *   un componente): sin cookies de sesión se usa el token público de la API.
  */
 export const fetchBasic = async (path, cookies) => {
 	const { response, error } = await fetchCMSData('GET', path, {}, cookies);

@@ -103,20 +103,6 @@
 		justify-content: center;
 	}
 
-	.map-card__eyebrow {
-		display: inline-block;
-		align-self: flex-start;
-		margin-bottom: 0.8rem;
-		padding: 0.35rem 0.75rem;
-		border-radius: 999px;
-		background: rgba(13, 59, 68, 0.08);
-		color: #0d3b44;
-		font-size: 0.82rem;
-		font-weight: 700;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-	}
-
 	.map-card__title {
 		margin: 0 0 0.75rem;
 		font-size: clamp(1.25rem, 2vw, 1.75rem);

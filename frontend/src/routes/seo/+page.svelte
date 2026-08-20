@@ -19,7 +19,7 @@
       <h2>{data.meta_description}</h2>
     {/if}
     {#if data.thumbnail}
-      <img src="{storage_url}{data.thumbnail.url}"/>
+      <img src="{storage_url}{data.thumbnail.url}" alt={data.title ?? ''}/>
     {/if}
   </div>
 </section>

@@ -29,8 +29,7 @@
      onclick={handleActivityClick} role="button" tabindex="0">
     <div class="card-header">
         <p class="card-header-title">
-            {activityHour(activity)}
-            {activity.title}
+            {activityHour(activity)} · {activity.title}
         </p>
     </div>
     {#if activity.short_description || (activity.public_faces && activity.public_faces.length > 0)}
@@ -85,6 +84,7 @@
     }
 
     .card-header-title {
+        font-size: 0.96rem; /* 20% menos que el tamaño heredado (1.2rem) */
         text-align: left;
         /* Bulma pone .card-header-title en display:flex; sin min-width:0 el
            texto, al ser un ítem flex, no se encoge por debajo de su ancho de
@@ -125,7 +125,12 @@
         right: 1rem;
     }
 
+    .tags .tag {
+        font-size: 0.6rem; /* 20% menos que el tamaño heredado (0.75rem) */
+    }
+
     .short-description {
+        font-size: 0.96rem; /* 20% menos que el tamaño heredado (1.2rem) */
         margin-bottom: 0.5rem;
         text-align: left;
         min-width: 0;
@@ -143,6 +148,7 @@
     }
 
     .public-face .content {
+        font-size: 0.96rem; /* 20% menos que el tamaño heredado (1.2rem) */
         text-align: left;
         /* Sin límite de líneas: que use el espacio que haya. .media es flex, así
            que también necesita min-width:0 para poder envolver en vez de

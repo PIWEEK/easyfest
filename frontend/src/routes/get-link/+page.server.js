@@ -29,8 +29,6 @@ export const actions = {
          }, ""
       )
 
-      console.log("====res", res)
-
       return message(form, ((res && res.sent) ? 'success' : ''));
     }
   };

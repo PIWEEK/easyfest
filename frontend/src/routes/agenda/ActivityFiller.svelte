@@ -15,15 +15,11 @@
 </div>
 
 <style lang="scss">
-    @use "bulma/sass/utilities/mixins";
-
     .filler {
         margin-bottom: 2rem;
     }
-    
-    @include mixins.mobile {
-        .filler.hide-in-mobile {
-            display: none;
-        }
-    }
+
+    /* No se oculta en móvil: si desaparece, dejaría de ocupar su hueco y las
+       tarjetas siguientes se desplazarían hacia arriba, perdiendo la sincronía
+       con la guía de horas de la izquierda (que sí cuenta ese hueco). */
 </style>

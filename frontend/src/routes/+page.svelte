@@ -860,16 +860,6 @@
 		transform: none;
 	}
 
-	.home-hero__button-arrow {
-		display: inline-block;
-		line-height: 1;
-		transition: transform 180ms ease;
-	}
-
-	.home-hero__button-primary:hover .home-hero__button-arrow {
-		transform: translateX(3px);
-	}
-
 	.home-hero__registration-message {
 		display: inline-flex;
 		align-items: center;
@@ -1167,12 +1157,6 @@
 		color: var(--home-gold);
 		font-size: 1.5rem;
 		box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12);
-	}
-
-	.home-expectations__icon svg {
-		display: block;
-		width: 2rem;
-		height: 2rem;
 	}
 
 	.home-expectations__card h3 {

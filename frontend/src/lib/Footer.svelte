@@ -94,17 +94,6 @@
 								</a>
 							</li>
 						{/each}
-
-						<li class="is-inline-block m-2">
-							<a
-								href="https://www.facebook.com/profile.php?id=61571579560904"
-								rel="me"
-								target="_blank"
-								class="icon"
-							>
-								<i class="fab fa-facebook-f fa-lg"></i>
-							</a>
-						</li>
 					</ul>
 				</div>
 			{/if}

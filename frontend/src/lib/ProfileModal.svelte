@@ -14,7 +14,7 @@
 					<p class="modal-card-title profile-modal__title">
 						{profile.fullname}
 						{#if profile.nickname}
-							"{profile.nickname}"
+							«{profile.nickname}»
 						{/if}
 					</p>
 
