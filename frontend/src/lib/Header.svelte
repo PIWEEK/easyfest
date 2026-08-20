@@ -21,81 +21,95 @@
 
 	let { data } = $props();
 
-	const username = data.username;
-	const isLoggedIn = data.username !== undefined;
+	// $derived (no const) porque `data` es una prop reactiva: si SvelteKit
+	// navega sin recarga completa y `data` cambia (p.ej. tras iniciar/cerrar
+	// sesión), todo esto debe recalcularse en vez de quedarse con el valor
+	// inicial de la primera carga.
+	const username = $derived(data.username);
+	const isLoggedIn = $derived(data.username !== undefined);
 
-	const isRegistrationOpen = data.registration === REGISTRATION.OPEN;
-	const isLoginEnabled = data.loginEnabled;
+	const isRegistrationOpen = $derived(data.registration === REGISTRATION.OPEN);
+	const isLoginEnabled = $derived(data.loginEnabled);
 
-	const isRegistrationInfoActive = !isRegistrationOpen && data.registration !== REGISTRATION.HIDDEN;
+	const isRegistrationInfoActive = $derived(
+		!isRegistrationOpen && data.registration !== REGISTRATION.HIDDEN
+	);
 
-	const hasCustomNavMenu = Array.isArray(data.nav_menu) && data.nav_menu.length > 0;
+	const hasCustomNavMenu = $derived(Array.isArray(data.nav_menu) && data.nav_menu.length > 0);
 
-	const customMenuItems: MenuItem[] = hasCustomNavMenu
-		? data.nav_menu
-				.map((nav_menu_item) => ({
-					label: nav_menu_item.label,
-					href: nav_menu_item.page ? i18n.resolveRoute(nav_menu_item.page) : nav_menu_item.path
-				}))
-				.filter((item) => item.label && item.href)
-		: [];
+	const customMenuItems: MenuItem[] = $derived(
+		hasCustomNavMenu
+			? data.nav_menu
+					.map((nav_menu_item) => ({
+						label: nav_menu_item.label,
+						href: nav_menu_item.page ? i18n.resolveRoute(nav_menu_item.page) : nav_menu_item.path
+					}))
+					.filter((item) => item.label && item.href)
+			: []
+	);
 
-	const priorityMenuItems: MenuItem[] = [
-		data.show_about_us
-			? {
-					label: m.about(),
-					href: i18n.resolveRoute('/about-us')
-				}
-			: null,
-		isRegistrationInfoActive
-			? {
-					label: m.registration(),
-					href: i18n.resolveRoute('/registration')
-				}
-			: null,
-		data.show_prices
-			? {
-					label: m.prices(),
-					href: i18n.resolveRoute('/price')
-				}
-			: null
-	].filter(Boolean) as MenuItem[];
+	const priorityMenuItems: MenuItem[] = $derived(
+		[
+			data.show_about_us
+				? {
+						label: m.about(),
+						href: i18n.resolveRoute('/about-us')
+					}
+				: null,
+			isRegistrationInfoActive
+				? {
+						label: m.registration(),
+						href: i18n.resolveRoute('/registration')
+					}
+				: null,
+			data.show_prices
+				? {
+						label: m.prices(),
+						href: i18n.resolveRoute('/price')
+					}
+				: null
+		].filter(Boolean) as MenuItem[]
+	);
 
-	const featuredMenuItems: MenuItem[] = [
-		data.show_speakers
-			? {
-					label: m.speakers(),
-					href: i18n.resolveRoute('/speakers')
-				}
-			: null,
-		data.show_sponsors_info
-			? {
-					label: m.sponsors(),
-					href: i18n.resolveRoute('/sponsors')
-				}
-			: null,
-		data.show_streaming
-			? {
-					label: m.streaming(),
-					href: i18n.resolveRoute('/streaming')
-				}
-			: null
-	].filter(Boolean) as MenuItem[];
+	const featuredMenuItems: MenuItem[] = $derived(
+		[
+			data.show_speakers
+				? {
+						label: m.speakers(),
+						href: i18n.resolveRoute('/speakers')
+					}
+				: null,
+			data.show_sponsors_info
+				? {
+						label: m.sponsors(),
+						href: i18n.resolveRoute('/sponsors')
+					}
+				: null,
+			data.show_streaming
+				? {
+						label: m.streaming(),
+						href: i18n.resolveRoute('/streaming')
+					}
+				: null
+		].filter(Boolean) as MenuItem[]
+	);
 
-	const secondaryMenuItems: MenuItem[] = [
-		data.show_venue_info
-			? {
-					label: m.venue_info(),
-					href: i18n.resolveRoute('/venue-info')
-				}
-			: null
-	]
-		.filter(Boolean)
-		.sort((a, b) => a.label.localeCompare(b.label, 'es', { sensitivity: 'base' })) as MenuItem[];
+	const secondaryMenuItems: MenuItem[] = $derived(
+		[
+			data.show_venue_info
+				? {
+						label: m.venue_info(),
+						href: i18n.resolveRoute('/venue-info')
+					}
+				: null
+		]
+			.filter(Boolean)
+			.sort((a, b) => a.label.localeCompare(b.label, 'es', { sensitivity: 'base' })) as MenuItem[]
+	);
 
 	// Algunos ítems van siempre justo después de otro concreto, al margen de
 	// dónde caerían por su grupo/orden alfabético habitual.
-	const pinnedAfterItems: Array<{ item: MenuItem | null; afterHref: string }> = [
+	const pinnedAfterItems: Array<{ item: MenuItem | null; afterHref: string }> = $derived([
 		{
 			// La agenda, justo después de "El evento".
 			item: data.show_agenda ? { label: m.agenda(), href: i18n.resolveRoute('/agenda') } : null,
@@ -108,7 +122,7 @@
 				: null,
 			afterHref: i18n.resolveRoute('/venue-info')
 		}
-	];
+	]);
 
 	function withPinnedItems(menuItems: MenuItem[]) {
 		return pinnedAfterItems.reduce((items, { item, afterHref }) => {
@@ -135,19 +149,23 @@
 		return [...otherMenuItems, ...pricesMenuItems];
 	}
 
-	const menuItems: MenuItem[] = movePricesToEnd(
-		hasCustomNavMenu
-			? customMenuItems
-			: withPinnedItems([...priorityMenuItems, ...featuredMenuItems, ...secondaryMenuItems])
+	const menuItems: MenuItem[] = $derived(
+		movePricesToEnd(
+			hasCustomNavMenu
+				? customMenuItems
+				: withPinnedItems([...priorityMenuItems, ...featuredMenuItems, ...secondaryMenuItems])
+		)
 	);
 
-	const hasHeaderCta = isRegistrationOpen && Boolean(data.register_cta);
-	const shouldUseDesktopOverflow = hasHeaderCta ? menuItems.length >= 5 : menuItems.length >= 6;
+	const hasHeaderCta = $derived(isRegistrationOpen && Boolean(data.register_cta));
+	const shouldUseDesktopOverflow = $derived(
+		hasHeaderCta ? menuItems.length >= 5 : menuItems.length >= 6
+	);
 
-	const desktopPrimaryMenuItems = shouldUseDesktopOverflow ? menuItems.slice(0, 4) : menuItems;
-	const desktopOverflowMenuItems = shouldUseDesktopOverflow ? menuItems.slice(4) : [];
+	const desktopPrimaryMenuItems = $derived(shouldUseDesktopOverflow ? menuItems.slice(0, 4) : menuItems);
+	const desktopOverflowMenuItems = $derived(shouldUseDesktopOverflow ? menuItems.slice(4) : []);
 
-	const showMenu = menuItems.length > 0;
+	const showMenu = $derived(menuItems.length > 0);
 
 	let isNavbarHidden = $state(false);
 	let isMenuActive = $state(false);

@@ -11,9 +11,9 @@
 		FINISHED: 'finished'
 	};
 
-	const registrationInfo = data.fetch_registration_info_data ?? {};
-	const site = data.fetch_site_data ?? {};
-	const eventStatus = site.eventStatus ?? EVENT_STATUS.HYPE;
+	const registrationInfo = $derived(data.fetch_registration_info_data ?? {});
+	const site = $derived(data.fetch_site_data ?? {});
+	const eventStatus = $derived(site.eventStatus ?? EVENT_STATUS.HYPE);
 	const registrationFormUrl = 'https://forms.gle/WumaSCAoXLTspAe2A';
 
 	function parseRegistrationContent(content?: string) {
@@ -365,10 +365,6 @@
 
 	.registration-status__button--disabled::after {
 		display: none;
-	}
-
-	.registration-status__button--disabled:hover span {
-		transform: none;
 	}
 
 	.registration-status__message {

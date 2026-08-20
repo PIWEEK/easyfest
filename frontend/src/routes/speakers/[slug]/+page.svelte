@@ -16,7 +16,7 @@
 <div>Speaker: {data.profile.is_speaker}</div>
 <div>Org: {data.profile.is_org}</div>
 <div>Guest: {data.profile.is_guest}</div>
-<div><img src="{storage_url}{data.profile.photo.url}"/></div>
+<div><img src="{storage_url}{data.profile.photo.url}" alt={data.profile.fullname}/></div>
 <div><SvelteMarkdown source={data.profile.bio}/></div>
 
 {#each data.profile.activities as a}

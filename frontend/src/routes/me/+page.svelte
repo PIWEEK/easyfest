@@ -140,10 +140,9 @@
 <div class="tab-content">
 	{#if activeTab === 'datos'}
 		<section class="hero page-title">
-			<div class="is-flex is-align-items-center">
+			<div class="me-header-row">
 				<h3 class="title mb-0 mr-4">Datos de inscripción</h3>
-				<span class="is-flex-grow-1"></span>
-				<a href="/logout" data-sveltekit-reload class="button is-primary is-uppercase">
+				<a href="/logout" data-sveltekit-reload class="button is-primary is-uppercase me-logout-button">
 					<span class="icon-text">
 						<span class="icon">
 							<svg
@@ -192,44 +191,44 @@
 													{/if}
 												</div>
 												<div class="field">
-													<label class="label">Smial</label>
+													<p class="label">Smial</p>
 													<p class="is-size-5">{dash(data.user.smial)}</p>
 												</div>
 											</div>
 										{:else}
 											<div class="field">
-												<label class="label">Smial</label>
+												<p class="label">Smial</p>
 												<p class="is-size-5">{dash(data.user.smial)}</p>
 											</div>
 										{/if}
 										<div class="columns">
 											<div class="column">
 												<div class="field">
-													<label class="label">Usuario</label>
+													<p class="label">Usuario</p>
 													<p class="is-size-5">{dash(data.user.username)}</p>
 												</div>
 											</div>
 											<div class="column">
 												<div class="field">
-													<label class="label">Email</label>
+													<p class="label">Email</p>
 													<p class="is-size-5">{dash(data.user.email)}</p>
 												</div>
 											</div>
 										</div>
 										<div class="field">
-											<label class="label">Nombre y apellidos</label>
+											<p class="label">Nombre y apellidos</p>
 											<p class="is-size-5">{dash(data.user.name)} {dash(data.user.surname)}</p>
 										</div>
 										<div class="columns">
 											<div class="column">
 												<div class="field">
-													<label class="label">Teléfono</label>
+													<p class="label">Teléfono</p>
 													<p class="is-size-5">{dash(data.user.phone_number)}</p>
 												</div>
 											</div>
 											<div class="column">
 												<div class="field">
-													<label class="label">Epessë</label>
+													<p class="label">Epessë</p>
 													<p class="is-size-5">{dash(data.user.pseudonym)}</p>
 												</div>
 											</div>
@@ -237,20 +236,20 @@
 										<div class="columns">
 											<div class="column">
 												<div class="field">
-													<label class="label">Edad</label>
+													<p class="label">Edad</p>
 													<p class="is-size-5">{dash(data.user.age)}</p>
 												</div>
 											</div>
 											{#if !isMinorAge}
 												<div class="column">
 													<div class="field">
-														<label class="label">¿Acompañado de un menor de 12 años?</label>
+														<p class="label">¿Acompañado de un menor de 12 años?</p>
 														<p class="is-size-5">{yesNo(data.user.minor)}</p>
 													</div>
 												</div>
 												<div class="column">
 													<div class="field">
-														<label class="label">Peticiones para bebés</label>
+														<p class="label">Peticiones para bebés</p>
 														<p class="is-size-5">{dash(data.user.minor_adds)}</p>
 													</div>
 												</div>
@@ -265,45 +264,45 @@
 										<div class="columns">
 											<div class="column">
 												<div class="field">
-													<label class="label">Tipo de inscripción</label>
+													<p class="label">Tipo de inscripción</p>
 													<p class="is-size-5">{capitalize(data.user.registration)}</p>
 												</div>
 											</div>
 											<div class="column">
 												<div class="field">
-													<label class="label">Tipo de habitación</label>
+													<p class="label">Tipo de habitación</p>
 													<p class="is-size-5">{dash(data.user.room_type)}</p>
 												</div>
 											</div>
 											<div class="column">
 												<div class="field">
-													<label class="label">Código Habitación</label>
+													<p class="label">Código Habitación</p>
 													<p class="is-size-5">{dash(data.user.room_code)}</p>
 												</div>
 											</div>
 										</div>
 										{#if data.user.registration?.toLowerCase() === 'aleatoria'}
 											<div class="field">
-												<label class="label">Preferencias para habitación aleatoria</label>
+												<p class="label">Preferencias para habitación aleatoria</p>
 												<p class="is-size-5">{dash(data.user.cond_random)}</p>
 											</div>
 										{/if}
 										<div class="columns">
 											<div class="column">
 												<div class="field">
-													<label class="label">Todo incluido</label>
+													<p class="label">Todo incluido</p>
 													<p class="is-size-5">{yesNo(data.user.all_inclusive)}</p>
 												</div>
 											</div>
 											<div class="column">
 												<div class="field">
-													<label class="label">Llegada tardía</label>
+													<p class="label">Llegada tardía</p>
 													<p class="is-size-5">{yesNo(data.user.late_arrival)}</p>
 												</div>
 											</div>
 											<div class="column">
 												<div class="field">
-													<label class="label">Salida anticipada</label>
+													<p class="label">Salida anticipada</p>
 													<p class="is-size-5">{yesNo(data.user.pre_exit)}</p>
 												</div>
 											</div>
@@ -311,19 +310,19 @@
 										<div class="columns">
 											<div class="column">
 												<div class="field">
-													<label class="label">Mentor</label>
+													<p class="label">Mentor</p>
 													<p class="is-size-5">{yesNo(data.user.mentor)}</p>
 												</div>
 											</div>
 											<div class="column">
 												<div class="field">
-													<label class="label">Primera EstelCon</label>
+													<p class="label">Primera EstelCon</p>
 													<p class="is-size-5">{yesNo(data.user.mentee)}</p>
 												</div>
 											</div>
 											<div class="column">
 												<div class="field">
-													<label class="label">Grumete</label>
+													<p class="label">Grumete</p>
 													<p class="is-size-5">{yesNo(data.user.aide)}</p>
 												</div>
 											</div>
@@ -338,7 +337,7 @@
 											<p class="is-size-5">No te has apuntado a ninguna actividad.</p>
 										{:else}
 											{#if data.user.activities_registered.length > 0}
-												<label class="label">Inscrito/a en</label>
+												<p class="label">Inscrito/a en</p>
 												<ul class="list ml-0">
 													{#each data.user.activities_registered as activity}
 														<li
@@ -353,7 +352,7 @@
 												</ul>
 											{/if}
 											{#if data.user.activities_queued.length > 0}
-												<label class="label">En cola de espera en</label>
+												<p class="label">En cola de espera en</p>
 												<ul class="list ml-0">
 													{#each data.user.activities_queued as activity}
 														<li
@@ -386,19 +385,19 @@
 										<div class="columns">
 											<div class="column">
 												<div class="field">
-													<label class="label">Menú cena de gala</label>
+													<p class="label">Menú cena de gala</p>
 													<p class="is-size-5">{dash(data.user.gala_dinner)}</p>
 												</div>
 											</div>
 											<div class="column">
 												<div class="field">
-													<label class="label">Menú especial</label>
+													<p class="label">Menú especial</p>
 													<p class="is-size-5">{dash(data.user.menu)}</p>
 												</div>
 											</div>
 										</div>
 										<div class="field">
-											<label class="label">Intolerancias / Alergias</label>
+											<p class="label">Intolerancias / Alergias</p>
 											<p class="is-size-5">{dash(data.user.allergy)}</p>
 										</div>
 									</div>
@@ -459,13 +458,13 @@
 										<div class="columns">
 											<div class="column">
 												<div class="field">
-													<label class="label">Suplemento</label>
+													<p class="label">Suplemento</p>
 													<p class="is-size-5">{dash(data.user.supplement)}</p>
 												</div>
 											</div>
 											<div class="column">
 												<div class="field">
-													<label class="label">Precio total</label>
+													<p class="label">Precio total</p>
 													<p class="is-size-5">{dash(data.user.price)}</p>
 												</div>
 											</div>
@@ -658,6 +657,7 @@
 
 	.smial-block {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		gap: 1rem;
 		margin: 0.25rem 0 1.25rem;
@@ -665,6 +665,46 @@
 
 	.smial-badge {
 		flex-shrink: 0;
+	}
+
+	.me-header-row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+	}
+
+	.me-logout-button {
+		flex-shrink: 0;
+		font-family: 'Cinzel', sans-serif;
+	}
+
+	/* En pantallas estrechas: menos margen lateral heredado de .page-title/.section
+	   (5rem a cada lado se come casi todo el ancho útil), textos largos (email,
+	   nombres...) que rompan línea en vez de desbordar la tarjeta, cabecera con el
+	   botón "Salir" siempre debajo del título en vez de aislado a la derecha, y
+	   la insignia de Smial pasa a su propia línea si no cabe junto al texto. */
+	@media (max-width: 480px) {
+		.tab-content .page-title,
+		.tab-content .section {
+			padding-left: 1.25rem;
+			padding-right: 1.25rem;
+		}
+
+		.me-header-row {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.me-logout-button {
+			align-self: flex-start;
+		}
+
+		.field p,
+		.me-edit-notice {
+			overflow-wrap: anywhere;
+		}
 	}
 
 	.smial-badge img {

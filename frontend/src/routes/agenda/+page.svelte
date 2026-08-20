@@ -10,10 +10,30 @@
 	let { data } = $props();
 	let { agenda } = data;
 
+	// El botón "Agenda en PDF" solo se muestra si la editora ha marcado el
+	// campo `content` de la agenda (Strapi) con el texto #PDF. Ese texto es
+	// solo una marca de control: no se imprime en la web en ningún sitio.
+	const showPdfButton = (agenda?.content ?? '').includes('#PDF');
+
 	// Set this to true to show a compact agenda for debugging
 	const debugMode = false;
 
 	let current_day = $state.raw(data.days?.length > 0 ? data.days[0] : null);
+
+	// Zoom de la agenda: solo afecta al tamaño visual de la tabla (vía CSS
+	// `zoom`), no a los cálculos de horario/duración.
+	const ZOOM_MIN = 50;
+	const ZOOM_MAX = 150;
+	const ZOOM_STEP = 10;
+	let zoomLevel = $state(100);
+
+	function zoomIn() {
+		zoomLevel = Math.min(ZOOM_MAX, zoomLevel + ZOOM_STEP);
+	}
+
+	function zoomOut() {
+		zoomLevel = Math.max(ZOOM_MIN, zoomLevel - ZOOM_STEP);
+	}
 	let container = $state();
 	let columnsContainer;
 	let containerWidth = $state();
@@ -172,7 +192,6 @@
 
 	function handleResize() {
 		containerWidth = columnsContainer.scrollWidth - 12;
-		console.log('Container width:', containerWidth);
 	}
 
 	onMount(() => {
@@ -231,22 +250,48 @@
 	});
 </script>
 
-<section class="hero page-title">
+<section class="hero page-title agenda-hero">
 	<h3 class="title">{m.agenda()}</h3>
 </section>
 <section class="section agenda-section">
 	<div class="container" bind:this={container}>
-		<div class="content">
-			<div class="tabs is-toggle is-fullwidth">
-				<ul>
-					{#each data.days as day}
-						<li class:is-active={day === current_day}>
-							<a onclick={() => handleDayClick(day)}>
-								{formatDayLabel(day)}
-							</a>
-						</li>
-					{/each}
-				</ul>
+		<div class="content" style="--agenda-zoom: {zoomLevel}%">
+			<div class="agenda-toolbar">
+				{#if agenda.mode !== 'all-days'}
+					<div class="tabs is-toggle is-fullwidth">
+						<ul>
+							{#each data.days as day}
+								<li class:is-active={day === current_day}>
+									<a onclick={() => handleDayClick(day)}>
+										{formatDayLabel(day)}
+									</a>
+								</li>
+							{/each}
+						</ul>
+					</div>
+				{/if}
+
+				<div class="agenda-zoom-controls" role="group" aria-label="Zoom de la agenda">
+					<button
+						type="button"
+						class="agenda-zoom-button"
+						onclick={zoomOut}
+						disabled={zoomLevel <= ZOOM_MIN}
+						aria-label="Reducir zoom"
+					>
+						−
+					</button>
+					<span class="agenda-zoom-level">Zoom {zoomLevel}%</span>
+					<button
+						type="button"
+						class="agenda-zoom-button"
+						onclick={zoomIn}
+						disabled={zoomLevel >= ZOOM_MAX}
+						aria-label="Aumentar zoom"
+					>
+						+
+					</button>
+				</div>
 			</div>
 
 			{#if debugMode}
@@ -296,7 +341,7 @@
 				</div>
 			{/if}
 
-			{#if agenda.displayMode === 'all-days'}
+			{#if agenda.mode === 'all-days'}
 				{#each data.days as day}
 					<div class="agenda-table" style="margin-bottom:2rem;">
 						<h4 class="title is-size-5">{formatDayLabel(day)}</h4>
@@ -462,8 +507,42 @@
 	</div>
 </section>
 
+{#if showPdfButton}
+	<!-- Contenedor totalmente aparte de .agenda-section: no comparte ancestro con
+	     .agenda-table/.columns, así que no puede afectar a su scroll ni al reparto
+	     de columnas. -->
+	<section class="section agenda-pdf-section">
+		<div class="container has-text-centered">
+			<a
+				class="button is-primary agenda-pdf-button"
+				href="https://e.sociedadtolkien.org/programaec26"
+				target="_blank"
+				rel="noreferrer"
+			>
+				<span class="icon">
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+						<polyline points="14 2 14 8 20 8" />
+						<line x1="9" y1="15" x2="15" y2="15" />
+						<line x1="9" y1="11" x2="12" y2="11" />
+					</svg>
+				</span>
+				<span>Agenda en PDF</span>
+			</a>
+		</div>
+	</section>
+{/if}
+
 <style lang="scss">
-	@use 'bulma/sass/layout/container';
+	@use 'bulma/sass/utilities/mixins';
 
 	/* Guía horaria a la izquierda de cada tabla de agenda. Se reserva el hueco
 	   desplazando .columns explícitamente con left/width (en vez de depender de la
@@ -473,9 +552,83 @@
 	   con el nuevo ancho disponible. */
 	$gutter-width: 5rem;
 
+	/* El zoom solo escala la tabla de la agenda (vía CSS `zoom`, no `transform`,
+	   para que el scroll interno siga midiendo bien su contenido). No toca la
+	   guía de horas ni el cálculo de duraciones: sigue siendo el mismo layout,
+	   solo dibujado más grande o más pequeño. */
+	:global(.agenda-table) {
+		zoom: var(--agenda-zoom, 100%);
+	}
+
+	.agenda-toolbar {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.agenda-zoom-controls {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.agenda-zoom-button {
+		width: 2rem;
+		height: 2rem;
+		border-radius: 50%;
+		border: 1px solid #43b2dc;
+		background: #ffffff;
+		color: #0d3b44;
+		font-size: 1.1rem;
+		line-height: 1;
+		cursor: pointer;
+
+		&:disabled {
+			opacity: 0.4;
+			cursor: not-allowed;
+		}
+
+		&:not(:disabled):hover {
+			background: #e4d4ff;
+		}
+	}
+
+	.agenda-zoom-level {
+		min-width: 6rem;
+		text-align: center;
+		font-family: 'Lora', sans-serif;
+		font-size: 1rem;
+		color: #0d3b44;
+	}
+
+	/* En móvil el padding lateral heredado de .page-title/.section (5rem) deja
+	   muy poco ancho útil para las columnas de la agenda: se reduce a la mitad
+	   solo en esta página. */
+	@include mixins.mobile {
+		:global(.agenda-hero),
+		:global(.agenda-section) {
+			padding-left: 2.5rem;
+			padding-right: 2.5rem;
+		}
+	}
+
 	:global(.agenda-table .columns) {
 		left: $gutter-width;
 		width: calc(100% - #{$gutter-width});
+	}
+
+	/* En móvil no queremos que las columnas de sala se compriman hasta ser
+	   ilegibles: cada una conserva un ancho cómodo de lectura y, si no caben
+	   todas, el usuario las recorre con el scroll horizontal/vertical que ya
+	   ofrece .agenda-table (overflow: scroll), igual que en escritorio. */
+	@include mixins.mobile {
+		:global(.agenda-table .column) {
+			flex: none;
+			width: 70vw;
+			max-width: 18rem;
+		}
 	}
 
 	/* position: sticky (solo en el eje horizontal, con left: 0) para que la guía no
@@ -546,15 +699,29 @@
 		color: #e8b290;
 	}
 
+	/* Las celdas de día no seleccionadas deben verse como una pestaña "en blanco"
+	   (igual que en el resto del sitio), no dejar transparentar el patrón de olas
+	   del fondo de la página. */
+	:global(.agenda-section .tabs.is-toggle li:not(.is-active) a) {
+		background-color: #ffffff;
+	}
+
 	.activity-wrapper {
 		position: relative;
 	}
+
+	// Antes se calculaba como `container.$container-max-width - container.$container-offset`
+	// importando 'bulma/sass/layout/container', pero ese import reemitía (duplicadas y sin
+	// usar) todas las variantes .container.* de Bulma dentro de este componente. Con los
+	// valores por defecto del proyecto (sin overrides de $gap/$fullhd), esa resta da
+	// siempre 1344px, así que se deja el valor final ya calculado.
+	$column-extender-width: 1344px;
 
 	.column-extender {
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: container.$container-max-width - container.$container-offset;
+		width: $column-extender-width;
 	}
 
 	.arrow {
@@ -581,5 +748,22 @@
 
 	.arrow.visible {
 		opacity: 0.8; /* Mantener visibles si es necesario */
+	}
+
+	/* Botón "Agenda en PDF": vive en su propia sección, fuera de .agenda-table,
+	   por lo que estas reglas no tocan nada del scroll ni del reparto de
+	   columnas de la agenda. */
+	.agenda-pdf-section {
+		padding-top: 0;
+	}
+
+	.agenda-pdf-button {
+		gap: 0.6rem;
+		font-family: 'Cinzel', sans-serif;
+	}
+
+	.agenda-pdf-button .icon :global(svg) {
+		width: 1.2em;
+		height: 1.2em;
 	}
 </style>

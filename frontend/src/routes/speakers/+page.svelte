@@ -14,11 +14,11 @@
 	/** @type {Props} */
 	let { data } = $props();
 
-	const content_parts = (data.speakers.content ?? '').split(content_separator);
-	const main_guests_content = content_parts[0]?.trim() ?? '';
-	const other_guests_content = content_parts.slice(1).join(content_separator).trim();
-	const main_guest_profiles = (data.speaker_profiles ?? []).slice(0, 2);
-	const other_guest_profiles = (data.speaker_profiles ?? []).slice(2);
+	const content_parts = $derived((data.speakers.content ?? '').split(content_separator));
+	const main_guests_content = $derived(content_parts[0]?.trim() ?? '');
+	const other_guests_content = $derived(content_parts.slice(1).join(content_separator).trim());
+	const main_guest_profiles = $derived((data.speaker_profiles ?? []).slice(0, 2));
+	const other_guest_profiles = $derived((data.speaker_profiles ?? []).slice(2));
 
 	function handleClick(speaker_profile) {
 		modals.open(Modal, { profile: speaker_profile });
@@ -39,10 +39,21 @@
 				{#each main_guest_profiles as speaker_profile, i}
 					<div class="column is-half">
 						<div class="card speaker-card">
-							<div class="card-image speaker-card__image-wrap is-clickable">
+							<div
+								class="card-image speaker-card__image-wrap is-clickable"
+								role="button"
+								tabindex="0"
+								aria-label={`Ver perfil de ${speaker_profile.fullname}`}
+								onclick={() => handleClick(speaker_profile)}
+								onkeydown={(e) => {
+									if (e.key === 'Enter' || e.key === ' ') {
+										e.preventDefault();
+										handleClick(speaker_profile);
+									}
+								}}
+							>
 								<img
 									class="speaker-card__image"
-									onclick={() => handleClick(speaker_profile)}
 									src="{storage_url}{speaker_profile.photo.url}"
 									alt={speaker_profile.fullname}
 								/>
@@ -77,10 +88,21 @@
 				{#each other_guest_profiles as speaker_profile, i}
 					<div class="column is-half">
 						<div class="card speaker-card">
-							<div class="card-image speaker-card__image-wrap is-clickable">
+							<div
+								class="card-image speaker-card__image-wrap is-clickable"
+								role="button"
+								tabindex="0"
+								aria-label={`Ver perfil de ${speaker_profile.fullname}`}
+								onclick={() => handleClick(speaker_profile)}
+								onkeydown={(e) => {
+									if (e.key === 'Enter' || e.key === ' ') {
+										e.preventDefault();
+										handleClick(speaker_profile);
+									}
+								}}
+							>
 								<img
 									class="speaker-card__image"
-									onclick={() => handleClick(speaker_profile)}
 									src="{storage_url}{speaker_profile.photo.url}"
 									alt={speaker_profile.fullname}
 								/>
@@ -143,6 +165,14 @@
 	.speaker-card__image-wrap {
 		overflow: hidden;
 		background: #0d3b44;
+	}
+
+	/* .speaker-card recorta con overflow:hidden, así que un outline normal
+	   quedaría cortado por fuera; usamos un box-shadow hacia dentro para que
+	   el foco de teclado siga siendo visible. */
+	.speaker-card__image-wrap:focus-visible {
+		outline: none;
+		box-shadow: inset 0 0 0 3px #43b2dc;
 	}
 
 	.speaker-card__image {
