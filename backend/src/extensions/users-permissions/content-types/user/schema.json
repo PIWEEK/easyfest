@@ -108,8 +108,10 @@
         "Individual",
         "Doble",
         "Triple",
+        "Cuádruple",
         "Aleatoria Doble",
-        "Aleatoria Triple"
+        "Aleatoria Triple",
+        "Sin Pernocta"
       ]
     },
     "activities_registered": {
@@ -129,7 +131,8 @@
       "enum": [
         "completa",
         "parcial",
-        "aleatoria"
+        "aleatoria",
+        "sin pernocta"
       ]
     },
     "cond_random": {

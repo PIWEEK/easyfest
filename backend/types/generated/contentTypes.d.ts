@@ -2831,7 +2831,7 @@ export interface PluginUsersPermissionsUser
     pseudonym: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     registration: Schema.Attribute.Enumeration<
-      ['completa', 'parcial', 'aleatoria']
+      ['completa', 'parcial', 'aleatoria', 'sin pernocta']
     >;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
@@ -2840,7 +2840,15 @@ export interface PluginUsersPermissionsUser
     >;
     room_code: Schema.Attribute.String;
     room_type: Schema.Attribute.Enumeration<
-      ['Individual', 'Doble', 'Triple', 'Aleatoria Doble', 'Aleatoria Triple']
+      [
+        'Individual',
+        'Doble',
+        'Triple',
+        'Cu\u00E1druple',
+        'Aleatoria Doble',
+        'Aleatoria Triple',
+        'Sin Pernocta',
+      ]
     >;
     shirt: Schema.Attribute.String;
     smial: Schema.Attribute.String;
