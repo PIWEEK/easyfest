@@ -3,6 +3,7 @@
 
     import ProfileModal from "$lib/ProfileModal.svelte"
     import ActivityModal from "$lib/ActivityModal.svelte"
+    import { formatActivityHour } from "$lib/agendaTime.js"
 
     const storage_url = import.meta.env.VITE_STORAGE_URL
 
@@ -19,8 +20,11 @@
     }
 
     function activityHour(activity) {
-        const start = new Date(activity.start);
-        return `${start.getHours()}:${start.getMinutes().toString().padStart(2, '0')}`;
+        return formatActivityHour(activity.start);
+    }
+
+    function hasPublicFaces(activity) {
+        return activity.public_faces && activity.public_faces.length > 0;
     }
 </script>
 
@@ -32,30 +36,30 @@
             {activityHour(activity)} · {activity.title}
         </p>
     </div>
-    {#if activity.short_description || (activity.public_faces && activity.public_faces.length > 0)}
+    {#if activity.short_description || hasPublicFaces(activity)}
         <div class="card-content">
-            {#if activity.short_description}
-                <p class="short-description">{activity.short_description}</p>
-            {/if}
-
-            {#each activity.public_faces as pf}
-                {#if activity.public_faces}
-                    <!-- svelte-ignore a11y_no_static_element_interactions -->
-                    <block class="public-face media" onclick={() => handleProfileClick(pf)}>
-                        <div class="media-left">
-                            <figure class="image is-24x24">
-                                <img class="is-rounded" src="{storage_url}{pf.photo.url}"/>
-                            </figure>
-                        </div>  
-                        <div class="content">
-                            {pf.fullname} 
+            {#if hasPublicFaces(activity)}
+                {#each activity.public_faces as pf}
+                    <button
+                        type="button"
+                        class="public-face"
+                        aria-label={`Ver perfil de ${pf.fullname}`}
+                        onclick={(e) => { e.stopPropagation(); handleProfileClick(pf); }}
+                    >
+                        <figure class="image is-24x24">
+                            <img class="is-rounded" src="{storage_url}{pf.photo.url}" alt=""/>
+                        </figure>
+                        <span class="public-face__name">
+                            {pf.fullname}
                             {#if pf.nickname}
                                 "{pf.nickname}"
-                            {/if} 
-                        </div>
-                    </block>
-                 {/if}   
-             {/each}
+                            {/if}
+                        </span>
+                    </button>
+                {/each}
+            {:else if activity.short_description}
+                <p class="short-description">{activity.short_description}</p>
+            {/if}
 
             {#if activity.tag2}
                 <p class="tags is-pulled-right is-pulled-bottom">
@@ -138,22 +142,49 @@
         word-break: break-word;
     }
 
-    .card .media {
-        margin-bottom: 0;
-    }
-
-    .media + .media {
-        margin-top: 0.25rem;
-        padding-top: 0.25rem;
-    }
-
-    .public-face .content {
-        font-size: 0.96rem; /* 20% menos que el tamaño heredado (1.2rem) */
+    /* Botón de ponente: se distingue claramente de la tarjeta (fondo, borde y
+       cursor propios) para que quede claro que es un control aparte, con su
+       propio clic, y no parte del texto de la actividad. */
+    .public-face {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+        margin: 0.5rem 0 0;
+        padding: 0.35rem 0.6rem;
+        background: rgba(67, 178, 220, 0.12);
+        border: 1px solid rgba(13, 59, 68, 0.18);
+        border-radius: 999px;
+        font: inherit;
         text-align: left;
-        /* Sin límite de líneas: que use el espacio que haya. .media es flex, así
-           que también necesita min-width:0 para poder envolver en vez de
-           desbordar (mismo motivo que .card-header-title). El único límite real
-           es el overflow:hidden de .card/.card-content si de verdad no cabe. */
+        cursor: pointer;
+        transition:
+            background 0.18s ease,
+            border-color 0.18s ease;
+    }
+
+    .public-face:first-child {
+        margin-top: 0;
+    }
+
+    .public-face:hover,
+    .public-face:focus-visible {
+        background: rgba(67, 178, 220, 0.24);
+        border-color: rgba(13, 59, 68, 0.32);
+    }
+
+    .public-face:focus-visible {
+        outline: 2px solid #43b2dc;
+        outline-offset: 1px;
+    }
+
+    .public-face .image {
+        flex-shrink: 0;
+    }
+
+    .public-face__name {
+        font-size: 0.96rem; /* 20% menos que el tamaño heredado (1.2rem) */
+        color: #0d3b44;
         min-width: 0;
         overflow-wrap: break-word;
         word-break: break-word;

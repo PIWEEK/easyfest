@@ -82,6 +82,52 @@ $control-border-width: 0.125rem; // 2px
 	font-family: $font-family;
 }
 
+// Controles de formulario (input/textarea/select): texto y placeholder con
+// la tipografia secundaria (Lora) del cuerpo. Los navegadores no hacen que
+// estos elementos hereden la fuente del body por defecto, así que hay que
+// fijarlo explícitamente; se hace aquí una sola vez para toda la web en vez
+// de repetirlo formulario a formulario.
+.input,
+.textarea,
+.select select {
+	font-family: $font-family-secondary;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+	font-family: $font-family-secondary;
+}
+
+// Frases-enlace bajo los campos de un formulario (p.ej. "¿Olvidaste tu
+// contraseña? Pulsa aquí."): tipografia secundaria, centradas como bloque y
+// adaptadas al ancho del contenedor para que el texto pase a otra linea si
+// no cabe en una sola, en vez del inline-flex sin ajustar de Bulma.
+.button.is-text {
+	display: block;
+	width: 100%;
+	height: auto;
+	min-height: 2.5em;
+	white-space: normal;
+	text-align: center;
+	line-height: 1.3;
+	font-family: $font-family-secondary;
+}
+
+// Botones: texto con la tipografia primaria (Cinzel) en vez de heredar la
+// secundaria (Lora) del body. Se usa la custom property que expone Bulma
+// (--bulma-family-primary) en vez de fijar el valor a fuego, siguiendo el
+// mismo patron ya usado en varios botones sueltos del sitio.
+.button {
+	font-family: var(--bulma-family-primary, #{$font-family-primary});
+}
+
+// Ayudas de formulario (.help): las de error de validacion (is-danger)
+// mantienen el rojo de Bulma; el resto (mensajes informativos/de exito)
+// usan el color secundario del sistema de diseno.
+.help:not(.is-danger) {
+	color: $color-secondary;
+}
+
 .header--large {
 	@include ec-typography(1.2, 3em, $font-family-secondary);
 	@include mixins.tablet {

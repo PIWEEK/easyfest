@@ -2,6 +2,11 @@ import { redirect } from '@sveltejs/kit';
 import { fetchSingle } from '../services/api';
 import { getUserCard } from '../services/users';
 
+// Rutas forzadas a /no-disponible ahora mismo, sin depender de ningún flag
+// de Strapi (independiente de ROUTE_VISIBILITY_FLAGS de más abajo). Quita
+// una entrada de aquí para que esa ruta vuelva a regirse solo por su flag.
+const FORCE_BLOCKED_ROUTES = ['/registro', '/register', '/get-link', '/obtener-enlace'];
+
 const ROUTE_VISIBILITY_FLAGS = {
 	// Añade aquí las páginas que quieras bloquear cuando su flag esté en false.
 	// Formato:
@@ -41,6 +46,10 @@ function getVisibilityFlag(pathname) {
 }
 
 export async function load({ cookies, url }) {
+	if (FORCE_BLOCKED_ROUTES.includes(url.pathname)) {
+		redirect(302, '/no-disponible');
+	}
+
 	let data = {};
 
 	const [settingsEntry, siteEntry] = await Promise.all([

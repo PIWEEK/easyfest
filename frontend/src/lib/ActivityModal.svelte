@@ -1,17 +1,13 @@
 <script lang="ts">
 	import SvelteMarkdown from '@humanspeak/svelte-markdown';
+	import { formatActivityHour, formatActivityDate } from '$lib/agendaTime.js';
 
 	let { isOpen, close, activity } = $props();
 
 	function formatStart(start: string | undefined) {
 		if (!start) return null;
-		const date = new Date(start);
-		const dateLabel = date.toLocaleDateString('es-ES', {
-			weekday: 'long',
-			day: 'numeric',
-			month: 'long'
-		});
-		const timeLabel = date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+		const dateLabel = formatActivityDate(start);
+		const timeLabel = formatActivityHour(start);
 		return `${dateLabel.charAt(0).toUpperCase()}${dateLabel.slice(1)}, ${timeLabel}`;
 	}
 
@@ -104,12 +100,15 @@
 				</div>
 			</section>
 
-			{#if activity.tag2 || tag1Items.length > 0}
+			{#if activity.tag2 || activity.format || tag1Items.length > 0}
 				<footer class="modal-card-foot activity-modal__foot">
 					<div class="activity-modal__tags">
 						{#if activity.tag2}
 							<span class="activity-modal__tag activity-modal__tag--secondary">{activity.tag2}</span
 							>
+						{/if}
+						{#if activity.format}
+							<span class="activity-modal__tag activity-modal__tag--danger">{activity.format}</span>
 						{/if}
 					</div>
 
@@ -314,6 +313,13 @@
 	.activity-modal__tag--secondary {
 		color: #ffffff;
 		background: #8d627b;
+	}
+
+	/* Aviso "No menores" (u otro texto libre en `format`): mismo color de alerta
+	   que ya usa este modal en .activity-modal__registration-notice. */
+	.activity-modal__tag--danger {
+		color: #ffffff;
+		background: #b06b2d;
 	}
 
 	/* tag1: enlace ("Pulse aquí para más información") o texto normal (p.ej.

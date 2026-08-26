@@ -1,6 +1,12 @@
 import { redirect } from '@sveltejs/kit';
+import { dev } from '$app/environment';
 import { fetchCMSData, fetchCollection, fetchSingle, fetchBasic } from '../../services/api';
 import { isAuthorizedUser } from '../../services/users';
+
+// En local (`npm run dev`) forzamos la inscripción a actividades activa para poder
+// probarla sin tener que tocar el flag en Strapi. En producción no tiene efecto.
+const withActivityRegistrationOverride = (settings) =>
+    dev ? { ...settings, show_activity_registration: true } : settings;
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ cookies, url }) {
@@ -9,34 +15,42 @@ export async function load({ cookies, url }) {
         redirect(302, "/login");
     }
 
-    const activeTab = url.searchParams.get("tab") || "datos"; 
+    const activeTab = url.searchParams.get("tab") || "datos";
 
-    const [settings, user, allActivities] = await Promise.all([
+    const [rawSettings, user, allActivities] = await Promise.all([
         fetchSingle("/setting"),
         fetchBasic("/users/me?populate[activities_registered][filters][publishedAt][$notNull]=true&populate[activities_registered][populate][track]=true&populate[activities_queued][filters][publishedAt][$notNull]=true&populate[activities_queued][populate][track]=true&populate[activities_staff][filters][publishedAt][$notNull]=true&populate[activities_staff][populate][track]=true", cookies),
         fetchCollection("/activities?filters[needs_registration][$eq]=true&sort=title:asc", cookies),
 	]);
+    const settings = withActivityRegistrationOverride(rawSettings);
 
     if (!user) {
         redirect(302, "/login");
     }
 
-    // Filter out activities already registered by this user.
+    // Filter out activities already registered by this user, and (for minors)
+    // activities marked as not allowed for them (`format`, ver ActivityCard.svelte).
     const registeredIds = new Set((user.activities_registered ?? []).map(activity => activity.id));
     const queuedIds = new Set((user.activities_queued ?? []).map(activity => activity.id));
-    const activities = allActivities.filter(activity => !registeredIds.has(activity.id) && (!queuedIds.has(activity.id)));
+    const isMinor = user.age === 'Menor';
+    const activities = allActivities.filter(activity =>
+        !registeredIds.has(activity.id) &&
+        !queuedIds.has(activity.id) &&
+        !(isMinor && activity.format)
+    );
     return { settings, user, activities, activeTab };
-    
+
 }
 
 export const actions = {
   signIn: async ({ url, cookies }) => {
-    const activityId = url.searchParams.get("activityId"); 
-    const [settings, user, activity] = await Promise.all([
+    const activityId = url.searchParams.get("activityId");
+    const [rawSettings, user, activity] = await Promise.all([
         fetchSingle("/setting"),
         fetchBasic("/users/me", cookies),
         fetchSingle(`/activities/${activityId}?populate[registered_users][count]=true`, cookies),
     ]);
+    const settings = withActivityRegistrationOverride(rawSettings);
     if (!settings.show_activity_registration) {
         return { success: false, message: "La inscripción a actividades no está activada." };
     }
@@ -90,12 +104,13 @@ export const actions = {
   },
 
   signOut: async ({ url, cookies }) => {
-    const activityId = url.searchParams.get("activityId"); 
-    const [settings, user, activity] = await Promise.all([
+    const activityId = url.searchParams.get("activityId");
+    const [rawSettings, user, activity] = await Promise.all([
         fetchSingle("/setting"),
         fetchBasic("/users/me", cookies),
         fetchSingle(`/activities/${activityId}`, cookies),
     ]);
+    const settings = withActivityRegistrationOverride(rawSettings);
     if (!settings.show_activity_registration) {
         return { success: false, message: "La inscripción a actividades no está activada." };
     }
@@ -126,12 +141,13 @@ export const actions = {
   },
 
   signOutQueued: async ({ url, cookies }) => {
-    const activityId = url.searchParams.get("activityId"); 
-    const [settings, user, activity] = await Promise.all([
+    const activityId = url.searchParams.get("activityId");
+    const [rawSettings, user, activity] = await Promise.all([
         fetchSingle("/setting"),
         fetchBasic("/users/me", cookies),
         fetchSingle(`/activities/${activityId}`, cookies),
     ]);
+    const settings = withActivityRegistrationOverride(rawSettings);
     if (!settings.show_activity_registration) {
         return { success: false, message: "La inscripción a actividades no está activada." };
     }
