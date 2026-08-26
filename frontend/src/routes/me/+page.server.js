@@ -9,7 +9,7 @@ export async function load({ cookies, url }) {
         redirect(302, "/login");
     }
 
-    const activeTab = url.searchParams.get("tab") || "datos"; 
+    const activeTab = url.searchParams.get("tab") || "datos";
 
     const [settings, user, allActivities] = await Promise.all([
         fetchSingle("/setting"),
@@ -21,17 +21,23 @@ export async function load({ cookies, url }) {
         redirect(302, "/login");
     }
 
-    // Filter out activities already registered by this user.
+    // Filter out activities already registered by this user, and (for minors)
+    // activities marked as not allowed for them (`format`, ver ActivityCard.svelte).
     const registeredIds = new Set((user.activities_registered ?? []).map(activity => activity.id));
     const queuedIds = new Set((user.activities_queued ?? []).map(activity => activity.id));
-    const activities = allActivities.filter(activity => !registeredIds.has(activity.id) && (!queuedIds.has(activity.id)));
+    const isMinor = user.age === 'Menor';
+    const activities = allActivities.filter(activity =>
+        !registeredIds.has(activity.id) &&
+        !queuedIds.has(activity.id) &&
+        !(isMinor && activity.format)
+    );
     return { settings, user, activities, activeTab };
-    
+
 }
 
 export const actions = {
   signIn: async ({ url, cookies }) => {
-    const activityId = url.searchParams.get("activityId"); 
+    const activityId = url.searchParams.get("activityId");
     const [settings, user, activity] = await Promise.all([
         fetchSingle("/setting"),
         fetchBasic("/users/me", cookies),
@@ -90,7 +96,7 @@ export const actions = {
   },
 
   signOut: async ({ url, cookies }) => {
-    const activityId = url.searchParams.get("activityId"); 
+    const activityId = url.searchParams.get("activityId");
     const [settings, user, activity] = await Promise.all([
         fetchSingle("/setting"),
         fetchBasic("/users/me", cookies),
@@ -126,7 +132,7 @@ export const actions = {
   },
 
   signOutQueued: async ({ url, cookies }) => {
-    const activityId = url.searchParams.get("activityId"); 
+    const activityId = url.searchParams.get("activityId");
     const [settings, user, activity] = await Promise.all([
         fetchSingle("/setting"),
         fetchBasic("/users/me", cookies),

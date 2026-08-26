@@ -6,6 +6,7 @@
 
 	import ActivityCard from './ActivityCard.svelte';
 	import ActivityFiller from './ActivityFiller.svelte';
+	import { formatActivityHour, formatActivityDate } from '$lib/agendaTime.js';
 
 	let { data } = $props();
 	let { agenda } = data;
@@ -182,7 +183,7 @@
 		while (cursor <= end) {
 			const minutesOffset = compressMinutes(day.start, cursor, 7) * 0.3;
 			marks.push({
-				label: cursor.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
+				label: formatActivityHour(cursor),
 				offset: (TRACKS_TOP_OFFSET_REM + minutesOffset).toString() + 'rem'
 			});
 			cursor = new Date(cursor.getTime() + 60 * 60 * 1000);
@@ -213,8 +214,7 @@
 	const arrowsVisibleOnHover = writable(false);
 
 	function activityHour(activity) {
-		const start = new Date(activity.start);
-		return `${start.getHours()}:${start.getMinutes().toString().padStart(2, '0')}`;
+		return formatActivityHour(activity.start);
 	}
 
 	function updateArrows() {
@@ -256,6 +256,10 @@
 <section class="section agenda-section">
 	<div class="container" bind:this={container}>
 		<div class="content" style="--agenda-zoom: {zoomLevel}%">
+			<p class="agenda-timezone-notice">
+				Todos los horarios se muestran en hora peninsular española (Murcia).
+			</p>
+
 			<div class="agenda-toolbar">
 				{#if agenda.mode !== 'all-days'}
 					<div class="tabs is-toggle is-fullwidth">
@@ -558,6 +562,14 @@
 	   solo dibujado más grande o más pequeño. */
 	:global(.agenda-table) {
 		zoom: var(--agenda-zoom, 100%);
+	}
+
+	.agenda-timezone-notice {
+		text-align: left;
+		font-family: 'Lora', sans-serif;
+		font-size: 0.9rem;
+		color: #0d3b44;
+		margin-bottom: 0.75rem;
 	}
 
 	.agenda-toolbar {
