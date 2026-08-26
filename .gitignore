@@ -1,0 +1,20 @@
+# Scripts locales de arranque (Windows), no se versionan
+*.bat
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Dependencias y variables de entorno (cada subproyecto ya las ignora,
+# se cubre también aquí por si se generan en la raíz)
+node_modules/
+.env
+.env.*
+!.env.example
+
+# Editores
+.vscode/
+.idea/
+
+# Configuración local de Claude Code (no necesaria para producción)
+.claude/
