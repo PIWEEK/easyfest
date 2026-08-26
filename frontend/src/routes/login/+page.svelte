@@ -78,31 +78,3 @@
 		</div>
 	</div>
 </section>
-
-<style>
-	/* Bulma pone la tipografia decorativa de titulos (Cinzel) en los controles
-	   de formulario en vez de heredar la del cuerpo (Lora): tanto lo que
-	   escribe la persona como el placeholder deben leerse con la tipografia
-	   normal del cuerpo. */
-	.input {
-		font-family: 'Lora', sans-serif;
-	}
-
-	.input::placeholder {
-		font-family: 'Lora', sans-serif;
-	}
-
-	form button.is-primary {
-		font-family: 'Cinzel', sans-serif;
-	}
-
-	/* Bulma pone white-space:nowrap en .button por defecto: con el texto largo
-	   de este enlace se salia de la tarjeta y de la pantalla en movil. */
-	.button.is-text {
-		height: auto;
-		min-height: 2.5em;
-		white-space: normal;
-		text-align: center;
-		line-height: 1.3;
-	}
-</style>

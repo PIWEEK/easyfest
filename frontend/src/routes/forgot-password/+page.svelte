@@ -60,20 +60,3 @@
     </div>
 </section>
 
-<style>
-	/* Bulma pone la tipografía decorativa de títulos (Cinzel) en los controles
-	   de formulario en vez de heredar la del cuerpo (Lora): tanto lo que
-	   escribe la persona como el placeholder deben leerse con la tipografía
-	   normal del cuerpo. */
-	.input {
-		font-family: 'Lora', sans-serif;
-	}
-
-	.input::placeholder {
-		font-family: 'Lora', sans-serif;
-	}
-
-	form button.is-primary {
-		font-family: 'Cinzel', sans-serif;
-	}
-</style>
