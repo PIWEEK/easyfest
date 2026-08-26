@@ -1,6 +1,12 @@
 import { redirect } from '@sveltejs/kit';
+import { dev } from '$app/environment';
 import { fetchCMSData, fetchCollection, fetchSingle, fetchBasic } from '../../services/api';
 import { isAuthorizedUser } from '../../services/users';
+
+// En local (`npm run dev`) forzamos la inscripción a actividades activa para poder
+// probarla sin tener que tocar el flag en Strapi. En producción no tiene efecto.
+const withActivityRegistrationOverride = (settings) =>
+    dev ? { ...settings, show_activity_registration: true } : settings;
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ cookies, url }) {
@@ -11,11 +17,12 @@ export async function load({ cookies, url }) {
 
     const activeTab = url.searchParams.get("tab") || "datos";
 
-    const [settings, user, allActivities] = await Promise.all([
+    const [rawSettings, user, allActivities] = await Promise.all([
         fetchSingle("/setting"),
         fetchBasic("/users/me?populate[activities_registered][filters][publishedAt][$notNull]=true&populate[activities_registered][populate][track]=true&populate[activities_queued][filters][publishedAt][$notNull]=true&populate[activities_queued][populate][track]=true&populate[activities_staff][filters][publishedAt][$notNull]=true&populate[activities_staff][populate][track]=true", cookies),
         fetchCollection("/activities?filters[needs_registration][$eq]=true&sort=title:asc", cookies),
 	]);
+    const settings = withActivityRegistrationOverride(rawSettings);
 
     if (!user) {
         redirect(302, "/login");
@@ -38,11 +45,12 @@ export async function load({ cookies, url }) {
 export const actions = {
   signIn: async ({ url, cookies }) => {
     const activityId = url.searchParams.get("activityId");
-    const [settings, user, activity] = await Promise.all([
+    const [rawSettings, user, activity] = await Promise.all([
         fetchSingle("/setting"),
         fetchBasic("/users/me", cookies),
         fetchSingle(`/activities/${activityId}?populate[registered_users][count]=true`, cookies),
     ]);
+    const settings = withActivityRegistrationOverride(rawSettings);
     if (!settings.show_activity_registration) {
         return { success: false, message: "La inscripción a actividades no está activada." };
     }
@@ -97,11 +105,12 @@ export const actions = {
 
   signOut: async ({ url, cookies }) => {
     const activityId = url.searchParams.get("activityId");
-    const [settings, user, activity] = await Promise.all([
+    const [rawSettings, user, activity] = await Promise.all([
         fetchSingle("/setting"),
         fetchBasic("/users/me", cookies),
         fetchSingle(`/activities/${activityId}`, cookies),
     ]);
+    const settings = withActivityRegistrationOverride(rawSettings);
     if (!settings.show_activity_registration) {
         return { success: false, message: "La inscripción a actividades no está activada." };
     }
@@ -133,11 +142,12 @@ export const actions = {
 
   signOutQueued: async ({ url, cookies }) => {
     const activityId = url.searchParams.get("activityId");
-    const [settings, user, activity] = await Promise.all([
+    const [rawSettings, user, activity] = await Promise.all([
         fetchSingle("/setting"),
         fetchBasic("/users/me", cookies),
         fetchSingle(`/activities/${activityId}`, cookies),
     ]);
+    const settings = withActivityRegistrationOverride(rawSettings);
     if (!settings.show_activity_registration) {
         return { success: false, message: "La inscripción a actividades no está activada." };
     }
